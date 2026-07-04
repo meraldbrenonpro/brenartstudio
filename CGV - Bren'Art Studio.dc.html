@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
+  <style>
+    html { background:#0B0B0B; }
+    body { margin:0; background:#0B0B0B; color:#F3F0EC; font-family:'Archivo',sans-serif; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+    a:focus-visible, button:focus-visible { outline:2px solid #B86A4D; outline-offset:3px; }
+    ::selection { background:#B86A4D; color:#F3F0EC; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration:0.001ms !important; } }
+  </style>
+</helmet>
+
+<div style="min-height:100vh; color:#F3F0EC; font-family:'Archivo',sans-serif;">
+
+  <!-- ============ HALOS AMBIANTS ============ -->
+  <div aria-hidden="true" style="position:fixed; inset:0; z-index:-1; pointer-events:none; overflow:hidden;">
+    <div style="position:absolute; top:-260px; left:-200px; width:980px; height:760px; border-radius:50%; background:radial-gradient(ellipse at center, rgba(184,106,77,0.13) 0%, rgba(40,38,34,0.12) 42%, transparent 70%); filter:blur(120px);"></div>
+    <div style="position:absolute; bottom:-320px; right:-220px; width:860px; height:680px; border-radius:50%; background:radial-gradient(ellipse at center, rgba(243,240,236,0.06) 0%, transparent 66%); filter:blur(140px);"></div>
+  </div>
+
+  <!-- ============ NAVBAR GLASS FLOTTANTE ============ -->
+  <header style="position:fixed; top:16px; left:0; right:0; z-index:100; display:flex; flex-direction:column; align-items:center; gap:10px; padding:0 24px; pointer-events:none;">
+    <nav aria-label="Navigation principale" style="pointer-events:auto; position:relative; width:100%; max-width:1280px; border-radius:9999px; background:linear-gradient(100deg, rgba(184,106,77,0.18) 0%, rgba(50,50,50,0.12) 18%, rgba(11,11,11,0) 45%), rgba(11,11,11,0.6); backdrop-filter:blur(20px) saturate(1.2); -webkit-backdrop-filter:blur(20px) saturate(1.2); border:1px solid rgba(243,240,236,0.14); box-shadow:0 16px 48px rgba(0,0,0,0.5), inset 0 1px 0 rgba(243,240,236,0.16); padding:10px 12px 10px 28px; display:flex; align-items:center; justify-content:space-between; gap:16px;">
+      <a href="index.html#accueil" style="font-family:'Clash Display',sans-serif; font-weight:500; font-size:18px; letter-spacing:0.04em; color:#F3F0EC; text-decoration:none; white-space:nowrap;">Bren’Art Studio</a>
+      <div style="display:{{ navLinksD }}; align-items:center; gap:clamp(2px,0.6vw,8px);">
+        <a href="index.html#accueil" style="color:rgba(243,240,236,0.75); text-decoration:underline; text-decoration-color:transparent; text-decoration-thickness:1px; text-underline-offset:6px; font-size:14px; font-weight:500; letter-spacing:0.02em; padding:9px 18px; border-radius:999px; white-space:nowrap; transition:color .2s ease, text-decoration-color .35s ease;" style-hover="color:#F3F0EC; text-decoration-color:#B86A4D;">Accueil</a>
+        <a href="index.html#portfolio" style="color:rgba(243,240,236,0.75); text-decoration:underline; text-decoration-color:transparent; text-decoration-thickness:1px; text-underline-offset:6px; font-size:14px; font-weight:500; letter-spacing:0.02em; padding:9px 18px; border-radius:999px; white-space:nowrap; transition:color .2s ease, text-decoration-color .35s ease;" style-hover="color:#F3F0EC; text-decoration-color:#B86A4D;">Portfolio</a>
+        <a href="index.html#services" style="color:rgba(243,240,236,0.75); text-decoration:underline; text-decoration-color:transparent; text-decoration-thickness:1px; text-underline-offset:6px; font-size:14px; font-weight:500; letter-spacing:0.02em; padding:9px 18px; border-radius:999px; white-space:nowrap; transition:color .2s ease, text-decoration-color .35s ease;" style-hover="color:#F3F0EC; text-decoration-color:#B86A4D;">Services</a>
+        <a href="index.html#about" style="color:rgba(243,240,236,0.75); text-decoration:underline; text-decoration-color:transparent; text-decoration-thickness:1px; text-underline-offset:6px; font-size:14px; font-weight:500; letter-spacing:0.02em; padding:9px 18px; border-radius:999px; white-space:nowrap; transition:color .2s ease, text-decoration-color .35s ease;" style-hover="color:#F3F0EC; text-decoration-color:#B86A4D;">À propos</a>
+        <a href="index.html#contact" style="display:inline-flex; align-items:center; gap:10px; margin-left:10px; background:#B86A4D; color:#F3F0EC; text-decoration:none; font-size:14px; font-weight:500; letter-spacing:0.01em; padding:11px 24px; border-radius:999px; white-space:nowrap; transition:background .2s ease, box-shadow .2s ease, transform .18s ease;" style-hover="background:#C8825F; box-shadow:0 8px 24px rgba(0,0,0,0.4); transform:translateY(-1px);">Démarrer un projet <span aria-hidden="true">→</span></a>
+      </div>
+      <button onClick="{{ toggleMenu }}" aria-label="Ouvrir le menu" style="display:{{ burgerD }}; flex-direction:column; justify-content:center; gap:5px; width:44px; height:44px; background:rgba(243,240,236,0.07); border:1px solid rgba(243,240,236,0.2); border-radius:999px; cursor:pointer; align-items:center; padding:0; flex-shrink:0;">
+        <span style="display:block; width:18px; height:2px; background:#F3F0EC; border-radius:2px;"></span>
+        <span style="display:block; width:18px; height:2px; background:#F3F0EC; border-radius:2px;"></span>
+        <span style="display:block; width:18px; height:2px; background:#F3F0EC; border-radius:2px;"></span>
+      </button>
+    </nav>
+    <div style="pointer-events:auto; display:{{ menuD }}; flex-direction:column; gap:4px; width:100%; max-width:1280px; padding:18px 24px 24px; border-radius:24px; background:rgba(11,11,11,0.85); backdrop-filter:blur(22px) saturate(1.2); -webkit-backdrop-filter:blur(22px) saturate(1.2); border:1px solid rgba(243,240,236,0.14); box-shadow:0 24px 60px rgba(0,0,0,0.55), inset 0 1px 0 rgba(243,240,236,0.14);">
+      <a href="index.html#accueil" style="color:rgba(243,240,236,0.78); text-decoration:none; font-size:18px; font-weight:500; padding:12px 4px; border-bottom:1px solid rgba(243,240,236,0.08);">Accueil</a>
+      <a href="index.html#portfolio" style="color:rgba(243,240,236,0.78); text-decoration:none; font-size:18px; font-weight:500; padding:12px 4px; border-bottom:1px solid rgba(243,240,236,0.08);">Portfolio</a>
+      <a href="index.html#services" style="color:rgba(243,240,236,0.78); text-decoration:none; font-size:18px; font-weight:500; padding:12px 4px; border-bottom:1px solid rgba(243,240,236,0.08);">Services</a>
+      <a href="index.html#about" style="color:rgba(243,240,236,0.78); text-decoration:none; font-size:18px; font-weight:500; padding:12px 4px; border-bottom:1px solid rgba(243,240,236,0.08);">À propos</a>
+      <a href="index.html#contact" style="margin-top:16px; display:inline-flex; align-items:center; justify-content:center; gap:10px; background:#B86A4D; color:#F3F0EC; text-decoration:none; font-size:15px; font-weight:500; padding:14px 24px; border-radius:999px;">Démarrer un projet <span aria-hidden="true">→</span></a>
+    </div>
+  </header>
+
+  <!-- ============ EN-TÊTE ============ -->
+  <section data-screen-label="En-tête — CGV" style="max-width:1200px; margin:0 auto; padding:clamp(128px,16vw,208px) clamp(20px,4vw,52px) clamp(28px,4vw,52px);">
+    <a href="index.html#accueil" data-reveal="1" style="display:inline-flex; align-items:center; gap:9px; font-size:13px; font-weight:500; letter-spacing:0.04em; color:rgba(243,240,236,0.6); text-decoration:none; margin-bottom:clamp(28px,4vw,48px); transition:color .2s ease;" style-hover="color:#B86A4D;"><span aria-hidden="true">←</span> Retour à l’accueil</a>
+    <div data-reveal="1" style="display:flex; align-items:center; gap:14px; margin-bottom:clamp(22px,2.6vw,32px);">
+      <span aria-hidden="true" style="display:block; width:30px; height:1px; background:#B86A4D;"></span>
+      <span style="font-size:12px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:rgba(243,240,236,0.72);">Informations légales</span>
+    </div>
+    <h1 data-reveal="1" style="margin:0; font-family:'Clash Display',sans-serif; font-weight:600; font-size:clamp(34px,6.6vw,80px); line-height:0.98; letter-spacing:-0.02em; text-transform:uppercase; color:#F3F0EC;">Conditions générales<br>de vente</h1>
+    <p data-reveal="1" style="margin:clamp(24px,3vw,38px) 0 0; max-width:700px; font-size:clamp(16px,1.5vw,19px); line-height:1.7; color:rgba(243,240,236,0.7); text-wrap:pretty;">Les présentes conditions encadrent les prestations de création proposées par Bren’Art Studio&nbsp;: devis, paiement, déroulement des projets, livraison et droits d’usage. Elles s’appliquent à toute commande passée auprès du Studio.</p>
+    <div data-reveal="1" style="display:flex; flex-wrap:wrap; gap:12px; margin-top:clamp(28px,3.4vw,40px);">
+      <span style="display:inline-flex; align-items:center; gap:9px; font-size:12.5px; font-weight:500; color:rgba(243,240,236,0.6); background:rgba(243,240,236,0.05); border:1px solid rgba(243,240,236,0.12); border-radius:999px; padding:9px 16px;"><span style="width:6px; height:6px; border-radius:50%; background:#B86A4D;"></span>Dernière mise à jour : 03/07/2026</span>
+      <span style="display:inline-flex; align-items:center; gap:9px; font-size:12.5px; font-weight:500; color:rgba(243,240,236,0.6); background:rgba(243,240,236,0.05); border:1px solid rgba(243,240,236,0.12); border-radius:999px; padding:9px 16px;">Site : brenartstudio.fr</span>
+    </div>
+  </section>
+
+  <!-- ============ CORPS : SOMMAIRE + CONTENU ============ -->
+  <div style="max-width:1200px; margin:0 auto; padding:clamp(20px,3vw,40px) clamp(20px,4vw,52px) clamp(72px,10vw,120px); display:grid; grid-template-columns:{{ bodyCols }}; gap:clamp(40px,6vw,88px); align-items:start;">
+
+    <!-- SOMMAIRE STICKY -->
+    <aside style="display:{{ tocD }}; position:sticky; top:112px;">
+      <p style="font-size:11.5px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:rgba(243,240,236,0.4); margin:0 0 18px;">Sommaire</p>
+      <nav style="display:flex; flex-direction:column; gap:0;">
+        <a href="#sec-01" data-toc="sec-01" style="display:flex; gap:12px; align-items:baseline; padding:7px 0; font-size:14px; color:rgba(243,240,236,0.55); text-decoration:none; transition:color .25s ease;"><span style="font-family:ui-monospace,'SF Mono',monospace; font-size:11px; color:rgba(243,240,236,0.35);">01</span>Objet</a>
+        <a href="#sec-02" data-toc="sec-02" style="display:flex; gap:12px; align-items:baseline; padding:7px 0; font-size:14px; color:rgba(243,240,236,0.55); text-decoration:none; transition:color .25s ease;"><span style="font-family:ui-monospace,'SF Mono',monospace; font-size:11px; color:rgba(243,240,236,0.35);">02</span>Devis et commande</a>
+        <a href="#sec-03" data-toc="sec-03" style="display:flex; gap:12px; align-items:baseline; padding:7px 0; font-size:14px; color:rgba(243,240,236,0.55); text-decoration:none; transition:color .25s ease;"><span style="font-family:ui-monospace,'SF Mono',monospace; font-size:11px; color:rgba(243,240,236,0.35);">03</span>Prix et paiement</a>
+        <a href="#sec-04" data-toc="sec-04" style="display:flex; gap:12px; align-items:baseline; padding:7px 0; font-size:14px; color:rgba(243,240,236,0.55); text-decoration:none; transition:color .25s ease;"><span style="font-family:ui-monospace,'SF Mono',monospace; font-size:11px; color:rgba(243,240,236,0.35);">04</span>Déroulement</a>
+        <a href="#sec-05" data-toc="sec-05" style="display:flex; gap:12px; align-items:baseline; padding:7px 0; font-size:14px; color:rgba(243,240,236,0.55); text-decoration:none; transition:color .25s ease;"><span style="font-family:ui-monospace,'SF Mono',monospace; font-size:11px; color:rgba(243,240,236,0.35);">05</span>Révisions et validation</a>
+        <a href="#sec-06" data-toc="sec-06" style="display:flex; gap:12px; align-items:baseline; padding:7px 0; font-size:14px; color:rgba(243,240,236,0.55); text-decoration:none; transition:color .25s ease;"><span style="font-family:ui-monospace,'SF Mono',monospace; font-size:11px; color:rgba(243,240,236,0.35);">06</span>Délais de livraison</a>
+        <a href="#sec-07" data-toc="sec-07" style="display:flex; gap:12px; align-items:baseline; padding:7px 0; font-size:14px; color:rgba(243,240,236,0.55); text-decoration:none; transition:color .25s ease;"><span style="font-family:ui-monospace,'SF Mono',monospace; font-size:11px; color:rgba(243,240,236,0.35);">07</span>Obligations du client</a>
+        <a href="#sec-08" data-toc="sec-08" style="display:flex; gap:12px; align-items:baseline; padding:7px 0; font-size:14px; color:rgba(243,240,236,0.55); text-decoration:none; transition:color .25s ease;"><span style="font-family:ui-monospace,'SF Mono',monospace; font-size:11px; color:rgba(243,240,236,0.35);">08</span>Propriété intellectuelle</a>
+        <a href="#sec-09" data-toc="sec-09" style="display:flex; gap:12px; align-items:baseline; padding:7px 0; font-size:14px; color:rgba(243,240,236,0.55); text-decoration:none; transition:color .25s ease;"><span style="font-family:ui-monospace,'SF Mono',monospace; font-size:11px; color:rgba(243,240,236,0.35);">09</span>Droit de rétractation</a>
+        <a href="#sec-10" data-toc="sec-10" style="display:flex; gap:12px; align-items:baseline; padding:7px 0; font-size:14px; color:rgba(243,240,236,0.55); text-decoration:none; transition:color .25s ease;"><span style="font-family:ui-monospace,'SF Mono',monospace; font-size:11px; color:rgba(243,240,236,0.35);">10</span>Annulation et impayés</a>
+        <a href="#sec-11" data-toc="sec-11" style="display:flex; gap:12px; align-items:baseline; padding:7px 0; font-size:14px; color:rgba(243,240,236,0.55); text-decoration:none; transition:color .25s ease;"><span style="font-family:ui-monospace,'SF Mono',monospace; font-size:11px; color:rgba(243,240,236,0.35);">11</span>Responsabilité</a>
+        <a href="#sec-12" data-toc="sec-12" style="display:flex; gap:12px; align-items:baseline; padding:7px 0; font-size:14px; color:rgba(243,240,236,0.55); text-decoration:none; transition:color .25s ease;"><span style="font-family:ui-monospace,'SF Mono',monospace; font-size:11px; color:rgba(243,240,236,0.35);">12</span>Confidentialité</a>
+        <a href="#sec-13" data-toc="sec-13" style="display:flex; gap:12px; align-items:baseline; padding:7px 0; font-size:14px; color:rgba(243,240,236,0.55); text-decoration:none; transition:color .25s ease;"><span style="font-family:ui-monospace,'SF Mono',monospace; font-size:11px; color:rgba(243,240,236,0.35);">13</span>Droit applicable</a>
+      </nav>
+    </aside>
+
+    <!-- CONTENU -->
+    <main style="min-width:0; display:flex; flex-direction:column; gap:clamp(52px,7vw,88px);">
+
+      <!-- 01 -->
+      <section id="sec-01" style="scroll-margin-top:108px;">
+        <div data-reveal="1" style="display:flex; align-items:baseline; gap:18px; margin-bottom:clamp(20px,2.4vw,30px);">
+          <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:13px; color:#B86A4D; letter-spacing:0.05em;">01</span>
+          <span aria-hidden="true" style="flex:1; height:1px; background:rgba(243,240,236,0.12);"></span>
+        </div>
+        <h2 data-reveal="1" style="margin:0 0 8px; font-family:'Clash Display',sans-serif; font-weight:500; font-size:clamp(26px,3vw,40px); line-height:1.1; letter-spacing:-0.01em; color:#F3F0EC;">Objet</h2>
+        <p data-reveal="1" style="margin:0 0 24px; font-size:12px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:#9A938B;">Ce que couvrent les présentes conditions</p>
+        <p data-reveal="1" style="margin:0; font-size:clamp(15.5px,1.4vw,17.5px); line-height:1.8; color:rgba(243,240,236,0.72); max-width:660px; text-wrap:pretty;">Les présentes Conditions Générales de Vente (CGV) régissent les prestations de création proposées par Mérald Brenon, exerçant sous le nom commercial Bren’Art Studio (ci-après « le Studio »), à ses clients (ci-après « le Client »). Elles couvrent notamment le conseil en identité de marque, la conception graphique, la création de sites vitrine et leur mise en ligne. Toute commande implique l’acceptation pleine et entière des présentes CGV, qui prévalent sur tout autre document du Client.</p>
+      </section>
+
+      <!-- 02 -->
+      <section id="sec-02" style="scroll-margin-top:108px;">
+        <div data-reveal="1" style="display:flex; align-items:baseline; gap:18px; margin-bottom:clamp(20px,2.4vw,30px);">
+          <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:13px; color:#B86A4D; letter-spacing:0.05em;">02</span>
+          <span aria-hidden="true" style="flex:1; height:1px; background:rgba(243,240,236,0.12);"></span>
+        </div>
+        <h2 data-reveal="1" style="margin:0 0 8px; font-family:'Clash Display',sans-serif; font-weight:500; font-size:clamp(26px,3vw,40px); line-height:1.1; letter-spacing:-0.01em; color:#F3F0EC;">Devis et commande</h2>
+        <p data-reveal="1" style="margin:0 0 24px; font-size:12px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:#9A938B;">Formation du contrat</p>
+        <p data-reveal="1" style="margin:0; font-size:clamp(15.5px,1.4vw,17.5px); line-height:1.8; color:rgba(243,240,236,0.72); max-width:660px; text-wrap:pretty;">Chaque projet fait l’objet d’un devis détaillé et gratuit, valable 30 jours. Le contrat est réputé formé à la réception du devis daté, signé et revêtu de la mention « Bon pour accord », accompagné du versement de l’acompte prévu à l’article 03. Toute prestation non prévue au devis initial fait l’objet d’un avenant écrit, accepté dans les mêmes conditions.</p>
+      </section>
+
+      <!-- 03 -->
+      <section id="sec-03" style="scroll-margin-top:108px;">
+        <div data-reveal="1" style="display:flex; align-items:baseline; gap:18px; margin-bottom:clamp(20px,2.4vw,30px);">
+          <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:13px; color:#B86A4D; letter-spacing:0.05em;">03</span>
+          <span aria-hidden="true" style="flex:1; height:1px; background:rgba(243,240,236,0.12);"></span>
+        </div>
+        <h2 data-reveal="1" style="margin:0 0 8px; font-family:'Clash Display',sans-serif; font-weight:500; font-size:clamp(26px,3vw,40px); line-height:1.1; letter-spacing:-0.01em; color:#F3F0EC;">Prix et paiement</h2>
+        <p data-reveal="1" style="margin:0 0 24px; font-size:12px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:#9A938B;">Tarifs, acompte et échéances</p>
+        <p data-reveal="1" style="margin:0 0 26px; font-size:clamp(15.5px,1.4vw,17.5px); line-height:1.8; color:rgba(243,240,236,0.72); max-width:660px; text-wrap:pretty;">Les prix sont indiqués en euros et nets de taxe. <strong style="color:#F3F0EC; font-weight:600;">TVA non applicable, art. 293 B du Code général des impôts</strong> (micro-entreprise). Les offres du Studio débutent aux tarifs suivants&nbsp;:</p>
+        <div data-reveal="1" style="overflow-x:auto; -webkit-overflow-scrolling:touch; border-top:1px solid rgba(243,240,236,0.18); margin-bottom:26px;">
+          <table style="width:100%; min-width:560px; border-collapse:collapse; font-size:14px;">
+            <thead>
+              <tr>
+                <th style="text-align:left; vertical-align:bottom; padding:14px 20px 14px 0; font-size:11px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:#9A938B; border-bottom:1px solid rgba(243,240,236,0.14); width:24%;">Offre</th>
+                <th style="text-align:left; vertical-align:bottom; padding:14px 20px; font-size:11px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:#9A938B; border-bottom:1px solid rgba(243,240,236,0.14); width:52%;">Description</th>
+                <th style="text-align:right; vertical-align:bottom; padding:14px 0 14px 20px; font-size:11px; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; color:#9A938B; border-bottom:1px solid rgba(243,240,236,0.14); width:24%;">À partir de</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="vertical-align:top; padding:18px 20px 18px 0; color:#F3F0EC; font-weight:500; line-height:1.5; border-bottom:1px solid rgba(243,240,236,0.08);">Essentiel</td>
+                <td style="vertical-align:top; padding:18px 20px; color:rgba(243,240,236,0.72); line-height:1.5; border-bottom:1px solid rgba(243,240,236,0.08);">Identité de base et première présence en ligne</td>
+                <td style="vertical-align:top; text-align:right; padding:18px 0 18px 20px; color:#F3F0EC; font-variant-numeric:tabular-nums; white-space:nowrap; border-bottom:1px solid rgba(243,240,236,0.08);">1 800 €</td>
+              </tr>
+              <tr>
+                <td style="vertical-align:top; padding:18px 20px 18px 0; color:#F3F0EC; font-weight:500; line-height:1.5; border-bottom:1px solid rgba(243,240,236,0.08);">Signature</td>
+                <td style="vertical-align:top; padding:18px 20px; color:rgba(243,240,236,0.72); line-height:1.5; border-bottom:1px solid rgba(243,240,236,0.08);">Identité complète et site vitrine multi-pages</td>
+                <td style="vertical-align:top; text-align:right; padding:18px 0 18px 20px; color:#F3F0EC; font-variant-numeric:tabular-nums; white-space:nowrap; border-bottom:1px solid rgba(243,240,236,0.08);">3 500 €</td>
+              </tr>
+              <tr>
+                <td style="vertical-align:top; padding:18px 20px 18px 0; color:#F3F0EC; font-weight:500; line-height:1.5;">Intégral</td>
+                <td style="vertical-align:top; padding:18px 20px; color:rgba(243,240,236,0.72); line-height:1.5;">Stratégie de marque, identité, site et lancement, de A à Z</td>
+                <td style="vertical-align:top; text-align:right; padding:18px 0 18px 20px; color:#F3F0EC; font-variant-numeric:tabular-nums; white-space:nowrap;">6 500 €</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <ul data-reveal="1" style="margin:0; padding:0; list-style:none; display:flex; flex-direction:column; max-width:720px; border-top:1px solid rgba(243,240,236,0.1);">
+          <li style="display:flex; gap:16px; padding:16px 0; border-bottom:1px solid rgba(243,240,236,0.08);"><span aria-hidden="true" style="flex-shrink:0; margin-top:9px; width:6px; height:6px; border-radius:50%; background:#B86A4D;"></span><span style="font-size:clamp(15px,1.4vw,16.5px); line-height:1.7; color:rgba(243,240,236,0.78);"><strong style="color:#F3F0EC; font-weight:600;">Acompte de 30 %</strong> exigé à la commande pour engager le travail.</span></li>
+          <li style="display:flex; gap:16px; padding:16px 0; border-bottom:1px solid rgba(243,240,236,0.08);"><span aria-hidden="true" style="flex-shrink:0; margin-top:9px; width:6px; height:6px; border-radius:50%; background:#B86A4D;"></span><span style="font-size:clamp(15px,1.4vw,16.5px); line-height:1.7; color:rgba(243,240,236,0.78);"><strong style="color:#F3F0EC; font-weight:600;">Solde à la livraison</strong>, avant mise en ligne ou remise des fichiers définitifs.</span></li>
+          <li style="display:flex; gap:16px; padding:16px 0; border-bottom:1px solid rgba(243,240,236,0.08);"><span aria-hidden="true" style="flex-shrink:0; margin-top:9px; width:6px; height:6px; border-radius:50%; background:#B86A4D;"></span><span style="font-size:clamp(15px,1.4vw,16.5px); line-height:1.7; color:rgba(243,240,236,0.78);">Pour les projets supérieurs à 3 500 €, règlement <strong style="color:#F3F0EC; font-weight:600;">en trois fois</strong> : 30 % à la commande, 30 % à la validation des maquettes, 40 % à la livraison.</span></li>
+          <li style="display:flex; gap:16px; padding:16px 0; border-bottom:1px solid rgba(243,240,236,0.08);"><span aria-hidden="true" style="flex-shrink:0; margin-top:9px; width:6px; height:6px; border-radius:50%; background:#B86A4D;"></span><span style="font-size:clamp(15px,1.4vw,16.5px); line-height:1.7; color:rgba(243,240,236,0.78);">Règlement par virement bancaire sous <strong style="color:#F3F0EC; font-weight:600;">15 jours</strong> à réception de facture.</span></li>
+        </ul>
+      </section>
+
+      <!-- 04 -->
+      <section id="sec-04" style="scroll-margin-top:108px;">
+        <div data-reveal="1" style="display:flex; align-items:baseline; gap:18px; margin-bottom:clamp(20px,2.4vw,30px);">
+          <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:13px; color:#B86A4D; letter-spacing:0.05em;">04</span>
+          <span aria-hidden="true" style="flex:1; height:1px; background:rgba(243,240,236,0.12);"></span>
+        </div>
+        <h2 data-reveal="1" style="margin:0 0 8px; font-family:'Clash Display',sans-serif; font-weight:500; font-size:clamp(26px,3vw,40px); line-height:1.1; letter-spacing:-0.01em; color:#F3F0EC;">Déroulement de la prestation</h2>
+        <p data-reveal="1" style="margin:0 0 24px; font-size:12px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:#9A938B;">Les étapes du projet</p>
+        <p data-reveal="1" style="margin:0; font-size:clamp(15.5px,1.4vw,17.5px); line-height:1.8; color:rgba(243,240,236,0.72); max-width:660px; text-wrap:pretty;">Le projet se déroule en quatre temps&nbsp;: cadrage, conception, production et mise en ligne. Un point d’étape hebdomadaire rythme le travail, et le Client valide chaque cap avant le passage à l’étape suivante. Le Studio demeure l’interlocuteur unique du Client tout au long du projet et peut, ponctuellement, s’entourer de spécialistes (photographie, rédaction) tenus aux mêmes engagements.</p>
+      </section>
+
+      <!-- 05 -->
+      <section id="sec-05" style="scroll-margin-top:108px;">
+        <div data-reveal="1" style="display:flex; align-items:baseline; gap:18px; margin-bottom:clamp(20px,2.4vw,30px);">
+          <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:13px; color:#B86A4D; letter-spacing:0.05em;">05</span>
+          <span aria-hidden="true" style="flex:1; height:1px; background:rgba(243,240,236,0.12);"></span>
+        </div>
+        <h2 data-reveal="1" style="margin:0 0 8px; font-family:'Clash Display',sans-serif; font-weight:500; font-size:clamp(26px,3vw,40px); line-height:1.1; letter-spacing:-0.01em; color:#F3F0EC;">Révisions et validation</h2>
+        <p data-reveal="1" style="margin:0 0 24px; font-size:12px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:#9A938B;">Retouches incluses</p>
+        <p data-reveal="1" style="margin:0; font-size:clamp(15.5px,1.4vw,17.5px); line-height:1.8; color:rgba(243,240,236,0.72); max-width:660px; text-wrap:pretty;">Chaque livrable comprend <strong style="color:#F3F0EC; font-weight:600;">deux séries de retouches</strong>, à formuler de manière groupée et précise. Au-delà, toute demande de modification est facturée au taux horaire de 60 € (TVA non applicable). La validation écrite d’une étape — ou l’absence de retour du Client dans un délai de 10 jours ouvrés — vaut acceptation et autorise le passage à l’étape suivante.</p>
+      </section>
+
+      <!-- 06 -->
+      <section id="sec-06" style="scroll-margin-top:108px;">
+        <div data-reveal="1" style="display:flex; align-items:baseline; gap:18px; margin-bottom:clamp(20px,2.4vw,30px);">
+          <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:13px; color:#B86A4D; letter-spacing:0.05em;">06</span>
+          <span aria-hidden="true" style="flex:1; height:1px; background:rgba(243,240,236,0.12);"></span>
+        </div>
+        <h2 data-reveal="1" style="margin:0 0 8px; font-family:'Clash Display',sans-serif; font-weight:500; font-size:clamp(26px,3vw,40px); line-height:1.1; letter-spacing:-0.01em; color:#F3F0EC;">Délais de livraison</h2>
+        <p data-reveal="1" style="margin:0 0 24px; font-size:12px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:#9A938B;">Calendrier</p>
+        <p data-reveal="1" style="margin:0; font-size:clamp(15.5px,1.4vw,17.5px); line-height:1.8; color:rgba(243,240,236,0.72); max-width:660px; text-wrap:pretty;">À titre indicatif&nbsp;: quatre à six semaines pour une identité, huit à douze semaines pour une identité accompagnée d’un site. Le calendrier précis est fixé au cadrage. Les délais courent à compter de la réception de l’acompte et de l’ensemble des contenus nécessaires. Tout retard imputable au Client (validation tardive, fourniture incomplète des contenus) reporte d’autant la date de livraison, sans que la responsabilité du Studio puisse être engagée.</p>
+      </section>
+
+      <!-- 07 -->
+      <section id="sec-07" style="scroll-margin-top:108px;">
+        <div data-reveal="1" style="display:flex; align-items:baseline; gap:18px; margin-bottom:clamp(20px,2.4vw,30px);">
+          <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:13px; color:#B86A4D; letter-spacing:0.05em;">07</span>
+          <span aria-hidden="true" style="flex:1; height:1px; background:rgba(243,240,236,0.12);"></span>
+        </div>
+        <h2 data-reveal="1" style="margin:0 0 8px; font-family:'Clash Display',sans-serif; font-weight:500; font-size:clamp(26px,3vw,40px); line-height:1.1; letter-spacing:-0.01em; color:#F3F0EC;">Obligations du client</h2>
+        <p data-reveal="1" style="margin:0 0 24px; font-size:12px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:#9A938B;">Ce qui est attendu de vous</p>
+        <p data-reveal="1" style="margin:0; font-size:clamp(15.5px,1.4vw,17.5px); line-height:1.8; color:rgba(243,240,236,0.72); max-width:660px; text-wrap:pretty;">Le Client s’engage à fournir en temps utile l’ensemble des éléments nécessaires à la bonne exécution de la prestation (textes, visuels, accès, informations) et à collaborer activement aux points d’étape. Il garantit détenir les droits sur les contenus transmis et demeure seul responsable de leur conformité à la législation en vigueur. Le Studio ne saurait être tenu responsable d’un contenu fourni par le Client.</p>
+      </section>
+
+      <!-- 08 -->
+      <section id="sec-08" style="scroll-margin-top:108px;">
+        <div data-reveal="1" style="display:flex; align-items:baseline; gap:18px; margin-bottom:clamp(20px,2.4vw,30px);">
+          <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:13px; color:#B86A4D; letter-spacing:0.05em;">08</span>
+          <span aria-hidden="true" style="flex:1; height:1px; background:rgba(243,240,236,0.12);"></span>
+        </div>
+        <h2 data-reveal="1" style="margin:0 0 8px; font-family:'Clash Display',sans-serif; font-weight:500; font-size:clamp(26px,3vw,40px); line-height:1.1; letter-spacing:-0.01em; color:#F3F0EC;">Propriété intellectuelle</h2>
+        <p data-reveal="1" style="margin:0 0 24px; font-size:12px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:#9A938B;">Cession des droits</p>
+        <p data-reveal="1" style="margin:0 0 20px; font-size:clamp(15.5px,1.4vw,17.5px); line-height:1.8; color:rgba(243,240,236,0.72); max-width:660px; text-wrap:pretty;">Les créations demeurent la propriété exclusive du Studio jusqu’au <strong style="color:#F3F0EC; font-weight:600;">paiement intégral</strong> du prix. La cession des droits d’exploitation (reproduction et représentation) sur les livrables finaux intervient à réception du solde, pour l’usage et le territoire convenus au devis.</p>
+        <p data-reveal="1" style="margin:0; font-size:clamp(15.5px,1.4vw,17.5px); line-height:1.8; color:rgba(243,240,236,0.72); max-width:660px; text-wrap:pretty;">Les fichiers de travail, sources et propositions non retenues restent la propriété du Studio. Sauf demande écrite contraire du Client, le Studio se réserve le droit de mentionner le projet et d’en présenter des extraits dans son portfolio et ses supports de communication.</p>
+      </section>
+
+      <!-- 09 -->
+      <section id="sec-09" style="scroll-margin-top:108px;">
+        <div data-reveal="1" style="display:flex; align-items:baseline; gap:18px; margin-bottom:clamp(20px,2.4vw,30px);">
+          <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:13px; color:#B86A4D; letter-spacing:0.05em;">09</span>
+          <span aria-hidden="true" style="flex:1; height:1px; background:rgba(243,240,236,0.12);"></span>
+        </div>
+        <h2 data-reveal="1" style="margin:0 0 8px; font-family:'Clash Display',sans-serif; font-weight:500; font-size:clamp(26px,3vw,40px); line-height:1.1; letter-spacing:-0.01em; color:#F3F0EC;">Droit de rétractation</h2>
+        <p data-reveal="1" style="margin:0 0 24px; font-size:12px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:#9A938B;">Clients professionnels et particuliers</p>
+        <p data-reveal="1" style="margin:0; font-size:clamp(15.5px,1.4vw,17.5px); line-height:1.8; color:rgba(243,240,236,0.72); max-width:660px; text-wrap:pretty;">Les prestations étant destinées à des clients professionnels dans le cadre de leur activité, le droit de rétractation prévu par le Code de la consommation ne s’applique pas. Lorsque le Client est un consommateur, il dispose d’un délai légal de 14 jours pour se rétracter&nbsp;; toutefois, en demandant expressément l’exécution de la prestation avant la fin de ce délai, il renonce à ce droit pour la partie déjà réalisée, qui reste due.</p>
+      </section>
+
+      <!-- 10 -->
+      <section id="sec-10" style="scroll-margin-top:108px;">
+        <div data-reveal="1" style="display:flex; align-items:baseline; gap:18px; margin-bottom:clamp(20px,2.4vw,30px);">
+          <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:13px; color:#B86A4D; letter-spacing:0.05em;">10</span>
+          <span aria-hidden="true" style="flex:1; height:1px; background:rgba(243,240,236,0.12);"></span>
+        </div>
+        <h2 data-reveal="1" style="margin:0 0 8px; font-family:'Clash Display',sans-serif; font-weight:500; font-size:clamp(26px,3vw,40px); line-height:1.1; letter-spacing:-0.01em; color:#F3F0EC;">Annulation et impayés</h2>
+        <p data-reveal="1" style="margin:0 0 24px; font-size:12px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:#9A938B;">En cas d’interruption ou de retard</p>
+        <p data-reveal="1" style="margin:0; font-size:clamp(15.5px,1.4vw,17.5px); line-height:1.8; color:rgba(243,240,236,0.72); max-width:660px; text-wrap:pretty;">En cas d’annulation par le Client, l’acompte reste acquis au Studio et les prestations déjà réalisées sont dues au prorata de l’avancement. Tout retard de paiement entraîne de plein droit des pénalités calculées au taux de trois fois le taux d’intérêt légal, ainsi qu’une indemnité forfaitaire pour frais de recouvrement de 40 € (art. L.441-10 du Code de commerce), sans préjudice de la suspension des prestations en cours.</p>
+      </section>
+
+      <!-- 11 -->
+      <section id="sec-11" style="scroll-margin-top:108px;">
+        <div data-reveal="1" style="display:flex; align-items:baseline; gap:18px; margin-bottom:clamp(20px,2.4vw,30px);">
+          <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:13px; color:#B86A4D; letter-spacing:0.05em;">11</span>
+          <span aria-hidden="true" style="flex:1; height:1px; background:rgba(243,240,236,0.12);"></span>
+        </div>
+        <h2 data-reveal="1" style="margin:0 0 8px; font-family:'Clash Display',sans-serif; font-weight:500; font-size:clamp(26px,3vw,40px); line-height:1.1; letter-spacing:-0.01em; color:#F3F0EC;">Responsabilité</h2>
+        <p data-reveal="1" style="margin:0 0 24px; font-size:12px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:#9A938B;">Limites et garanties</p>
+        <p data-reveal="1" style="margin:0; font-size:clamp(15.5px,1.4vw,17.5px); line-height:1.8; color:rgba(243,240,236,0.72); max-width:660px; text-wrap:pretty;">Le Studio est tenu à une obligation de moyens. Sa responsabilité ne saurait être engagée pour les dommages indirects, la perte de données ou de chiffre d’affaires, ni pour l’indisponibilité de services tiers (hébergement, noms de domaine, plateformes). Après mise en ligne et remise des accès, la maintenance, les mises à jour et les sauvegardes relèvent de la responsabilité du Client, sauf contrat de suivi spécifique.</p>
+      </section>
+
+      <!-- 12 -->
+      <section id="sec-12" style="scroll-margin-top:108px;">
+        <div data-reveal="1" style="display:flex; align-items:baseline; gap:18px; margin-bottom:clamp(20px,2.4vw,30px);">
+          <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:13px; color:#B86A4D; letter-spacing:0.05em;">12</span>
+          <span aria-hidden="true" style="flex:1; height:1px; background:rgba(243,240,236,0.12);"></span>
+        </div>
+        <h2 data-reveal="1" style="margin:0 0 8px; font-family:'Clash Display',sans-serif; font-weight:500; font-size:clamp(26px,3vw,40px); line-height:1.1; letter-spacing:-0.01em; color:#F3F0EC;">Confidentialité</h2>
+        <p data-reveal="1" style="margin:0 0 24px; font-size:12px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:#9A938B;">Discrétion</p>
+        <p data-reveal="1" style="margin:0; font-size:clamp(15.5px,1.4vw,17.5px); line-height:1.8; color:rgba(243,240,236,0.72); max-width:660px; text-wrap:pretty;">Le Studio s’engage à préserver la confidentialité des informations et documents transmis par le Client dans le cadre du projet, et à ne pas les divulguer à des tiers sans autorisation — hors sous-traitants ponctuels, eux-mêmes tenus à la même obligation de discrétion. Le traitement des données personnelles est détaillé dans la <a href="Confidentialité - Bren'Art Studio.dc.html" style="color:#F3F0EC; text-decoration:underline; text-decoration-color:rgba(184,106,77,0.5); text-underline-offset:4px; transition:text-decoration-color .2s ease;" style-hover="text-decoration-color:#B86A4D;">politique de confidentialité</a>.</p>
+      </section>
+
+      <!-- 13 -->
+      <section id="sec-13" style="scroll-margin-top:108px;">
+        <div data-reveal="1" style="display:flex; align-items:baseline; gap:18px; margin-bottom:clamp(20px,2.4vw,30px);">
+          <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:13px; color:#B86A4D; letter-spacing:0.05em;">13</span>
+          <span aria-hidden="true" style="flex:1; height:1px; background:rgba(243,240,236,0.12);"></span>
+        </div>
+        <h2 data-reveal="1" style="margin:0 0 8px; font-family:'Clash Display',sans-serif; font-weight:500; font-size:clamp(26px,3vw,40px); line-height:1.1; letter-spacing:-0.01em; color:#F3F0EC;">Droit applicable</h2>
+        <p data-reveal="1" style="margin:0 0 24px; font-size:12px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:#9A938B;">Droit applicable et juridiction</p>
+        <p data-reveal="1" style="margin:0; font-size:clamp(15.5px,1.4vw,17.5px); line-height:1.8; color:rgba(243,240,236,0.72); max-width:660px; text-wrap:pretty;">Les présentes CGV sont soumises au droit français. En cas de différend, les parties s’engagent à rechercher une solution amiable avant toute action contentieuse. À défaut d’accord, les tribunaux français seront seuls compétents.</p>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ============ FOOTER (commun) ============ -->
+  <footer style="background:#121212; border-top:1px solid rgba(243,240,236,0.1); padding:clamp(56px,7vw,90px) clamp(20px,4vw,48px) 36px;">
+    <div style="max-width:1280px; margin:0 auto;">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:clamp(36px,5vw,64px); margin-bottom:clamp(48px,6vw,72px);">
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <a href="index.html#accueil" style="font-family:'Clash Display',sans-serif; font-weight:500; font-size:20px; letter-spacing:0.05em; color:#F3F0EC; text-decoration:none;">BREN’ART STUDIO</a>
+          <p style="font-size:14.5px; line-height:1.6; color:rgba(243,240,236,0.5); margin:0; max-width:280px;">Studio de création digitale à Toulouse. De l’idée à la mise en ligne.</p>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <p style="font-size:12px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(243,240,236,0.4); margin:0 0 4px;">Pages</p>
+          <a href="index.html#accueil" style="color:rgba(243,240,236,0.7); text-decoration:none; font-size:14.5px; transition:color .2s ease; align-self:flex-start;" style-hover="color:#B86A4D;">Accueil</a>
+          <a href="index.html#portfolio" style="color:rgba(243,240,236,0.7); text-decoration:none; font-size:14.5px; transition:color .2s ease; align-self:flex-start;" style-hover="color:#B86A4D;">Portfolio</a>
+          <a href="index.html#services" style="color:rgba(243,240,236,0.7); text-decoration:none; font-size:14.5px; transition:color .2s ease; align-self:flex-start;" style-hover="color:#B86A4D;">Services</a>
+          <a href="index.html#about" style="color:rgba(243,240,236,0.7); text-decoration:none; font-size:14.5px; transition:color .2s ease; align-self:flex-start;" style-hover="color:#B86A4D;">À propos</a>
+          <a href="index.html#contact" style="color:rgba(243,240,236,0.7); text-decoration:none; font-size:14.5px; transition:color .2s ease; align-self:flex-start;" style-hover="color:#B86A4D;">Contact</a>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <p style="font-size:12px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(243,240,236,0.4); margin:0 0 4px;">Réseaux</p>
+          <div style="display:flex; gap:12px;">
+            <a href="https://www.instagram.com/merald_brn?igsh=bnVnb2N2dGx4dnps&utm_source=qr" target="_blank" rel="noopener" aria-label="Instagram" style="display:inline-flex; align-items:center; justify-content:center; width:46px; height:46px; border:1px solid rgba(243,240,236,0.2); border-radius:999px; transition:border-color .2s ease, background .2s ease;" style-hover="border-color:#B86A4D; background:rgba(184,106,77,0.12);"><img src="assets/instagram-white.png" alt="Instagram" width="22" height="22" style="display:block; width:22px; height:22px;"></a>
+            <a href="https://www.linkedin.com/in/m%C3%A9rald-design/" target="_blank" rel="noopener" aria-label="LinkedIn" style="display:inline-flex; align-items:center; justify-content:center; width:46px; height:46px; border:1px solid rgba(243,240,236,0.2); border-radius:999px; transition:border-color .2s ease, background .2s ease;" style-hover="border-color:#B86A4D; background:rgba(184,106,77,0.12);"><img src="assets/linkedin-white.png" alt="LinkedIn" width="22" height="22" style="display:block; width:22px; height:22px;"></a>
+          </div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <p style="font-size:12px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(243,240,236,0.4); margin:0 0 4px;">Contact</p>
+          <a href="mailto:meraldbrenon.pro@gmail.com" style="color:rgba(243,240,236,0.7); text-decoration:none; font-size:14.5px; transition:color .2s ease; align-self:flex-start;" style-hover="color:#B86A4D;">meraldbrenon.pro@gmail.com</a>
+          <p style="color:rgba(243,240,236,0.5); font-size:14.5px; margin:0;">Toulouse, France</p>
+        </div>
+      </div>
+      <div style="border-top:1px solid rgba(243,240,236,0.08); padding-top:28px; display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px;">
+        <p style="font-size:13px; color:rgba(243,240,236,0.4); margin:0;">© 2026 Bren’Art Studio — Tous droits réservés.</p>
+        <p style="font-size:13px; margin:0; display:flex; flex-wrap:wrap; gap:20px;"><a href="Mentions légales - Bren'Art Studio.dc.html" style="color:rgba(243,240,236,0.4); text-decoration:none; transition:color .2s ease;" style-hover="color:#B86A4D;">Mentions légales</a><a href="Confidentialité - Bren'Art Studio.dc.html" style="color:rgba(243,240,236,0.4); text-decoration:none; transition:color .2s ease;" style-hover="color:#B86A4D;">Confidentialité</a><a href="CGV - Bren'Art Studio.dc.html" style="color:#B86A4D; text-decoration:none;">CGV</a></p>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { menuOpen: false, isMobile: false };
+
+  componentDidMount() {
+    this._mq = window.matchMedia('(max-width: 900px)');
+    this._onMq = () => this.setState({ isMobile: this._mq.matches, menuOpen: false });
+    this._onMq();
+    if (this._mq.addEventListener) this._mq.addEventListener('change', this._onMq);
+    this._whenReady(() => this._init());
+  }
+
+  _whenReady(cb) {
+    let tries = 0;
+    const poll = () => {
+      if (window.gsap && window.ScrollTrigger) return cb();
+      if (tries++ > 60) return;
+      requestAnimationFrame(poll);
+    };
+    requestAnimationFrame(poll);
+  }
+
+  _init() {
+    const gsap = window.gsap;
+    gsap.registerPlugin(window.ScrollTrigger);
+    this._gsap = gsap;
+    this._ST = window.ScrollTrigger;
+    const EASE = 'power4.out';
+
+    if (window.Lenis) {
+      this._lenis = new window.Lenis({ lerp: 0.1, smoothWheel: true });
+      this._lenis.on('scroll', this._ST.update);
+      this._tick = (t) => this._lenis.raf(t * 1000);
+      gsap.ticker.add(this._tick);
+      gsap.ticker.lagSmoothing(0);
+    }
+
+    const els = Array.prototype.slice.call(document.querySelectorAll('[data-reveal]'));
+    els.forEach((el) => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight * 0.96) {
+        gsap.fromTo(el, { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: EASE });
+      } else {
+        gsap.set(el, { y: 18, opacity: 0 });
+        this._ST.create({ trigger: el, start: 'top 92%', once: true, onEnter: () => gsap.to(el, { y: 0, opacity: 1, duration: 0.8, ease: EASE, overwrite: true }) });
+      }
+    });
+
+    const nav = document.querySelector('header nav');
+    if (nav) {
+      gsap.from(nav, { y: -18, opacity: 0, duration: 0.9, ease: EASE, delay: 0.3 });
+      this._ST.create({ start: 70, end: 'max',
+        onEnter: () => gsap.to(nav, { scale: 0.97, duration: 0.35, ease: 'power2.out' }),
+        onLeaveBack: () => gsap.to(nav, { scale: 1, duration: 0.35, ease: 'power2.out' }) });
+    }
+
+    this._setupToc();
+    this._setupCursor();
+    this._ST.refresh();
+    clearTimeout(this._rt);
+    this._rt = setTimeout(() => this._ST.refresh(), 500);
+  }
+
+  _setupToc() {
+    const links = Array.prototype.slice.call(document.querySelectorAll('[data-toc]'));
+    const setActive = (id) => {
+      links.forEach((a) => {
+        const on = a.getAttribute('data-toc') === id;
+        a.style.color = on ? '#F3F0EC' : 'rgba(243,240,236,0.55)';
+        const num = a.querySelector('span');
+        if (num) num.style.color = on ? '#B86A4D' : 'rgba(243,240,236,0.35)';
+      });
+    };
+    const secs = Array.prototype.slice.call(document.querySelectorAll('main > section[id]'));
+    this._io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) setActive(e.target.id); });
+    }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+    secs.forEach((s) => this._io.observe(s));
+    if (secs.length) setActive(secs[0].id);
+
+    this._onTocClick = (e) => {
+      const a = e.target.closest && e.target.closest('[data-toc]');
+      if (!a) return;
+      const id = a.getAttribute('href').slice(1);
+      const target = document.getElementById(id);
+      if (!target) return;
+      e.preventDefault();
+      const y = target.getBoundingClientRect().top + window.pageYOffset - 100;
+      if (this._lenis) this._lenis.scrollTo(y, { duration: 0.9 });
+      else window.scrollTo({ top: y, behavior: 'smooth' });
+    };
+    document.addEventListener('click', this._onTocClick);
+  }
+
+  _setupCursor() {
+    const gsap = this._gsap;
+    this._fine = window.matchMedia('(pointer: fine)');
+    if (!this._fine.matches) return;
+
+    const c = document.createElement('div');
+    c.setAttribute('aria-hidden', 'true');
+    c.style.cssText = 'position:fixed;top:0;left:0;width:10px;height:10px;border-radius:50%;background:#B86A4D;z-index:600;pointer-events:none;opacity:0;mix-blend-mode:screen;';
+    document.body.appendChild(c);
+    this._cursor = c;
+    gsap.set(c, { xPercent: -50, yPercent: -50 });
+    const cx = gsap.quickTo(c, 'x', { duration: 0.18, ease: 'power3.out' });
+    const cy = gsap.quickTo(c, 'y', { duration: 0.18, ease: 'power3.out' });
+    this._onMove = (e) => { if (c.style.opacity === '0') c.style.opacity = '1'; cx(e.clientX); cy(e.clientY); };
+    window.addEventListener('mousemove', this._onMove);
+    this._onOver = (e) => {
+      const t = e.target.closest && e.target.closest('[data-mag], a, button');
+      const title = t && t.hasAttribute('data-mag');
+      gsap.to(c, { scale: t ? (title ? 4.2 : 3) : 1, opacity: t ? 0.5 : 1, duration: 0.3, ease: 'power3.out' });
+    };
+    document.addEventListener('mouseover', this._onOver);
+
+    const titles = Array.prototype.slice.call(document.querySelectorAll('h1, main h2'));
+    titles.forEach((el) => {
+      el.setAttribute('data-mag', '1');
+      el.style.display = 'inline-block';
+      el.style.willChange = 'transform';
+      el.style.transition = 'color .3s ease';
+      el.addEventListener('mousemove', (e) => {
+        const r = el.getBoundingClientRect();
+        const dx = e.clientX - (r.left + r.width / 2);
+        const dy = e.clientY - (r.top + r.height / 2);
+        gsap.to(el, { x: dx * 0.1, y: dy * 0.18, duration: 0.4, ease: 'power3.out' });
+        el.style.color = '#EBA986';
+      });
+      el.addEventListener('mouseleave', () => {
+        gsap.to(el, { x: 0, y: 0, duration: 0.6, ease: 'power4.out' });
+        el.style.color = '#F3F0EC';
+      });
+    });
+  }
+
+  componentWillUnmount() {
+    if (this._onMove) window.removeEventListener('mousemove', this._onMove);
+    if (this._onOver) document.removeEventListener('mouseover', this._onOver);
+    if (this._cursor && this._cursor.parentNode) this._cursor.parentNode.removeChild(this._cursor);
+    if (this._mq && this._mq.removeEventListener) this._mq.removeEventListener('change', this._onMq);
+    if (this._onTocClick) document.removeEventListener('click', this._onTocClick);
+    if (this._io) this._io.disconnect();
+    if (this._ST) this._ST.getAll().forEach((t) => t.kill());
+    if (this._gsap && this._tick) this._gsap.ticker.remove(this._tick);
+    if (this._lenis) this._lenis.destroy();
+    clearTimeout(this._rt);
+  }
+
+  renderVals() {
+    const { menuOpen, isMobile } = this.state;
+    return {
+      navLinksD: isMobile ? 'none' : 'flex',
+      burgerD: isMobile ? 'flex' : 'none',
+      menuD: isMobile && menuOpen ? 'flex' : 'none',
+      toggleMenu: () => this.setState((s) => ({ menuOpen: !s.menuOpen })),
+      bodyCols: isMobile ? '1fr' : '240px 1fr',
+      tocD: isMobile ? 'none' : 'block',
+      dlCols: isMobile ? '1fr' : '220px 1fr'
+    };
+  }
+}
+</script>
+</body>
+</html>
