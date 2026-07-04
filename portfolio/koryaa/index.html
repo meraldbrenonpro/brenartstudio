@@ -93,7 +93,8 @@
     { "@type": "Question", "name": "Comment se déroule un projet ?", "acceptedAnswer": { "@type": "Answer", "text": "En quatre étapes : cadrage, conception, production, mise en ligne. Vous validez un cap avant toute maquette, puis un point d'étape chaque semaine rythme le travail." } },
     { "@type": "Question", "name": "Quels sont les délais ?", "acceptedAnswer": { "@type": "Answer", "text": "Quatre à six semaines pour une identité, huit à douze pour une identité accompagnée d'un site. Le calendrier précis se fixe au cadrage." } },
     { "@type": "Question", "name": "De quoi avez-vous besoin pour démarrer ?", "acceptedAnswer": { "@type": "Answer", "text": "De votre histoire, de quelques exemples que vous aimez — ou pas — et de vos contenus existants s'il y en a. Le reste se construit ensemble pendant le cadrage." } },
-    { "@type": "Question", "name": "Travaillez-vous seul ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui — c'est le principe du studio. Je m'entoure ponctuellement de spécialistes (photographie, rédaction) quand le projet le demande, en restant votre interlocuteur unique." } }
+    { "@type": "Question", "name": "Travaillez-vous seul ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui — c'est le principe du studio. Je m'entoure ponctuellement de spécialistes (photographie, rédaction) quand le projet le demande, en restant votre interlocuteur unique." } },
+    { "@type": "Question", "name": "Quel budget prévoir, et pour qui ce n'est pas adapté ?", "acceptedAnswer": { "@type": "Answer", "text": "Les projets démarrent à 1 800 € avec l'offre Essentiel. En dessous de ce budget, pour un besoin ultra-urgent ou pour un projet qui demande plusieurs prestataires coordonnés en parallèle, ce n'est pas le bon cadre : le studio travaille seul, en quatre étapes, sur un calendrier posé au cadrage. Le dire tôt évite de perdre du temps des deux côtés." } }
   ]
 }
 </script>
@@ -1312,6 +1313,16 @@
               </div></div></div>
             </div>
 
+            <div style="background:rgba(243,240,236,0.05); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid rgba(243,240,236,0.13); border-radius:16px; overflow:hidden;">
+              <button onClick="{{ faqT4 }}" aria-expanded="{{ faqA4 }}" style="width:100%; display:flex; align-items:center; justify-content:space-between; gap:16px; background:none; border:none; cursor:pointer; padding:20px 24px; font-family:'Archivo',sans-serif; font-size:15.5px; font-weight:500; color:#F3F0EC; text-align:left;">
+                <span>Quel budget prévoir, et pour qui ce n’est pas adapté&nbsp;?</span>
+                <span style="display:inline-block; font-family:'Clash Display',sans-serif; font-size:20px; color:#B86A4D; flex-shrink:0; transform:{{ faqR4 }}; transition:transform .45s cubic-bezier(0.16,1,0.3,1);">+</span>
+              </button>
+              <div aria-hidden="{{ faqH4 }}" style="display:grid; grid-template-rows:{{ faqG4 }}; transition:grid-template-rows .5s cubic-bezier(0.16,1,0.3,1);"><div style="overflow:hidden; min-height:0;"><div style="padding:0 24px 22px;">
+                <p style="font-size:14.5px; line-height:1.65; color:rgba(243,240,236,0.65); margin:0;">Les projets démarrent à 1&nbsp;800&nbsp;€ avec l’offre Essentiel. En dessous de ce budget, pour un besoin ultra-urgent ou pour un projet qui demande plusieurs prestataires coordonnés en parallèle, ce n’est pas le bon cadre&nbsp;: le studio travaille seul, en quatre étapes, sur un calendrier posé au cadrage. Le dire tôt évite de perdre du temps des deux côtés.</p>
+              </div></div></div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -2173,7 +2184,7 @@ class Component extends DCLogic {
     vals.teaserCols = isMobile ? '1fr' : '260px 1fr';
 
     // accordéon FAQ : déploiement animé + croix pivotante
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 5; i++) {
       vals['faqT' + i] = ((idx) => () => this.setState((s) => ({ faqOpen: s.faqOpen === idx ? -1 : idx })))(i);
       vals['faqG' + i] = faqOpen === i ? '1fr' : '0fr';
       vals['faqR' + i] = faqOpen === i ? 'rotate(135deg)' : 'rotate(0deg)';
