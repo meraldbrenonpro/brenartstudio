@@ -16,8 +16,22 @@ const TYPES = {
 
 async function tryFile(p) { try { const s = await stat(p); return s.isFile() ? p : null; } catch { return null; } }
 
+// Reproduit les redirections 301 de nginx.conf pour les anciennes URLs
+// des pages légales (noms de fichiers .dc.html avec espaces/accents).
+const LEGACY_REDIRECTS = [
+  [/^\/Mentions.*Bren.*\.dc\.html$/i, '/mentions-legales'],
+  [/^\/Confidentialit.*Bren.*\.dc\.html$/i, '/confidentialite'],
+  [/^\/CGV.*Bren.*\.dc\.html$/i, '/cgv'],
+];
+
 const server = createServer(async (req, res) => {
   let path = decodeURIComponent((req.url || '/').split('?')[0]);
+  const redirect = LEGACY_REDIRECTS.find(([re]) => re.test(path));
+  if (redirect) {
+    res.writeHead(301, { Location: redirect[1] });
+    res.end();
+    return;
+  }
   let file =
     (await tryFile(join(ROOT, path))) ||
     (await tryFile(join(ROOT, path, 'index.html'))) ||
