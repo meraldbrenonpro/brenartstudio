@@ -32,14 +32,21 @@ page's footer still links to the legal pages by their original filenames (kept i
 
 ## Run it locally
 
-From this folder:
+The site is now served by a small Node app (`server/index.js`) instead of a plain
+static server, so that the contact form can send email through Resend without
+exposing the API key client-side (see "Contact form" below).
 
 ```
-python3 -m http.server 8000
+cp .env.example .env   # fill in RESEND_API_KEY
+npm install
+npm start
 ```
 
-then open http://localhost:8000/ . The nav pills switch "pages" without a reload
-(they are hash routes handled by the runtime).
+then open http://localhost:3000/ . The nav pills switch "pages" without a reload
+(they are hash routes handled by the runtime). Static files are served through an
+allowlist (`index.html`, the legal pages, `support.js`, `assets/`, `uploads/`) —
+`server/`, `spec/`, `package.json`, `node_modules/` and any dotfile are not reachable
+over HTTP.
 
 ## Assets — action needed
 
@@ -80,9 +87,28 @@ uploads/12188729-uhd_3840_2160_25fps (1).mp4   (hero background video)
 Until these are in place you'll see broken-image icons and no hero video; the layout,
 text, navigation, and animations still work.
 
+## Contact form (Resend)
+
+The `#contact` form posts to `POST /api/contact` (`server/contact.js`), which validates
+input, applies a honeypot + in-memory rate limit (5 req / 10 min / IP), then sends via
+the `resend` SDK: `from` = `CONTACT_FROM` (the verified domain sender), `to` =
+`CONTACT_TO`, `replyTo` = the visitor's own email — so replying to the notification
+email replies straight to the prospect.
+
+**Environment variables** (set in Coolify's environment panel, never committed):
+
+| Variable          | Example                                        |
+|-------------------|-------------------------------------------------|
+| `RESEND_API_KEY`  | `re_...` (Resend dashboard → API Keys)          |
+| `CONTACT_TO`      | `contact@brenartstudio.fr`                      |
+| `CONTACT_FROM`    | `Bren'Art Studio <contact@brenartstudio.fr>`    |
+| `PORT`            | `3000` (Coolify usually injects this)           |
+
+**Key rotation**: an API key was shared in plaintext during setup and was used once to
+verify the send path end-to-end. Revoke it in the Resend dashboard and generate a fresh
+one for the `RESEND_API_KEY` used in Coolify.
+
 ## Optional hardening
 
 - The CDN `<script>` tags (React, GSAP, Lenis) have no Subresource Integrity hashes.
   For production you can add `integrity="sha384-…" crossorigin="anonymous"` to pin them.
-- The contact form logic lives in the `data-dc-script` block in `index.html`; wire it to
-  your real endpoint (e.g. Formspree/Resend) before going live if it isn't already.
