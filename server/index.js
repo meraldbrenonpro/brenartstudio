@@ -16,6 +16,9 @@ const ALLOWED_ROOT_FILES = new Set([
   "/CGV - Bren'Art Studio.dc.html",
   '/Confidentialité - Bren\'Art Studio.dc.html',
   '/Mentions légales - Bren\'Art Studio.dc.html',
+  '/robots.txt',
+  '/sitemap.xml',
+  '/llms.txt',
 ])
 const ALLOWED_ROOT_DIRS = ['/assets/', '/uploads/']
 
