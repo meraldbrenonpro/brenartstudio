@@ -4,17 +4,17 @@
 <meta charset="utf-8">
 <base href="/">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Studio design digital à Toulouse | Bren’Art Studio</title>
-<meta name="description" content="Bren’Art Studio façonne des identités digitales sur mesure et des sites web à Toulouse. De la stratégie à la mise en ligne, une seule main pense votre image.">
+<title>Acasa, branding magasin de meubles | Bren’Art Studio</title>
+<meta name="description" content="Identité de marque pour Acasa, magasin de meubles. Une étude de cas branding signée Bren’Art Studio, designer à Toulouse.">
 <meta name="theme-color" content="#221610">
 <link rel="icon" href="assets/favicon.ico" sizes="any">
 <link rel="shortcut icon" href="assets/favicon.ico">
-<link rel="canonical" href="https://brenartstudio.fr/">
+<link rel="canonical" href="https://brenartstudio.fr/portfolio/acasa">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Bren’Art Studio">
-<meta property="og:title" content="Studio design digital à Toulouse | Bren’Art Studio">
-<meta property="og:description" content="Bren’Art Studio façonne des identités digitales sur mesure et des sites web à Toulouse. De la stratégie à la mise en ligne, une seule main pense votre image.">
-<meta property="og:url" content="https://brenartstudio.fr/">
+<meta property="og:title" content="Acasa, branding magasin de meubles | Bren’Art Studio">
+<meta property="og:description" content="Identité de marque pour Acasa, magasin de meubles. Une étude de cas branding signée Bren’Art Studio, designer à Toulouse.">
+<meta property="og:url" content="https://brenartstudio.fr/portfolio/acasa">
 <meta property="og:image" content="https://brenartstudio.fr/og-image.jpg">
 <meta property="og:image:secure_url" content="https://brenartstudio.fr/og-image.jpg">
 <meta property="og:image:type" content="image/jpeg">
@@ -23,8 +23,8 @@
 <meta property="og:image:alt" content="Bren’Art Studio — Studio de création digitale à Toulouse. De l’idée à la mise en ligne.">
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Studio design digital à Toulouse | Bren’Art Studio">
-<meta name="twitter:description" content="Bren’Art Studio façonne des identités digitales sur mesure et des sites web à Toulouse. De la stratégie à la mise en ligne, une seule main pense votre image.">
+<meta name="twitter:title" content="Acasa, branding magasin de meubles | Bren’Art Studio">
+<meta name="twitter:description" content="Identité de marque pour Acasa, magasin de meubles. Une étude de cas branding signée Bren’Art Studio, designer à Toulouse.">
 <meta name="twitter:image" content="https://brenartstudio.fr/og-image.jpg">
 <meta name="twitter:image:alt" content="Bren’Art Studio — Studio de création digitale à Toulouse. De l’idée à la mise en ligne.">
 <script type="application/ld+json">
@@ -1218,7 +1218,6 @@
       <!-- Formulaire -->
       <div style="background:rgba(243,240,236,0.05); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid rgba(243,240,236,0.13); border-radius:24px; padding:clamp(28px,3.5vw,48px); box-shadow:0 30px 60px rgba(0,0,0,0.3);">
         <form onSubmit="{{ submitForm }}" style="display:{{ formD }}; flex-direction:column; gap:22px;">
-          <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute; left:-9999px; width:1px; height:1px; opacity:0;">
           <div style="display:flex; flex-direction:column; gap:8px;">
             <label for="bs-nom" style="font-size:12px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(243,240,236,0.6);">Nom</label>
             <input id="bs-nom" name="nom" type="text" required="required" placeholder="Votre nom" style="background:rgba(243,240,236,0.05); border:1px solid rgba(243,240,236,0.18); border-radius:12px; padding:14px 16px; font-family:'Archivo',sans-serif; font-size:15px; color:#F3F0EC;">
@@ -1250,11 +1249,7 @@
             <label for="bs-message" style="font-size:12px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(243,240,236,0.6);">Message</label>
             <textarea id="bs-message" name="message" required="required" rows="5" placeholder="Votre activité, votre besoin, votre échéance, en quelques lignes." style="background:rgba(243,240,236,0.05); border:1px solid rgba(243,240,236,0.18); border-radius:12px; padding:14px 16px; font-family:'Archivo',sans-serif; font-size:15px; color:#F3F0EC; resize:vertical; min-height:120px;"></textarea>
           </div>
-          <button type="submit" disabled="{{ submitDisabled }}" style="display:inline-flex; align-items:center; gap:10px; background:#141414; color:rgba(243,240,236,0.75); border:none; cursor:pointer; font-family:'Archivo',sans-serif; font-size:15px; font-weight:500; padding:16px 30px; border-radius:999px; box-shadow:-5px -5px 12px rgba(243,240,236,0.05), 5px 5px 14px rgba(0,0,0,0.6); transition:box-shadow .25s ease, color .25s ease, opacity .25s ease; align-self:flex-start; opacity:{{ submitOpacity }};" style-hover="color:#B86A4D; box-shadow:-1px -1px 5px rgba(243,240,236,0.04), 1px 1px 5px rgba(0,0,0,0.5), inset -2px -2px 6px rgba(243,240,236,0.05), inset 3px 3px 7px rgba(0,0,0,0.6);"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>{{ submitLabel }}</button>
-          <div role="alert" style="display:{{ errorD }}; flex-direction:column; gap:8px; padding:16px 18px; background:rgba(184,106,77,0.12); border:1px solid rgba(184,106,77,0.35); border-radius:12px;">
-            <p style="font-size:14.5px; line-height:1.5; color:#F3F0EC; margin:0;">{{ errorMsg }}</p>
-            <a href="mailto:contact@brenartstudio.fr" style="font-size:14px; font-weight:500; color:#B86A4D; text-decoration:none; border-bottom:1px solid #B86A4D; align-self:flex-start; padding-bottom:2px;">Nous écrire directement par email</a>
-          </div>
+          <button type="submit" style="display:inline-flex; align-items:center; gap:10px; background:#141414; color:rgba(243,240,236,0.75); border:none; cursor:pointer; font-family:'Archivo',sans-serif; font-size:15px; font-weight:500; padding:16px 30px; border-radius:999px; box-shadow:-5px -5px 12px rgba(243,240,236,0.05), 5px 5px 14px rgba(0,0,0,0.6); transition:box-shadow .25s ease, color .25s ease; align-self:flex-start;" style-hover="color:#B86A4D; box-shadow:-1px -1px 5px rgba(243,240,236,0.04), 1px 1px 5px rgba(0,0,0,0.5), inset -2px -2px 6px rgba(243,240,236,0.05), inset 3px 3px 7px rgba(0,0,0,0.6);"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>Envoyer ma demande</button>
         </form>
         <div style="display:{{ sentD }}; flex-direction:column; gap:16px; padding:24px 0;">
           <p style="font-family:'Clash Display',sans-serif; font-weight:500; font-size:28px; margin:0;">Message bien reçu<span style="color:#B86A4D;">.</span></p>
@@ -1378,7 +1373,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { page: 'accueil', menuOpen: false, faqOpen: 0, sent: false, sending: false, error: null, isMobile: false, stat: 1, hov: -1, nextHov: -1, motion: false, finePointer: false, ctaNavHov: false, ineevaEmbed: 'loading', laureEmbed: 'loading' };
+  state = { page: 'accueil', menuOpen: false, faqOpen: 0, sent: false, isMobile: false, stat: 1, hov: -1, nextHov: -1, motion: false, finePointer: false, ctaNavHov: false, ineevaEmbed: 'loading', laureEmbed: 'loading' };
 
   componentDidMount() {
     const pages = ['accueil', 'portfolio', 'portfolio-ineeva', 'portfolio-acasa', 'portfolio-laure-fagbohoun', 'portfolio-koryaa', 'services', 'about', 'contact'];
@@ -2070,7 +2065,7 @@ class Component extends DCLogic {
   }
 
   renderVals() {
-    const { page, menuOpen, faqOpen, sent, sending, error, isMobile, stat, hov, motion, finePointer } = this.state;
+    const { page, menuOpen, faqOpen, sent, isMobile, stat, hov, motion, finePointer } = this.state;
     const d = (p) => (page === p ? 'block' : 'none');
 
     // SEO : title + meta description par page
@@ -2120,29 +2115,7 @@ class Component extends DCLogic {
       statD: Math.round(2 * stat),
       formD: sent ? 'none' : 'flex',
       sentD: sent ? 'flex' : 'none',
-      errorD: error ? 'flex' : 'none',
-      errorMsg: error,
-      submitLabel: sending ? 'Envoi…' : 'Envoyer ma demande',
-      submitDisabled: sending,
-      submitOpacity: sending ? 0.6 : 1,
-      submitForm: (e) => {
-        e.preventDefault();
-        if (this.state.sending) return;
-        const payload = Object.fromEntries(new FormData(e.target));
-        this.setState({ sending: true, error: null });
-        fetch('/api/contact', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        })
-          .then((res) => {
-            if (!res.ok) throw new Error('http_' + res.status);
-            this.setState({ sending: false, sent: true });
-          })
-          .catch(() => {
-            this.setState({ sending: false, error: 'Une erreur est survenue lors de l’envoi. Merci de réessayer, ou écrivez-nous directement.' });
-          });
-      },
+      submitForm: (e) => { e.preventDefault(); this.setState({ sent: true }); },
       email: ['contact', 'brenartstudio.fr'].join('@'),
       mailtoHref: 'mailto:' + ['contact', 'brenartstudio.fr'].join('@'),
       iframeD: this.state.ineevaEmbed === 'fail' ? 'none' : 'block',
