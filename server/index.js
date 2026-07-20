@@ -13,18 +13,45 @@ const ALLOWED_ROOT_FILES = new Set([
   '/index.html',
   '/support.js',
   '/skills-lock.json',
-  "/CGV - Bren'Art Studio.dc.html",
-  '/Confidentialité - Bren\'Art Studio.dc.html',
-  '/Mentions légales - Bren\'Art Studio.dc.html',
   '/robots.txt',
   '/sitemap.xml',
   '/llms.txt',
+  '/og-image.jpg',
 ])
 const ALLOWED_ROOT_DIRS = ['/assets/', '/uploads/']
+
+// URLs « propres » -> fichier réel pré-rendu (build-static.mjs + pages légales).
+// Le footer/nav pointent vers ces slugs ; on les sert depuis leur index.html.
+// (Équivalent du `try_files $uri $uri/` de nginx.conf pour le déploiement Node.)
+const PAGE_ROUTES = new Map([
+  ['/a-propos', '/a-propos/index.html'],
+  ['/services', '/services/index.html'],
+  ['/contact', '/contact/index.html'],
+  ['/portfolio', '/portfolio/index.html'],
+  ['/portfolio/ineeva', '/portfolio/ineeva/index.html'],
+  ['/portfolio/acasa', '/portfolio/acasa/index.html'],
+  ['/portfolio/koryaa', '/portfolio/koryaa/index.html'],
+  ['/portfolio/laure-fagbohoun', '/portfolio/laure-fagbohoun/index.html'],
+  ['/cgv', '/cgv/index.html'],
+  ['/mentions-legales', '/mentions-legales/index.html'],
+  ['/confidentialite', '/confidentialite/index.html'],
+])
+
+// Redirections 301 : anciennes URLs légales (.dc.html avec espaces/accents)
+// -> nouveaux slugs propres. (Parité avec nginx.conf pour le SEO / liens entrants.)
+const LEGACY_REDIRECTS = [
+  [/^\/Mentions.*Bren.*\.dc\.html$/i, '/mentions-legales'],
+  [/^\/Confidentialit.*Bren.*\.dc\.html$/i, '/confidentialite'],
+  [/^\/CGV.*Bren.*\.dc\.html$/i, '/cgv'],
+]
+
+// Supprime un éventuel « / » final (sauf la racine) pour comparer les chemins.
+const normPath = (p) => (p.length > 1 ? p.replace(/\/+$/, '') || '/' : p)
 
 function isAllowedStaticPath(pathname) {
   if (pathname.includes('..') || pathname.includes('\0')) return false
   if (pathname === '/') return true
+  if (PAGE_ROUTES.has(normPath(pathname))) return true
   if (ALLOWED_ROOT_FILES.has(pathname)) return true
   return ALLOWED_ROOT_DIRS.some((dir) => pathname.startsWith(dir))
 }
@@ -47,6 +74,8 @@ app.use('/*', async (c, next) => {
   } catch {
     return c.notFound()
   }
+  const redirect = LEGACY_REDIRECTS.find(([re]) => re.test(pathname))
+  if (redirect) return c.redirect(redirect[1], 301)
   if (!isAllowedStaticPath(pathname)) return c.notFound()
   await next()
 })
@@ -55,7 +84,10 @@ app.use(
   '/*',
   serveStatic({
     root: rootDir,
-    rewriteRequestPath: (path) => (path === '/' ? '/index.html' : path),
+    rewriteRequestPath: (path) => {
+      if (path === '/') return '/index.html'
+      return PAGE_ROUTES.get(normPath(path)) ?? path
+    },
   })
 )
 
