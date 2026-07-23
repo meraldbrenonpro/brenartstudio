@@ -6,75 +6,89 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mentions légales | Bren’Art Studio</title>
 <meta name="theme-color" content="#221610">
-<link rel="icon" href="assets/favicon.ico" sizes="any">
-<link rel="shortcut icon" href="assets/favicon.ico">
+<link rel="icon" href="assets/favicon.ico?v=2" sizes="any">
+<link rel="icon" type="image/png" sizes="96x96" href="assets/favicon-96.png?v=2">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png?v=2">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png?v=2">
+<link rel="preload" as="image" href="assets/logo-mark-blanc.png">
+<link rel="preload" as="image" href="assets/logotype-blanc.png">
 <script src="./support.js"></script>
 </head>
 <body>
+<!-- ============ ANIMATION D'OUVERTURE — logo mark blanc sur noir, 1re vue de la session ============ -->
+<style>
+  #bs-intro { position:fixed; inset:0; z-index:9999; background:#070707; display:flex; align-items:center; justify-content:center; animation:bs-introVeil .6s ease 1.25s both; }
+  #bs-intro img { width:clamp(64px,9vw,96px); height:auto; animation:bs-introMark .9s cubic-bezier(0.16,1,0.3,1) .15s both; }
+  @keyframes bs-introMark { from { opacity:0; transform:scale(0.82) translateY(10px); } to { opacity:1; transform:scale(1) translateY(0); } }
+  @keyframes bs-introVeil { from { opacity:1; } to { opacity:0; visibility:hidden; } }
+  @media (prefers-reduced-motion: reduce) { #bs-intro { display:none; } }
+</style>
+<div id="bs-intro" aria-hidden="true"><img src="assets/logo-mark-blanc.png" alt="" width="200" height="238" fetchpriority="high"></div>
+<script>(function(){var i=document.getElementById('bs-intro');if(!i)return;try{if(sessionStorage.getItem('bsIntroVu')){i.remove();return}sessionStorage.setItem('bsIntroVu','1')}catch(e){}i.addEventListener('animationend',function(e){if(e.target===i)i.remove()});setTimeout(function(){var el=document.getElementById('bs-intro');if(el)el.remove()},2600)})();</script>
 <x-dc>
 <helmet>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
-  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
   <style>
-    html { background:#0B0B0B; }
-    body { margin:0; background:#0B0B0B; color:#F3F0EC; font-family:'Archivo',sans-serif; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
-    a:focus-visible, button:focus-visible { outline:2px solid #B86A4D; outline-offset:3px; }
-    ::selection { background:#B86A4D; color:#F3F0EC; }
+    html { background:#070707; }
+    body { margin:0; background:#070707; color:#FFFFFF; font-family:'Inter',sans-serif; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+    a:focus-visible, button:focus-visible { outline:2px solid #C87A53; outline-offset:3px; }
+    ::selection { background:#C87A53; color:#FFFFFF; }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration:0.001ms !important; } }
   </style>
 </helmet>
 
-<div style="min-height:100vh; color:#F3F0EC; font-family:'Archivo',sans-serif;">
+<div style="min-height:100vh; color:#FFFFFF; font-family:'Inter',sans-serif;">
 
   <!-- ============ HALOS AMBIANTS ============ -->
   <div aria-hidden="true" style="position:fixed; inset:0; z-index:-1; pointer-events:none; overflow:hidden;">
-    <div style="position:absolute; top:-260px; left:-200px; width:980px; height:760px; border-radius:50%; background:radial-gradient(ellipse at center, rgba(184,106,77,0.13) 0%, rgba(40,38,34,0.12) 42%, transparent 70%); filter:blur(120px);"></div>
-    <div style="position:absolute; bottom:-320px; right:-220px; width:860px; height:680px; border-radius:50%; background:radial-gradient(ellipse at center, rgba(243,240,236,0.06) 0%, transparent 66%); filter:blur(140px);"></div>
+    <div style="position:absolute; top:-260px; left:-200px; width:980px; height:760px; border-radius:50%; background:radial-gradient(ellipse at center, rgba(200,122,83,0.13) 0%, rgba(40,38,34,0.12) 42%, transparent 70%); filter:blur(120px);"></div>
+    <div style="position:absolute; bottom:-320px; right:-220px; width:860px; height:680px; border-radius:50%; background:radial-gradient(ellipse at center, rgba(255,255,255,0.06) 0%, transparent 66%); filter:blur(140px);"></div>
   </div>
 
-  <!-- ============ NAVBAR GLASS FLOTTANTE ============ -->
-  <header style="position:fixed; top:16px; left:0; right:0; z-index:100; display:flex; flex-direction:column; align-items:center; gap:10px; padding:0 24px; pointer-events:none;">
-    <nav aria-label="Navigation principale" style="pointer-events:auto; position:relative; width:100%; max-width:1280px; border-radius:9999px; background:linear-gradient(100deg, rgba(184,106,77,0.18) 0%, rgba(50,50,50,0.12) 18%, rgba(11,11,11,0) 45%), rgba(11,11,11,0.6); backdrop-filter:blur(20px) saturate(1.2); -webkit-backdrop-filter:blur(20px) saturate(1.2); border:1px solid rgba(243,240,236,0.14); box-shadow:0 16px 48px rgba(0,0,0,0.5), inset 0 1px 0 rgba(243,240,236,0.16); padding:10px 12px 10px 28px; display:flex; align-items:center; justify-content:space-between; gap:16px;">
-      <a href="/" style="font-family:'Clash Display',sans-serif; font-weight:500; font-size:18px; letter-spacing:0.04em; color:#F3F0EC; text-decoration:none; white-space:nowrap;">Bren’Art Studio</a>
-      <div style="display:{{ navLinksD }}; align-items:center; gap:clamp(2px,0.6vw,8px);">
-        <a href="/" style="color:rgba(243,240,236,0.75); text-decoration:underline; text-decoration-color:transparent; text-decoration-thickness:1px; text-underline-offset:6px; font-size:14px; font-weight:500; letter-spacing:0.02em; padding:9px 18px; border-radius:999px; white-space:nowrap; transition:color .2s ease, text-decoration-color .35s ease;" style-hover="color:#F3F0EC; text-decoration-color:#B86A4D;">Accueil</a>
-        <a href="/portfolio" style="color:rgba(243,240,236,0.75); text-decoration:underline; text-decoration-color:transparent; text-decoration-thickness:1px; text-underline-offset:6px; font-size:14px; font-weight:500; letter-spacing:0.02em; padding:9px 18px; border-radius:999px; white-space:nowrap; transition:color .2s ease, text-decoration-color .35s ease;" style-hover="color:#F3F0EC; text-decoration-color:#B86A4D;">Portfolio</a>
-        <a href="/services" style="color:rgba(243,240,236,0.75); text-decoration:underline; text-decoration-color:transparent; text-decoration-thickness:1px; text-underline-offset:6px; font-size:14px; font-weight:500; letter-spacing:0.02em; padding:9px 18px; border-radius:999px; white-space:nowrap; transition:color .2s ease, text-decoration-color .35s ease;" style-hover="color:#F3F0EC; text-decoration-color:#B86A4D;">Services</a>
-        <a href="/a-propos" style="color:rgba(243,240,236,0.75); text-decoration:underline; text-decoration-color:transparent; text-decoration-thickness:1px; text-underline-offset:6px; font-size:14px; font-weight:500; letter-spacing:0.02em; padding:9px 18px; border-radius:999px; white-space:nowrap; transition:color .2s ease, text-decoration-color .35s ease;" style-hover="color:#F3F0EC; text-decoration-color:#B86A4D;">À propos</a>
-        <a href="/contact" style="display:inline-flex; align-items:center; gap:10px; margin-left:10px; background:#B86A4D; color:#F3F0EC; text-decoration:none; font-size:14px; font-weight:500; letter-spacing:0.01em; padding:11px 24px; border-radius:999px; white-space:nowrap; transition:background .2s ease, box-shadow .2s ease, transform .18s ease;" style-hover="background:#C8825F; box-shadow:0 8px 24px rgba(0,0,0,0.4); transform:translateY(-1px);">Démarrer un projet <span aria-hidden="true">→</span></a>
+  <!-- ============ NAVBAR PLATE — disposition façon esaierosa.fr ============ -->
+  <header style="position:absolute; top:0; left:0; right:0; z-index:100; display:flex; flex-direction:column; align-items:center; gap:10px; padding:clamp(18px,2.4vw,28px) clamp(20px,4vw,44px); pointer-events:none;">
+    <nav aria-label="Navigation principale" style="pointer-events:auto; position:relative; width:100%; display:flex; align-items:center; justify-content:space-between; gap:16px;">
+      <a href="/" aria-label="Bren’Art Studio — Accueil" style="display:inline-flex; align-items:center; text-decoration:none; white-space:nowrap;"><img src="assets/logotype-blanc.png" alt="Bren’Art Studio" width="1168" height="162" style="display:block; height:clamp(20px,2.2vw,26px); width:auto;"></a>
+      <div style="display:{{ navLinksD }}; align-items:center; gap:clamp(16px,1.9vw,30px);">
+        <a href="/" style="color:rgba(255,255,255,0.75); text-decoration:underline; text-decoration-color:transparent; text-decoration-thickness:1px; text-underline-offset:6px; font-size:13px; font-weight:500; letter-spacing:0.02em; white-space:nowrap; transition:color .2s ease, text-decoration-color .35s ease;" style-hover="color:#FFFFFF; text-decoration-color:#C87A53;">Accueil</a>
+        <a href="/portfolio" style="color:rgba(255,255,255,0.75); text-decoration:underline; text-decoration-color:transparent; text-decoration-thickness:1px; text-underline-offset:6px; font-size:13px; font-weight:500; letter-spacing:0.02em; white-space:nowrap; transition:color .2s ease, text-decoration-color .35s ease;" style-hover="color:#FFFFFF; text-decoration-color:#C87A53;">Portfolio</a>
+        <a href="/services" style="color:rgba(255,255,255,0.75); text-decoration:underline; text-decoration-color:transparent; text-decoration-thickness:1px; text-underline-offset:6px; font-size:13px; font-weight:500; letter-spacing:0.02em; white-space:nowrap; transition:color .2s ease, text-decoration-color .35s ease;" style-hover="color:#FFFFFF; text-decoration-color:#C87A53;">Services</a>
+        <a href="/a-propos" style="color:rgba(255,255,255,0.75); text-decoration:underline; text-decoration-color:transparent; text-decoration-thickness:1px; text-underline-offset:6px; font-size:13px; font-weight:500; letter-spacing:0.02em; white-space:nowrap; transition:color .2s ease, text-decoration-color .35s ease;" style-hover="color:#FFFFFF; text-decoration-color:#C87A53;">À propos</a>
+        <a href="/contact" style="display:inline-flex; align-items:center; gap:9px; margin-left:6px; background:#C87A53; color:#FFFFFF; text-decoration:none; font-size:13px; font-weight:500; letter-spacing:0.01em; padding:10px 22px; border-radius:999px; white-space:nowrap; transition:background .2s ease, box-shadow .2s ease, transform .18s ease;" style-hover="background:#D89265; box-shadow:0 8px 24px rgba(0,0,0,0.4); transform:translateY(-1px);">Démarrer un projet <span aria-hidden="true">→</span></a>
       </div>
-      <button onClick="{{ toggleMenu }}" aria-label="Ouvrir le menu" style="display:{{ burgerD }}; flex-direction:column; justify-content:center; gap:5px; width:44px; height:44px; background:rgba(243,240,236,0.07); border:1px solid rgba(243,240,236,0.2); border-radius:999px; cursor:pointer; align-items:center; padding:0; flex-shrink:0;">
-        <span style="display:block; width:18px; height:2px; background:#F3F0EC; border-radius:2px;"></span>
-        <span style="display:block; width:18px; height:2px; background:#F3F0EC; border-radius:2px;"></span>
-        <span style="display:block; width:18px; height:2px; background:#F3F0EC; border-radius:2px;"></span>
+      <button onClick="{{ toggleMenu }}" aria-label="Ouvrir le menu" style="display:{{ burgerD }}; flex-direction:column; justify-content:center; gap:5px; width:44px; height:44px; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.2); border-radius:999px; cursor:pointer; align-items:center; padding:0; flex-shrink:0;">
+        <span style="display:block; width:18px; height:2px; background:#FFFFFF; border-radius:2px;"></span>
+        <span style="display:block; width:18px; height:2px; background:#FFFFFF; border-radius:2px;"></span>
+        <span style="display:block; width:18px; height:2px; background:#FFFFFF; border-radius:2px;"></span>
       </button>
     </nav>
-    <div style="pointer-events:auto; display:{{ menuD }}; flex-direction:column; gap:4px; width:100%; max-width:1280px; padding:18px 24px 24px; border-radius:24px; background:rgba(11,11,11,0.85); backdrop-filter:blur(22px) saturate(1.2); -webkit-backdrop-filter:blur(22px) saturate(1.2); border:1px solid rgba(243,240,236,0.14); box-shadow:0 24px 60px rgba(0,0,0,0.55), inset 0 1px 0 rgba(243,240,236,0.14);">
-      <a href="/" style="color:rgba(243,240,236,0.78); text-decoration:none; font-size:18px; font-weight:500; padding:12px 4px; border-bottom:1px solid rgba(243,240,236,0.08);">Accueil</a>
-      <a href="/portfolio" style="color:rgba(243,240,236,0.78); text-decoration:none; font-size:18px; font-weight:500; padding:12px 4px; border-bottom:1px solid rgba(243,240,236,0.08);">Portfolio</a>
-      <a href="/services" style="color:rgba(243,240,236,0.78); text-decoration:none; font-size:18px; font-weight:500; padding:12px 4px; border-bottom:1px solid rgba(243,240,236,0.08);">Services</a>
-      <a href="/a-propos" style="color:rgba(243,240,236,0.78); text-decoration:none; font-size:18px; font-weight:500; padding:12px 4px; border-bottom:1px solid rgba(243,240,236,0.08);">À propos</a>
-      <a href="/contact" style="margin-top:16px; display:inline-flex; align-items:center; justify-content:center; gap:10px; background:#B86A4D; color:#F3F0EC; text-decoration:none; font-size:15px; font-weight:500; padding:14px 24px; border-radius:999px;">Démarrer un projet <span aria-hidden="true">→</span></a>
+    <div style="pointer-events:auto; display:{{ menuD }}; flex-direction:column; gap:4px; width:100%; max-width:1280px; padding:18px 24px 24px; border-radius:24px; background:rgba(7,7,7,0.85); backdrop-filter:blur(22px) saturate(1.2); -webkit-backdrop-filter:blur(22px) saturate(1.2); border:1px solid rgba(255,255,255,0.14); box-shadow:0 24px 60px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.14);">
+      <a href="/" style="color:rgba(255,255,255,0.78); text-decoration:none; font-size:18px; font-weight:500; padding:12px 4px; border-bottom:1px solid rgba(255,255,255,0.08);">Accueil</a>
+      <a href="/portfolio" style="color:rgba(255,255,255,0.78); text-decoration:none; font-size:18px; font-weight:500; padding:12px 4px; border-bottom:1px solid rgba(255,255,255,0.08);">Portfolio</a>
+      <a href="/services" style="color:rgba(255,255,255,0.78); text-decoration:none; font-size:18px; font-weight:500; padding:12px 4px; border-bottom:1px solid rgba(255,255,255,0.08);">Services</a>
+      <a href="/a-propos" style="color:rgba(255,255,255,0.78); text-decoration:none; font-size:18px; font-weight:500; padding:12px 4px; border-bottom:1px solid rgba(255,255,255,0.08);">À propos</a>
+      <a href="/contact" style="margin-top:16px; display:inline-flex; align-items:center; justify-content:center; gap:10px; background:#C87A53; color:#FFFFFF; text-decoration:none; font-size:15px; font-weight:500; padding:14px 24px; border-radius:999px;">Démarrer un projet <span aria-hidden="true">→</span></a>
     </div>
   </header>
 
   <!-- ============ EN-TÊTE ============ -->
   <section data-screen-label="En-tête — Mentions légales" style="max-width:1200px; margin:0 auto; padding:clamp(128px,16vw,208px) clamp(20px,4vw,52px) clamp(28px,4vw,52px);">
-    <a href="/" data-reveal="1" style="display:inline-flex; align-items:center; gap:9px; font-size:13px; font-weight:500; letter-spacing:0.04em; color:rgba(243,240,236,0.6); text-decoration:none; margin-bottom:clamp(28px,4vw,48px); transition:color .2s ease;" style-hover="color:#B86A4D;"><span aria-hidden="true">←</span> Retour à l’accueil</a>
+    <a href="/" data-reveal="1" style="display:inline-flex; align-items:center; gap:9px; font-size:13px; font-weight:500; letter-spacing:0.04em; color:rgba(255,255,255,0.6); text-decoration:none; margin-bottom:clamp(28px,4vw,48px); transition:color .2s ease;" style-hover="color:#C87A53;"><span aria-hidden="true">←</span> Retour à l’accueil</a>
     <div data-reveal="1" style="display:flex; align-items:center; gap:14px; margin-bottom:clamp(22px,2.6vw,32px);">
-      <span aria-hidden="true" style="display:block; width:30px; height:1px; background:#B86A4D;"></span>
-      <span style="font-size:12px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:rgba(243,240,236,0.72);">Informations légales</span>
+      <span aria-hidden="true" style="display:block; width:30px; height:1px; background:#C87A53;"></span>
+      <span style="font-size:12px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.72);">Informations légales</span>
     </div>
-    <h1 data-reveal="1" style="margin:0; font-family:'Clash Display',sans-serif; font-weight:600; font-size:clamp(46px,9vw,108px); line-height:0.94; letter-spacing:-0.02em; text-transform:uppercase; color:#F3F0EC;">Mentions<br>légales</h1>
-    <p data-reveal="1" style="margin:clamp(24px,3vw,38px) 0 0; max-width:680px; font-size:clamp(16px,1.5vw,19px); line-height:1.7; color:rgba(243,240,236,0.7); text-wrap:pretty;">Le présent site est édité par Mérald Brenon, exerçant sous le nom commercial Bren’Art Studio. Ces mentions précisent l’identité de l’éditeur, les conditions d’hébergement du site et le traitement des données qui vous concernent.</p>
+    <h1 data-reveal="1" style="margin:0; font-family:'Satoshi',sans-serif; font-weight:600; font-size:clamp(46px,9vw,108px); line-height:0.94; letter-spacing:-0.02em; text-transform:uppercase; color:#FFFFFF;">Mentions<br>légales</h1>
+    <p data-reveal="1" style="margin:clamp(24px,3vw,38px) 0 0; max-width:680px; font-size:clamp(16px,1.5vw,19px); line-height:1.7; color:rgba(255,255,255,0.7); text-wrap:pretty;">Le présent site est édité par Mérald Brenon, exerçant sous le nom commercial Bren’Art Studio. Ces mentions précisent l’identité de l’éditeur, les conditions d’hébergement du site et le traitement des données qui vous concernent.</p>
     <div data-reveal="1" style="display:flex; flex-wrap:wrap; gap:12px; margin-top:clamp(28px,3.4vw,40px);">
-      <span style="display:inline-flex; align-items:center; gap:9px; font-size:12.5px; font-weight:500; color:rgba(243,240,236,0.6); background:rgba(243,240,236,0.05); border:1px solid rgba(243,240,236,0.12); border-radius:999px; padding:9px 16px;"><span style="width:6px; height:6px; border-radius:50%; background:#B86A4D;"></span>Dernière mise à jour : 03/07/2026</span>
-      <span style="display:inline-flex; align-items:center; gap:9px; font-size:12.5px; font-weight:500; color:rgba(243,240,236,0.6); background:rgba(243,240,236,0.05); border:1px solid rgba(243,240,236,0.12); border-radius:999px; padding:9px 16px;">Site : brenartstudio.fr</span>
+      <span style="display:inline-flex; align-items:center; gap:9px; font-size:12.5px; font-weight:500; color:rgba(255,255,255,0.6); background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); border-radius:999px; padding:9px 16px;"><span style="width:6px; height:6px; border-radius:50%; background:#C87A53;"></span>Dernière mise à jour : 03/07/2026</span>
+      <span style="display:inline-flex; align-items:center; gap:9px; font-size:12.5px; font-weight:500; color:rgba(255,255,255,0.6); background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); border-radius:999px; padding:9px 16px;">Site : brenartstudio.fr</span>
     </div>
   </section>
 
@@ -83,15 +97,15 @@
 
     <!-- SOMMAIRE STICKY -->
     <aside style="display:{{ tocD }}; position:sticky; top:112px;">
-      <p style="font-size:11.5px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:rgba(243,240,236,0.4); margin:0 0 18px;">Sommaire</p>
+      <p style="font-size:11.5px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.4); margin:0 0 18px;">Sommaire</p>
       <nav style="display:flex; flex-direction:column; gap:2px;">
-        <a href="#sec-01" data-toc="sec-01" style="display:flex; gap:12px; align-items:baseline; padding:8px 0; font-size:14.5px; color:rgba(243,240,236,0.55); text-decoration:none; transition:color .25s ease;"><span style="font-family:ui-monospace,'SF Mono',monospace; font-size:11.5px; color:rgba(243,240,236,0.35);">01</span>Éditeur du site</a>
-        <a href="#sec-02" data-toc="sec-02" style="display:flex; gap:12px; align-items:baseline; padding:8px 0; font-size:14.5px; color:rgba(243,240,236,0.55); text-decoration:none; transition:color .25s ease;"><span style="font-family:ui-monospace,'SF Mono',monospace; font-size:11.5px; color:rgba(243,240,236,0.35);">02</span>Hébergement</a>
-        <a href="#sec-03" data-toc="sec-03" style="display:flex; gap:12px; align-items:baseline; padding:8px 0; font-size:14.5px; color:rgba(243,240,236,0.55); text-decoration:none; transition:color .25s ease;"><span style="font-family:ui-monospace,'SF Mono',monospace; font-size:11.5px; color:rgba(243,240,236,0.35);">03</span>Propriété intellectuelle</a>
-        <a href="#sec-04" data-toc="sec-04" style="display:flex; gap:12px; align-items:baseline; padding:8px 0; font-size:14.5px; color:rgba(243,240,236,0.55); text-decoration:none; transition:color .25s ease;"><span style="font-family:ui-monospace,'SF Mono',monospace; font-size:11.5px; color:rgba(243,240,236,0.35);">04</span>Données personnelles</a>
-        <a href="#sec-05" data-toc="sec-05" style="display:flex; gap:12px; align-items:baseline; padding:8px 0; font-size:14.5px; color:rgba(243,240,236,0.55); text-decoration:none; transition:color .25s ease;"><span style="font-family:ui-monospace,'SF Mono',monospace; font-size:11.5px; color:rgba(243,240,236,0.35);">05</span>Cookies</a>
-        <a href="#sec-06" data-toc="sec-06" style="display:flex; gap:12px; align-items:baseline; padding:8px 0; font-size:14.5px; color:rgba(243,240,236,0.55); text-decoration:none; transition:color .25s ease;"><span style="font-family:ui-monospace,'SF Mono',monospace; font-size:11.5px; color:rgba(243,240,236,0.35);">06</span>Liens et responsabilité</a>
-        <a href="#sec-07" data-toc="sec-07" style="display:flex; gap:12px; align-items:baseline; padding:8px 0; font-size:14.5px; color:rgba(243,240,236,0.55); text-decoration:none; transition:color .25s ease;"><span style="font-family:ui-monospace,'SF Mono',monospace; font-size:11.5px; color:rgba(243,240,236,0.35);">07</span>Droit applicable</a>
+        <a href="#sec-01" data-toc="sec-01" style="display:flex; gap:12px; align-items:baseline; padding:8px 0; font-size:14.5px; color:rgba(255,255,255,0.55); text-decoration:none; transition:color .25s ease;"><span style="font-family:ui-monospace,'SF Mono',monospace; font-size:11.5px; color:rgba(255,255,255,0.35);">01</span>Éditeur du site</a>
+        <a href="#sec-02" data-toc="sec-02" style="display:flex; gap:12px; align-items:baseline; padding:8px 0; font-size:14.5px; color:rgba(255,255,255,0.55); text-decoration:none; transition:color .25s ease;"><span style="font-family:ui-monospace,'SF Mono',monospace; font-size:11.5px; color:rgba(255,255,255,0.35);">02</span>Hébergement</a>
+        <a href="#sec-03" data-toc="sec-03" style="display:flex; gap:12px; align-items:baseline; padding:8px 0; font-size:14.5px; color:rgba(255,255,255,0.55); text-decoration:none; transition:color .25s ease;"><span style="font-family:ui-monospace,'SF Mono',monospace; font-size:11.5px; color:rgba(255,255,255,0.35);">03</span>Propriété intellectuelle</a>
+        <a href="#sec-04" data-toc="sec-04" style="display:flex; gap:12px; align-items:baseline; padding:8px 0; font-size:14.5px; color:rgba(255,255,255,0.55); text-decoration:none; transition:color .25s ease;"><span style="font-family:ui-monospace,'SF Mono',monospace; font-size:11.5px; color:rgba(255,255,255,0.35);">04</span>Données personnelles</a>
+        <a href="#sec-05" data-toc="sec-05" style="display:flex; gap:12px; align-items:baseline; padding:8px 0; font-size:14.5px; color:rgba(255,255,255,0.55); text-decoration:none; transition:color .25s ease;"><span style="font-family:ui-monospace,'SF Mono',monospace; font-size:11.5px; color:rgba(255,255,255,0.35);">05</span>Cookies</a>
+        <a href="#sec-06" data-toc="sec-06" style="display:flex; gap:12px; align-items:baseline; padding:8px 0; font-size:14.5px; color:rgba(255,255,255,0.55); text-decoration:none; transition:color .25s ease;"><span style="font-family:ui-monospace,'SF Mono',monospace; font-size:11.5px; color:rgba(255,255,255,0.35);">06</span>Liens et responsabilité</a>
+        <a href="#sec-07" data-toc="sec-07" style="display:flex; gap:12px; align-items:baseline; padding:8px 0; font-size:14.5px; color:rgba(255,255,255,0.55); text-decoration:none; transition:color .25s ease;"><span style="font-family:ui-monospace,'SF Mono',monospace; font-size:11.5px; color:rgba(255,255,255,0.35);">07</span>Droit applicable</a>
       </nav>
     </aside>
 
@@ -101,138 +115,138 @@
       <!-- 01 -->
       <section id="sec-01" style="scroll-margin-top:108px;">
         <div data-reveal="1" style="display:flex; align-items:baseline; gap:18px; margin-bottom:clamp(20px,2.4vw,30px);">
-          <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:13px; color:#B86A4D; letter-spacing:0.05em;">01</span>
-          <span aria-hidden="true" style="flex:1; height:1px; background:rgba(243,240,236,0.12);"></span>
+          <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:13px; color:#C87A53; letter-spacing:0.05em;">01</span>
+          <span aria-hidden="true" style="flex:1; height:1px; background:rgba(255,255,255,0.12);"></span>
         </div>
-        <h2 data-reveal="1" style="margin:0 0 8px; font-family:'Clash Display',sans-serif; font-weight:500; font-size:clamp(26px,3vw,40px); line-height:1.1; letter-spacing:-0.01em; color:#F3F0EC;">Éditeur du site</h2>
+        <h2 data-reveal="1" style="margin:0 0 8px; font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(26px,3vw,40px); line-height:1.1; letter-spacing:-0.01em; color:#FFFFFF;">Éditeur du site</h2>
         <p data-reveal="1" style="margin:0 0 24px; font-size:12px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:#9A938B;">Identité</p>
-        <p data-reveal="1" style="margin:0 0 26px; font-size:clamp(15.5px,1.4vw,17.5px); line-height:1.7; color:rgba(243,240,236,0.72); max-width:620px; text-wrap:pretty;">Le site <strong style="color:#F3F0EC; font-weight:600;">brenartstudio.fr</strong> (ci-après « le Site ») est édité par Mérald Brenon, entrepreneur individuel exerçant sous le nom commercial Bren’Art Studio.</p>
-        <dl data-reveal="1" style="margin:0; display:flex; flex-direction:column; border-top:1px solid rgba(243,240,236,0.1);">
-          <div style="display:grid; grid-template-columns:{{ dlCols }}; gap:6px 28px; padding:16px 0; border-bottom:1px solid rgba(243,240,236,0.08);"><dt style="font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#9A938B;">Statut juridique</dt><dd style="margin:0; font-size:16px; line-height:1.5; color:#F3F0EC;">Entreprise individuelle — micro-entreprise (régime BNC)</dd></div>
-          <div style="display:grid; grid-template-columns:{{ dlCols }}; gap:6px 28px; padding:16px 0; border-bottom:1px solid rgba(243,240,236,0.08);"><dt style="font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#9A938B;">Numéro SIRET</dt><dd style="margin:0; font-size:16px; line-height:1.5; color:#F3F0EC; font-variant-numeric:tabular-nums;">929 511 558 00017</dd></div>
-          <div style="display:grid; grid-template-columns:{{ dlCols }}; gap:6px 28px; padding:16px 0; border-bottom:1px solid rgba(243,240,236,0.08);"><dt style="font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#9A938B;">Adresse du siège</dt><dd style="margin:0; font-size:16px; line-height:1.5; color:#F3F0EC;">11 rue André Grèzes, Toulouse, France</dd></div>
-          <div style="display:grid; grid-template-columns:{{ dlCols }}; gap:6px 28px; padding:16px 0; border-bottom:1px solid rgba(243,240,236,0.08);"><dt style="font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#9A938B;">TVA</dt><dd style="margin:0; font-size:16px; line-height:1.5; color:#F3F0EC;">TVA non applicable, art. 293 B du Code général des impôts</dd></div>
-          <div style="display:grid; grid-template-columns:{{ dlCols }}; gap:6px 28px; padding:16px 0; border-bottom:1px solid rgba(243,240,236,0.08);"><dt style="font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#9A938B;">E-mail</dt><dd style="margin:0; font-size:16px; line-height:1.5;"><a href="mailto:meraldbrenon.pro@gmail.com" style="color:#F3F0EC; text-decoration:underline; text-decoration-color:rgba(184,106,77,0.5); text-underline-offset:4px; transition:text-decoration-color .2s ease;" style-hover="text-decoration-color:#B86A4D;">meraldbrenon.pro@gmail.com</a></dd></div>
-          <div style="display:grid; grid-template-columns:{{ dlCols }}; gap:6px 28px; padding:16px 0; border-bottom:1px solid rgba(243,240,236,0.08);"><dt style="font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#9A938B;">Téléphone</dt><dd style="margin:0; font-size:16px; line-height:1.5;"><a href="tel:+33670174812" style="color:#F3F0EC; text-decoration:none;">06 70 17 48 12</a></dd></div>
-          <div style="display:grid; grid-template-columns:{{ dlCols }}; gap:6px 28px; padding:16px 0; border-bottom:1px solid rgba(243,240,236,0.08);"><dt style="font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#9A938B;">Directeur de la publication</dt><dd style="margin:0; font-size:16px; line-height:1.5; color:#F3F0EC;">Mérald Brenon</dd></div>
+        <p data-reveal="1" style="margin:0 0 26px; font-size:clamp(15.5px,1.4vw,17.5px); line-height:1.7; color:rgba(255,255,255,0.72); max-width:620px; text-wrap:pretty;">Le site <strong style="color:#FFFFFF; font-weight:600;">brenartstudio.fr</strong> (ci-après « le Site ») est édité par Mérald Brenon, entrepreneur individuel exerçant sous le nom commercial Bren’Art Studio.</p>
+        <dl data-reveal="1" style="margin:0; display:flex; flex-direction:column; border-top:1px solid rgba(255,255,255,0.1);">
+          <div style="display:grid; grid-template-columns:{{ dlCols }}; gap:6px 28px; padding:16px 0; border-bottom:1px solid rgba(255,255,255,0.08);"><dt style="font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#9A938B;">Statut juridique</dt><dd style="margin:0; font-size:16px; line-height:1.5; color:#FFFFFF;">Entreprise individuelle — micro-entreprise (régime BNC)</dd></div>
+          <div style="display:grid; grid-template-columns:{{ dlCols }}; gap:6px 28px; padding:16px 0; border-bottom:1px solid rgba(255,255,255,0.08);"><dt style="font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#9A938B;">Numéro SIRET</dt><dd style="margin:0; font-size:16px; line-height:1.5; color:#FFFFFF; font-variant-numeric:tabular-nums;">929 511 558 00017</dd></div>
+          <div style="display:grid; grid-template-columns:{{ dlCols }}; gap:6px 28px; padding:16px 0; border-bottom:1px solid rgba(255,255,255,0.08);"><dt style="font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#9A938B;">Adresse du siège</dt><dd style="margin:0; font-size:16px; line-height:1.5; color:#FFFFFF;">11 rue André Grèzes, Toulouse, France</dd></div>
+          <div style="display:grid; grid-template-columns:{{ dlCols }}; gap:6px 28px; padding:16px 0; border-bottom:1px solid rgba(255,255,255,0.08);"><dt style="font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#9A938B;">TVA</dt><dd style="margin:0; font-size:16px; line-height:1.5; color:#FFFFFF;">TVA non applicable, art. 293 B du Code général des impôts</dd></div>
+          <div style="display:grid; grid-template-columns:{{ dlCols }}; gap:6px 28px; padding:16px 0; border-bottom:1px solid rgba(255,255,255,0.08);"><dt style="font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#9A938B;">E-mail</dt><dd style="margin:0; font-size:16px; line-height:1.5;"><a href="mailto:meraldbrenon.pro@gmail.com" style="color:#FFFFFF; text-decoration:underline; text-decoration-color:rgba(200,122,83,0.5); text-underline-offset:4px; transition:text-decoration-color .2s ease;" style-hover="text-decoration-color:#C87A53;">meraldbrenon.pro@gmail.com</a></dd></div>
+          <div style="display:grid; grid-template-columns:{{ dlCols }}; gap:6px 28px; padding:16px 0; border-bottom:1px solid rgba(255,255,255,0.08);"><dt style="font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#9A938B;">Téléphone</dt><dd style="margin:0; font-size:16px; line-height:1.5;"><a href="tel:+33670174812" style="color:#FFFFFF; text-decoration:none;">06 70 17 48 12</a></dd></div>
+          <div style="display:grid; grid-template-columns:{{ dlCols }}; gap:6px 28px; padding:16px 0; border-bottom:1px solid rgba(255,255,255,0.08);"><dt style="font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#9A938B;">Directeur de la publication</dt><dd style="margin:0; font-size:16px; line-height:1.5; color:#FFFFFF;">Mérald Brenon</dd></div>
         </dl>
       </section>
 
       <!-- 02 -->
       <section id="sec-02" style="scroll-margin-top:108px;">
         <div data-reveal="1" style="display:flex; align-items:baseline; gap:18px; margin-bottom:clamp(20px,2.4vw,30px);">
-          <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:13px; color:#B86A4D; letter-spacing:0.05em;">02</span>
-          <span aria-hidden="true" style="flex:1; height:1px; background:rgba(243,240,236,0.12);"></span>
+          <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:13px; color:#C87A53; letter-spacing:0.05em;">02</span>
+          <span aria-hidden="true" style="flex:1; height:1px; background:rgba(255,255,255,0.12);"></span>
         </div>
-        <h2 data-reveal="1" style="margin:0 0 8px; font-family:'Clash Display',sans-serif; font-weight:500; font-size:clamp(26px,3vw,40px); line-height:1.1; letter-spacing:-0.01em; color:#F3F0EC;">Hébergement</h2>
+        <h2 data-reveal="1" style="margin:0 0 8px; font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(26px,3vw,40px); line-height:1.1; letter-spacing:-0.01em; color:#FFFFFF;">Hébergement</h2>
         <p data-reveal="1" style="margin:0 0 24px; font-size:12px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:#9A938B;">Hébergeur</p>
-        <p data-reveal="1" style="margin:0 0 26px; font-size:clamp(15.5px,1.4vw,17.5px); line-height:1.7; color:rgba(243,240,236,0.72); max-width:620px;">Le Site est hébergé par&nbsp;:</p>
-        <dl data-reveal="1" style="margin:0; display:flex; flex-direction:column; border-top:1px solid rgba(243,240,236,0.1);">
-          <div style="display:grid; grid-template-columns:{{ dlCols }}; gap:6px 28px; padding:16px 0; border-bottom:1px solid rgba(243,240,236,0.08);"><dt style="font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#9A938B;">Raison sociale</dt><dd style="margin:0; font-size:16px; line-height:1.5; color:#F3F0EC;">Hostinger International Ltd.</dd></div>
-          <div style="display:grid; grid-template-columns:{{ dlCols }}; gap:6px 28px; padding:16px 0; border-bottom:1px solid rgba(243,240,236,0.08);"><dt style="font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#9A938B;">Siège social</dt><dd style="margin:0; font-size:16px; line-height:1.5; color:#F3F0EC;">61 Lordou Vironos Street, 6023 Larnaca, Chypre</dd></div>
-          <div style="display:grid; grid-template-columns:{{ dlCols }}; gap:6px 28px; padding:16px 0; border-bottom:1px solid rgba(243,240,236,0.08);"><dt style="font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#9A938B;">Contact</dt><dd style="margin:0; font-size:16px; line-height:1.5;"><a href="https://www.hostinger.fr/contact" target="_blank" rel="noopener" style="color:#F3F0EC; text-decoration:underline; text-decoration-color:rgba(184,106,77,0.5); text-underline-offset:4px; transition:text-decoration-color .2s ease;" style-hover="text-decoration-color:#B86A4D;">hostinger.fr/contact</a></dd></div>
+        <p data-reveal="1" style="margin:0 0 26px; font-size:clamp(15.5px,1.4vw,17.5px); line-height:1.7; color:rgba(255,255,255,0.72); max-width:620px;">Le Site est hébergé par&nbsp;:</p>
+        <dl data-reveal="1" style="margin:0; display:flex; flex-direction:column; border-top:1px solid rgba(255,255,255,0.1);">
+          <div style="display:grid; grid-template-columns:{{ dlCols }}; gap:6px 28px; padding:16px 0; border-bottom:1px solid rgba(255,255,255,0.08);"><dt style="font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#9A938B;">Raison sociale</dt><dd style="margin:0; font-size:16px; line-height:1.5; color:#FFFFFF;">Hostinger International Ltd.</dd></div>
+          <div style="display:grid; grid-template-columns:{{ dlCols }}; gap:6px 28px; padding:16px 0; border-bottom:1px solid rgba(255,255,255,0.08);"><dt style="font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#9A938B;">Siège social</dt><dd style="margin:0; font-size:16px; line-height:1.5; color:#FFFFFF;">61 Lordou Vironos Street, 6023 Larnaca, Chypre</dd></div>
+          <div style="display:grid; grid-template-columns:{{ dlCols }}; gap:6px 28px; padding:16px 0; border-bottom:1px solid rgba(255,255,255,0.08);"><dt style="font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#9A938B;">Contact</dt><dd style="margin:0; font-size:16px; line-height:1.5;"><a href="https://www.hostinger.fr/contact" target="_blank" rel="noopener" style="color:#FFFFFF; text-decoration:underline; text-decoration-color:rgba(200,122,83,0.5); text-underline-offset:4px; transition:text-decoration-color .2s ease;" style-hover="text-decoration-color:#C87A53;">hostinger.fr/contact</a></dd></div>
         </dl>
       </section>
 
       <!-- 03 -->
       <section id="sec-03" style="scroll-margin-top:108px;">
         <div data-reveal="1" style="display:flex; align-items:baseline; gap:18px; margin-bottom:clamp(20px,2.4vw,30px);">
-          <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:13px; color:#B86A4D; letter-spacing:0.05em;">03</span>
-          <span aria-hidden="true" style="flex:1; height:1px; background:rgba(243,240,236,0.12);"></span>
+          <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:13px; color:#C87A53; letter-spacing:0.05em;">03</span>
+          <span aria-hidden="true" style="flex:1; height:1px; background:rgba(255,255,255,0.12);"></span>
         </div>
-        <h2 data-reveal="1" style="margin:0 0 8px; font-family:'Clash Display',sans-serif; font-weight:500; font-size:clamp(26px,3vw,40px); line-height:1.1; letter-spacing:-0.01em; color:#F3F0EC;">Propriété intellectuelle</h2>
+        <h2 data-reveal="1" style="margin:0 0 8px; font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(26px,3vw,40px); line-height:1.1; letter-spacing:-0.01em; color:#FFFFFF;">Propriété intellectuelle</h2>
         <p data-reveal="1" style="margin:0 0 24px; font-size:12px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:#9A938B;">Contenus et droits d’auteur</p>
-        <p data-reveal="1" style="margin:0 0 20px; font-size:clamp(15.5px,1.4vw,17.5px); line-height:1.8; color:rgba(243,240,236,0.72); max-width:660px; text-wrap:pretty;">L’ensemble des éléments présents sur le Site — textes, identités visuelles, logos, maquettes, illustrations, photographies, études de cas et code — sont, sauf mention contraire, la propriété exclusive de Mérald Brenon / Bren’Art Studio ou font l’objet d’une autorisation d’utilisation.</p>
-        <p data-reveal="1" style="margin:0; font-size:clamp(15.5px,1.4vw,17.5px); line-height:1.8; color:rgba(243,240,236,0.72); max-width:660px; text-wrap:pretty;">Les travaux présentés en portfolio et études de cas restent la propriété intellectuelle de leurs auteurs respectifs et/ou de leurs clients, dans le cadre des droits cédés au titre des prestations réalisées. Toute reproduction, représentation, modification ou diffusion de tout ou partie du Site, par quelque procédé que ce soit, sans autorisation écrite préalable, est interdite et constitue une contrefaçon sanctionnée par les articles L.335-2 et suivants du Code de la propriété intellectuelle.</p>
+        <p data-reveal="1" style="margin:0 0 20px; font-size:clamp(15.5px,1.4vw,17.5px); line-height:1.8; color:rgba(255,255,255,0.72); max-width:660px; text-wrap:pretty;">L’ensemble des éléments présents sur le Site — textes, identités visuelles, logos, maquettes, illustrations, photographies, études de cas et code — sont, sauf mention contraire, la propriété exclusive de Mérald Brenon / Bren’Art Studio ou font l’objet d’une autorisation d’utilisation.</p>
+        <p data-reveal="1" style="margin:0; font-size:clamp(15.5px,1.4vw,17.5px); line-height:1.8; color:rgba(255,255,255,0.72); max-width:660px; text-wrap:pretty;">Les travaux présentés en portfolio et études de cas restent la propriété intellectuelle de leurs auteurs respectifs et/ou de leurs clients, dans le cadre des droits cédés au titre des prestations réalisées. Toute reproduction, représentation, modification ou diffusion de tout ou partie du Site, par quelque procédé que ce soit, sans autorisation écrite préalable, est interdite et constitue une contrefaçon sanctionnée par les articles L.335-2 et suivants du Code de la propriété intellectuelle.</p>
       </section>
 
       <!-- 04 -->
       <section id="sec-04" style="scroll-margin-top:108px;">
         <div data-reveal="1" style="display:flex; align-items:baseline; gap:18px; margin-bottom:clamp(20px,2.4vw,30px);">
-          <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:13px; color:#B86A4D; letter-spacing:0.05em;">04</span>
-          <span aria-hidden="true" style="flex:1; height:1px; background:rgba(243,240,236,0.12);"></span>
+          <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:13px; color:#C87A53; letter-spacing:0.05em;">04</span>
+          <span aria-hidden="true" style="flex:1; height:1px; background:rgba(255,255,255,0.12);"></span>
         </div>
-        <h2 data-reveal="1" style="margin:0 0 8px; font-family:'Clash Display',sans-serif; font-weight:500; font-size:clamp(26px,3vw,40px); line-height:1.1; letter-spacing:-0.01em; color:#F3F0EC;">Données personnelles</h2>
+        <h2 data-reveal="1" style="margin:0 0 8px; font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(26px,3vw,40px); line-height:1.1; letter-spacing:-0.01em; color:#FFFFFF;">Données personnelles</h2>
         <p data-reveal="1" style="margin:0 0 24px; font-size:12px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:#9A938B;">Protection des données (RGPD)</p>
-        <p data-reveal="1" style="margin:0 0 26px; font-size:clamp(15.5px,1.4vw,17.5px); line-height:1.8; color:rgba(243,240,236,0.72); max-width:660px; text-wrap:pretty;">Conformément au Règlement général sur la protection des données (RGPD) et à la loi Informatique et Libertés, Mérald Brenon, en qualité de responsable de traitement, s’engage à protéger les données personnelles collectées via le formulaire de contact du Site.</p>
-        <dl data-reveal="1" style="margin:0 0 26px; display:flex; flex-direction:column; border-top:1px solid rgba(243,240,236,0.1);">
-          <div style="display:grid; grid-template-columns:{{ dlCols }}; gap:6px 28px; padding:16px 0; border-bottom:1px solid rgba(243,240,236,0.08);"><dt style="font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#9A938B;">Données collectées</dt><dd style="margin:0; font-size:16px; line-height:1.6; color:#F3F0EC;">Nom, e-mail, contenu du message et, le cas échéant, informations relatives au projet transmis via le formulaire de contact.</dd></div>
-          <div style="display:grid; grid-template-columns:{{ dlCols }}; gap:6px 28px; padding:16px 0; border-bottom:1px solid rgba(243,240,236,0.08);"><dt style="font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#9A938B;">Finalité</dt><dd style="margin:0; font-size:16px; line-height:1.6; color:#F3F0EC;">Répondre à votre demande et assurer le suivi commercial de votre projet.</dd></div>
-          <div style="display:grid; grid-template-columns:{{ dlCols }}; gap:6px 28px; padding:16px 0; border-bottom:1px solid rgba(243,240,236,0.08);"><dt style="font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#9A938B;">Base légale</dt><dd style="margin:0; font-size:16px; line-height:1.6; color:#F3F0EC;">Intérêt légitime et/ou consentement.</dd></div>
-          <div style="display:grid; grid-template-columns:{{ dlCols }}; gap:6px 28px; padding:16px 0; border-bottom:1px solid rgba(243,240,236,0.08);"><dt style="font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#9A938B;">Durée de conservation</dt><dd style="margin:0; font-size:16px; line-height:1.6; color:#F3F0EC;">Le temps nécessaire au traitement de votre demande, puis archivage ou suppression.</dd></div>
-          <div style="display:grid; grid-template-columns:{{ dlCols }}; gap:6px 28px; padding:16px 0; border-bottom:1px solid rgba(243,240,236,0.08);"><dt style="font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#9A938B;">Destinataires</dt><dd style="margin:0; font-size:16px; line-height:1.6; color:#F3F0EC;">Données utilisées exclusivement par Mérald Brenon, ni cédées ni vendues à des tiers.</dd></div>
+        <p data-reveal="1" style="margin:0 0 26px; font-size:clamp(15.5px,1.4vw,17.5px); line-height:1.8; color:rgba(255,255,255,0.72); max-width:660px; text-wrap:pretty;">Conformément au Règlement général sur la protection des données (RGPD) et à la loi Informatique et Libertés, Mérald Brenon, en qualité de responsable de traitement, s’engage à protéger les données personnelles collectées via le formulaire de contact du Site.</p>
+        <dl data-reveal="1" style="margin:0 0 26px; display:flex; flex-direction:column; border-top:1px solid rgba(255,255,255,0.1);">
+          <div style="display:grid; grid-template-columns:{{ dlCols }}; gap:6px 28px; padding:16px 0; border-bottom:1px solid rgba(255,255,255,0.08);"><dt style="font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#9A938B;">Données collectées</dt><dd style="margin:0; font-size:16px; line-height:1.6; color:#FFFFFF;">Nom, e-mail, contenu du message et, le cas échéant, informations relatives au projet transmis via le formulaire de contact.</dd></div>
+          <div style="display:grid; grid-template-columns:{{ dlCols }}; gap:6px 28px; padding:16px 0; border-bottom:1px solid rgba(255,255,255,0.08);"><dt style="font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#9A938B;">Finalité</dt><dd style="margin:0; font-size:16px; line-height:1.6; color:#FFFFFF;">Répondre à votre demande et assurer le suivi commercial de votre projet.</dd></div>
+          <div style="display:grid; grid-template-columns:{{ dlCols }}; gap:6px 28px; padding:16px 0; border-bottom:1px solid rgba(255,255,255,0.08);"><dt style="font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#9A938B;">Base légale</dt><dd style="margin:0; font-size:16px; line-height:1.6; color:#FFFFFF;">Intérêt légitime et/ou consentement.</dd></div>
+          <div style="display:grid; grid-template-columns:{{ dlCols }}; gap:6px 28px; padding:16px 0; border-bottom:1px solid rgba(255,255,255,0.08);"><dt style="font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#9A938B;">Durée de conservation</dt><dd style="margin:0; font-size:16px; line-height:1.6; color:#FFFFFF;">Le temps nécessaire au traitement de votre demande, puis archivage ou suppression.</dd></div>
+          <div style="display:grid; grid-template-columns:{{ dlCols }}; gap:6px 28px; padding:16px 0; border-bottom:1px solid rgba(255,255,255,0.08);"><dt style="font-size:12px; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; color:#9A938B;">Destinataires</dt><dd style="margin:0; font-size:16px; line-height:1.6; color:#FFFFFF;">Données utilisées exclusivement par Mérald Brenon, ni cédées ni vendues à des tiers.</dd></div>
         </dl>
-        <p data-reveal="1" style="margin:0; font-size:clamp(15.5px,1.4vw,17.5px); line-height:1.8; color:rgba(243,240,236,0.72); max-width:660px; text-wrap:pretty;">Conformément à la réglementation en vigueur, vous disposez d’un droit d’accès, de rectification, d’effacement, de limitation et d’opposition au traitement de vos données. Vous pouvez exercer ces droits en écrivant à <a href="mailto:meraldbrenon.pro@gmail.com" style="color:#F3F0EC; text-decoration:underline; text-decoration-color:rgba(184,106,77,0.5); text-underline-offset:4px; transition:text-decoration-color .2s ease;" style-hover="text-decoration-color:#B86A4D;">meraldbrenon.pro@gmail.com</a>. Vous disposez également du droit d’introduire une réclamation auprès de la CNIL (<a href="https://www.cnil.fr" target="_blank" rel="noopener" style="color:#F3F0EC; text-decoration:underline; text-decoration-color:rgba(184,106,77,0.5); text-underline-offset:4px; transition:text-decoration-color .2s ease;" style-hover="text-decoration-color:#B86A4D;">www.cnil.fr</a>).</p>
+        <p data-reveal="1" style="margin:0; font-size:clamp(15.5px,1.4vw,17.5px); line-height:1.8; color:rgba(255,255,255,0.72); max-width:660px; text-wrap:pretty;">Conformément à la réglementation en vigueur, vous disposez d’un droit d’accès, de rectification, d’effacement, de limitation et d’opposition au traitement de vos données. Vous pouvez exercer ces droits en écrivant à <a href="mailto:meraldbrenon.pro@gmail.com" style="color:#FFFFFF; text-decoration:underline; text-decoration-color:rgba(200,122,83,0.5); text-underline-offset:4px; transition:text-decoration-color .2s ease;" style-hover="text-decoration-color:#C87A53;">meraldbrenon.pro@gmail.com</a>. Vous disposez également du droit d’introduire une réclamation auprès de la CNIL (<a href="https://www.cnil.fr" target="_blank" rel="noopener" style="color:#FFFFFF; text-decoration:underline; text-decoration-color:rgba(200,122,83,0.5); text-underline-offset:4px; transition:text-decoration-color .2s ease;" style-hover="text-decoration-color:#C87A53;">www.cnil.fr</a>).</p>
       </section>
 
       <!-- 05 -->
       <section id="sec-05" style="scroll-margin-top:108px;">
         <div data-reveal="1" style="display:flex; align-items:baseline; gap:18px; margin-bottom:clamp(20px,2.4vw,30px);">
-          <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:13px; color:#B86A4D; letter-spacing:0.05em;">05</span>
-          <span aria-hidden="true" style="flex:1; height:1px; background:rgba(243,240,236,0.12);"></span>
+          <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:13px; color:#C87A53; letter-spacing:0.05em;">05</span>
+          <span aria-hidden="true" style="flex:1; height:1px; background:rgba(255,255,255,0.12);"></span>
         </div>
-        <h2 data-reveal="1" style="margin:0 0 8px; font-family:'Clash Display',sans-serif; font-weight:500; font-size:clamp(26px,3vw,40px); line-height:1.1; letter-spacing:-0.01em; color:#F3F0EC;">Cookies</h2>
+        <h2 data-reveal="1" style="margin:0 0 8px; font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(26px,3vw,40px); line-height:1.1; letter-spacing:-0.01em; color:#FFFFFF;">Cookies</h2>
         <p data-reveal="1" style="margin:0 0 24px; font-size:12px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:#9A938B;">Gestion des cookies</p>
-        <p data-reveal="1" style="margin:0; font-size:clamp(15.5px,1.4vw,17.5px); line-height:1.8; color:rgba(243,240,236,0.72); max-width:660px; text-wrap:pretty;">Le Site peut utiliser des cookies techniques strictement nécessaires à son fonctionnement (mesure d’audience anonymisée, par exemple). Aucun cookie publicitaire ou de traçage tiers n’est déposé sans votre consentement préalable. Vous pouvez à tout moment configurer votre navigateur pour refuser les cookies.</p>
+        <p data-reveal="1" style="margin:0; font-size:clamp(15.5px,1.4vw,17.5px); line-height:1.8; color:rgba(255,255,255,0.72); max-width:660px; text-wrap:pretty;">Le Site peut utiliser des cookies techniques strictement nécessaires à son fonctionnement (mesure d’audience anonymisée, par exemple). Aucun cookie publicitaire ou de traçage tiers n’est déposé sans votre consentement préalable. Vous pouvez à tout moment configurer votre navigateur pour refuser les cookies.</p>
       </section>
 
       <!-- 06 -->
       <section id="sec-06" style="scroll-margin-top:108px;">
         <div data-reveal="1" style="display:flex; align-items:baseline; gap:18px; margin-bottom:clamp(20px,2.4vw,30px);">
-          <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:13px; color:#B86A4D; letter-spacing:0.05em;">06</span>
-          <span aria-hidden="true" style="flex:1; height:1px; background:rgba(243,240,236,0.12);"></span>
+          <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:13px; color:#C87A53; letter-spacing:0.05em;">06</span>
+          <span aria-hidden="true" style="flex:1; height:1px; background:rgba(255,255,255,0.12);"></span>
         </div>
-        <h2 data-reveal="1" style="margin:0 0 8px; font-family:'Clash Display',sans-serif; font-weight:500; font-size:clamp(26px,3vw,40px); line-height:1.1; letter-spacing:-0.01em; color:#F3F0EC;">Liens et responsabilité</h2>
+        <h2 data-reveal="1" style="margin:0 0 8px; font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(26px,3vw,40px); line-height:1.1; letter-spacing:-0.01em; color:#FFFFFF;">Liens et responsabilité</h2>
         <p data-reveal="1" style="margin:0 0 24px; font-size:12px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:#9A938B;">Limitation de responsabilité</p>
-        <p data-reveal="1" style="margin:0; font-size:clamp(15.5px,1.4vw,17.5px); line-height:1.8; color:rgba(243,240,236,0.72); max-width:660px; text-wrap:pretty;">Mérald Brenon met tout en œuvre pour assurer l’exactitude et la mise à jour des informations diffusées sur le Site, mais ne saurait être tenu responsable des erreurs, omissions, ou de l’indisponibilité temporaire du Site. Le Site peut contenir des liens vers des sites tiers (travaux clients, réseaux sociaux) sur lesquels Bren’Art Studio n’exerce aucun contrôle et dont il décline toute responsabilité quant au contenu.</p>
+        <p data-reveal="1" style="margin:0; font-size:clamp(15.5px,1.4vw,17.5px); line-height:1.8; color:rgba(255,255,255,0.72); max-width:660px; text-wrap:pretty;">Mérald Brenon met tout en œuvre pour assurer l’exactitude et la mise à jour des informations diffusées sur le Site, mais ne saurait être tenu responsable des erreurs, omissions, ou de l’indisponibilité temporaire du Site. Le Site peut contenir des liens vers des sites tiers (travaux clients, réseaux sociaux) sur lesquels Bren’Art Studio n’exerce aucun contrôle et dont il décline toute responsabilité quant au contenu.</p>
       </section>
 
       <!-- 07 -->
       <section id="sec-07" style="scroll-margin-top:108px;">
         <div data-reveal="1" style="display:flex; align-items:baseline; gap:18px; margin-bottom:clamp(20px,2.4vw,30px);">
-          <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:13px; color:#B86A4D; letter-spacing:0.05em;">07</span>
-          <span aria-hidden="true" style="flex:1; height:1px; background:rgba(243,240,236,0.12);"></span>
+          <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:13px; color:#C87A53; letter-spacing:0.05em;">07</span>
+          <span aria-hidden="true" style="flex:1; height:1px; background:rgba(255,255,255,0.12);"></span>
         </div>
-        <h2 data-reveal="1" style="margin:0 0 8px; font-family:'Clash Display',sans-serif; font-weight:500; font-size:clamp(26px,3vw,40px); line-height:1.1; letter-spacing:-0.01em; color:#F3F0EC;">Droit applicable</h2>
+        <h2 data-reveal="1" style="margin:0 0 8px; font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(26px,3vw,40px); line-height:1.1; letter-spacing:-0.01em; color:#FFFFFF;">Droit applicable</h2>
         <p data-reveal="1" style="margin:0 0 24px; font-size:12px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:#9A938B;">Droit applicable et juridiction</p>
-        <p data-reveal="1" style="margin:0; font-size:clamp(15.5px,1.4vw,17.5px); line-height:1.8; color:rgba(243,240,236,0.72); max-width:660px; text-wrap:pretty;">Les présentes mentions légales sont soumises au droit français. En cas de litige, et à défaut de résolution amiable, les tribunaux français seront seuls compétents.</p>
+        <p data-reveal="1" style="margin:0; font-size:clamp(15.5px,1.4vw,17.5px); line-height:1.8; color:rgba(255,255,255,0.72); max-width:660px; text-wrap:pretty;">Les présentes mentions légales sont soumises au droit français. En cas de litige, et à défaut de résolution amiable, les tribunaux français seront seuls compétents.</p>
       </section>
 
     </main>
   </div>
 
   <!-- ============ FOOTER (commun) ============ -->
-  <footer style="background:#121212; border-top:1px solid rgba(243,240,236,0.1); padding:clamp(56px,7vw,90px) clamp(20px,4vw,48px) 36px;">
+  <footer style="background:#121212; border-top:1px solid rgba(255,255,255,0.1); padding:clamp(56px,7vw,90px) clamp(20px,4vw,48px) 36px;">
     <div style="max-width:1280px; margin:0 auto;">
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:clamp(36px,5vw,64px); margin-bottom:clamp(48px,6vw,72px);">
         <div style="display:flex; flex-direction:column; gap:16px;">
-          <a href="/" style="font-family:'Clash Display',sans-serif; font-weight:500; font-size:20px; letter-spacing:0.05em; color:#F3F0EC; text-decoration:none;">BREN’ART STUDIO</a>
-          <p style="font-size:14.5px; line-height:1.6; color:rgba(243,240,236,0.5); margin:0; max-width:280px;">Studio de création digitale à Toulouse. De l’idée à la mise en ligne.</p>
+          <a href="/" aria-label="Bren’Art Studio — Accueil" style="display:inline-flex; align-items:center; text-decoration:none;"><img src="assets/logotype-blanc.png" alt="Bren’Art Studio" width="1168" height="162" style="display:block; height:26px; width:auto;"></a>
+          <p style="font-size:14.5px; line-height:1.6; color:rgba(255,255,255,0.5); margin:0; max-width:280px;">Studio de création digitale à Toulouse. De l’idée à la mise en ligne.</p>
         </div>
         <div style="display:flex; flex-direction:column; gap:12px;">
-          <p style="font-size:12px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(243,240,236,0.4); margin:0 0 4px;">Pages</p>
-          <a href="/" style="color:rgba(243,240,236,0.7); text-decoration:none; font-size:14.5px; transition:color .2s ease; align-self:flex-start;" style-hover="color:#B86A4D;">Accueil</a>
-          <a href="/portfolio" style="color:rgba(243,240,236,0.7); text-decoration:none; font-size:14.5px; transition:color .2s ease; align-self:flex-start;" style-hover="color:#B86A4D;">Portfolio</a>
-          <a href="/services" style="color:rgba(243,240,236,0.7); text-decoration:none; font-size:14.5px; transition:color .2s ease; align-self:flex-start;" style-hover="color:#B86A4D;">Services</a>
-          <a href="/a-propos" style="color:rgba(243,240,236,0.7); text-decoration:none; font-size:14.5px; transition:color .2s ease; align-self:flex-start;" style-hover="color:#B86A4D;">À propos</a>
-          <a href="/contact" style="color:rgba(243,240,236,0.7); text-decoration:none; font-size:14.5px; transition:color .2s ease; align-self:flex-start;" style-hover="color:#B86A4D;">Contact</a>
+          <p style="font-size:12px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.4); margin:0 0 4px;">Pages</p>
+          <a href="/" style="color:rgba(255,255,255,0.7); text-decoration:none; font-size:14.5px; transition:color .2s ease; align-self:flex-start;" style-hover="color:#C87A53;">Accueil</a>
+          <a href="/portfolio" style="color:rgba(255,255,255,0.7); text-decoration:none; font-size:14.5px; transition:color .2s ease; align-self:flex-start;" style-hover="color:#C87A53;">Portfolio</a>
+          <a href="/services" style="color:rgba(255,255,255,0.7); text-decoration:none; font-size:14.5px; transition:color .2s ease; align-self:flex-start;" style-hover="color:#C87A53;">Services</a>
+          <a href="/a-propos" style="color:rgba(255,255,255,0.7); text-decoration:none; font-size:14.5px; transition:color .2s ease; align-self:flex-start;" style-hover="color:#C87A53;">À propos</a>
+          <a href="/contact" style="color:rgba(255,255,255,0.7); text-decoration:none; font-size:14.5px; transition:color .2s ease; align-self:flex-start;" style-hover="color:#C87A53;">Contact</a>
         </div>
         <div style="display:flex; flex-direction:column; gap:12px;">
-          <p style="font-size:12px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(243,240,236,0.4); margin:0 0 4px;">Réseaux</p>
+          <p style="font-size:12px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.4); margin:0 0 4px;">Réseaux</p>
           <div style="display:flex; gap:12px;">
-            <a href="https://www.instagram.com/merald_brn?igsh=bnVnb2N2dGx4dnps&utm_source=qr" target="_blank" rel="noopener" aria-label="Instagram" style="display:inline-flex; align-items:center; justify-content:center; width:46px; height:46px; border:1px solid rgba(243,240,236,0.2); border-radius:999px; transition:border-color .2s ease, background .2s ease;" style-hover="border-color:#B86A4D; background:rgba(184,106,77,0.12);"><img src="assets/instagram-white.png" alt="Instagram" width="22" height="22" style="display:block; width:22px; height:22px;"></a>
-            <a href="https://www.linkedin.com/in/m%C3%A9rald-design/" target="_blank" rel="noopener" aria-label="LinkedIn" style="display:inline-flex; align-items:center; justify-content:center; width:46px; height:46px; border:1px solid rgba(243,240,236,0.2); border-radius:999px; transition:border-color .2s ease, background .2s ease;" style-hover="border-color:#B86A4D; background:rgba(184,106,77,0.12);"><img src="assets/linkedin-white.png" alt="LinkedIn" width="22" height="22" style="display:block; width:22px; height:22px;"></a>
+            <a href="https://www.instagram.com/merald_brn?igsh=bnVnb2N2dGx4dnps&utm_source=qr" target="_blank" rel="noopener" aria-label="Instagram" style="display:inline-flex; align-items:center; justify-content:center; width:46px; height:46px; border:1px solid rgba(255,255,255,0.2); border-radius:999px; transition:border-color .2s ease, background .2s ease;" style-hover="border-color:#C87A53; background:rgba(200,122,83,0.12);"><img src="assets/instagram-white.png" alt="Instagram" width="22" height="22" style="display:block; width:22px; height:22px;"></a>
+            <a href="https://www.linkedin.com/in/m%C3%A9rald-design/" target="_blank" rel="noopener" aria-label="LinkedIn" style="display:inline-flex; align-items:center; justify-content:center; width:46px; height:46px; border:1px solid rgba(255,255,255,0.2); border-radius:999px; transition:border-color .2s ease, background .2s ease;" style-hover="border-color:#C87A53; background:rgba(200,122,83,0.12);"><img src="assets/linkedin-white.png" alt="LinkedIn" width="22" height="22" style="display:block; width:22px; height:22px;"></a>
           </div>
         </div>
         <div style="display:flex; flex-direction:column; gap:12px;">
-          <p style="font-size:12px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(243,240,236,0.4); margin:0 0 4px;">Contact</p>
-          <a href="mailto:meraldbrenon.pro@gmail.com" style="color:rgba(243,240,236,0.7); text-decoration:none; font-size:14.5px; transition:color .2s ease; align-self:flex-start;" style-hover="color:#B86A4D;">meraldbrenon.pro@gmail.com</a>
-          <p style="color:rgba(243,240,236,0.5); font-size:14.5px; margin:0;">Toulouse, France</p>
+          <p style="font-size:12px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.4); margin:0 0 4px;">Contact</p>
+          <a href="mailto:meraldbrenon.pro@gmail.com" style="color:rgba(255,255,255,0.7); text-decoration:none; font-size:14.5px; transition:color .2s ease; align-self:flex-start;" style-hover="color:#C87A53;">meraldbrenon.pro@gmail.com</a>
+          <p style="color:rgba(255,255,255,0.5); font-size:14.5px; margin:0;">Toulouse, France</p>
         </div>
       </div>
-      <div style="border-top:1px solid rgba(243,240,236,0.08); padding-top:28px; display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px;">
-        <p style="font-size:13px; color:rgba(243,240,236,0.4); margin:0;">© 2026 Bren’Art Studio — Tous droits réservés.</p>
-        <p style="font-size:13px; margin:0; display:flex; flex-wrap:wrap; gap:20px;"><a href="/mentions-legales" style="color:#B86A4D; text-decoration:none;">Mentions légales</a><a href="/confidentialite" style="color:rgba(243,240,236,0.4); text-decoration:none; transition:color .2s ease;" style-hover="color:#B86A4D;">Confidentialité</a><a href="/cgv" style="color:rgba(243,240,236,0.4); text-decoration:none; transition:color .2s ease;" style-hover="color:#B86A4D;">CGV</a></p>
+      <div style="border-top:1px solid rgba(255,255,255,0.08); padding-top:28px; display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px;">
+        <p style="font-size:13px; color:rgba(255,255,255,0.4); margin:0;">© 2026 Bren’Art Studio — Tous droits réservés.</p>
+        <p style="font-size:13px; margin:0; display:flex; flex-wrap:wrap; gap:20px;"><a href="/mentions-legales" style="color:#C87A53; text-decoration:none;">Mentions légales</a><a href="/confidentialite" style="color:rgba(255,255,255,0.4); text-decoration:none; transition:color .2s ease;" style-hover="color:#C87A53;">Confidentialité</a><a href="/cgv" style="color:rgba(255,255,255,0.4); text-decoration:none; transition:color .2s ease;" style-hover="color:#C87A53;">CGV</a></p>
       </div>
     </div>
   </footer>
@@ -312,9 +326,9 @@ class Component extends DCLogic {
     const setActive = (id) => {
       links.forEach((a) => {
         const on = a.getAttribute('data-toc') === id;
-        a.style.color = on ? '#F3F0EC' : 'rgba(243,240,236,0.55)';
+        a.style.color = on ? '#FFFFFF' : 'rgba(255,255,255,0.55)';
         const num = a.querySelector('span');
-        if (num) num.style.color = on ? '#B86A4D' : 'rgba(243,240,236,0.35)';
+        if (num) num.style.color = on ? '#C87A53' : 'rgba(255,255,255,0.35)';
       });
     };
 
@@ -347,7 +361,7 @@ class Component extends DCLogic {
 
     const c = document.createElement('div');
     c.setAttribute('aria-hidden', 'true');
-    c.style.cssText = 'position:fixed;top:0;left:0;width:10px;height:10px;border-radius:50%;background:#B86A4D;z-index:600;pointer-events:none;opacity:0;mix-blend-mode:screen;';
+    c.style.cssText = 'position:fixed;top:0;left:0;width:10px;height:10px;border-radius:50%;background:#C87A53;z-index:600;pointer-events:none;opacity:0;mix-blend-mode:screen;';
     document.body.appendChild(c);
     this._cursor = c;
     gsap.set(c, { xPercent: -50, yPercent: -50 });
@@ -374,11 +388,11 @@ class Component extends DCLogic {
         const dx = e.clientX - (r.left + r.width / 2);
         const dy = e.clientY - (r.top + r.height / 2);
         gsap.to(el, { x: dx * 0.1, y: dy * 0.18, duration: 0.4, ease: 'power3.out' });
-        el.style.color = '#EBA986';
+        el.style.color = '#FBB98C';
       });
       el.addEventListener('mouseleave', () => {
         gsap.to(el, { x: 0, y: 0, duration: 0.6, ease: 'power4.out' });
-        el.style.color = '#F3F0EC';
+        el.style.color = '#FFFFFF';
       });
     });
   }
