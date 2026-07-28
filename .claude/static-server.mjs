@@ -11,7 +11,8 @@ const TYPES = {
   '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css',
   '.json': 'application/json', '.xml': 'application/xml', '.txt': 'text/plain',
   '.ico': 'image/x-icon', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg',
-  '.webp': 'image/webp', '.svg': 'image/svg+xml', '.mp4': 'video/mp4', '.woff2': 'font/woff2',
+  '.webp': 'image/webp', '.avif': 'image/avif', '.svg': 'image/svg+xml',
+  '.mp4': 'video/mp4', '.woff2': 'font/woff2',
 };
 
 async function tryFile(p) { try { const s = await stat(p); return s.isFile() ? p : null; } catch { return null; } }
