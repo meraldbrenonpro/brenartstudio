@@ -32,6 +32,35 @@ const PAGE_TO_PATH = {
 };
 const ORIGIN = 'https://brenartstudio.fr';
 
+// Fil d'ariane + fiche d'œuvre par page. Une seule source ici, injectée au build,
+// plutôt que neuf blocs JSON-LD recopiés à la main dans index.html.
+const PAGE_META = {
+  'portfolio':      { crumb: 'Portfolio' },
+  'services':       { crumb: 'Services' },
+  'about':          { crumb: 'À propos' },
+  'contact':        { crumb: 'Contact' },
+  'portfolio-ineeva': {
+    crumb: 'Ineeva', parent: ['Portfolio', '/portfolio'],
+    work: { name: 'Ineeva — identité de marque',
+            about: "Identité visuelle et présence en ligne d'une association",
+            genre: 'Identité de marque' } },
+  'portfolio-acasa': {
+    crumb: 'Acasa', parent: ['Portfolio', '/portfolio'],
+    work: { name: 'Acasa — identité de marque',
+            about: "Identité visuelle d'un magasin de meubles",
+            genre: 'Identité de marque' } },
+  'portfolio-koryaa': {
+    crumb: 'Koryaa', parent: ['Portfolio', '/portfolio'],
+    work: { name: 'Koryaa — identité de marque',
+            about: "Identité visuelle d'une marque de cosmétique capillaire",
+            genre: 'Identité de marque' } },
+  'portfolio-laure-fagbohoun': {
+    crumb: 'Laure Fagbohoun', parent: ['Portfolio', '/portfolio'],
+    work: { name: 'Laure Fagbohoun — site vitrine',
+            about: "Site vitrine d'autrice et conférencière",
+            genre: 'Site web' } },
+};
+
 // --- 1. Extraire la table SEO _seo() depuis index.html (source unique) ------
 function extractSeoMap(html) {
   const anchor = html.indexOf('_seo(page)');
@@ -58,6 +87,12 @@ function transform(html, page, seo) {
   const path = PAGE_TO_PATH[page];
   const url = ORIGIN + (path === '/' ? '/' : path);
   let out = html;
+
+  // Le build réécrit index.html PAR-DESSUS sa propre source (la page d'accueil).
+  // On retire donc les injections d'un build précédent avant d'en poser de
+  // nouvelles, sinon elles s'empileraient à chaque exécution.
+  out = out.replace(/<style id="bs-prerender">[\s\S]*?<\/style>\s*/g, '');
+  out = out.replace(/<!--bs-page-ld-->[\s\S]*?<!--\/bs-page-ld-->\s*/g, '');
 
   // <base href="/"> pour que assets/ et support.js résolvent depuis la racine
   if (!/<base\s/i.test(out)) {
@@ -89,6 +124,49 @@ function transform(html, page, seo) {
   // Liens internes #cle -> URL propre (meilleur crawl + partage)
   for (const [key, p] of Object.entries(PAGE_TO_PATH)) {
     out = out.replaceAll(`href="#${key}"`, `href="${p}"`);
+  }
+
+  // --- Pré-rendu : n'afficher QUE l'écran de cette URL ---------------------
+  // Le markup porte « display:{{ dServices }} ». Sans JS, cette déclaration est
+  // invalide donc ignorée par le moteur CSS : les 9 écrans s'affichaient tous, sur
+  // chacune des 9 URL. Un crawler sans JS voyait donc le site entier neuf fois.
+  //
+  // On ne peut pas remplacer le placeholder par « none » en dur : le runtime x-dc
+  // perdrait son point d'ancrage et ne pourrait plus jamais réafficher la section.
+  // On passe donc par une feuille de style, que le style inline écrit par le runtime
+  // écrase dès l'hydratation — l'ordre de priorité CSS fait le travail.
+  out = out.replace('</head>',
+    `<style id="bs-prerender">section[data-page]{display:none}` +
+    `section[data-page="${page}"]{display:block}</style>\n</head>`);
+
+  // --- JSON-LD par page : fil d'ariane + fiche d'œuvre ---------------------
+  const meta = PAGE_META[page];
+  if (meta) {
+    const items = [{ '@type': 'ListItem', position: 1, name: 'Accueil', item: ORIGIN + '/' }];
+    if (meta.parent) {
+      items.push({ '@type': 'ListItem', position: 2, name: meta.parent[0], item: ORIGIN + meta.parent[1] });
+    }
+    items.push({ '@type': 'ListItem', position: items.length + 1, name: meta.crumb, item: url });
+
+    const blocks = [{ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: items }];
+
+    if (meta.work) {
+      blocks.push({
+        '@context': 'https://schema.org',
+        '@type': 'CreativeWork',
+        name: meta.work.name,
+        about: meta.work.about,
+        genre: meta.work.genre,
+        url,
+        inLanguage: 'fr-FR',
+        creator: { '@id': ORIGIN + '/#studio' },
+      });
+    }
+
+    const ld = blocks
+      .map((b) => `<script type="application/ld+json">\n${JSON.stringify(b, null, 2)}\n</script>`)
+      .join('\n');
+    out = out.replace('</head>', `<!--bs-page-ld-->\n${ld}\n<!--/bs-page-ld-->\n</head>`);
   }
 
   return out;
