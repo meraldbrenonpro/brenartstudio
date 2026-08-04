@@ -80,7 +80,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     "@type": "AggregateRating",
     "ratingValue": "5",
     "bestRating": "5",
-    "reviewCount": "2"
+    "reviewCount": "3"
   },
   "review": [
     {
@@ -94,6 +94,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
       "author": { "@type": "Person", "name": "Laure Fagbohoun" },
       "reviewBody": "Il a su donner vie à une idée qui n'existait encore que dans ma tête, avec un résultat qui dépasse toutes mes attentes."
+    },
+    {
+      "@type": "Review",
+      "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+      "author": {
+        "@type": "Person",
+        "name": "Ornela",
+        "jobTitle": "Fondatrice",
+        "worksFor": { "@type": "Organization", "name": "Koryaa" }
+      },
+      "datePublished": "2026-08-04",
+      "reviewBody": "J'avais une idée de l'univers de marque mais je n'avais pas encore réussi à matérialiser ma pensée. Mérald m'a aidée à donner vie à mon projet de manière visuelle."
     }
   ],
   "hasOfferCatalog": {
@@ -385,7 +397,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
        gauche garde son recouvrement via sa marge négative en ligne. */
     [data-bs-fan] { display:flex; justify-content:center; align-items:center; }
     [data-bs-testimonial] { margin:0; will-change:transform; cursor:default; }
-    @media (max-width:860px) {
+    /* Bascule en colonne à 1080px et non 860px : à trois cartes, l'éventail
+       demande ~960px de contenu une fois les clamp() arrivés à leur minimum,
+       pour un conteneur de ~940px à 1024px de large. En dessous de 1080px les
+       cartes déborderaient donc de la coquille et se feraient rogner par
+       l'overflow:hidden de la section. */
+    @media (max-width:1080px) {
       [data-bs-fan] { flex-direction:column; gap:22px; }
       /* box-sizing:border-box indispensable ici : en content-box, « width:100% »
          additionnait le padding et les cartes débordaient de ~16px (404px dans un
@@ -664,6 +681,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <figcaption style="margin-top:auto; display:flex; flex-direction:column; gap:5px;">
               <span style="font-size:12px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:#221610;">Laure Fagbohoun</span>
               <span style="font-size:13.5px; color:rgba(34,22,16,0.7);">Pasteure, autrice de «&nbsp;Lettre à ma fille&nbsp;»</span>
+            </figcaption>
+          </figure>
+
+          <!-- Carte droite -->
+          <figure data-bs-testimonial data-i="2" style="position:relative; z-index:1; flex:none; width:clamp(280px,25vw,338px); margin:0 0 0 -28px; transform:rotate(5deg) translateY(18px); background:rgba(255,255,255,0.06); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,0.14); border-radius:var(--bs-r-frame); padding:clamp(28px,2.4vw,36px) clamp(26px,2.2vw,32px); display:flex; flex-direction:column; gap:24px; box-shadow:0 24px 50px rgba(0,0,0,0.42);">
+            <div aria-hidden="true" style="width:54px; height:54px; border-radius:50%; overflow:hidden; border:1px solid rgba(200,122,83,0.42); flex:none; background:#2E1A2C;"><picture style="display:contents"><source type="image/avif" srcset="assets/opt/koryaa-avatar-122.avif"><img src="assets/opt/koryaa-avatar-122.png" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" width="122" height="122" loading="lazy" decoding="async"></picture></div>
+            <div role="img" aria-label="Noté 5 étoiles sur 5" style="display:flex; gap:4px; color:#C87A53; font-size:15px; line-height:1;"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span></div>
+            <blockquote style="margin:0; font-family:'Satoshi',sans-serif; font-weight:400; font-size:clamp(16.5px,1.4vw,19px); line-height:1.46; color:#FFFFFF;">«&nbsp;J’avais une idée de l’univers de marque mais je n’avais pas encore réussi à matérialiser ma pensée. Mérald m’a aidée à donner vie à mon projet de manière visuelle.&nbsp;»</blockquote>
+            <figcaption style="margin-top:auto; display:flex; flex-direction:column; gap:5px;">
+              <span style="font-size:12px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:#FFFFFF;">Ornela</span>
+              <span style="font-size:13.5px; color:rgba(255,255,255,0.5);">Fondatrice de Koryaa</span>
             </figcaption>
           </figure>
 
@@ -2085,7 +2113,7 @@ class Component extends DCLogic {
     const fan = root.querySelector('[data-bs-fan]');
     if (fan) {
       const cards = Array.prototype.slice.call(fan.querySelectorAll('[data-bs-testimonial]'));
-      const REST = [{ r: -5, y: 18 }, { r: 0, y: -14 }];
+      const REST = [{ r: -5, y: 18 }, { r: 0, y: -14 }, { r: 5, y: 18 }];
       const base = (i) => (i === 1 ? 3 : 1);
       const playFan = () => gsap.fromTo(cards,
         { opacity: 0, y: 80, rotate: 0, scale: 0.9 },
