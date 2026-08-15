@@ -1510,6 +1510,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <option value="brand">Brand Design</option>
               <option value="web">Web Design</option>
               <option value="brand-web">Brand + Web</option>
+              <option value="pack-essentiel">Pack Essentiel</option>
+              <option value="pack-signature">Pack Signature</option>
+              <option value="pack-integral">Pack Intégral</option>
               <option value="autre">Autre</option>
             </select>
           </div>
@@ -2332,9 +2335,19 @@ class Component extends DCLogic {
         'aria-hidden': 'true',
         style: { position: 'fixed', inset: 0, zIndex: 400, background: '#070707', pointerEvents: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }
       },
-      React.createElement('span', {
-        style: { fontFamily: "'Satoshi', sans-serif", fontWeight: 500, fontSize: 'clamp(20px, 2.4vw, 30px)', letterSpacing: '0.06em', color: '#FFFFFF', opacity: 0 }
-      }, 'Bren’Art Studio')
+      // Le même logo mark que le voile CSS #bs-intro. Les deux voiles se
+      // chevauchent (le CSS part au bout de 1,85 s, celui-ci n'existe qu'une
+      // fois GSAP chargé depuis le CDN) : afficher deux marques différentes
+      // faisait alterner le dessin et le mot « Bren'Art Studio » selon la
+      // vitesse du réseau. Une seule et même image dans les deux.
+      React.createElement('img', {
+        src: 'assets/logo-mark-blanc.png',
+        alt: '',
+        width: 200,
+        height: 238,
+        fetchpriority: 'high',
+        style: { width: 'clamp(64px, 9vw, 96px)', height: 'auto', opacity: 0 }
+      })
     );
   }
 
