@@ -1,6 +1,14 @@
 import { Resend } from 'resend'
 
-const ALLOWED_TYPES = ['brand', 'web', 'brand-web', 'autre']
+const ALLOWED_TYPES = [
+  'brand',
+  'web',
+  'brand-web',
+  'pack-essentiel',
+  'pack-signature',
+  'pack-integral',
+  'autre',
+]
 const MAX_NOM = 200
 const MAX_EMAIL = 200
 const MAX_MESSAGE = 5000
