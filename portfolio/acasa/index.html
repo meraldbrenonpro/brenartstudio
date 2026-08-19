@@ -325,19 +325,12 @@
 
        integrity (SRI) : si un de ces CDN était compromis, le navigateur refuserait
        d'exécuter un fichier modifié. Les empreintes sont calculées sur les fichiers
-       réellement servis.
-       ⚠ L'URL de Lenis est ÉPINGLÉE à 1.3.25 : elle pointait sur la plage flottante
-       « lenis@1 », dont le contenu change à chaque version mineure — un SRI y aurait
-       bloqué le script dès la publication de la suivante. Toute montée de version
-       impose donc de recalculer l'empreinte. -->
+       réellement servis. -->
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
           integrity="sha384-g4NTh/Iv5PPU4xPyhEWqPcwtNXOvdaDI8LLnyYfyNZOjKJeYQyjzQ9X5275eBjpt"
           crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
           integrity="sha384-Z3REaz79l2IaAZqJsSABtTbhjgOUYyV3p90XNnAPCSHg3EMTz1fouunq9WZRtj3d"
-          crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.25/dist/lenis.min.js"
-          integrity="sha384-ClD7pCgIUz5M81HT8aZmMxCsWmfsycmBiwL5gy1pUbdWHvICIbea22N9sTtAFotA"
           crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <style>
     /* ================= SOCLE — tokens de la direction artistique =================
@@ -1923,7 +1916,7 @@ class Component extends DCLogic {
   _waitLibs(timeout, cb) {
     const start = performance.now();
     const poll = () => {
-      if (window.gsap && window.ScrollTrigger && window.Lenis) return cb(true);
+      if (window.gsap && window.ScrollTrigger) return cb(true);
       if (performance.now() - start > timeout) return cb(false);
       setTimeout(poll, 80);
     };
@@ -1968,7 +1961,7 @@ class Component extends DCLogic {
     requestAnimationFrame(poll);
   }
 
-  // ====== Couche motion (Lenis + GSAP/ScrollTrigger) ======
+  // ====== Couche motion (GSAP/ScrollTrigger, scroll natif) ======
   _initMotion() {
     const gsap = window.gsap;
     gsap.registerPlugin(window.ScrollTrigger);
@@ -1976,11 +1969,17 @@ class Component extends DCLogic {
     this._ST = window.ScrollTrigger;
     this._EASE = 'power4.out'; // proche de cubic-bezier(0.16, 1, 0.3, 1)
 
-    // — Scroll lissé inertiel
-    this._lenis = new window.Lenis({ lerp: 0.1, smoothWheel: true });
-    this._lenis.on('scroll', this._ST.update);
-    this._lenisTick = (t) => this._lenis.raf(t * 1000);
-    gsap.ticker.add(this._lenisTick);
+    // — Vitesse de défilement, mesurée sur le scroll natif
+    //   Elle alimentait le ticker et les marquees via Lenis.velocity, exprimée en
+    //   pixels par frame. On garde la même unité pour ne pas retoucher les seuils.
+    this._scrollV = 0;
+    this._lastY = window.scrollY || 0;
+    this._velTick = () => {
+      const y = window.scrollY || 0;
+      this._scrollV += (Math.abs(y - this._lastY) - this._scrollV) * 0.2;
+      this._lastY = y;
+    };
+    gsap.ticker.add(this._velTick);
     gsap.ticker.lagSmoothing(0);
 
     // — Fine barre de progression de lecture
@@ -2061,7 +2060,7 @@ class Component extends DCLogic {
       if (!el || !el.getAnimations) return;
       const anim = el.getAnimations()[0];
       if (!anim) return;
-      const v = this._lenis ? Math.min(Math.abs(this._lenis.velocity) / 50, 2) : 0;
+      const v = Math.min(this._scrollV / 50, 2);
       const target = this._tickerHover ? 0.25 : 1 + v;
       this._tickerRate += (target - this._tickerRate) * 0.08;
       anim.playbackRate = this._tickerRate;
@@ -2073,7 +2072,7 @@ class Component extends DCLogic {
     this._mqLoop = () => {
       const els = document.querySelectorAll('[data-bs-marquee], [data-bs-mq-contact]');
       if (!els.length) return;
-      const v = this._lenis ? Math.min(Math.abs(this._lenis.velocity) / 60, 2.2) : 0;
+      const v = Math.min(this._scrollV / 60, 2.2);
       const target = this._mqHover ? 0.25 : 1 + v;
       this._mqRate += (target - this._mqRate) * 0.07;
       for (let i = 0; i < els.length; i++) {
@@ -2103,7 +2102,7 @@ class Component extends DCLogic {
   _navigate(target) {
     if (target === this.state.page) {
       this.setState({ menuOpen: false });
-      if (this._lenis) this._lenis.scrollTo(0); else window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
     const veil = this._veil;
@@ -2115,7 +2114,6 @@ class Component extends DCLogic {
     }
     // changement de page direct, sans voile de transition
     this.setState({ page: target, menuOpen: false, hov: -1, nextHov: -1 });
-    if (this._lenis) this._lenis.scrollTo(0, { immediate: true });
     window.scrollTo(0, 0);
     setTimeout(() => {
       this._setupPage(target);
@@ -2283,10 +2281,9 @@ class Component extends DCLogic {
 
     this._setupMagnets();
     ST.refresh();
-    if (this._lenis) this._lenis.resize();
     // re-calage des starts une fois la mise en page stabilisée (fonts, marquees)
     clearTimeout(this._refreshT);
-    this._refreshT = setTimeout(() => { ST.refresh(); if (this._lenis) this._lenis.resize(); }, 600);
+    this._refreshT = setTimeout(() => { ST.refresh(); }, 600);
   }
 
   // ====== Grille de travaux : reveal masqué, parallaxe colonnes/images, étiquette curseur ======
@@ -2400,14 +2397,13 @@ class Component extends DCLogic {
     if (this._cursor && this._cursor.parentNode) this._cursor.parentNode.removeChild(this._cursor);
     if (this._worksTag && this._worksTag.parentNode) this._worksTag.parentNode.removeChild(this._worksTag);
     if (this._gsap) {
-      if (this._lenisTick) this._gsap.ticker.remove(this._lenisTick);
+      if (this._velTick) this._gsap.ticker.remove(this._velTick);
       if (this._tickerLoop) this._gsap.ticker.remove(this._tickerLoop);
       if (this._mqLoop) this._gsap.ticker.remove(this._mqLoop);
       if (this._pbLoop) this._gsap.ticker.remove(this._pbLoop);
     }
     (this._trs || []).forEach((t) => { if (t && t.kill) t.kill(); });
     if (this._trsNav) this._trsNav.kill();
-    if (this._lenis) this._lenis.destroy();
   }
 
   buildTicker() {
