@@ -243,7 +243,7 @@
 }
 </script>
 <script src="./support.js"></script>
-<style id="bs-prerender">section[data-page]{display:none}section[data-page="portfolio-acasa"]{display:block}[data-bs-prehide]{display:none}</style>
+<style id="bs-prerender">section[data-page]{display:none}section[data-page="portfolio-acasa"]{display:block}[data-bs-prehide]{display:none}[data-bs-navlink][href="/portfolio"],[data-bs-navmob][href="/portfolio"]{color:#FFFFFF}[data-bs-navlink][href="/portfolio"]{text-decoration-color:#FFFFFF}</style>
 <!--bs-page-ld-->
 <script type="application/ld+json">
 {
@@ -455,18 +455,47 @@
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration:0.001ms !important; animation-iteration-count:1 !important; } }
     @keyframes bs-mq { from { transform:translateX(0); } to { transform:translateX(-50%); } }
     @keyframes bs-pulse { 0%,100% { opacity:1; box-shadow:0 0 0 0 rgba(95,191,122,0.55); } 50% { opacity:0.4; box-shadow:0 0 0 6px rgba(95,191,122,0); } }
-    /* Swap de texte navbar — mécanisme observé sur esaierosa.fr (site Framer) :
-       label dupliqué empilé verticalement dans un masque overflow:hidden ; au survol,
-       la colonne translate de -50% (le label sort par le haut, sa copie entre par le bas).
-       Durée/easing relevés au plus proche du site live : ~0.55s, cubic-bezier(0.625, 0.05, 0, 1). */
-    a[data-bs-navswap] [data-bs-navswap-col] { transition:transform .55s cubic-bezier(0.625, 0.05, 0, 1); will-change:transform; }
-    a[data-bs-navswap]:hover [data-bs-navswap-col] { transform:translateY(-50%); }
-    @media (prefers-reduced-motion: reduce) {
-      /* Fallback sans animation : simple changement de couleur (terracotta) au survol */
-      a[data-bs-navswap] [data-bs-navswap-col] { transition:none; will-change:auto; }
-      a[data-bs-navswap]:hover [data-bs-navswap-col] { transform:none; }
-      a[data-bs-navswap]:hover [data-bs-navswap-col] span:first-child { color:#BE7E59; }
+    /* ===== Navbar : indicateur de page courante =====
+       Un seul rectangle, positionné en absolu dans le conteneur des liens et
+       déplacé en transform + width (jamais en left, pour rester sur le compositeur).
+       Il remplace le swap de label terracotta qui occupait le survol : deux langages
+       de survol sur le même élément se seraient contredits, le libellé passant en
+       terracotta au moment précis où le rectangle blanc arrive dessous.
+
+       Repli sans JavaScript, ou si la mesure échoue : le rectangle reste à
+       opacity 0 et l'item actif garde son soulignement blanc, posé par
+       aria-current. La nav n'est donc jamais muette. */
+    [data-bs-navpill] {
+      position:absolute; left:0; top:50%; z-index:0;
+      width:0; height:0; opacity:0;
+      background:var(--bs-ivory); border-radius:4px;
+      pointer-events:none; will-change:transform, width;
     }
+    a[data-bs-navlink] {
+      position:relative; z-index:1;
+      display:inline-flex; align-items:center;
+      padding:6px 12px;
+      color:rgba(255,255,255,0.75); text-decoration:underline;
+      text-decoration-color:transparent; text-decoration-thickness:1px;
+      text-underline-offset:6px;
+      font-size:13px; font-weight:500; letter-spacing:0.02em; white-space:nowrap;
+      transition:color var(--bs-t-fast) ease, text-decoration-color var(--bs-t) ease;
+    }
+    a[data-bs-navlink][aria-current="page"] { color:var(--bs-ivory); text-decoration-color:var(--bs-ivory); }
+    /* Item couvert par le rectangle : encre sur blanc.
+       mix-blend-mode:difference a été écarté — il aurait inversé aussi le
+       soulignement et le contour de focus terracotta, et créé un contexte
+       d'empilement en conflit avec le backdrop-filter de la navbar. */
+    a[data-bs-navlink][data-bs-navlink-on] { color:var(--bs-ink); text-decoration-color:transparent; }
+    a[data-bs-navlink]:focus-visible { outline:2px solid var(--bs-terracotta); outline-offset:2px; border-radius:4px; }
+    @media (prefers-reduced-motion: reduce) {
+      [data-bs-navpill] { transition:none !important; }
+    }
+    /* Menu mobile : pas de rectangle glissant, un simple filet terracotta.
+       La couleur vit ici et non en style inline, sinon l'inline l'emporterait
+       sur la règle d'état actif. */
+    [data-bs-navmob] { color:rgba(255,255,255,0.75); }
+    [data-bs-navmob][aria-current="page"] { color:var(--bs-ivory); box-shadow:inset 2px 0 0 var(--bs-terracotta); }
     /* Grille de travaux — colonnes décalées + mise au point au survol */
     [data-bs-works-grid] { display:grid; grid-template-columns:1fr; gap:clamp(44px,8vw,72px); }
     @media (min-width:1021px) {
@@ -560,12 +589,13 @@
   <header style="position:absolute; top:0; left:0; right:0; z-index:100; display:flex; flex-direction:column; align-items:center; gap:10px; padding:clamp(18px,2.4vw,28px) clamp(20px,4vw,44px); pointer-events:none;">
     <nav aria-label="Navigation principale" style="pointer-events:auto; position:relative; width:100%; display:flex; align-items:center; justify-content:space-between; gap:16px;">
       <a href="/" aria-label="Bren’Art Studio, accueil" style="display:inline-flex; align-items:center; text-decoration:none; white-space:nowrap;"><picture style="display:contents"><source type="image/avif" srcset="assets/opt/logotype-blanc-374.avif"><img src="assets/logotype-blanc.png" alt="Bren’Art Studio" width="1168" height="162" style="display:block; height:clamp(20px,2.2vw,26px); width:auto;"></picture></a>
-      <div style="display:{{ navLinksD }}; align-items:center; gap:clamp(16px,1.9vw,30px);">
-        <a href="/" data-bs-navswap="1" style="display:inline-flex; align-items:center; color:{{ pillCAccueil }}; text-decoration:underline; text-decoration-color:transparent; text-decoration-thickness:1px; text-underline-offset:6px; font-size:13px; font-weight:500; letter-spacing:0.02em; white-space:nowrap; transition:color var(--bs-t-fast) ease, text-decoration-color var(--bs-t) ease;" style-hover="color:#FFFFFF; text-decoration-color:#C87A53;"><span style="display:inline-block; overflow:hidden; height:1lh;"><span data-bs-navswap-col="1" style="display:flex; flex-direction:column;"><span style="display:block;">Accueil</span><span aria-hidden="true" style="display:block; color:#BE7E59;">Accueil</span></span></span></a>
-        <a href="/portfolio" data-bs-navswap="1" style="display:inline-flex; align-items:center; color:{{ pillCPortfolio }}; text-decoration:underline; text-decoration-color:transparent; text-decoration-thickness:1px; text-underline-offset:6px; font-size:13px; font-weight:500; letter-spacing:0.02em; white-space:nowrap; transition:color var(--bs-t-fast) ease, text-decoration-color var(--bs-t) ease;" style-hover="color:#FFFFFF; text-decoration-color:#C87A53;"><span style="display:inline-block; overflow:hidden; height:1lh;"><span data-bs-navswap-col="1" style="display:flex; flex-direction:column;"><span style="display:block;">Portfolio</span><span aria-hidden="true" style="display:block; color:#BE7E59;">Portfolio</span></span></span></a>
-        <a href="/services" data-bs-navswap="1" style="display:inline-flex; align-items:center; color:{{ pillCServices }}; text-decoration:underline; text-decoration-color:transparent; text-decoration-thickness:1px; text-underline-offset:6px; font-size:13px; font-weight:500; letter-spacing:0.02em; white-space:nowrap; transition:color var(--bs-t-fast) ease, text-decoration-color var(--bs-t) ease;" style-hover="color:#FFFFFF; text-decoration-color:#C87A53;"><span style="display:inline-block; overflow:hidden; height:1lh;"><span data-bs-navswap-col="1" style="display:flex; flex-direction:column;"><span style="display:block;">Services</span><span aria-hidden="true" style="display:block; color:#BE7E59;">Services</span></span></span></a>
-        <a href="/a-propos" data-bs-navswap="1" style="display:inline-flex; align-items:center; color:{{ pillCAbout }}; text-decoration:underline; text-decoration-color:transparent; text-decoration-thickness:1px; text-underline-offset:6px; font-size:13px; font-weight:500; letter-spacing:0.02em; white-space:nowrap; transition:color var(--bs-t-fast) ease, text-decoration-color var(--bs-t) ease;" style-hover="color:#FFFFFF; text-decoration-color:#C87A53;"><span style="display:inline-block; overflow:hidden; height:1lh;"><span data-bs-navswap-col="1" style="display:flex; flex-direction:column;"><span style="display:block;">À propos</span><span aria-hidden="true" style="display:block; color:#BE7E59;">À propos</span></span></span></a>
-        <a href="/contact" data-bs-navswap="1" style="display:inline-flex; align-items:center; color:{{ pillCContact }}; text-decoration:underline; text-decoration-color:transparent; text-decoration-thickness:1px; text-underline-offset:6px; font-size:13px; font-weight:500; letter-spacing:0.02em; white-space:nowrap; transition:color var(--bs-t-fast) ease, text-decoration-color var(--bs-t) ease;" style-hover="color:#FFFFFF; text-decoration-color:#C87A53;"><span style="display:inline-block; overflow:hidden; height:1lh;"><span data-bs-navswap-col="1" style="display:flex; flex-direction:column;"><span style="display:block;">Contact</span><span aria-hidden="true" style="display:block; color:#BE7E59;">Contact</span></span></span></a>
+      <div data-bs-navbar="1" style="position:relative; display:{{ navLinksD }}; align-items:center; gap:clamp(16px,1.9vw,30px);">
+        <span data-bs-navpill="1" aria-hidden="true"></span>
+        <a href="/" data-bs-navlink="1">Accueil</a>
+        <a href="/portfolio" data-bs-navlink="1">Portfolio</a>
+        <a href="/services" data-bs-navlink="1">Services</a>
+        <a href="/a-propos" data-bs-navlink="1">À propos</a>
+        <a href="/contact" data-bs-navlink="1">Contact</a>
         <a href="/contact" data-bs-mag-target="1" onMouseEnter="{{ ctaNavE }}" onMouseLeave="{{ ctaNavL }}" style="display:inline-flex; align-items:center; gap:9px; margin-left:6px; background:#C87A53; color:#FFFFFF; text-decoration:none; font-size:13px; font-weight:500; letter-spacing:0.01em; padding:10px 22px; border-radius:var(--bs-r-pill); white-space:nowrap; transition:background var(--bs-t-fast) ease, box-shadow var(--bs-t-fast) ease, transform var(--bs-t-fast) ease;" style-hover="background:#D89265; box-shadow:0 8px 24px rgba(0,0,0,0.4); transform:translateY(-1px);">Démarrer un projet <span aria-hidden="true" style="display:inline-flex; transform:{{ ctaArrowT }}; transition:transform var(--bs-t-fast) ease;">→</span></a>
       </div>
       <button onClick="{{ toggleMenu }}" aria-label="Ouvrir le menu" style="display:{{ burgerD }}; flex-direction:column; justify-content:center; gap:5px; width:44px; height:44px; background:rgba(255,255,255,0.07); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.2); border-radius:var(--bs-r-pill); cursor:pointer; align-items:center; padding:0; flex-shrink:0;">
@@ -575,11 +605,11 @@
       </button>
     </nav>
     <div style="pointer-events:auto; display:{{ menuD }}; flex-direction:column; gap:4px; width:100%; max-width:1280px; padding:18px 24px 24px; border-radius:var(--bs-r-frame); background:rgba(7,7,7,0.85); backdrop-filter:blur(22px) saturate(1.2); -webkit-backdrop-filter:blur(22px) saturate(1.2); border:1px solid rgba(255,255,255,0.14); box-shadow:0 24px 60px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.14);">
-      <a href="/" style="color:{{ pillCAccueil }}; text-decoration:none; font-size:18px; font-weight:500; padding:12px 4px; border-bottom:1px solid rgba(255,255,255,0.08);">Accueil</a>
-      <a href="/portfolio" style="color:{{ pillCPortfolio }}; text-decoration:none; font-size:18px; font-weight:500; padding:12px 4px; border-bottom:1px solid rgba(255,255,255,0.08);">Portfolio</a>
-      <a href="/services" style="color:{{ pillCServices }}; text-decoration:none; font-size:18px; font-weight:500; padding:12px 4px; border-bottom:1px solid rgba(255,255,255,0.08);">Services</a>
-      <a href="/a-propos" style="color:{{ pillCAbout }}; text-decoration:none; font-size:18px; font-weight:500; padding:12px 4px; border-bottom:1px solid rgba(255,255,255,0.08);">À propos</a>
-      <a href="/contact" style="color:{{ pillCContact }}; text-decoration:none; font-size:18px; font-weight:500; padding:12px 4px; border-bottom:1px solid rgba(255,255,255,0.08);">Contact</a>
+      <a href="/" data-bs-navmob="1" style="text-decoration:none; font-size:18px; font-weight:500; padding:12px 4px 12px 12px; border-bottom:1px solid rgba(255,255,255,0.08);">Accueil</a>
+      <a href="/portfolio" data-bs-navmob="1" style="text-decoration:none; font-size:18px; font-weight:500; padding:12px 4px 12px 12px; border-bottom:1px solid rgba(255,255,255,0.08);">Portfolio</a>
+      <a href="/services" data-bs-navmob="1" style="text-decoration:none; font-size:18px; font-weight:500; padding:12px 4px 12px 12px; border-bottom:1px solid rgba(255,255,255,0.08);">Services</a>
+      <a href="/a-propos" data-bs-navmob="1" style="text-decoration:none; font-size:18px; font-weight:500; padding:12px 4px 12px 12px; border-bottom:1px solid rgba(255,255,255,0.08);">À propos</a>
+      <a href="/contact" data-bs-navmob="1" style="text-decoration:none; font-size:18px; font-weight:500; padding:12px 4px 12px 12px; border-bottom:1px solid rgba(255,255,255,0.08);">Contact</a>
       <a href="/contact" style="margin-top:16px; display:inline-flex; align-items:center; justify-content:center; gap:10px; background:#C87A53; color:#FFFFFF; text-decoration:none; font-size:15px; font-weight:500; padding:14px 24px; border-radius:var(--bs-r-pill);">Démarrer un projet <span aria-hidden="true">→</span></a>
     </div>
   </header>
@@ -1845,6 +1875,8 @@ class Component extends DCLogic {
     // Compteurs de stats : la valeur finale est écrite en dur dans le HTML (aucune
     // accolade au premier paint, valeur lisible sans JS). L'animation ne fait que
     // remonter de 0 jusqu'à cette valeur quand le bloc entre dans le viewport.
+    this._initNavPill();
+
     this._whenEl('[data-bs-stats]', 8000, (statEl) => {
       if (!statEl) return;
       const els = Array.prototype.slice.call(statEl.querySelectorAll('[data-bs-count]'));
@@ -1911,6 +1943,121 @@ class Component extends DCLogic {
         else this.setState({ motion: false });
       });
     }
+  }
+
+  // ====== Navbar : indicateur de page courante ======
+  // Volontairement indépendant de la couche motion : la nav doit désigner la page
+  // courante même si GSAP n'arrive jamais. Une seule mesure par déplacement,
+  // appliquée en transform + width.
+  _initNavPill() {
+    // Résolution par setTimeout et non par _whenEl : celui-ci scrute en
+    // requestAnimationFrame, suspendu dans un onglet en arrière-plan. Passé son
+    // délai de garde, il abandonne — la nav serait restée sans indicateur pour qui
+    // ouvre le site dans un onglet et n'y revient qu'une dizaine de secondes plus tard.
+    const bar = document.querySelector('[data-bs-navbar]');
+    const pill = bar && bar.querySelector('[data-bs-navpill]');
+    if (!bar || !pill) {
+      this._navTries = (this._navTries || 0) + 1;
+      if (this._navTries <= 40) this._navBoot = setTimeout(() => this._initNavPill(), 100);
+      return;
+    }
+    {
+      this._navBar = bar;
+      this._navPill = pill;
+
+      const EASE = 'cubic-bezier(0.16,1,0.3,1)';
+      const links = () => Array.prototype.slice.call(bar.querySelectorAll('[data-bs-navlink]'));
+      const activeLink = () => links().filter((a) => a.getAttribute('aria-current') === 'page')[0] || null;
+      let covered = null;
+
+      // aria-current est posé ici, pas dans le template : une liaison à accolades
+      // aurait laissé son propre placeholder comme valeur dans le HTML servi, ce que
+      // la spec ARIA fait retomber sur « true » — les cinq liens se seraient annoncés
+      // comme page courante tant que le runtime n'avait pas pris la main.
+      // Les pages projet activent Portfolio.
+      const syncCurrent = () => {
+        const page = this.state.page;
+        const key = page.indexOf('portfolio') === 0 ? 'portfolio' : page;
+        const href = (this._pageToPath && this._pageToPath[key]) || '/';
+        Array.prototype.slice
+          .call(document.querySelectorAll('[data-bs-navlink], [data-bs-navmob]'))
+          .forEach((a) => {
+            if (a.getAttribute('href') === href) a.setAttribute('aria-current', 'page');
+            else a.removeAttribute('aria-current');
+          });
+      };
+      this._navSync = syncCurrent;
+      syncCurrent();
+
+      const place = (link, animate) => {
+        if (!link) {
+          pill.style.opacity = '0';
+          if (covered) { covered.removeAttribute('data-bs-navlink-on'); covered = null; }
+          return;
+        }
+        const b = bar.getBoundingClientRect();
+        const r = link.getBoundingClientRect();
+        // Largeur nulle : nav masquée (mobile) ou polices pas encore posées.
+        // On sort sans rien peindre, le soulignement d'aria-current prend le relais.
+        if (!r.width || !b.width) { pill.style.opacity = '0'; return; }
+        pill.style.transition = (animate && !this._rm.matches)
+          ? 'transform 320ms ' + EASE + ', width 320ms ' + EASE
+          : 'none';
+        pill.style.width = r.width + 'px';
+        pill.style.height = r.height + 'px';
+        pill.style.transform = 'translate(' + (r.left - b.left) + 'px, -50%)';
+        pill.style.opacity = '1';
+        if (covered && covered !== link) covered.removeAttribute('data-bs-navlink-on');
+        link.setAttribute('data-bs-navlink-on', '');
+        covered = link;
+      };
+      this._navPlace = place;
+      this._navActive = activeLink;
+      this._navPage = this.state.page;
+
+      // Survol : le rectangle glisse vers l'item pointé.
+      this._onNavOver = (e) => {
+        const a = e.target.closest && e.target.closest('[data-bs-navlink]');
+        if (a && a !== covered) place(a, true);
+      };
+      // Sortie de la nav ENTIÈRE, pas d'un item : retour à la page courante.
+      this._onNavOut = () => place(activeLink(), true);
+      // Le clavier déplace l'indicateur comme le survol.
+      this._onNavFocus = (e) => {
+        const a = e.target.closest && e.target.closest('[data-bs-navlink]');
+        if (a) place(a, true);
+      };
+      this._onNavBlur = (e) => {
+        if (!bar.contains(e.relatedTarget)) place(activeLink(), true);
+      };
+      bar.addEventListener('pointerover', this._onNavOver);
+      bar.addEventListener('mouseleave', this._onNavOut);
+      bar.addEventListener('focusin', this._onNavFocus);
+      bar.addEventListener('focusout', this._onNavBlur);
+
+      // Redimensionnement : repositionnement sec, sans glissement.
+      this._onNavResize = () => {
+        clearTimeout(this._navRT);
+        this._navRT = setTimeout(() => place(covered || activeLink(), false), 100);
+      };
+      window.addEventListener('resize', this._onNavResize);
+
+      place(activeLink(), false);
+      // Les largeurs changent quand la police de la nav est réellement posée.
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => place(covered || activeLink(), false));
+      }
+    }
+  }
+
+  // Changement de page : l'indicateur glisse vers le nouvel item, il ne saute pas.
+  // Le runtime dc n'appelle componentDidUpdate qu'avec prevProps — il n'y a pas de
+  // prevState à comparer, on mémorise donc la page précédente nous-mêmes.
+  componentDidUpdate() {
+    if (!this._navPlace || this._navPage === this.state.page) return;
+    this._navPage = this.state.page;
+    this._navSync();
+    this._navPlace(this._navActive(), true);
   }
 
   _waitLibs(timeout, cb) {
@@ -2402,6 +2549,15 @@ class Component extends DCLogic {
       if (this._mqLoop) this._gsap.ticker.remove(this._mqLoop);
       if (this._pbLoop) this._gsap.ticker.remove(this._pbLoop);
     }
+    if (this._navBar) {
+      this._navBar.removeEventListener('pointerover', this._onNavOver);
+      this._navBar.removeEventListener('mouseleave', this._onNavOut);
+      this._navBar.removeEventListener('focusin', this._onNavFocus);
+      this._navBar.removeEventListener('focusout', this._onNavBlur);
+    }
+    if (this._onNavResize) window.removeEventListener('resize', this._onNavResize);
+    clearTimeout(this._navRT);
+    clearTimeout(this._navBoot);
     (this._trs || []).forEach((t) => { if (t && t.kill) t.kill(); });
     if (this._trsNav) this._trsNav.kill();
   }
@@ -2607,16 +2763,6 @@ class Component extends DCLogic {
       },
       hovL: () => this.setState({ hov: -1 })
     };
-
-    // état actif de la nav (les pages projet activent "Portfolio")
-    const navDefs = { Accueil: 'accueil', Portfolio: 'portfolio', Services: 'services', About: 'about', Contact: 'contact' };
-    Object.keys(navDefs).forEach((K) => {
-      const key = navDefs[K];
-      const active = key === 'portfolio' ? page.indexOf('portfolio') === 0 : page === key;
-      vals['pillBg' + K] = active ? 'rgba(15,9,6,0.55)' : 'transparent';
-      vals['pillBr' + K] = active ? 'rgba(255,255,255,0.18)' : 'transparent';
-      vals['pillC' + K] = active ? '#FFFFFF' : 'rgba(255,255,255,0.75)';
-    });
 
     // survol des lignes du portfolio
     // pointeur fin + motion : vignette flottante qui suit le curseur ; sinon, vignette en ligne (fallback)

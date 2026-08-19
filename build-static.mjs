@@ -177,10 +177,20 @@ function transform(html, page, seo) {
   // « display:{{ x }} » est invalide, donc ignoré, et ils s'affichaient tous en même
   // temps. On les masque par défaut ; le style inline écrit par le runtime reprend
   // la main dès l'hydratation.
+  // Etat actif de la navigation avant hydratation (et sans JavaScript du tout) :
+  // aria-current est posé par le runtime, il n'existe donc pas dans le HTML servi.
+  // On désigne ici le lien de la page courante par son href. L'indicateur blanc,
+  // lui, a besoin d'une mesure : sans JS il reste invisible, et c'est ce
+  // soulignement qui porte l'information.
+  const navKey = page.indexOf('portfolio') === 0 ? 'portfolio' : page;
+  const navHref = PAGE_TO_PATH[navKey] || '/';
   out = out.replace('</head>',
     `<style id="bs-prerender">section[data-page]{display:none}` +
     `section[data-page="${page}"]{display:block}` +
-    `[data-bs-prehide]{display:none}</style>\n</head>`);
+    `[data-bs-prehide]{display:none}` +
+    `[data-bs-navlink][href="${navHref}"],[data-bs-navmob][href="${navHref}"]{color:#FFFFFF}` +
+    `[data-bs-navlink][href="${navHref}"]{text-decoration-color:#FFFFFF}` +
+    `</style>\n</head>`);
 
   // --- JSON-LD par page : fil d'ariane + fiche d'œuvre ---------------------
   const meta = PAGE_META[page];
