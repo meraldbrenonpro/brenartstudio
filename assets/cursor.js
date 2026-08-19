@@ -40,7 +40,7 @@
   var label = document.createElement('span');
   label.textContent = 'Voir';
   label.style.cssText =
-    "font-family:'Inter',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.08em;" +
+    "font-family:'Archivo',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.08em;" +
     'color:#FFFFFF;opacity:0;transition:opacity ' + DUR + ' ' + EASE + ';';
   ring.appendChild(label);
 
