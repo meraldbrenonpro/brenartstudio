@@ -3,13 +3,104 @@
 <head>
 <meta charset="utf-8">
 <base href="/">
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-T2F73X7P');</script>
-<!-- End Google Tag Manager -->
+<!-- ============ CONSENTEMENT (RGPD) ============
+     Consent Mode v2 : les quatre signaux Google sont refusés par défaut, posés
+     AVANT toute autre balise. Et le conteneur GTM n'est pas chargé du tout tant
+     que la personne n'a pas accepté — un « denied » par défaut laisserait encore
+     partir des pings cookieless, ce que la CNIL n'exempte pas pour de la mesure
+     d'audience publicitaire. Le choix est mémorisé en localStorage. -->
+<script>
+(function (w, d) {
+  var KEY = 'bsConsent', ID = 'GTM-T2F73X7P';
+  w.dataLayer = w.dataLayer || [];
+  function gtag() { w.dataLayer.push(arguments); }
+  w.gtag = gtag;
+
+  gtag('consent', 'default', {
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: 'denied',
+    functionality_storage: 'denied',
+    personalization_storage: 'denied',
+    security_storage: 'granted',
+    wait_for_update: 500
+  });
+
+  function read() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+  function write(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+
+  var loaded = false;
+  function loadGtm() {
+    if (loaded) return;
+    loaded = true;
+    w.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+    var f = d.getElementsByTagName('script')[0], j = d.createElement('script');
+    j.async = true;
+    j.src = 'https://www.googletagmanager.com/gtm.js?id=' + ID;
+    f.parentNode.insertBefore(j, f);
+  }
+
+  function grant() {
+    gtag('consent', 'update', {
+      ad_storage: 'granted',
+      ad_user_data: 'granted',
+      ad_personalization: 'granted',
+      analytics_storage: 'granted',
+      functionality_storage: 'granted',
+      personalization_storage: 'granted'
+    });
+    loadGtm();
+  }
+
+  w.bsConsent = {
+    accept: function () { write('granted'); grant(); hide(); },
+    refuse: function () { write('denied'); hide(); },
+    open: function () { show(); }
+  };
+
+  var box = null, lastFocus = null;
+  function el() { return box || (box = d.getElementById('bs-consent')); }
+  function show() {
+    var b = el(); if (!b) return;
+    lastFocus = d.activeElement;
+    b.hidden = false;
+    var btn = b.querySelector('[data-bs-consent="accept"]');
+    if (btn) btn.focus();
+  }
+  function hide() {
+    var b = el(); if (!b) return;
+    b.hidden = true;
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  d.addEventListener('click', function (e) {
+    var t = e.target.closest ? e.target.closest('[data-bs-consent]') : null;
+    if (!t) return;
+    e.preventDefault();
+    var a = t.getAttribute('data-bs-consent');
+    if (a === 'accept') w.bsConsent.accept();
+    else if (a === 'refuse') w.bsConsent.refuse();
+    else if (a === 'open') w.bsConsent.open();
+  });
+
+  // Échap = refus explicite : fermer sans choisir laisserait un bandeau qui
+  // revient à chaque page, ou pire un consentement implicite.
+  d.addEventListener('keydown', function (e) {
+    var b = el();
+    if (e.key === 'Escape' && b && !b.hidden) w.bsConsent.refuse();
+  });
+
+  function init() {
+    var v = read();
+    if (v === 'granted') grant();
+    else if (v !== 'denied') show();
+  }
+  if (d.readyState === 'loading') d.addEventListener('DOMContentLoaded', init);
+  else init();
+})(window, document);
+</script>
+<!-- ============ FIN CONSENTEMENT ============ -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Laure Fagbohoun, site portfolio | Bren’Art Studio</title>
 <meta name="description" content="Direction artistique et site portfolio pour Laure Fagbohoun. Une réalisation Bren’Art Studio, studio de création digitale à Toulouse.">
@@ -197,10 +288,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!--/bs-page-ld-->
 </head>
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T2F73X7P"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+<!-- Bandeau de consentement — hors du template x-dc pour rester indépendant de
+     l'hydratation React : il doit pouvoir s'afficher même si le runtime échoue. -->
+<div id="bs-consent" role="dialog" aria-modal="false" aria-labelledby="bs-consent-t" aria-describedby="bs-consent-d" hidden
+     style="position:fixed; left:0; right:0; bottom:0; z-index:9000; display:flex; justify-content:center; padding:clamp(12px,2vw,24px); pointer-events:none;">
+  <div style="pointer-events:auto; box-sizing:border-box; width:100%; max-width:var(--bs-shell,1280px); display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:clamp(16px,2vw,32px); padding:clamp(18px,2vw,24px) clamp(20px,2.4vw,28px); background:rgba(7,7,7,0.92); backdrop-filter:blur(22px) saturate(1.2); -webkit-backdrop-filter:blur(22px) saturate(1.2); border:1px solid rgba(255,255,255,0.14); border-radius:var(--bs-r-frame,24px); box-shadow:0 24px 60px rgba(0,0,0,0.55);">
+    <div style="flex:1 1 420px; min-width:0;">
+      <p id="bs-consent-t" style="margin:0 0 6px; font-family:'Satoshi',sans-serif; font-weight:500; font-size:16px; color:#FFFFFF;">Mesure d’audience</p>
+      <p id="bs-consent-d" style="margin:0; font-size:14px; line-height:1.6; color:rgba(255,255,255,0.7);">Aucun traceur n’est déposé sans votre accord. Vous pouvez refuser&nbsp;: le site fonctionne à l’identique. <a href="/confidentialite" style="color:#FFFFFF; text-decoration:underline; text-decoration-color:#C87A53; text-underline-offset:3px;">Politique de confidentialité</a></p>
+    </div>
+    <div style="display:flex; flex-wrap:wrap; gap:12px; flex-shrink:0;">
+      <button type="button" data-bs-consent="refuse" style="cursor:pointer; font-family:'Inter',sans-serif; font-size:14px; font-weight:500; color:#FFFFFF; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.25); padding:12px 24px; border-radius:var(--bs-r-pill,999px); transition:border-color var(--bs-t-fast,.2s) ease;">Refuser</button>
+      <button type="button" data-bs-consent="accept" style="cursor:pointer; font-family:'Inter',sans-serif; font-size:14px; font-weight:500; color:#FFFFFF; background:#C87A53; border:1px solid #C87A53; padding:12px 24px; border-radius:var(--bs-r-pill,999px); transition:background var(--bs-t-fast,.2s) ease;">Accepter</button>
+    </div>
+  </div>
+</div>
 <!-- ============ ANIMATION D'OUVERTURE — logo mark blanc sur noir, 1re vue de la session ============ -->
 <style>
   #bs-intro { position:fixed; inset:0; z-index:9999; background:#070707; display:flex; align-items:center; justify-content:center; animation:bs-introVeil .6s ease 1.25s both; }
@@ -1538,6 +1640,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <label for="bs-message" style="font-size:12px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.6);">Message</label>
             <textarea id="bs-message" name="message" required="required" rows="5" placeholder="Votre activité, votre besoin, votre échéance, en quelques lignes." style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.18); border-radius:var(--bs-r-field); padding:14px 16px; font-family:'Inter',sans-serif; font-size:15px; color:#FFFFFF; resize:vertical; min-height:120px;"></textarea>
           </div>
+          <p style="font-size:12.5px; line-height:1.6; color:rgba(255,255,255,0.5); margin:0;">Les informations transmises servent uniquement à répondre à votre demande. Elles ne sont ni cédées ni revendues, et sont conservées douze mois. Vous disposez d’un droit d’accès, de rectification et de suppression&nbsp;: <a href="mailto:contact@brenartstudio.fr" style="color:rgba(255,255,255,0.75); text-decoration:underline; text-decoration-color:#C87A53; text-underline-offset:3px;">contact@brenartstudio.fr</a>. Détail dans la <a href="/confidentialite" style="color:rgba(255,255,255,0.75); text-decoration:underline; text-decoration-color:#C87A53; text-underline-offset:3px;">politique de confidentialité</a>.</p>
           <button type="submit" disabled="{{ submitDisabled }}" style="display:inline-flex; align-items:center; gap:10px; background:#141414; color:rgba(255,255,255,0.75); border:none; cursor:pointer; font-family:'Inter',sans-serif; font-size:15px; font-weight:500; padding:16px 30px; border-radius:var(--bs-r-pill); box-shadow:-5px -5px 12px rgba(255,255,255,0.05), 5px 5px 14px rgba(0,0,0,0.6); transition:box-shadow var(--bs-t-fast) ease, color var(--bs-t-fast) ease, opacity var(--bs-t-fast) ease; align-self:flex-start; opacity:{{ submitOpacity }};" style-hover="color:#C87A53; box-shadow:-1px -1px 5px rgba(255,255,255,0.04), 1px 1px 5px rgba(0,0,0,0.5), inset -2px -2px 6px rgba(255,255,255,0.05), inset 3px 3px 7px rgba(0,0,0,0.6);"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg><span style="display:{{ submitIdleD }};">Envoyer ma demande</span><span data-bs-prehide="1" style="display:{{ submitBusyD }};">Envoi…</span></button>
           <div role="alert" data-bs-prehide="1" style="display:{{ errorD }}; flex-direction:column; gap:8px; padding:16px 18px; background:rgba(200,122,83,0.12); border:1px solid rgba(200,122,83,0.35); border-radius:var(--bs-r-field);">
             <p ref="{{ errorRef }}" style="font-size:14.5px; line-height:1.5; color:#FFFFFF; margin:0;"></p>
@@ -1656,7 +1759,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div style="border-top:1px solid rgba(255,255,255,0.08); padding-top:28px; display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px;">
         <p style="font-size:13px; color:rgba(255,255,255,0.5); margin:0;">© 2026 Bren’Art Studio — Tous droits réservés.</p>
-        <p style="font-size:13px; margin:0; display:flex; flex-wrap:wrap; gap:20px;"><a href="/mentions-legales" style="color:rgba(255,255,255,0.5); text-decoration:none; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">Mentions légales</a><a href="/confidentialite" style="color:rgba(255,255,255,0.5); text-decoration:none; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">Confidentialité</a><a href="/cgv" style="color:rgba(255,255,255,0.5); text-decoration:none; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">CGV</a></p>
+        <p style="font-size:13px; margin:0; display:flex; flex-wrap:wrap; gap:20px;"><a href="/mentions-legales" style="color:rgba(255,255,255,0.5); text-decoration:none; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">Mentions légales</a><a href="/confidentialite" style="color:rgba(255,255,255,0.5); text-decoration:none; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">Confidentialité</a><a href="/cgv" style="color:rgba(255,255,255,0.5); text-decoration:none; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">CGV</a><a href="/confidentialite" data-bs-consent="open" style="color:rgba(255,255,255,0.5); text-decoration:none; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">Cookies</a></p>
       </div>
     </div>
   </footer>
