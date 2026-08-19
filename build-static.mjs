@@ -37,8 +37,8 @@ const ORIGIN = 'https://brenartstudio.fr';
 const PAGE_META = {
   'portfolio':      { crumb: 'Portfolio' },
   'services':       { crumb: 'Services' },
-  'about':          { crumb: 'À propos' },
-  'contact':        { crumb: 'Contact' },
+  'about':          { crumb: 'À propos', person: true },
+  'contact':        { crumb: 'Contact', faq: true },
   'portfolio-ineeva': {
     crumb: 'Ineeva', parent: ['Portfolio', '/portfolio'],
     work: { name: 'Ineeva — identité de marque',
@@ -60,6 +60,43 @@ const PAGE_META = {
             about: "Site vitrine d'autrice et conférencière",
             genre: 'Site web' } },
 };
+
+// --- Extraire la FAQ depuis le markup affiché (source unique) ---------------
+// Le bloc FAQPage était recopié à la main dans le <head> : une réponse avait déjà
+// divergé du texte à l'écran (« Quatre à six semaines… » balisé, « Comptez quatre
+// à six semaines… Il est tenu. » affiché). Google demande que le balisage
+// corresponde au contenu visible ; on le lit donc directement dans le markup.
+function stripTags(s) {
+  return s
+    .replace(/<[^>]+>/g, '')
+    .replace(/&nbsp;/g, '\u00A0')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function extractFaq(html) {
+  const re = /onClick="\{\{ faqT\d+ \}\}"[\s\S]*?<span>([\s\S]*?)<\/span>[\s\S]*?aria-hidden="\{\{ faqH\d+ \}\}"[\s\S]*?<p[^>]*>([\s\S]*?)<\/p>/g;
+  const out = [];
+  let m;
+  while ((m = re.exec(html))) {
+    const name = stripTags(m[1]);
+    const text = stripTags(m[2]);
+    if (name && text) {
+      out.push({
+        '@type': 'Question',
+        name,
+        acceptedAnswer: { '@type': 'Answer', text },
+      });
+    }
+  }
+  if (!out.length) throw new Error('FAQ introuvable dans le markup');
+  return out;
+}
 
 // --- 1. Extraire la table SEO _seo() depuis index.html (source unique) ------
 function extractSeoMap(html) {
@@ -156,6 +193,20 @@ function transform(html, page, seo) {
 
     const blocks = [{ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: items }];
 
+    // FAQ : le bloc ne doit être servi que sur la page qui AFFICHE les questions.
+    // Il vivait dans le <head> partagé, donc sur les 9 URL, y compris huit où le
+    // contenu n'est nulle part dans le DOM — ce que Google refuse (le contenu
+    // balisé doit être visible sur la page).
+    if (meta.faq) {
+      blocks.push({
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        '@id': url + '#faq',
+        mainEntity: FAQ,
+        worksFor: { '@id': ORIGIN + '/#studio' },
+      });
+    }
+
     if (meta.work) {
       blocks.push({
         '@context': 'https://schema.org',
@@ -181,6 +232,8 @@ function transform(html, page, seo) {
 // --- 3. Génération ----------------------------------------------------------
 const html = readFileSync(SRC, 'utf8');
 const M = extractSeoMap(html);
+const FAQ = extractFaq(html);
+console.log(`   FAQ : ${FAQ.length} question(s) lue(s) dans le markup`);
 
 let count = 0;
 for (const [page, path] of Object.entries(PAGE_TO_PATH)) {
