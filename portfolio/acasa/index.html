@@ -454,7 +454,6 @@
     @keyframes bs-spin { to { transform:rotate(360deg); } }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration:0.001ms !important; animation-iteration-count:1 !important; } }
     @keyframes bs-mq { from { transform:translateX(0); } to { transform:translateX(-50%); } }
-    @keyframes bs-pulse { 0%,100% { opacity:1; box-shadow:0 0 0 0 rgba(95,191,122,0.55); } 50% { opacity:0.4; box-shadow:0 0 0 6px rgba(95,191,122,0); } }
     /* ===== Navbar : indicateur de page courante =====
        Un seul rectangle, positionné en absolu dans le conteneur des liens et
        déplacé en transform + width (jamais en left, pour rester sur le compositeur).
@@ -747,20 +746,20 @@
         </div>
         <div data-bs-stats="1" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:32px; border-top:1px solid rgba(255,255,255,0.1); padding-top:clamp(40px,5vw,56px);">
           <div style="display:flex; flex-direction:column; gap:8px;">
-            <p style="display:flex; align-items:center; gap:14px; font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(48px,5vw,72px); line-height:1; margin:0; color:#FFFFFF;"><span data-bs-count="2">2</span><span aria-hidden="true" style="display:inline-block; width:11px; height:11px; border-radius:50%; background:#5FBF7A; animation:bs-pulse 1.6s ease-in-out infinite;"></span></p>
-            <p style="font-size:13px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">Projets en cours</p>
+            <p style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(48px,5vw,72px); line-height:1; margin:0; color:#FFFFFF;"><span data-bs-count="48">48</span>&nbsp;h</p>
+            <p style="font-size:13px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">De réponse</p>
           </div>
           <div style="display:flex; flex-direction:column; gap:8px;">
-            <p style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(48px,5vw,72px); line-height:1; margin:0; color:#FFFFFF;"><span data-bs-count="4">4</span></p>
-            <p style="font-size:13px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">Projets livrés</p>
+            <p style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(48px,5vw,72px); line-height:1; margin:0; color:#FFFFFF;"><span data-bs-count="2">2</span></p>
+            <p style="font-size:13px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">Séries de révisions incluses</p>
           </div>
           <div style="display:flex; flex-direction:column; gap:8px;">
-            <p style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(48px,5vw,72px); line-height:1; margin:0; color:#FFFFFF;"><span data-bs-count="3">3</span></p>
-            <p style="font-size:13px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">Années de pratique</p>
+            <p style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(48px,5vw,72px); line-height:1; margin:0; color:#FFFFFF;"><span data-bs-count="1">1</span></p>
+            <p style="font-size:13px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">Seul interlocuteur</p>
           </div>
           <div style="display:flex; flex-direction:column; gap:8px;">
             <p style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(48px,5vw,72px); line-height:1; margin:0; color:#FFFFFF;"><span data-bs-count="100">100</span>&nbsp;%</p>
-            <p style="font-size:13px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">Conçu et produit en interne</p>
+            <p style="font-size:13px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">Conçu en interne</p>
           </div>
         </div>
       </div>
