@@ -163,7 +163,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 }
 </script>
 <script src="./support.js"></script>
-<style id="bs-prerender">section[data-page]{display:none}section[data-page="services"]{display:block}</style>
+<style id="bs-prerender">section[data-page]{display:none}section[data-page="services"]{display:block}[data-bs-prehide]{display:none}</style>
 <!--bs-page-ld-->
 <script type="application/ld+json">
 {
@@ -613,19 +613,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div data-bs-stats="1" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:32px; border-top:1px solid rgba(255,255,255,0.1); padding-top:clamp(40px,5vw,56px);">
           <div style="display:flex; flex-direction:column; gap:8px;">
-            <p style="display:flex; align-items:center; gap:14px; font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(48px,5vw,72px); line-height:1; margin:0; color:#FFFFFF;">{{ statD }}<span aria-hidden="true" style="display:inline-block; width:11px; height:11px; border-radius:50%; background:#5FBF7A; animation:bs-pulse 1.6s ease-in-out infinite;"></span></p>
+            <p style="display:flex; align-items:center; gap:14px; font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(48px,5vw,72px); line-height:1; margin:0; color:#FFFFFF;"><span data-bs-count="2">2</span><span aria-hidden="true" style="display:inline-block; width:11px; height:11px; border-radius:50%; background:#5FBF7A; animation:bs-pulse 1.6s ease-in-out infinite;"></span></p>
             <p style="font-size:13px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">Projets en cours</p>
           </div>
           <div style="display:flex; flex-direction:column; gap:8px;">
-            <p style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(48px,5vw,72px); line-height:1; margin:0; color:#FFFFFF;">{{ statA }}</p>
+            <p style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(48px,5vw,72px); line-height:1; margin:0; color:#FFFFFF;"><span data-bs-count="4">4</span></p>
             <p style="font-size:13px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">Projets livrés</p>
           </div>
           <div style="display:flex; flex-direction:column; gap:8px;">
-            <p style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(48px,5vw,72px); line-height:1; margin:0; color:#FFFFFF;">{{ statB }}</p>
+            <p style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(48px,5vw,72px); line-height:1; margin:0; color:#FFFFFF;"><span data-bs-count="3">3</span></p>
             <p style="font-size:13px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">Années de pratique</p>
           </div>
           <div style="display:flex; flex-direction:column; gap:8px;">
-            <p style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(48px,5vw,72px); line-height:1; margin:0; color:#FFFFFF;">{{ statC }}&nbsp;%</p>
+            <p style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(48px,5vw,72px); line-height:1; margin:0; color:#FFFFFF;"><span data-bs-count="100">100</span>&nbsp;%</p>
             <p style="font-size:13px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">Conçu et produit en interne</p>
           </div>
         </div>
@@ -707,7 +707,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p style="font-size:17px; line-height:1.6; color:rgba(255,255,255,0.7); max-width:520px; margin:0 auto 36px;">Parlons-en simplement. Vous repartez avec un avis honnête, un cadre et un calendrier.</p>
         <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:16px;">
           <a href="/contact" data-bs-mag-target="1" style="display:inline-flex; align-items:center; background:#C87A53; color:#FFFFFF; text-decoration:none; font-size:15px; font-weight:500; padding:17px 32px; border-radius:var(--bs-r-pill); transition:background var(--bs-t-fast) ease, box-shadow var(--bs-t-fast) ease, transform var(--bs-t-fast) ease;" style-hover="background:#D89265; box-shadow:0 8px 24px rgba(0,0,0,0.4); transform:translateY(-2px);">Démarrer un projet</a>
-          <a href="{{ mailtoHref }}" style="display:inline-flex; align-items:center; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.25); color:#FFFFFF; text-decoration:none; font-size:15px; font-weight:500; padding:16px 32px; border-radius:var(--bs-r-pill); transition:border-color var(--bs-t-fast) ease;" style-hover="border-color:rgba(255,255,255,0.6);">{{ email }}</a>
+          <a href="mailto:contact@brenartstudio.fr" style="display:inline-flex; align-items:center; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.25); color:#FFFFFF; text-decoration:none; font-size:15px; font-weight:500; padding:16px 32px; border-radius:var(--bs-r-pill); transition:border-color var(--bs-t-fast) ease;" style-hover="border-color:rgba(255,255,255,0.6);">contact@brenartstudio.fr</a>
         </div>
       </div>
     </div>
@@ -794,7 +794,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="bs-shell" style="padding:clamp(120px,16vw,210px) clamp(20px,4vw,48px) clamp(90px,12vw,150px);">
       <div style="border-top:1px solid #2A2A2A; padding-top:clamp(56px,7vw,90px); display:flex; flex-direction:column; align-items:center; text-align:center; gap:clamp(30px,3.5vw,46px);">
         <h2 style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(38px,6.5vw,104px); line-height:0.98; letter-spacing:-0.015em; text-transform:uppercase; color:#FFFFFF; margin:0; text-wrap:balance;">Un projet en tête&nbsp;?<br>Parlons-en<span style="display:inline-block; width:clamp(11px,1vw,16px); height:clamp(11px,1vw,16px); background:#C87A53; margin-left:0.12em;"></span></h2>
-        <a href="{{ mailtoHref }}" data-bs-mag-target="1" style="display:inline-flex; align-items:center; gap:12px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.22); color:#FFFFFF; text-decoration:none; font-size:clamp(14px,1.3vw,16px); font-weight:500; letter-spacing:0.02em; padding:16px 30px; border-radius:var(--bs-r-pill); transition:border-color var(--bs-t) ease, box-shadow var(--bs-t) ease, background var(--bs-t) ease;" style-hover="border-color:#C87A53; box-shadow:0 0 0 4px rgba(200,122,83,0.16); background:rgba(200,122,83,0.10);">{{ email }} <span aria-hidden="true" style="color:#C87A53;">→</span></a>
+        <a href="mailto:contact@brenartstudio.fr" data-bs-mag-target="1" style="display:inline-flex; align-items:center; gap:12px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.22); color:#FFFFFF; text-decoration:none; font-size:clamp(14px,1.3vw,16px); font-weight:500; letter-spacing:0.02em; padding:16px 30px; border-radius:var(--bs-r-pill); transition:border-color var(--bs-t) ease, box-shadow var(--bs-t) ease, background var(--bs-t) ease;" style-hover="border-color:#C87A53; box-shadow:0 0 0 4px rgba(200,122,83,0.16); background:rgba(200,122,83,0.10);">contact@brenartstudio.fr <span aria-hidden="true" style="color:#C87A53;">→</span></a>
       </div>
     </div>
   </section>
@@ -926,7 +926,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span style="display:block; width:24px; height:1px; background:#C87A53;"></span>
       </div>
       <h2 style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(44px,7vw,104px); line-height:1; letter-spacing:-0.015em; text-transform:uppercase; margin:0 0 clamp(30px,4vw,48px); color:#FFFFFF;">Parlons-en<span style="color:#C87A53;">.</span></h2>
-      <a href="{{ mailtoHref }}" data-bs-mag-target="1" style="display:inline-block; font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(22px,4.2vw,60px); line-height:1.15; color:#FFFFFF; text-decoration:underline; text-decoration-color:rgba(200,122,83,0.4); text-decoration-thickness:2px; text-underline-offset:0.22em; overflow-wrap:anywhere; transition:color var(--bs-t-fast) ease, text-decoration-color var(--bs-t-fast) ease;" style-hover="color:#C87A53; text-decoration-color:#C87A53;">{{ email }}</a>
+      <a href="mailto:contact@brenartstudio.fr" data-bs-mag-target="1" style="display:inline-block; font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(22px,4.2vw,60px); line-height:1.15; color:#FFFFFF; text-decoration:underline; text-decoration-color:rgba(200,122,83,0.4); text-decoration-thickness:2px; text-underline-offset:0.22em; overflow-wrap:anywhere; transition:color var(--bs-t-fast) ease, text-decoration-color var(--bs-t-fast) ease;" style-hover="color:#C87A53; text-decoration-color:#C87A53;">contact@brenartstudio.fr</a>
     </div>
   </section>
 
@@ -1019,7 +1019,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span style="display:block; width:24px; height:1px; background:#C87A53;"></span>
       </div>
       <h2 style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(44px,7vw,104px); line-height:1; letter-spacing:-0.015em; text-transform:uppercase; margin:0 0 clamp(30px,4vw,48px); color:#FFFFFF;">Parlons-en<span style="color:#C87A53;">.</span></h2>
-      <a href="{{ mailtoHref }}" data-bs-mag-target="1" style="display:inline-block; font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(22px,4.2vw,60px); line-height:1.15; color:#FFFFFF; text-decoration:underline; text-decoration-color:rgba(200,122,83,0.4); text-decoration-thickness:2px; text-underline-offset:0.22em; overflow-wrap:anywhere; transition:color var(--bs-t-fast) ease, text-decoration-color var(--bs-t-fast) ease;" style-hover="color:#C87A53; text-decoration-color:#C87A53;">{{ email }}</a>
+      <a href="mailto:contact@brenartstudio.fr" data-bs-mag-target="1" style="display:inline-block; font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(22px,4.2vw,60px); line-height:1.15; color:#FFFFFF; text-decoration:underline; text-decoration-color:rgba(200,122,83,0.4); text-decoration-thickness:2px; text-underline-offset:0.22em; overflow-wrap:anywhere; transition:color var(--bs-t-fast) ease, text-decoration-color var(--bs-t-fast) ease;" style-hover="color:#C87A53; text-decoration-color:#C87A53;">contact@brenartstudio.fr</a>
     </div>
   </section>
 
@@ -1141,7 +1141,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span style="display:block; width:24px; height:1px; background:#C87A53;"></span>
       </div>
       <h2 style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(44px,7vw,104px); line-height:1; letter-spacing:-0.015em; text-transform:uppercase; margin:0 0 clamp(30px,4vw,48px); color:#FFFFFF;">Parlons-en<span style="color:#C87A53;">.</span></h2>
-      <a href="{{ mailtoHref }}" data-bs-mag-target="1" style="display:inline-block; font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(22px,4.2vw,60px); line-height:1.15; color:#FFFFFF; text-decoration:underline; text-decoration-color:rgba(200,122,83,0.4); text-decoration-thickness:2px; text-underline-offset:0.22em; overflow-wrap:anywhere; transition:color var(--bs-t-fast) ease, text-decoration-color var(--bs-t-fast) ease;" style-hover="color:#C87A53; text-decoration-color:#C87A53;">{{ email }}</a>
+      <a href="mailto:contact@brenartstudio.fr" data-bs-mag-target="1" style="display:inline-block; font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(22px,4.2vw,60px); line-height:1.15; color:#FFFFFF; text-decoration:underline; text-decoration-color:rgba(200,122,83,0.4); text-decoration-thickness:2px; text-underline-offset:0.22em; overflow-wrap:anywhere; transition:color var(--bs-t-fast) ease, text-decoration-color var(--bs-t-fast) ease;" style-hover="color:#C87A53; text-decoration-color:#C87A53;">contact@brenartstudio.fr</a>
     </div>
   </section>
 
@@ -1241,7 +1241,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span style="display:block; width:24px; height:1px; background:#C87A53;"></span>
       </div>
       <h2 style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(44px,7vw,104px); line-height:1; letter-spacing:-0.015em; text-transform:uppercase; margin:0 0 clamp(30px,4vw,48px); color:#FFFFFF;">Parlons-en<span style="color:#C87A53;">.</span></h2>
-      <a href="{{ mailtoHref }}" data-bs-mag-target="1" style="display:inline-block; font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(22px,4.2vw,60px); line-height:1.15; color:#FFFFFF; text-decoration:underline; text-decoration-color:rgba(200,122,83,0.4); text-decoration-thickness:2px; text-underline-offset:0.22em; overflow-wrap:anywhere; transition:color var(--bs-t-fast) ease, text-decoration-color var(--bs-t-fast) ease;" style-hover="color:#C87A53; text-decoration-color:#C87A53;">{{ email }}</a>
+      <a href="mailto:contact@brenartstudio.fr" data-bs-mag-target="1" style="display:inline-block; font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(22px,4.2vw,60px); line-height:1.15; color:#FFFFFF; text-decoration:underline; text-decoration-color:rgba(200,122,83,0.4); text-decoration-thickness:2px; text-underline-offset:0.22em; overflow-wrap:anywhere; transition:color var(--bs-t-fast) ease, text-decoration-color var(--bs-t-fast) ease;" style-hover="color:#C87A53; text-decoration-color:#C87A53;">contact@brenartstudio.fr</a>
     </div>
   </section>
 
@@ -1529,13 +1529,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <label for="bs-message" style="font-size:12px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.6);">Message</label>
             <textarea id="bs-message" name="message" required="required" rows="5" placeholder="Votre activité, votre besoin, votre échéance, en quelques lignes." style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.18); border-radius:var(--bs-r-field); padding:14px 16px; font-family:'Inter',sans-serif; font-size:15px; color:#FFFFFF; resize:vertical; min-height:120px;"></textarea>
           </div>
-          <button type="submit" disabled="{{ submitDisabled }}" style="display:inline-flex; align-items:center; gap:10px; background:#141414; color:rgba(255,255,255,0.75); border:none; cursor:pointer; font-family:'Inter',sans-serif; font-size:15px; font-weight:500; padding:16px 30px; border-radius:var(--bs-r-pill); box-shadow:-5px -5px 12px rgba(255,255,255,0.05), 5px 5px 14px rgba(0,0,0,0.6); transition:box-shadow var(--bs-t-fast) ease, color var(--bs-t-fast) ease, opacity var(--bs-t-fast) ease; align-self:flex-start; opacity:{{ submitOpacity }};" style-hover="color:#C87A53; box-shadow:-1px -1px 5px rgba(255,255,255,0.04), 1px 1px 5px rgba(0,0,0,0.5), inset -2px -2px 6px rgba(255,255,255,0.05), inset 3px 3px 7px rgba(0,0,0,0.6);"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>{{ submitLabel }}</button>
-          <div role="alert" style="display:{{ errorD }}; flex-direction:column; gap:8px; padding:16px 18px; background:rgba(200,122,83,0.12); border:1px solid rgba(200,122,83,0.35); border-radius:var(--bs-r-field);">
-            <p style="font-size:14.5px; line-height:1.5; color:#FFFFFF; margin:0;">{{ errorMsg }}</p>
+          <button type="submit" disabled="{{ submitDisabled }}" style="display:inline-flex; align-items:center; gap:10px; background:#141414; color:rgba(255,255,255,0.75); border:none; cursor:pointer; font-family:'Inter',sans-serif; font-size:15px; font-weight:500; padding:16px 30px; border-radius:var(--bs-r-pill); box-shadow:-5px -5px 12px rgba(255,255,255,0.05), 5px 5px 14px rgba(0,0,0,0.6); transition:box-shadow var(--bs-t-fast) ease, color var(--bs-t-fast) ease, opacity var(--bs-t-fast) ease; align-self:flex-start; opacity:{{ submitOpacity }};" style-hover="color:#C87A53; box-shadow:-1px -1px 5px rgba(255,255,255,0.04), 1px 1px 5px rgba(0,0,0,0.5), inset -2px -2px 6px rgba(255,255,255,0.05), inset 3px 3px 7px rgba(0,0,0,0.6);"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg><span style="display:{{ submitIdleD }};">Envoyer ma demande</span><span data-bs-prehide="1" style="display:{{ submitBusyD }};">Envoi…</span></button>
+          <div role="alert" data-bs-prehide="1" style="display:{{ errorD }}; flex-direction:column; gap:8px; padding:16px 18px; background:rgba(200,122,83,0.12); border:1px solid rgba(200,122,83,0.35); border-radius:var(--bs-r-field);">
+            <p ref="{{ errorRef }}" style="font-size:14.5px; line-height:1.5; color:#FFFFFF; margin:0;"></p>
             <a href="mailto:contact@brenartstudio.fr" style="font-size:14px; font-weight:500; color:#C87A53; text-decoration:none; border-bottom:1px solid #C87A53; align-self:flex-start; padding-bottom:2px;">Nous écrire directement par email</a>
           </div>
         </form>
-        <div style="display:{{ sentD }}; flex-direction:column; gap:16px; padding:24px 0;">
+        <div data-bs-prehide="1" style="display:{{ sentD }}; flex-direction:column; gap:16px; padding:24px 0;">
           <p style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:28px; margin:0;">Message bien reçu<span style="color:#C87A53;">.</span></p>
           <p style="font-size:16px; line-height:1.65; color:rgba(255,255,255,0.7); margin:0;">Merci pour votre confiance. Vous recevrez une réponse argumentée sous 48&nbsp;h ouvrées, à l’adresse indiquée, avec un premier avis et les prochaines étapes.</p>
         </div>
@@ -1545,7 +1545,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div style="display:flex; flex-direction:column; gap:clamp(28px,3vw,40px);">
         <div style="background:rgba(255,255,255,0.05); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,0.13); border-radius:var(--bs-r-frame); padding:clamp(28px,3vw,40px); display:flex; flex-direction:column; gap:18px;">
           <p style="font-size:12px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">En direct</p>
-          <a href="{{ mailtoHref }}" style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(18px,1.8vw,24px); color:#FFFFFF; text-decoration:none; border-bottom:1px solid #C87A53; padding-bottom:4px; align-self:flex-start; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">{{ email }}</a>
+          <a href="mailto:contact@brenartstudio.fr" style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(18px,1.8vw,24px); color:#FFFFFF; text-decoration:none; border-bottom:1px solid #C87A53; padding-bottom:4px; align-self:flex-start; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">contact@brenartstudio.fr</a>
           <a href="tel:+33670174812" style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(18px,1.8vw,24px); color:#FFFFFF; text-decoration:none; border-bottom:1px solid #C87A53; padding-bottom:4px; align-self:flex-start; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">+33 6 70 17 48 12</a>
           <div style="display:flex; flex-direction:column; gap:6px;">
             <p style="font-size:14.5px; color:rgba(255,255,255,0.65); margin:0;">Basé à Toulouse, déplacements possibles en Occitanie.</p>
@@ -1641,7 +1641,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <div style="display:flex; flex-direction:column; gap:12px;">
           <p style="font-size:12px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0 0 4px;">Contact</p>
-          <a href="{{ mailtoHref }}" style="color:rgba(255,255,255,0.7); text-decoration:none; font-size:14.5px; transition:color var(--bs-t-fast) ease; align-self:flex-start;" style-hover="color:#C87A53;">{{ email }}</a>
+          <a href="mailto:contact@brenartstudio.fr" style="color:rgba(255,255,255,0.7); text-decoration:none; font-size:14.5px; transition:color var(--bs-t-fast) ease; align-self:flex-start;" style-hover="color:#C87A53;">contact@brenartstudio.fr</a>
           <p style="color:rgba(255,255,255,0.5); font-size:14.5px; margin:0;">Toulouse, France</p>
         </div>
       </div>
@@ -1653,13 +1653,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </footer>
 
   <!-- ============ COUCHE MOTION : vignette flottante + voile encre (rendus côté logique) ============ -->
-  {{ fltEl }}
-  {{ veilEl }}
+  <div data-bs-prehide="1" style="display:{{ motionSlotD }};">{{ fltEl }}{{ veilEl }}</div>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { page: 'accueil', menuOpen: false, faqOpen: 0, sent: false, sending: false, error: null, isMobile: false, stat: 1, hov: -1, nextHov: -1, motion: false, finePointer: false, ctaNavHov: false, ineevaEmbed: 'loading', laureEmbed: 'loading' };
+  state = { page: 'accueil', menuOpen: false, faqOpen: 0, sent: false, sending: false, error: null, isMobile: false, hov: -1, nextHov: -1, motion: false, finePointer: false, ctaNavHov: false, ineevaEmbed: 'loading', laureEmbed: 'loading' };
 
   componentDidMount() {
     const pages = ['accueil', 'portfolio', 'portfolio-ineeva', 'portfolio-acasa', 'portfolio-laure-fagbohoun', 'portfolio-koryaa', 'services', 'about', 'contact'];
@@ -1738,21 +1737,31 @@ class Component extends DCLogic {
     if (this._mq.addEventListener) this._mq.addEventListener('change', this._onMq);
     this._onMq();
 
-    // compteurs de stats : lancés quand le bloc entre dans le viewport
-    this.setState({ stat: 0 });
-    const runCount = () => {
-      if (this._statDone) return;
-      this._statDone = true;
-      const t0 = performance.now();
-      const tick = (t) => {
-        const p = Math.min(1, (t - t0) / 1400);
-        this.setState({ stat: 1 - Math.pow(1 - p, 3) });
-        if (p < 1) this._raf = requestAnimationFrame(tick);
-      };
-      this._raf = requestAnimationFrame(tick);
-    };
+    // Compteurs de stats : la valeur finale est écrite en dur dans le HTML (aucune
+    // accolade au premier paint, valeur lisible sans JS). L'animation ne fait que
+    // remonter de 0 jusqu'à cette valeur quand le bloc entre dans le viewport.
     this._whenEl('[data-bs-stats]', 8000, (statEl) => {
-      if (!statEl || !('IntersectionObserver' in window)) return runCount();
+      if (!statEl) return;
+      const els = Array.prototype.slice.call(statEl.querySelectorAll('[data-bs-count]'));
+      const targets = els.map((el) => Number(el.getAttribute('data-bs-count')) || 0);
+      // Motion réduit ou navigateur sans IntersectionObserver : on garde la valeur
+      // écrite dans le HTML, elle est déjà juste. Sinon la remontée démarre à 0 dès
+      // la première frame où le bloc entre dans le viewport — pas de remise à zéro
+      // séparée, donc rien à voir avant que l'animation ne commence.
+      if (!els.length || this._rm.matches || !('IntersectionObserver' in window)) return;
+
+      const runCount = () => {
+        if (this._statDone) return;
+        this._statDone = true;
+        const t0 = performance.now();
+        const tick = (t) => {
+          const p = Math.min(1, (t - t0) / 1400);
+          const e = 1 - Math.pow(1 - p, 3);
+          els.forEach((el, i) => { el.textContent = String(Math.round(targets[i] * e)); });
+          if (p < 1) this._raf = requestAnimationFrame(tick);
+        };
+        this._raf = requestAnimationFrame(tick);
+      };
       this._statIo = new IntersectionObserver((entries) => {
         if (entries.some((e) => e.isIntersecting)) { runCount(); this._statIo.disconnect(); }
       }, { threshold: 0.3 });
@@ -2397,7 +2406,7 @@ class Component extends DCLogic {
   }
 
   renderVals() {
-    const { page, menuOpen, faqOpen, sent, sending, error, isMobile, stat, hov, motion, finePointer } = this.state;
+    const { page, menuOpen, faqOpen, sent, sending, error, isMobile, hov, motion, finePointer } = this.state;
     const d = (p) => (page === p ? 'block' : 'none');
 
     // SEO : title + meta description par page
@@ -2443,15 +2452,14 @@ class Component extends DCLogic {
       toggleMenu: () => this.setState((s) => ({ menuOpen: !s.menuOpen })),
       closeMenu: () => this.setState({ menuOpen: false }),
       tickerEl: this._ticker,
-      statA: Math.round(4 * stat),
-      statB: Math.round(3 * stat),
-      statC: Math.round(100 * stat),
-      statD: Math.round(2 * stat),
       formD: sent ? 'none' : 'flex',
       sentD: sent ? 'flex' : 'none',
       errorD: error ? 'flex' : 'none',
       errorMsg: error,
-      submitLabel: sending ? 'Envoi…' : 'Envoyer ma demande',
+      submitIdleD: sending ? 'none' : 'inline',
+      submitBusyD: sending ? 'inline' : 'none',
+      motionSlotD: 'block',
+      errorRef: (el) => { if (el) el.textContent = this.state.error || ''; },
       submitDisabled: sending,
       submitOpacity: sending ? 0.6 : 1,
       submitForm: (e) => {
@@ -2472,8 +2480,6 @@ class Component extends DCLogic {
             this.setState({ sending: false, error: 'Une erreur est survenue lors de l’envoi. Merci de réessayer, ou écrivez-nous directement.' });
           });
       },
-      email: ['contact', 'brenartstudio.fr'].join('@'),
-      mailtoHref: 'mailto:' + ['contact', 'brenartstudio.fr'].join('@'),
       iframeD: this.state.ineevaEmbed === 'fail' ? 'none' : 'block',
       loadingD: this.state.ineevaEmbed === 'loading' ? 'flex' : 'none',
       fallbackD: this.state.ineevaEmbed === 'fail' ? 'flex' : 'none',

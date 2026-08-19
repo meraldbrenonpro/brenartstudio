@@ -135,9 +135,15 @@ function transform(html, page, seo) {
   // perdrait son point d'ancrage et ne pourrait plus jamais réafficher la section.
   // On passe donc par une feuille de style, que le style inline écrit par le runtime
   // écrase dès l'hydratation — l'ordre de priorité CSS fait le travail.
+  // Même mécanique pour les blocs conditionnels (accusé de réception du formulaire,
+  // message d'erreur, libellé « Envoi… », couche motion) : avant hydratation leur
+  // « display:{{ x }} » est invalide, donc ignoré, et ils s'affichaient tous en même
+  // temps. On les masque par défaut ; le style inline écrit par le runtime reprend
+  // la main dès l'hydratation.
   out = out.replace('</head>',
     `<style id="bs-prerender">section[data-page]{display:none}` +
-    `section[data-page="${page}"]{display:block}</style>\n</head>`);
+    `section[data-page="${page}"]{display:block}` +
+    `[data-bs-prehide]{display:none}</style>\n</head>`);
 
   // --- JSON-LD par page : fil d'ariane + fiche d'œuvre ---------------------
   const meta = PAGE_META[page];
