@@ -36,26 +36,30 @@ const ORIGIN = 'https://brenartstudio.fr';
 // plutôt que neuf blocs JSON-LD recopiés à la main dans index.html.
 const PAGE_META = {
   'portfolio':      { crumb: 'Portfolio' },
-  'services':       { crumb: 'Services' },
-  'about':          { crumb: 'À propos', person: true },
+  'services':       { crumb: 'Services', og: ['services', "Bren'Art Studio, services : trois offres, une seule main."] },
+  'about':          { crumb: 'À propos', person: true, og: ['a-propos', "Mérald Brenon, designer digital à Toulouse, fondateur de Bren'Art Studio."] },
   'contact':        { crumb: 'Contact', faq: true },
   'portfolio-ineeva': {
     crumb: 'Ineeva', parent: ['Portfolio', '/portfolio'],
+    og: ['ineeva', "Ineeva, identité de marque conçue par Bren'Art Studio."],
     work: { name: 'Ineeva — identité de marque',
             about: "Identité visuelle et présence en ligne d'une association",
             genre: 'Identité de marque' } },
   'portfolio-acasa': {
     crumb: 'Acasa', parent: ['Portfolio', '/portfolio'],
+    og: ['acasa', "Acasa, identité de marque conçue par Bren'Art Studio."],
     work: { name: 'Acasa — identité de marque',
             about: "Identité visuelle d'un magasin de meubles",
             genre: 'Identité de marque' } },
   'portfolio-koryaa': {
     crumb: 'Koryaa', parent: ['Portfolio', '/portfolio'],
+    og: ['koryaa', "Koryaa, identité de marque conçue par Bren'Art Studio."],
     work: { name: 'Koryaa — identité de marque',
             about: "Identité visuelle d'une marque de cosmétique capillaire",
             genre: 'Identité de marque' } },
   'portfolio-laure-fagbohoun': {
     crumb: 'Laure Fagbohoun', parent: ['Portfolio', '/portfolio'],
+    og: ['laure-fagbohoun', "Laure Fagbohoun, site vitrine conçu par Bren'Art Studio."],
     work: { name: 'Laure Fagbohoun — site vitrine',
             about: "Site vitrine d'autrice et conférencière",
             genre: 'Site web' } },
@@ -156,6 +160,20 @@ function transform(html, page, seo) {
   out = out.replace(/(<meta property="og:description" content=")[\s\S]*?(">)/i, `$1${escAttr(seo.d)}$2`);
   out = out.replace(/(<meta property="og:url" content=")[\s\S]*?(">)/i, `$1${url}$2`);
   out = out.replace(/(<meta name="twitter:title" content=")[\s\S]*?(">)/i, `$1${escAttr(seo.t)}$2`);
+
+  // Image de partage dédiée : une seule og-image.jpg servait les neuf URL, chaque
+  // partage renvoyait donc le même visuel générique. Les pages qui en ont une
+  // pointent vers assets/og/<slug>.jpg (1200x630, fond #070707, visuel du projet
+  // et logotype blanc), les autres gardent l'image générale.
+  const og = PAGE_META[page] && PAGE_META[page].og;
+  if (og) {
+    const img = `${ORIGIN}/assets/og/${og[0]}.jpg`;
+    out = out.replace(/(<meta property="og:image" content=")[\s\S]*?(">)/i, `$1${img}$2`);
+    out = out.replace(/(<meta property="og:image:secure_url" content=")[\s\S]*?(">)/i, `$1${img}$2`);
+    out = out.replace(/(<meta property="og:image:alt" content=")[\s\S]*?(">)/i, `$1${escAttr(og[1])}$2`);
+    out = out.replace(/(<meta name="twitter:image" content=")[\s\S]*?(">)/i, `$1${img}$2`);
+    out = out.replace(/(<meta name="twitter:image:alt" content=")[\s\S]*?(">)/i, `$1${escAttr(og[1])}$2`);
+  }
   out = out.replace(/(<meta name="twitter:description" content=")[\s\S]*?(">)/i, `$1${escAttr(seo.d)}$2`);
 
   // Liens internes #cle -> URL propre (meilleur crawl + partage)
