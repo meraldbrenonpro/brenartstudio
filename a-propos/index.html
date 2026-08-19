@@ -278,8 +278,8 @@
       <p id="bs-consent-d" style="margin:0; font-size:14px; line-height:1.6; color:rgba(255,255,255,0.7);">Aucun traceur n’est déposé sans votre accord. Vous pouvez refuser&nbsp;: le site fonctionne à l’identique. <a href="/confidentialite" style="color:#FFFFFF; text-decoration:underline; text-decoration-color:#C87A53; text-underline-offset:3px;">Politique de confidentialité</a></p>
     </div>
     <div style="display:flex; flex-wrap:wrap; gap:12px; flex-shrink:0;">
-      <button type="button" data-bs-consent="refuse" style="cursor:pointer; font-family:'Inter',sans-serif; font-size:14px; font-weight:500; color:#FFFFFF; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.25); padding:12px 24px; border-radius:var(--bs-r-pill,999px); transition:border-color var(--bs-t-fast,.2s) ease;">Refuser</button>
-      <button type="button" data-bs-consent="accept" style="cursor:pointer; font-family:'Inter',sans-serif; font-size:14px; font-weight:500; color:#FFFFFF; background:#C87A53; border:1px solid #C87A53; padding:12px 24px; border-radius:var(--bs-r-pill,999px); transition:background var(--bs-t-fast,.2s) ease;">Accepter</button>
+      <button type="button" data-cursor="link" data-bs-consent="refuse" style="cursor:pointer; font-family:'Inter',sans-serif; font-size:14px; font-weight:500; color:#FFFFFF; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.25); padding:12px 24px; border-radius:var(--bs-r-pill,999px); transition:border-color var(--bs-t-fast,.2s) ease;">Refuser</button>
+      <button type="button" data-cursor="link" data-bs-consent="accept" style="cursor:pointer; font-family:'Inter',sans-serif; font-size:14px; font-weight:500; color:#FFFFFF; background:#C87A53; border:1px solid #C87A53; padding:12px 24px; border-radius:var(--bs-r-pill,999px); transition:background var(--bs-t-fast,.2s) ease;">Accepter</button>
     </div>
   </div>
 </div>
@@ -554,7 +554,7 @@
 
 <div style="min-height:100vh; color:#FFFFFF; font-family:'Inter',sans-serif;">
 
-  <a class="bs-skip" href="#bs-main">Aller au contenu</a>
+  <a data-cursor="link" class="bs-skip" href="#bs-main">Aller au contenu</a>
 
   <!-- ============ HALOS AMBIANTS (toutes pages) ============ -->
   <div aria-hidden="true" style="position:fixed; inset:0; z-index:-1; pointer-events:none; overflow:hidden;">
@@ -568,29 +568,29 @@
   <div onClick="{{ closeMenu }}" aria-hidden="true" style="display:{{ scrimD }}; position:fixed; inset:0; z-index:90; background:rgba(7,7,7,0.55); backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px);"></div>
   <header style="position:absolute; top:0; left:0; right:0; z-index:100; display:flex; flex-direction:column; align-items:center; gap:10px; padding:clamp(18px,2.4vw,28px) clamp(20px,4vw,44px); pointer-events:none;">
     <nav aria-label="Navigation principale" style="pointer-events:auto; position:relative; width:100%; display:flex; align-items:center; justify-content:space-between; gap:16px;">
-      <a href="/" aria-label="Bren’Art Studio, accueil" style="display:inline-flex; align-items:center; text-decoration:none; white-space:nowrap;"><picture style="display:contents"><source type="image/avif" srcset="assets/opt/logotype-blanc-374.avif"><img src="assets/logotype-blanc.png" alt="Bren’Art Studio" width="1168" height="162" style="display:block; height:clamp(20px,2.2vw,26px); width:auto;"></picture></a>
+      <a data-cursor="link" href="/" aria-label="Bren’Art Studio, accueil" style="display:inline-flex; align-items:center; text-decoration:none; white-space:nowrap;"><picture style="display:contents"><source type="image/avif" srcset="assets/opt/logotype-blanc-374.avif"><img src="assets/logotype-blanc.png" alt="Bren’Art Studio" width="1168" height="162" style="display:block; height:clamp(20px,2.2vw,26px); width:auto;"></picture></a>
       <div data-bs-navbar="1" style="position:relative; display:{{ navLinksD }}; align-items:center; gap:clamp(16px,1.9vw,30px);">
         <span data-bs-navpill="1" aria-hidden="true"></span>
-        <a href="/" data-bs-navlink="1">Accueil</a>
-        <a href="/portfolio" data-bs-navlink="1">Portfolio</a>
-        <a href="/services" data-bs-navlink="1">Services</a>
-        <a href="/a-propos" data-bs-navlink="1">À propos</a>
-        <a href="/contact" data-bs-navlink="1">Contact</a>
-        <a href="/contact" data-bs-mag-target="1" onMouseEnter="{{ ctaNavE }}" onMouseLeave="{{ ctaNavL }}" style="display:inline-flex; align-items:center; gap:9px; margin-left:6px; background:#C87A53; color:#FFFFFF; text-decoration:none; font-size:13px; font-weight:500; letter-spacing:0.01em; padding:10px 22px; border-radius:var(--bs-r-pill); white-space:nowrap; transition:background var(--bs-t-fast) ease, box-shadow var(--bs-t-fast) ease, transform var(--bs-t-fast) ease;" style-hover="background:#D89265; box-shadow:0 8px 24px rgba(0,0,0,0.4); transform:translateY(-1px);">Démarrer un projet <span aria-hidden="true" style="display:inline-flex; transform:{{ ctaArrowT }}; transition:transform var(--bs-t-fast) ease;">→</span></a>
+        <a data-cursor="link" href="/" data-bs-navlink="1">Accueil</a>
+        <a data-cursor="link" href="/portfolio" data-bs-navlink="1">Portfolio</a>
+        <a data-cursor="link" href="/services" data-bs-navlink="1">Services</a>
+        <a data-cursor="link" href="/a-propos" data-bs-navlink="1">À propos</a>
+        <a data-cursor="link" href="/contact" data-bs-navlink="1">Contact</a>
+        <a data-cursor="link" href="/contact" data-bs-mag-target="1" onMouseEnter="{{ ctaNavE }}" onMouseLeave="{{ ctaNavL }}" style="display:inline-flex; align-items:center; gap:9px; margin-left:6px; background:#C87A53; color:#FFFFFF; text-decoration:none; font-size:13px; font-weight:500; letter-spacing:0.01em; padding:10px 22px; border-radius:var(--bs-r-pill); white-space:nowrap; transition:background var(--bs-t-fast) ease, box-shadow var(--bs-t-fast) ease, transform var(--bs-t-fast) ease;" style-hover="background:#D89265; box-shadow:0 8px 24px rgba(0,0,0,0.4); transform:translateY(-1px);">Démarrer un projet <span aria-hidden="true" style="display:inline-flex; transform:{{ ctaArrowT }}; transition:transform var(--bs-t-fast) ease;">→</span></a>
       </div>
-      <button onClick="{{ toggleMenu }}" aria-label="Ouvrir le menu" style="display:{{ burgerD }}; flex-direction:column; justify-content:center; gap:5px; width:44px; height:44px; background:rgba(255,255,255,0.07); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.2); border-radius:var(--bs-r-pill); cursor:pointer; align-items:center; padding:0; flex-shrink:0;">
+      <button data-cursor="link" onClick="{{ toggleMenu }}" aria-label="Ouvrir le menu" style="display:{{ burgerD }}; flex-direction:column; justify-content:center; gap:5px; width:44px; height:44px; background:rgba(255,255,255,0.07); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.2); border-radius:var(--bs-r-pill); cursor:pointer; align-items:center; padding:0; flex-shrink:0;">
         <span style="display:block; width:18px; height:2px; background:#FFFFFF; border-radius:var(--bs-r-tiny);"></span>
         <span style="display:block; width:18px; height:2px; background:#FFFFFF; border-radius:var(--bs-r-tiny);"></span>
         <span style="display:block; width:18px; height:2px; background:#FFFFFF; border-radius:var(--bs-r-tiny);"></span>
       </button>
     </nav>
     <div style="pointer-events:auto; display:{{ menuD }}; flex-direction:column; gap:4px; width:100%; max-width:1280px; padding:18px 24px 24px; border-radius:var(--bs-r-frame); background:rgba(7,7,7,0.85); backdrop-filter:blur(22px) saturate(1.2); -webkit-backdrop-filter:blur(22px) saturate(1.2); border:1px solid rgba(255,255,255,0.14); box-shadow:0 24px 60px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.14);">
-      <a href="/" data-bs-navmob="1" style="text-decoration:none; font-size:18px; font-weight:500; padding:12px 4px 12px 12px; border-bottom:1px solid rgba(255,255,255,0.08);">Accueil</a>
-      <a href="/portfolio" data-bs-navmob="1" style="text-decoration:none; font-size:18px; font-weight:500; padding:12px 4px 12px 12px; border-bottom:1px solid rgba(255,255,255,0.08);">Portfolio</a>
-      <a href="/services" data-bs-navmob="1" style="text-decoration:none; font-size:18px; font-weight:500; padding:12px 4px 12px 12px; border-bottom:1px solid rgba(255,255,255,0.08);">Services</a>
-      <a href="/a-propos" data-bs-navmob="1" style="text-decoration:none; font-size:18px; font-weight:500; padding:12px 4px 12px 12px; border-bottom:1px solid rgba(255,255,255,0.08);">À propos</a>
-      <a href="/contact" data-bs-navmob="1" style="text-decoration:none; font-size:18px; font-weight:500; padding:12px 4px 12px 12px; border-bottom:1px solid rgba(255,255,255,0.08);">Contact</a>
-      <a href="/contact" style="margin-top:16px; display:inline-flex; align-items:center; justify-content:center; gap:10px; background:#C87A53; color:#FFFFFF; text-decoration:none; font-size:15px; font-weight:500; padding:14px 24px; border-radius:var(--bs-r-pill);">Démarrer un projet <span aria-hidden="true">→</span></a>
+      <a data-cursor="link" href="/" data-bs-navmob="1" style="text-decoration:none; font-size:18px; font-weight:500; padding:12px 4px 12px 12px; border-bottom:1px solid rgba(255,255,255,0.08);">Accueil</a>
+      <a data-cursor="link" href="/portfolio" data-bs-navmob="1" style="text-decoration:none; font-size:18px; font-weight:500; padding:12px 4px 12px 12px; border-bottom:1px solid rgba(255,255,255,0.08);">Portfolio</a>
+      <a data-cursor="link" href="/services" data-bs-navmob="1" style="text-decoration:none; font-size:18px; font-weight:500; padding:12px 4px 12px 12px; border-bottom:1px solid rgba(255,255,255,0.08);">Services</a>
+      <a data-cursor="link" href="/a-propos" data-bs-navmob="1" style="text-decoration:none; font-size:18px; font-weight:500; padding:12px 4px 12px 12px; border-bottom:1px solid rgba(255,255,255,0.08);">À propos</a>
+      <a data-cursor="link" href="/contact" data-bs-navmob="1" style="text-decoration:none; font-size:18px; font-weight:500; padding:12px 4px 12px 12px; border-bottom:1px solid rgba(255,255,255,0.08);">Contact</a>
+      <a data-cursor="link" href="/contact" style="margin-top:16px; display:inline-flex; align-items:center; justify-content:center; gap:10px; background:#C87A53; color:#FFFFFF; text-decoration:none; font-size:15px; font-weight:500; padding:14px 24px; border-radius:var(--bs-r-pill);">Démarrer un projet <span aria-hidden="true">→</span></a>
     </div>
   </header>
 
@@ -610,8 +610,8 @@
         <div style="margin:0;"><span style="display:block; overflow:hidden;"><span data-hero-line="1" style="display:block;"><img src="assets/logo-mark-blanc.png" alt="Bren’Art Studio" width="200" height="238" fetchpriority="high" style="display:block; width:auto; height:clamp(118px,13vw,168px); margin:0 auto;"></span></span></div>
         <h1 style="text-align:center; max-width:min(92%,600px); margin:clamp(22px,2.6vw,38px) 0 0;"><span style="display:block; font-family:'Inter',sans-serif; font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.6); margin:0 0 clamp(12px,1.4vw,18px);">Studio de création digitale à Toulouse.</span> <span style="display:block; font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(19px,2vw,30px); line-height:1.2; letter-spacing:-0.01em; color:rgba(255,255,255,0.92);">Une marque qu’on reconnaît avant de la lire.</span></h1>
         <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:16px; margin-top:clamp(28px,3.5vw,40px);">
-          <a href="/contact" data-bs-mag-target="1" style="display:inline-flex; align-items:center; gap:10px; background:#C87A53; color:#FFFFFF; text-decoration:none; font-size:15px; font-weight:500; padding:17px 32px; border-radius:var(--bs-r-pill); transition:background var(--bs-t-fast) ease, box-shadow var(--bs-t-fast) ease, transform var(--bs-t-fast) ease;" style-hover="background:#D89265; box-shadow:0 8px 24px rgba(0,0,0,0.4); transform:translateY(-2px);">Démarrer un projet</a>
-          <a href="/portfolio" style="display:inline-flex; align-items:center; gap:10px; background:rgba(255,255,255,0.05); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.25); color:#FFFFFF; text-decoration:none; font-size:15px; font-weight:500; padding:16px 32px; border-radius:var(--bs-r-pill); transition:border-color var(--bs-t-fast) ease, transform var(--bs-t-fast) ease;" style-hover="border-color:rgba(255,255,255,0.6); transform:translateY(-2px);">Voir le portfolio</a>
+          <a data-cursor="link" href="/contact" data-bs-mag-target="1" style="display:inline-flex; align-items:center; gap:10px; background:#C87A53; color:#FFFFFF; text-decoration:none; font-size:15px; font-weight:500; padding:17px 32px; border-radius:var(--bs-r-pill); transition:background var(--bs-t-fast) ease, box-shadow var(--bs-t-fast) ease, transform var(--bs-t-fast) ease;" style-hover="background:#D89265; box-shadow:0 8px 24px rgba(0,0,0,0.4); transform:translateY(-2px);">Démarrer un projet</a>
+          <a data-cursor="link" href="/portfolio" style="display:inline-flex; align-items:center; gap:10px; background:rgba(255,255,255,0.05); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.25); color:#FFFFFF; text-decoration:none; font-size:15px; font-weight:500; padding:16px 32px; border-radius:var(--bs-r-pill); transition:border-color var(--bs-t-fast) ease, transform var(--bs-t-fast) ease;" style-hover="border-color:rgba(255,255,255,0.6); transform:translateY(-2px);">Voir le portfolio</a>
         </div>
       </div>
       </div>
@@ -630,7 +630,7 @@
         </div>
         <div class="bs-sechead">
           <h2 class="bs-h2" style="margin:0; max-width:640px;">Trois offres, un seul fil&nbsp;conducteur.</h2>
-          <a href="/services" style="color:#070707; text-decoration:none; font-size:15px; font-weight:500; border-bottom:1px solid #C87A53; padding-bottom:4px; white-space:nowrap; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">Découvrir les services&nbsp;→</a>
+          <a data-cursor="link" href="/services" style="color:#070707; text-decoration:none; font-size:15px; font-weight:500; border-bottom:1px solid #C87A53; padding-bottom:4px; white-space:nowrap; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">Découvrir les services&nbsp;→</a>
         </div>
         <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:24px;">
           <div class="bs-card bs-card--ivory" style="transition:transform var(--bs-t) ease, box-shadow var(--bs-t) ease;" style-hover="transform:translateY(-4px); box-shadow:0 30px 60px rgba(7,7,7,0.12);">
@@ -661,10 +661,10 @@
         </div>
         <div class="bs-sechead">
           <h2 class="bs-h2" style="margin:0;">Le travail parle d’abord.</h2>
-          <a href="/portfolio" style="color:#FFFFFF; text-decoration:none; font-size:15px; font-weight:500; border-bottom:1px solid #C87A53; padding-bottom:4px; white-space:nowrap; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">Tous les projets&nbsp;→</a>
+          <a data-cursor="link" href="/portfolio" style="color:#FFFFFF; text-decoration:none; font-size:15px; font-weight:500; border-bottom:1px solid #C87A53; padding-bottom:4px; white-space:nowrap; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">Tous les projets&nbsp;→</a>
         </div>
         <div data-bs-works-row="1">
-          <a href="/portfolio/ineeva" data-bs-work="1" style="text-decoration:none; color:#FFFFFF; display:block;">
+          <a data-cursor="media" href="/portfolio/ineeva" data-bs-work="1" style="text-decoration:none; color:#FFFFFF; display:block;">
             <div class="bs-frame" style="position:relative; aspect-ratio:3/2; border:1px solid rgba(255,255,255,0.1); background:var(--bs-ink-2); margin-bottom:18px;"><div data-bs-work-zoom="1" style="position:absolute; inset:0; overflow:hidden;">
               <picture style="display:contents"><source type="image/avif" srcset="assets/opt/ineeva-principal-1000.avif 1000w, assets/opt/ineeva-principal-1800.avif 1800w" sizes="(max-width: 860px) 100vw, 1291px"><source type="image/webp" srcset="assets/ineeva-principal.webp"><img loading="lazy" decoding="async" src="assets/ineeva-principal.jpg" alt="Identité Ineeva" style="width:100%; height:100%; object-fit:cover; object-position:62% center; display:block;" width="2400" height="1600"></picture>
             </div></div>
@@ -673,7 +673,7 @@
               <span style="font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.5);">Association</span>
             </div>
           </a>
-          <a href="/portfolio/acasa" data-bs-work="1" style="text-decoration:none; color:#FFFFFF; display:block;">
+          <a data-cursor="media" href="/portfolio/acasa" data-bs-work="1" style="text-decoration:none; color:#FFFFFF; display:block;">
             <div class="bs-frame" style="position:relative; aspect-ratio:3/2; border:1px solid rgba(255,255,255,0.1); background:var(--bs-ink-2); margin-bottom:18px;"><div data-bs-work-zoom="1" style="position:absolute; inset:0; overflow:hidden;">
               <picture style="display:contents"><source type="image/avif" srcset="assets/opt/acasa-univers-700.avif 700w, assets/opt/acasa-univers-1400.avif 1400w" sizes="(max-width: 860px) 100vw, 610px"><source type="image/webp" srcset="assets/acasa-univers.webp"><img loading="lazy" decoding="async" src="assets/acasa-univers.png" alt="Univers Acasa : wordmark posé sur une enfilade en teck" style="width:100%; height:100%; object-fit:cover; object-position:center; display:block;" width="2688" height="1536"></picture>
             </div></div>
@@ -682,7 +682,7 @@
               <span style="font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.5);">Magasin de meubles</span>
             </div>
           </a>
-          <a href="/portfolio/laure-fagbohoun" data-bs-work="1" style="text-decoration:none; color:#FFFFFF; display:block;">
+          <a data-cursor="media" href="/portfolio/laure-fagbohoun" data-bs-work="1" style="text-decoration:none; color:#FFFFFF; display:block;">
             <div class="bs-frame" style="position:relative; aspect-ratio:3/2; border:1px solid rgba(255,255,255,0.1); background:var(--bs-ink-2); margin-bottom:18px;"><div data-bs-work-zoom="1" style="position:absolute; inset:0; overflow:hidden;">
               <picture style="display:contents"><source type="image/avif" srcset="assets/opt/laure-principal-1000.avif 1000w, assets/opt/laure-principal-1800.avif 1800w" sizes="(max-width: 860px) 100vw, 1291px"><img loading="lazy" decoding="async" src="assets/opt/laure-principal-2000.jpg" alt="Site Laure Fagbohoun présenté sur un iMac" style="width:100%; height:100%; object-fit:cover; object-position:center; display:block;" width="5376" height="3584"></picture>
             </div></div>
@@ -760,7 +760,7 @@
           <h2 style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(32px,4vw,56px); line-height:1.08; letter-spacing:-0.015em; margin:0 0 24px;">Je m’appelle Mérald&nbsp;Brenon.</h2>
           <p style="font-size:17px; line-height:1.65; color:rgba(7,7,7,0.7); margin:0 0 16px; max-width:520px;">Designer digital à Toulouse, je porte chaque projet de la première question à la mise en ligne. Vous parlez à la personne qui fait le travail, du premier appel au dernier pixel.</p>
           <p style="font-size:17px; line-height:1.65; color:rgba(7,7,7,0.7); margin:0 0 32px; max-width:520px;">La clarté comme parti pris&nbsp;: dans le design, et dans la relation.</p>
-          <a href="/a-propos" style="color:#070707; text-decoration:none; font-size:15px; font-weight:500; border-bottom:1px solid #C87A53; padding-bottom:4px; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">Faire connaissance&nbsp;→</a>
+          <a data-cursor="link" href="/a-propos" style="color:#070707; text-decoration:none; font-size:15px; font-weight:500; border-bottom:1px solid #C87A53; padding-bottom:4px; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">Faire connaissance&nbsp;→</a>
         </div>
       </div>
     </div>
@@ -820,8 +820,8 @@
         <h2 style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(36px,5vw,72px); line-height:1.05; letter-spacing:-0.015em; margin:0 0 20px;">Un projet en tête&nbsp;?</h2>
         <p style="font-size:17px; line-height:1.6; color:rgba(255,255,255,0.7); max-width:520px; margin:0 auto 36px;">Parlons-en simplement. Vous repartez avec un avis honnête, un cadre et un calendrier.</p>
         <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:16px;">
-          <a href="/contact" data-bs-mag-target="1" style="display:inline-flex; align-items:center; background:#C87A53; color:#FFFFFF; text-decoration:none; font-size:15px; font-weight:500; padding:17px 32px; border-radius:var(--bs-r-pill); transition:background var(--bs-t-fast) ease, box-shadow var(--bs-t-fast) ease, transform var(--bs-t-fast) ease;" style-hover="background:#D89265; box-shadow:0 8px 24px rgba(0,0,0,0.4); transform:translateY(-2px);">Démarrer un projet</a>
-          <a href="mailto:contact@brenartstudio.fr" style="display:inline-flex; align-items:center; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.25); color:#FFFFFF; text-decoration:none; font-size:15px; font-weight:500; padding:16px 32px; border-radius:var(--bs-r-pill); transition:border-color var(--bs-t-fast) ease;" style-hover="border-color:rgba(255,255,255,0.6);">contact@brenartstudio.fr</a>
+          <a data-cursor="link" href="/contact" data-bs-mag-target="1" style="display:inline-flex; align-items:center; background:#C87A53; color:#FFFFFF; text-decoration:none; font-size:15px; font-weight:500; padding:17px 32px; border-radius:var(--bs-r-pill); transition:background var(--bs-t-fast) ease, box-shadow var(--bs-t-fast) ease, transform var(--bs-t-fast) ease;" style-hover="background:#D89265; box-shadow:0 8px 24px rgba(0,0,0,0.4); transform:translateY(-2px);">Démarrer un projet</a>
+          <a data-cursor="link" href="mailto:contact@brenartstudio.fr" style="display:inline-flex; align-items:center; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.25); color:#FFFFFF; text-decoration:none; font-size:15px; font-weight:500; padding:16px 32px; border-radius:var(--bs-r-pill); transition:border-color var(--bs-t-fast) ease;" style-hover="border-color:rgba(255,255,255,0.6);">contact@brenartstudio.fr</a>
         </div>
       </div>
     </div>
@@ -850,7 +850,7 @@
     <div class="bs-shell" style="padding:clamp(48px,6vw,96px) clamp(20px,4vw,48px) 0;">
       <div data-bs-works-grid="1">
 
-        <a href="/portfolio/ineeva" data-bs-work="1" style="display:block; text-decoration:none; color:#FFFFFF;">
+        <a data-cursor="media" href="/portfolio/ineeva" data-bs-work="1" style="display:block; text-decoration:none; color:#FFFFFF;">
           <div data-bs-work-frame="1" style="position:relative; aspect-ratio:3/2; border-radius:var(--bs-r-frame); overflow:hidden; border:1px solid rgba(255,255,255,0.10); background:#0E0E0E;">
             <div data-bs-work-zoom="1" style="position:absolute; inset:0; overflow:hidden;">
               <div data-bs-work-img="1" style="position:absolute; top:-7%; left:0; width:100%; height:114%;"><picture style="display:contents"><source type="image/avif" srcset="assets/opt/ineeva-principal-1000.avif 1000w, assets/opt/ineeva-principal-1800.avif 1800w" sizes="(max-width: 860px) 100vw, 1291px"><source type="image/webp" srcset="assets/ineeva-principal.webp"><img loading="lazy" decoding="async" src="assets/ineeva-principal.jpg" alt="Identité Ineeva" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:62% center; display:block;" width="2400" height="1600"></picture></div>
@@ -863,7 +863,7 @@
           </div>
         </a>
 
-        <a href="/portfolio/acasa" data-bs-work="1" style="display:block; text-decoration:none; color:#FFFFFF;">
+        <a data-cursor="media" href="/portfolio/acasa" data-bs-work="1" style="display:block; text-decoration:none; color:#FFFFFF;">
           <div data-bs-work-frame="1" style="position:relative; aspect-ratio:3/2; border-radius:var(--bs-r-frame); overflow:hidden; border:1px solid rgba(255,255,255,0.10); background:#0E0E0E;">
             <div data-bs-work-zoom="1" style="position:absolute; inset:0; overflow:hidden;">
               <div data-bs-work-img="1" style="position:absolute; top:-7%; left:0; width:100%; height:114%;"><picture style="display:contents"><source type="image/avif" srcset="assets/opt/acasa-univers-700.avif 700w, assets/opt/acasa-univers-1400.avif 1400w" sizes="(max-width: 860px) 100vw, 610px"><source type="image/webp" srcset="assets/acasa-univers.webp"><img loading="lazy" decoding="async" src="assets/acasa-univers.png" alt="Univers Acasa : wordmark posé sur une enfilade en teck" style="width:100%; height:100%; object-fit:cover; object-position:center; display:block;" width="2688" height="1536"></picture></div>
@@ -876,7 +876,7 @@
           </div>
         </a>
 
-        <a href="/portfolio/laure-fagbohoun" data-bs-work="1" style="display:block; text-decoration:none; color:#FFFFFF;">
+        <a data-cursor="media" href="/portfolio/laure-fagbohoun" data-bs-work="1" style="display:block; text-decoration:none; color:#FFFFFF;">
           <div data-bs-work-frame="1" style="position:relative; aspect-ratio:3/2; border-radius:var(--bs-r-frame); overflow:hidden; border:1px solid rgba(255,255,255,0.10); background:#0E0E0E;">
             <div data-bs-work-zoom="1" style="position:absolute; inset:0; overflow:hidden;">
               <div data-bs-work-img="1" style="position:absolute; top:-7%; left:0; width:100%; height:114%;"><picture style="display:contents"><source type="image/avif" srcset="assets/opt/laure-principal-1000.avif 1000w, assets/opt/laure-principal-1800.avif 1800w" sizes="(max-width: 860px) 100vw, 1291px"><img loading="lazy" decoding="async" src="assets/opt/laure-principal-2000.jpg" alt="Site Laure Fagbohoun présenté sur un iMac" style="width:100%; height:100%; object-fit:cover; object-position:center; display:block;" width="5376" height="3584"></picture></div>
@@ -889,7 +889,7 @@
           </div>
         </a>
 
-        <a href="/portfolio/koryaa" data-bs-work="1" style="display:block; text-decoration:none; color:#FFFFFF;">
+        <a data-cursor="media" href="/portfolio/koryaa" data-bs-work="1" style="display:block; text-decoration:none; color:#FFFFFF;">
           <div data-bs-work-frame="1" style="position:relative; aspect-ratio:3/2; border-radius:var(--bs-r-frame); overflow:hidden; border:1px solid rgba(255,255,255,0.10); background:#0E0E0E;">
             <div data-bs-work-zoom="1" style="position:absolute; inset:0; overflow:hidden;">
               <div data-bs-work-img="1" style="position:absolute; top:-7%; left:0; width:100%; height:114%;"><picture style="display:contents"><source type="image/avif" srcset="assets/opt/koryaa-principal-1000.avif 1000w, assets/opt/koryaa-principal-1536.avif 1536w" sizes="(max-width: 860px) 100vw, 1291px"><img loading="lazy" decoding="async" src="assets/koryaa-principal.png" alt="Branding Koryaa : portrait beauté et wordmark cosmétique capillaire" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; display:block;" width="1536" height="1024"></picture></div>
@@ -908,7 +908,7 @@
     <div class="bs-shell" style="padding:clamp(120px,16vw,210px) clamp(20px,4vw,48px) clamp(90px,12vw,150px);">
       <div style="border-top:1px solid #2A2A2A; padding-top:clamp(56px,7vw,90px); display:flex; flex-direction:column; align-items:center; text-align:center; gap:clamp(30px,3.5vw,46px);">
         <h2 style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(38px,6.5vw,104px); line-height:0.98; letter-spacing:-0.015em; text-transform:uppercase; color:#FFFFFF; margin:0; text-wrap:balance;">Un projet en tête&nbsp;?<br>Parlons-en<span style="display:inline-block; width:clamp(11px,1vw,16px); height:clamp(11px,1vw,16px); background:#C87A53; margin-left:0.12em;"></span></h2>
-        <a href="mailto:contact@brenartstudio.fr" data-bs-mag-target="1" style="display:inline-flex; align-items:center; gap:12px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.22); color:#FFFFFF; text-decoration:none; font-size:clamp(14px,1.3vw,16px); font-weight:500; letter-spacing:0.02em; padding:16px 30px; border-radius:var(--bs-r-pill); transition:border-color var(--bs-t) ease, box-shadow var(--bs-t) ease, background var(--bs-t) ease;" style-hover="border-color:#C87A53; box-shadow:0 0 0 4px rgba(200,122,83,0.16); background:rgba(200,122,83,0.10);">contact@brenartstudio.fr <span aria-hidden="true" style="color:#C87A53;">→</span></a>
+        <a data-cursor="link" href="mailto:contact@brenartstudio.fr" data-bs-mag-target="1" style="display:inline-flex; align-items:center; gap:12px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.22); color:#FFFFFF; text-decoration:none; font-size:clamp(14px,1.3vw,16px); font-weight:500; letter-spacing:0.02em; padding:16px 30px; border-radius:var(--bs-r-pill); transition:border-color var(--bs-t) ease, box-shadow var(--bs-t) ease, background var(--bs-t) ease;" style-hover="border-color:#C87A53; box-shadow:0 0 0 4px rgba(200,122,83,0.16); background:rgba(200,122,83,0.10);">contact@brenartstudio.fr <span aria-hidden="true" style="color:#C87A53;">→</span></a>
       </div>
     </div>
   </section>
@@ -917,7 +917,7 @@
   <section data-page="portfolio-ineeva" data-screen-label="Projet — Ineeva" style="display:{{ dPIneeva }};">
     <div style="padding:var(--bs-pad-top-sm) var(--bs-pad-x) var(--bs-gap-head); max-width:1480px; margin:0 auto;">
       <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:clamp(16px,2vw,24px);">
-        <a href="/portfolio" style="display:inline-block; color:rgba(255,255,255,0.6); text-decoration:none; font-size:14px; font-weight:500; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">← Portfolio</a>
+        <a data-cursor="link" href="/portfolio" style="display:inline-block; color:rgba(255,255,255,0.6); text-decoration:none; font-size:14px; font-weight:500; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">← Portfolio</a>
         <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:12px; letter-spacing:0.08em; color:rgba(255,255,255,0.5);">01 / 04</span>
       </div>
       <div data-bs-case-hero="1" style="position:relative; aspect-ratio:16/9; border-radius:var(--bs-r-frame); overflow:hidden; border:1px solid rgba(255,255,255,0.1); background:#0E0E0E;">
@@ -1007,19 +1007,19 @@
             </div>
             <div style="display:{{ fallbackD }}; position:absolute; inset:0; flex-direction:column; align-items:center; justify-content:center; gap:24px; padding:clamp(32px,5vw,56px); text-align:center; background:#0E0E0E;">
               <p style="font-family:'Inter',sans-serif; font-size:clamp(16px,2vw,20px); line-height:1.5; color:#FFFFFF; margin:0; max-width:380px;">Le site s’affiche en plein écran</p>
-              <a href="https://ineeva.fr/" target="_blank" rel="noopener" style="font-family:'Inter',sans-serif; font-weight:600; font-size:15px; letter-spacing:0.01em; color:#070707; background:#C87A53; padding:14px 28px; border-radius:var(--bs-r-btn); text-decoration:none; transition:transform var(--bs-t-fast) ease, filter var(--bs-t-fast) ease;" style-hover="filter:brightness(1.06); transform:translateY(-2px);">Ouvrir ineeva.fr →</a>
+              <a data-cursor="link" href="https://ineeva.fr/" target="_blank" rel="noopener" style="font-family:'Inter',sans-serif; font-weight:600; font-size:15px; letter-spacing:0.01em; color:#070707; background:#C87A53; padding:14px 28px; border-radius:var(--bs-r-btn); text-decoration:none; transition:transform var(--bs-t-fast) ease, filter var(--bs-t-fast) ease;" style-hover="filter:brightness(1.06); transform:translateY(-2px);">Ouvrir ineeva.fr →</a>
             </div>
           </div>
         </div>
 
         <div style="display:flex; justify-content:center; margin-top:clamp(28px,4vw,42px);">
-          <a href="https://ineeva.fr/" target="_blank" rel="noopener" style="font-family:'Inter',sans-serif; font-weight:600; font-size:15px; letter-spacing:0.01em; color:#070707; background:#C87A53; padding:15px 30px; border-radius:var(--bs-r-btn); text-decoration:none; transition:transform var(--bs-t-fast) ease, filter var(--bs-t-fast) ease;" style-hover="filter:brightness(1.06); transform:translateY(-2px);">Voir le site en plein écran →</a>
+          <a data-cursor="link" href="https://ineeva.fr/" target="_blank" rel="noopener" style="font-family:'Inter',sans-serif; font-weight:600; font-size:15px; letter-spacing:0.01em; color:#070707; background:#C87A53; padding:15px 30px; border-radius:var(--bs-r-btn); text-decoration:none; transition:transform var(--bs-t-fast) ease, filter var(--bs-t-fast) ease;" style-hover="filter:brightness(1.06); transform:translateY(-2px);">Voir le site en plein écran →</a>
         </div>
       </div>
     </div>
 
     <div style="max-width:1480px; margin:0 auto; padding:var(--bs-pad-y) var(--bs-pad-x) 0;">
-      <a href="/portfolio/acasa" onMouseEnter="{{ nextE0 }}" onMouseLeave="{{ nextL }}" style="display:flex; flex-direction:column; gap:clamp(20px,3vw,32px); text-decoration:none; border-top:1px solid #2A2A2A; padding-top:clamp(32px,4vw,52px);">
+      <a data-cursor="link" href="/portfolio/acasa" onMouseEnter="{{ nextE0 }}" onMouseLeave="{{ nextL }}" style="display:flex; flex-direction:column; gap:clamp(20px,3vw,32px); text-decoration:none; border-top:1px solid #2A2A2A; padding-top:clamp(32px,4vw,52px);">
         <div style="display:flex; align-items:baseline; justify-content:space-between; gap:24px;">
           <div style="display:flex; flex-direction:column; gap:12px;">
             <span style="font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.5);">Projet suivant</span>
@@ -1040,7 +1040,7 @@
         <span style="display:block; width:24px; height:1px; background:#C87A53;"></span>
       </div>
       <h2 style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(44px,7vw,104px); line-height:1; letter-spacing:-0.015em; text-transform:uppercase; margin:0 0 clamp(30px,4vw,48px); color:#FFFFFF;">Parlons-en<span style="color:#C87A53;">.</span></h2>
-      <a href="mailto:contact@brenartstudio.fr" data-bs-mag-target="1" style="display:inline-block; font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(22px,4.2vw,60px); line-height:1.15; color:#FFFFFF; text-decoration:underline; text-decoration-color:rgba(200,122,83,0.4); text-decoration-thickness:2px; text-underline-offset:0.22em; overflow-wrap:anywhere; transition:color var(--bs-t-fast) ease, text-decoration-color var(--bs-t-fast) ease;" style-hover="color:#C87A53; text-decoration-color:#C87A53;">contact@brenartstudio.fr</a>
+      <a data-cursor="link" href="mailto:contact@brenartstudio.fr" data-bs-mag-target="1" style="display:inline-block; font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(22px,4.2vw,60px); line-height:1.15; color:#FFFFFF; text-decoration:underline; text-decoration-color:rgba(200,122,83,0.4); text-decoration-thickness:2px; text-underline-offset:0.22em; overflow-wrap:anywhere; transition:color var(--bs-t-fast) ease, text-decoration-color var(--bs-t-fast) ease;" style-hover="color:#C87A53; text-decoration-color:#C87A53;">contact@brenartstudio.fr</a>
     </div>
   </section>
 
@@ -1048,7 +1048,7 @@
   <section data-page="portfolio-acasa" data-screen-label="Projet — Acasa" style="display:{{ dPAcasa }};">
     <div style="padding:var(--bs-pad-top-sm) var(--bs-pad-x) var(--bs-gap-head); max-width:1480px; margin:0 auto;">
       <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:clamp(16px,2vw,24px);">
-        <a href="/portfolio" style="display:inline-block; color:rgba(255,255,255,0.6); text-decoration:none; font-size:14px; font-weight:500; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">← Portfolio</a>
+        <a data-cursor="link" href="/portfolio" style="display:inline-block; color:rgba(255,255,255,0.6); text-decoration:none; font-size:14px; font-weight:500; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">← Portfolio</a>
         <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:12px; letter-spacing:0.08em; color:rgba(255,255,255,0.5);">02 / 04</span>
       </div>
       <div data-bs-case-hero="1" style="position:relative; aspect-ratio:16/9; border-radius:var(--bs-r-frame); overflow:hidden; border:1px solid rgba(255,255,255,0.1); background:#0E0E0E;">
@@ -1112,7 +1112,7 @@
     </div>
 
     <div style="max-width:1480px; margin:0 auto; padding:var(--bs-pad-y) var(--bs-pad-x) 0;">
-      <a href="/portfolio/laure-fagbohoun" onMouseEnter="{{ nextE1 }}" onMouseLeave="{{ nextL }}" style="display:flex; flex-direction:column; gap:clamp(20px,3vw,32px); text-decoration:none; border-top:1px solid #2A2A2A; padding-top:clamp(32px,4vw,52px);">
+      <a data-cursor="link" href="/portfolio/laure-fagbohoun" onMouseEnter="{{ nextE1 }}" onMouseLeave="{{ nextL }}" style="display:flex; flex-direction:column; gap:clamp(20px,3vw,32px); text-decoration:none; border-top:1px solid #2A2A2A; padding-top:clamp(32px,4vw,52px);">
         <div style="display:flex; align-items:baseline; justify-content:space-between; gap:24px;">
           <div style="display:flex; flex-direction:column; gap:12px;">
             <span style="font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.5);">Projet suivant</span>
@@ -1133,7 +1133,7 @@
         <span style="display:block; width:24px; height:1px; background:#C87A53;"></span>
       </div>
       <h2 style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(44px,7vw,104px); line-height:1; letter-spacing:-0.015em; text-transform:uppercase; margin:0 0 clamp(30px,4vw,48px); color:#FFFFFF;">Parlons-en<span style="color:#C87A53;">.</span></h2>
-      <a href="mailto:contact@brenartstudio.fr" data-bs-mag-target="1" style="display:inline-block; font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(22px,4.2vw,60px); line-height:1.15; color:#FFFFFF; text-decoration:underline; text-decoration-color:rgba(200,122,83,0.4); text-decoration-thickness:2px; text-underline-offset:0.22em; overflow-wrap:anywhere; transition:color var(--bs-t-fast) ease, text-decoration-color var(--bs-t-fast) ease;" style-hover="color:#C87A53; text-decoration-color:#C87A53;">contact@brenartstudio.fr</a>
+      <a data-cursor="link" href="mailto:contact@brenartstudio.fr" data-bs-mag-target="1" style="display:inline-block; font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(22px,4.2vw,60px); line-height:1.15; color:#FFFFFF; text-decoration:underline; text-decoration-color:rgba(200,122,83,0.4); text-decoration-thickness:2px; text-underline-offset:0.22em; overflow-wrap:anywhere; transition:color var(--bs-t-fast) ease, text-decoration-color var(--bs-t-fast) ease;" style-hover="color:#C87A53; text-decoration-color:#C87A53;">contact@brenartstudio.fr</a>
     </div>
   </section>
 
@@ -1141,7 +1141,7 @@
   <section data-page="portfolio-laure-fagbohoun" data-screen-label="Projet — Laure Fagbohoun" style="display:{{ dPLaure }};">
     <div style="padding:var(--bs-pad-top-sm) var(--bs-pad-x) var(--bs-gap-head); max-width:1480px; margin:0 auto;">
       <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:clamp(16px,2vw,24px);">
-        <a href="/portfolio" style="display:inline-block; color:rgba(255,255,255,0.6); text-decoration:none; font-size:14px; font-weight:500; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">← Portfolio</a>
+        <a data-cursor="link" href="/portfolio" style="display:inline-block; color:rgba(255,255,255,0.6); text-decoration:none; font-size:14px; font-weight:500; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">← Portfolio</a>
         <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:12px; letter-spacing:0.08em; color:rgba(255,255,255,0.5);">03 / 04</span>
       </div>
       <div data-bs-case-hero="1" style="position:relative; aspect-ratio:16/9; border-radius:var(--bs-r-frame); overflow:hidden; border:1px solid rgba(255,255,255,0.1); background:#0E0E0E;">
@@ -1220,19 +1220,19 @@
             </div>
             <div style="display:{{ laureFallbackD }}; position:absolute; inset:0; flex-direction:column; align-items:center; justify-content:center; gap:24px; padding:clamp(32px,5vw,56px); text-align:center; background:#0E0E0E;">
               <p style="font-family:'Inter',sans-serif; font-size:clamp(16px,2vw,20px); line-height:1.5; color:#FFFFFF; margin:0; max-width:380px;">Le site s’affiche en plein écran</p>
-              <a href="https://laure-fagbohoun.fr/" target="_blank" rel="noopener" style="font-family:'Inter',sans-serif; font-weight:600; font-size:15px; letter-spacing:0.01em; color:#070707; background:#C87A53; padding:14px 28px; border-radius:var(--bs-r-btn); text-decoration:none; transition:transform var(--bs-t-fast) ease, filter var(--bs-t-fast) ease;" style-hover="filter:brightness(1.06); transform:translateY(-2px);">Ouvrir laure-fagbohoun.fr →</a>
+              <a data-cursor="link" href="https://laure-fagbohoun.fr/" target="_blank" rel="noopener" style="font-family:'Inter',sans-serif; font-weight:600; font-size:15px; letter-spacing:0.01em; color:#070707; background:#C87A53; padding:14px 28px; border-radius:var(--bs-r-btn); text-decoration:none; transition:transform var(--bs-t-fast) ease, filter var(--bs-t-fast) ease;" style-hover="filter:brightness(1.06); transform:translateY(-2px);">Ouvrir laure-fagbohoun.fr →</a>
             </div>
           </div>
         </div>
 
         <div style="display:flex; justify-content:center; margin-top:clamp(28px,4vw,42px);">
-          <a href="https://laure-fagbohoun.fr/" target="_blank" rel="noopener" style="font-family:'Inter',sans-serif; font-weight:600; font-size:15px; letter-spacing:0.01em; color:#070707; background:#C87A53; padding:15px 30px; border-radius:var(--bs-r-btn); text-decoration:none; transition:transform var(--bs-t-fast) ease, filter var(--bs-t-fast) ease;" style-hover="filter:brightness(1.06); transform:translateY(-2px);">Voir le site en plein écran →</a>
+          <a data-cursor="link" href="https://laure-fagbohoun.fr/" target="_blank" rel="noopener" style="font-family:'Inter',sans-serif; font-weight:600; font-size:15px; letter-spacing:0.01em; color:#070707; background:#C87A53; padding:15px 30px; border-radius:var(--bs-r-btn); text-decoration:none; transition:transform var(--bs-t-fast) ease, filter var(--bs-t-fast) ease;" style-hover="filter:brightness(1.06); transform:translateY(-2px);">Voir le site en plein écran →</a>
         </div>
       </div>
     </div>
 
     <div style="max-width:1480px; margin:0 auto; padding:var(--bs-pad-y) var(--bs-pad-x) 0;">
-      <a href="/portfolio/koryaa" onMouseEnter="{{ nextE2 }}" onMouseLeave="{{ nextL }}" style="display:flex; flex-direction:column; gap:clamp(20px,3vw,32px); text-decoration:none; border-top:1px solid #2A2A2A; padding-top:clamp(32px,4vw,52px);">
+      <a data-cursor="link" href="/portfolio/koryaa" onMouseEnter="{{ nextE2 }}" onMouseLeave="{{ nextL }}" style="display:flex; flex-direction:column; gap:clamp(20px,3vw,32px); text-decoration:none; border-top:1px solid #2A2A2A; padding-top:clamp(32px,4vw,52px);">
         <div style="display:flex; align-items:baseline; justify-content:space-between; gap:24px;">
           <div style="display:flex; flex-direction:column; gap:12px;">
             <span style="font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.5);">Projet suivant</span>
@@ -1255,7 +1255,7 @@
         <span style="display:block; width:24px; height:1px; background:#C87A53;"></span>
       </div>
       <h2 style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(44px,7vw,104px); line-height:1; letter-spacing:-0.015em; text-transform:uppercase; margin:0 0 clamp(30px,4vw,48px); color:#FFFFFF;">Parlons-en<span style="color:#C87A53;">.</span></h2>
-      <a href="mailto:contact@brenartstudio.fr" data-bs-mag-target="1" style="display:inline-block; font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(22px,4.2vw,60px); line-height:1.15; color:#FFFFFF; text-decoration:underline; text-decoration-color:rgba(200,122,83,0.4); text-decoration-thickness:2px; text-underline-offset:0.22em; overflow-wrap:anywhere; transition:color var(--bs-t-fast) ease, text-decoration-color var(--bs-t-fast) ease;" style-hover="color:#C87A53; text-decoration-color:#C87A53;">contact@brenartstudio.fr</a>
+      <a data-cursor="link" href="mailto:contact@brenartstudio.fr" data-bs-mag-target="1" style="display:inline-block; font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(22px,4.2vw,60px); line-height:1.15; color:#FFFFFF; text-decoration:underline; text-decoration-color:rgba(200,122,83,0.4); text-decoration-thickness:2px; text-underline-offset:0.22em; overflow-wrap:anywhere; transition:color var(--bs-t-fast) ease, text-decoration-color var(--bs-t-fast) ease;" style-hover="color:#C87A53; text-decoration-color:#C87A53;">contact@brenartstudio.fr</a>
     </div>
   </section>
 
@@ -1263,7 +1263,7 @@
   <section data-page="portfolio-koryaa" data-screen-label="Projet — Koryaa" style="display:{{ dPKoryaa }};">
     <div style="padding:var(--bs-pad-top-sm) var(--bs-pad-x) var(--bs-gap-head); max-width:1480px; margin:0 auto;">
       <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:clamp(16px,2vw,24px);">
-        <a href="/portfolio" style="display:inline-block; color:rgba(255,255,255,0.6); text-decoration:none; font-size:14px; font-weight:500; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">← Portfolio</a>
+        <a data-cursor="link" href="/portfolio" style="display:inline-block; color:rgba(255,255,255,0.6); text-decoration:none; font-size:14px; font-weight:500; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">← Portfolio</a>
         <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:12px; letter-spacing:0.08em; color:rgba(255,255,255,0.5);">04 / 04</span>
       </div>
       <div data-bs-case-hero="1" style="position:relative; aspect-ratio:16/9; border-radius:var(--bs-r-frame); overflow:hidden; border:1px solid rgba(255,255,255,0.1); background:#3A2233;">
@@ -1334,7 +1334,7 @@
     </div>
 
     <div style="max-width:1480px; margin:0 auto; padding:var(--bs-pad-y) var(--bs-pad-x) 0;">
-      <a href="/portfolio/ineeva" onMouseEnter="{{ nextE3 }}" onMouseLeave="{{ nextL }}" style="display:flex; flex-direction:column; gap:clamp(20px,3vw,32px); text-decoration:none; border-top:1px solid #2A2A2A; padding-top:clamp(32px,4vw,52px);">
+      <a data-cursor="link" href="/portfolio/ineeva" onMouseEnter="{{ nextE3 }}" onMouseLeave="{{ nextL }}" style="display:flex; flex-direction:column; gap:clamp(20px,3vw,32px); text-decoration:none; border-top:1px solid #2A2A2A; padding-top:clamp(32px,4vw,52px);">
         <div style="display:flex; align-items:baseline; justify-content:space-between; gap:24px;">
           <div style="display:flex; flex-direction:column; gap:12px;">
             <span style="font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.5);">Projet suivant</span>
@@ -1355,7 +1355,7 @@
         <span style="display:block; width:24px; height:1px; background:#C87A53;"></span>
       </div>
       <h2 style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(44px,7vw,104px); line-height:1; letter-spacing:-0.015em; text-transform:uppercase; margin:0 0 clamp(30px,4vw,48px); color:#FFFFFF;">Parlons-en<span style="color:#C87A53;">.</span></h2>
-      <a href="mailto:contact@brenartstudio.fr" data-bs-mag-target="1" style="display:inline-block; font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(22px,4.2vw,60px); line-height:1.15; color:#FFFFFF; text-decoration:underline; text-decoration-color:rgba(200,122,83,0.4); text-decoration-thickness:2px; text-underline-offset:0.22em; overflow-wrap:anywhere; transition:color var(--bs-t-fast) ease, text-decoration-color var(--bs-t-fast) ease;" style-hover="color:#C87A53; text-decoration-color:#C87A53;">contact@brenartstudio.fr</a>
+      <a data-cursor="link" href="mailto:contact@brenartstudio.fr" data-bs-mag-target="1" style="display:inline-block; font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(22px,4.2vw,60px); line-height:1.15; color:#FFFFFF; text-decoration:underline; text-decoration-color:rgba(200,122,83,0.4); text-decoration-thickness:2px; text-underline-offset:0.22em; overflow-wrap:anywhere; transition:color var(--bs-t-fast) ease, text-decoration-color var(--bs-t-fast) ease;" style-hover="color:#C87A53; text-decoration-color:#C87A53;">contact@brenartstudio.fr</a>
     </div>
   </section>
 
@@ -1394,7 +1394,7 @@
           <div style="margin:auto 0 0;">
             <div style="height:1px; background:rgba(255,255,255,0.12); margin:28px 0 16px;"></div>
             <p style="font-size:13.5px; line-height:1.55; color:var(--bs-label); font-style:italic; margin:0;"><span style="display:block; font-family:'Inter',sans-serif; font-style:normal; font-weight:500; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--bs-label); margin-bottom:7px; opacity:0.85;">Idéal pour</span>un indépendant, un particulier exigeant ou un projet qui démarre et veut une base nette, sans se disperser.</p>
-            <a href="/contact" style="display:flex; align-items:center; justify-content:center; box-sizing:border-box; width:100%; margin-top:24px; padding:16px 22px; border-radius:var(--bs-r-btn); border:1px solid rgba(255,255,255,0.32); background:transparent; color:#FFFFFF; font-family:'Inter',sans-serif; font-weight:500; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; text-decoration:none; cursor:pointer; transition:color var(--bs-t-fast) ease, border-color var(--bs-t-fast) ease;" style-hover="color:#C87A53; border-color:#C87A53;">Démarrer avec Essentiel</a>
+            <a data-cursor="link" href="/contact" style="display:flex; align-items:center; justify-content:center; box-sizing:border-box; width:100%; margin-top:24px; padding:16px 22px; border-radius:var(--bs-r-btn); border:1px solid rgba(255,255,255,0.32); background:transparent; color:#FFFFFF; font-family:'Inter',sans-serif; font-weight:500; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; text-decoration:none; cursor:pointer; transition:color var(--bs-t-fast) ease, border-color var(--bs-t-fast) ease;" style-hover="color:#C87A53; border-color:#C87A53;">Démarrer avec Essentiel</a>
           </div>
         </div>
 
@@ -1420,7 +1420,7 @@
           <div style="margin:auto 0 0;">
             <div style="height:1px; background:rgba(255,255,255,0.12); margin:28px 0 16px;"></div>
             <p style="font-size:13.5px; line-height:1.55; color:var(--bs-label); font-style:italic; margin:0;"><span style="display:block; font-family:'Inter',sans-serif; font-style:normal; font-weight:500; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--bs-label); margin-bottom:7px; opacity:0.85;">Idéal pour</span>une PME, un acteur local ou une marque lifestyle qui veut une présence cohérente et professionnelle, qui la démarque.</p>
-            <a href="/contact" style="display:flex; align-items:center; justify-content:center; box-sizing:border-box; width:100%; margin-top:24px; padding:17px 22px; border-radius:var(--bs-r-btn); border:none; background:#C87A53; color:#070707; font-family:'Inter',sans-serif; font-weight:600; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; text-decoration:none; cursor:pointer; transition:background var(--bs-t-fast) ease;" style-hover="background:#B56C46;">Choisir Signature</a>
+            <a data-cursor="link" href="/contact" style="display:flex; align-items:center; justify-content:center; box-sizing:border-box; width:100%; margin-top:24px; padding:17px 22px; border-radius:var(--bs-r-btn); border:none; background:#C87A53; color:#070707; font-family:'Inter',sans-serif; font-weight:600; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; text-decoration:none; cursor:pointer; transition:background var(--bs-t-fast) ease;" style-hover="background:#B56C46;">Choisir Signature</a>
           </div>
         </div>
 
@@ -1444,7 +1444,7 @@
           <div style="margin:auto 0 0;">
             <div style="height:1px; background:rgba(255,255,255,0.12); margin:28px 0 16px;"></div>
             <p style="font-size:13.5px; line-height:1.55; color:var(--bs-label); font-style:italic; margin:0;"><span style="display:block; font-family:'Inter',sans-serif; font-style:normal; font-weight:500; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--bs-label); margin-bottom:7px; opacity:0.85;">Idéal pour</span>une startup en lancement, ou une marque en pleine refonte, quand tout doit être pensé et aligné d’un coup.</p>
-            <a href="/contact" style="display:flex; align-items:center; justify-content:center; box-sizing:border-box; width:100%; margin-top:24px; padding:16px 22px; border-radius:var(--bs-r-btn); border:1px solid rgba(255,255,255,0.32); background:transparent; color:#FFFFFF; font-family:'Inter',sans-serif; font-weight:500; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; text-decoration:none; cursor:pointer; transition:color var(--bs-t-fast) ease, border-color var(--bs-t-fast) ease;" style-hover="color:#C87A53; border-color:#C87A53;">Discuter de l’Intégral</a>
+            <a data-cursor="link" href="/contact" style="display:flex; align-items:center; justify-content:center; box-sizing:border-box; width:100%; margin-top:24px; padding:16px 22px; border-radius:var(--bs-r-btn); border:1px solid rgba(255,255,255,0.32); background:transparent; color:#FFFFFF; font-family:'Inter',sans-serif; font-weight:500; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; text-decoration:none; cursor:pointer; transition:color var(--bs-t-fast) ease, border-color var(--bs-t-fast) ease;" style-hover="color:#C87A53; border-color:#C87A53;">Discuter de l’Intégral</a>
           </div>
         </div>
 
@@ -1456,7 +1456,7 @@
           <h3 style="font-family:'Satoshi',sans-serif; font-weight:600; font-size:clamp(22px,2.2vw,30px); line-height:1.15; letter-spacing:-0.01em; color:#FFFFFF; margin:0;">Projet sur-mesure</h3>
           <p style="font-size:15.5px; line-height:1.6; color:rgba(255,255,255,0.78); margin:0;">Un périmètre atypique, plusieurs marques, un rythme particulier&nbsp;? On dessine l’offre et le budget ensemble.</p>
         </div>
-        <a href="/contact" style="flex:none; display:inline-flex; align-items:center; justify-content:center; box-sizing:border-box; padding:16px 28px; border-radius:var(--bs-r-btn); border:1px solid #C87A53; background:#C87A53; color:#FFFFFF; font-family:'Inter',sans-serif; font-weight:500; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; text-decoration:none; cursor:pointer; transition:background var(--bs-t-fast) ease, color var(--bs-t-fast) ease;" style-hover="background:transparent; color:#C87A53;">À définir ensemble</a>
+        <a data-cursor="link" href="/contact" style="flex:none; display:inline-flex; align-items:center; justify-content:center; box-sizing:border-box; padding:16px 28px; border-radius:var(--bs-r-btn); border:1px solid #C87A53; background:#C87A53; color:#FFFFFF; font-family:'Inter',sans-serif; font-weight:500; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; text-decoration:none; cursor:pointer; transition:background var(--bs-t-fast) ease, color var(--bs-t-fast) ease;" style-hover="background:transparent; color:#C87A53;">À définir ensemble</a>
       </div>
 
       <p style="margin:clamp(28px,3vw,40px) 0 0; font-size:13.5px; line-height:1.6; color:var(--bs-label);">Tarifs nets, TVA non applicable, art. 293 B du CGI. Paiement échelonné possible.</p>
@@ -1497,7 +1497,7 @@
 
     <div class="bs-section" style=" text-align:center;">
       <p style="font-size:17px; color:rgba(255,255,255,0.7); margin:0 0 28px;">Le périmètre exact se définit ensemble, au cadrage.</p>
-      <a href="/contact" data-bs-mag-target="1" style="display:inline-flex; align-items:center; background:#C87A53; color:#FFFFFF; text-decoration:none; font-size:15px; font-weight:500; padding:17px 32px; border-radius:var(--bs-r-pill); transition:background var(--bs-t-fast) ease, box-shadow var(--bs-t-fast) ease, transform var(--bs-t-fast) ease;" style-hover="background:#D89265; box-shadow:0 8px 24px rgba(0,0,0,0.4); transform:translateY(-2px);">Parler de votre projet</a>
+      <a data-cursor="link" href="/contact" data-bs-mag-target="1" style="display:inline-flex; align-items:center; background:#C87A53; color:#FFFFFF; text-decoration:none; font-size:15px; font-weight:500; padding:17px 32px; border-radius:var(--bs-r-pill); transition:background var(--bs-t-fast) ease, box-shadow var(--bs-t-fast) ease, transform var(--bs-t-fast) ease;" style-hover="background:#D89265; box-shadow:0 8px 24px rgba(0,0,0,0.4); transform:translateY(-2px);">Parler de votre projet</a>
     </div>
   </section>
 
@@ -1584,8 +1584,8 @@
           <div class="bs-card bs-card--glass" style="padding:28px 32px;">
             <p style="font-size:12px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0 0 16px;">Suivre le travail du studio</p>
             <div style="display:flex; flex-wrap:wrap; gap:12px;">
-              <a href="https://www.instagram.com/merald_brn?igsh=bnVnb2N2dGx4dnps&utm_source=qr" target="_blank" rel="noopener" aria-label="Instagram" style="display:inline-flex; align-items:center; justify-content:center; width:50px; height:50px; border:1px solid rgba(255,255,255,0.2); border-radius:var(--bs-r-pill); transition:border-color var(--bs-t-fast) ease, background var(--bs-t-fast) ease, transform var(--bs-t-fast) ease;" style-hover="border-color:#C87A53; background:rgba(200,122,83,0.12); transform:translateY(-2px);"><picture style="display:contents"><source type="image/avif" srcset="assets/opt/instagram-white-48.avif"><img src="assets/opt/instagram-white-48.png" alt="Instagram" width="24" height="24" style="display:block; width:24px; height:24px;" loading="lazy" decoding="async"></picture></a>
-              <a href="https://www.linkedin.com/in/m%C3%A9rald-design/" target="_blank" rel="noopener" aria-label="LinkedIn" style="display:inline-flex; align-items:center; justify-content:center; width:50px; height:50px; border:1px solid rgba(255,255,255,0.2); border-radius:var(--bs-r-pill); transition:border-color var(--bs-t-fast) ease, background var(--bs-t-fast) ease, transform var(--bs-t-fast) ease;" style-hover="border-color:#C87A53; background:rgba(200,122,83,0.12); transform:translateY(-2px);"><picture style="display:contents"><source type="image/avif" srcset="assets/opt/linkedin-white-48.avif"><img src="assets/opt/linkedin-white-48.png" alt="LinkedIn" width="24" height="24" style="display:block; width:24px; height:24px;" loading="lazy" decoding="async"></picture></a>
+              <a data-cursor="link" href="https://www.instagram.com/merald_brn?igsh=bnVnb2N2dGx4dnps&utm_source=qr" target="_blank" rel="noopener" aria-label="Instagram" style="display:inline-flex; align-items:center; justify-content:center; width:50px; height:50px; border:1px solid rgba(255,255,255,0.2); border-radius:var(--bs-r-pill); transition:border-color var(--bs-t-fast) ease, background var(--bs-t-fast) ease, transform var(--bs-t-fast) ease;" style-hover="border-color:#C87A53; background:rgba(200,122,83,0.12); transform:translateY(-2px);"><picture style="display:contents"><source type="image/avif" srcset="assets/opt/instagram-white-48.avif"><img src="assets/opt/instagram-white-48.png" alt="Instagram" width="24" height="24" style="display:block; width:24px; height:24px;" loading="lazy" decoding="async"></picture></a>
+              <a data-cursor="link" href="https://www.linkedin.com/in/m%C3%A9rald-design/" target="_blank" rel="noopener" aria-label="LinkedIn" style="display:inline-flex; align-items:center; justify-content:center; width:50px; height:50px; border:1px solid rgba(255,255,255,0.2); border-radius:var(--bs-r-pill); transition:border-color var(--bs-t-fast) ease, background var(--bs-t-fast) ease, transform var(--bs-t-fast) ease;" style-hover="border-color:#C87A53; background:rgba(200,122,83,0.12); transform:translateY(-2px);"><picture style="display:contents"><source type="image/avif" srcset="assets/opt/linkedin-white-48.avif"><img src="assets/opt/linkedin-white-48.png" alt="LinkedIn" width="24" height="24" style="display:block; width:24px; height:24px;" loading="lazy" decoding="async"></picture></a>
             </div>
           </div>
         </div>
@@ -1608,18 +1608,18 @@
       <!-- Formulaire -->
       <div style="background:rgba(255,255,255,0.05); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,0.13); border-radius:var(--bs-r-frame); padding:clamp(28px,3.5vw,48px); box-shadow:0 30px 60px rgba(0,0,0,0.3);">
         <form onSubmit="{{ submitForm }}" style="display:{{ formD }}; flex-direction:column; gap:22px;">
-          <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute; left:-9999px; width:1px; height:1px; opacity:0;">
+          <input data-cursor="text" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute; left:-9999px; width:1px; height:1px; opacity:0;">
           <div style="display:flex; flex-direction:column; gap:8px;">
             <label for="bs-nom" style="font-size:12px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.6);">Nom</label>
-            <input id="bs-nom" name="nom" type="text" required="required" placeholder="Votre nom" style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.18); border-radius:var(--bs-r-field); padding:14px 16px; font-family:'Inter',sans-serif; font-size:15px; color:#FFFFFF;">
+            <input data-cursor="text" id="bs-nom" name="nom" type="text" required="required" placeholder="Votre nom" style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.18); border-radius:var(--bs-r-field); padding:14px 16px; font-family:'Inter',sans-serif; font-size:15px; color:#FFFFFF;">
           </div>
           <div style="display:flex; flex-direction:column; gap:8px;">
             <label for="bs-email" style="font-size:12px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.6);">Email</label>
-            <input id="bs-email" name="email" type="email" required="required" placeholder="Votre adresse email" style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.18); border-radius:var(--bs-r-field); padding:14px 16px; font-family:'Inter',sans-serif; font-size:15px; color:#FFFFFF;">
+            <input data-cursor="text" id="bs-email" name="email" type="email" required="required" placeholder="Votre adresse email" style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.18); border-radius:var(--bs-r-field); padding:14px 16px; font-family:'Inter',sans-serif; font-size:15px; color:#FFFFFF;">
           </div>
           <div style="display:flex; flex-direction:column; gap:8px;">
             <label for="bs-type" style="font-size:12px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.6);">Type de projet</label>
-            <select id="bs-type" name="type" required="required" style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.18); border-radius:var(--bs-r-field); padding:14px 16px; font-family:'Inter',sans-serif; font-size:15px; color:#FFFFFF; appearance:none;">
+            <select data-cursor="text" id="bs-type" name="type" required="required" style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.18); border-radius:var(--bs-r-field); padding:14px 16px; font-family:'Inter',sans-serif; font-size:15px; color:#FFFFFF; appearance:none;">
               <option value="">Choisir…</option>
               <option value="brand">Brand Design</option>
               <option value="web">Web Design</option>
@@ -1632,7 +1632,7 @@
           </div>
           <div style="display:flex; flex-direction:column; gap:8px;">
             <label for="bs-budget" style="font-size:12px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.6);">Budget indicatif <span style="text-transform:none; letter-spacing:0; color:rgba(255,255,255,0.5);">(optionnel)</span></label>
-            <select id="bs-budget" name="budget" style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.18); border-radius:var(--bs-r-field); padding:14px 16px; font-family:'Inter',sans-serif; font-size:15px; color:#FFFFFF; appearance:none;">
+            <select data-cursor="text" id="bs-budget" name="budget" style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.18); border-radius:var(--bs-r-field); padding:14px 16px; font-family:'Inter',sans-serif; font-size:15px; color:#FFFFFF; appearance:none;">
               <option value="">À définir ensemble</option>
               <option value="b1">1&nbsp;800 – 3&nbsp;500&nbsp;€</option>
               <option value="b2">3&nbsp;500 – 6&nbsp;500&nbsp;€</option>
@@ -1641,13 +1641,13 @@
           </div>
           <div style="display:flex; flex-direction:column; gap:8px;">
             <label for="bs-message" style="font-size:12px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.6);">Message</label>
-            <textarea id="bs-message" name="message" required="required" rows="5" placeholder="Votre activité, votre besoin, votre échéance, en quelques lignes." style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.18); border-radius:var(--bs-r-field); padding:14px 16px; font-family:'Inter',sans-serif; font-size:15px; color:#FFFFFF; resize:vertical; min-height:120px;"></textarea>
+            <textarea data-cursor="text" id="bs-message" name="message" required="required" rows="5" placeholder="Votre activité, votre besoin, votre échéance, en quelques lignes." style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.18); border-radius:var(--bs-r-field); padding:14px 16px; font-family:'Inter',sans-serif; font-size:15px; color:#FFFFFF; resize:vertical; min-height:120px;"></textarea>
           </div>
-          <p style="font-size:12.5px; line-height:1.6; color:rgba(255,255,255,0.5); margin:0;">Les informations transmises servent uniquement à répondre à votre demande. Elles ne sont ni cédées ni revendues, et sont conservées douze mois. Vous disposez d’un droit d’accès, de rectification et de suppression&nbsp;: <a href="mailto:contact@brenartstudio.fr" style="color:rgba(255,255,255,0.75); text-decoration:underline; text-decoration-color:#C87A53; text-underline-offset:3px;">contact@brenartstudio.fr</a>. Détail dans la <a href="/confidentialite" style="color:rgba(255,255,255,0.75); text-decoration:underline; text-decoration-color:#C87A53; text-underline-offset:3px;">politique de confidentialité</a>.</p>
-          <button type="submit" disabled="{{ submitDisabled }}" style="display:inline-flex; align-items:center; gap:10px; background:#141414; color:rgba(255,255,255,0.75); border:none; cursor:pointer; font-family:'Inter',sans-serif; font-size:15px; font-weight:500; padding:16px 30px; border-radius:var(--bs-r-pill); box-shadow:-5px -5px 12px rgba(255,255,255,0.05), 5px 5px 14px rgba(0,0,0,0.6); transition:box-shadow var(--bs-t-fast) ease, color var(--bs-t-fast) ease, opacity var(--bs-t-fast) ease; align-self:flex-start; opacity:{{ submitOpacity }};" style-hover="color:#C87A53; box-shadow:-1px -1px 5px rgba(255,255,255,0.04), 1px 1px 5px rgba(0,0,0,0.5), inset -2px -2px 6px rgba(255,255,255,0.05), inset 3px 3px 7px rgba(0,0,0,0.6);"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg><span style="display:{{ submitIdleD }};">Envoyer ma demande</span><span data-bs-prehide="1" style="display:{{ submitBusyD }};">Envoi…</span></button>
+          <p style="font-size:12.5px; line-height:1.6; color:rgba(255,255,255,0.5); margin:0;">Les informations transmises servent uniquement à répondre à votre demande. Elles ne sont ni cédées ni revendues, et sont conservées douze mois. Vous disposez d’un droit d’accès, de rectification et de suppression&nbsp;: <a data-cursor="link" href="mailto:contact@brenartstudio.fr" style="color:rgba(255,255,255,0.75); text-decoration:underline; text-decoration-color:#C87A53; text-underline-offset:3px;">contact@brenartstudio.fr</a>. Détail dans la <a data-cursor="link" href="/confidentialite" style="color:rgba(255,255,255,0.75); text-decoration:underline; text-decoration-color:#C87A53; text-underline-offset:3px;">politique de confidentialité</a>.</p>
+          <button data-cursor="link" type="submit" disabled="{{ submitDisabled }}" style="display:inline-flex; align-items:center; gap:10px; background:#141414; color:rgba(255,255,255,0.75); border:none; cursor:pointer; font-family:'Inter',sans-serif; font-size:15px; font-weight:500; padding:16px 30px; border-radius:var(--bs-r-pill); box-shadow:-5px -5px 12px rgba(255,255,255,0.05), 5px 5px 14px rgba(0,0,0,0.6); transition:box-shadow var(--bs-t-fast) ease, color var(--bs-t-fast) ease, opacity var(--bs-t-fast) ease; align-self:flex-start; opacity:{{ submitOpacity }};" style-hover="color:#C87A53; box-shadow:-1px -1px 5px rgba(255,255,255,0.04), 1px 1px 5px rgba(0,0,0,0.5), inset -2px -2px 6px rgba(255,255,255,0.05), inset 3px 3px 7px rgba(0,0,0,0.6);"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg><span style="display:{{ submitIdleD }};">Envoyer ma demande</span><span data-bs-prehide="1" style="display:{{ submitBusyD }};">Envoi…</span></button>
           <div role="alert" data-bs-prehide="1" style="display:{{ errorD }}; flex-direction:column; gap:8px; padding:16px 18px; background:rgba(200,122,83,0.12); border:1px solid rgba(200,122,83,0.35); border-radius:var(--bs-r-field);">
             <p ref="{{ errorRef }}" style="font-size:14.5px; line-height:1.5; color:#FFFFFF; margin:0;"></p>
-            <a href="mailto:contact@brenartstudio.fr" style="font-size:14px; font-weight:500; color:#C87A53; text-decoration:none; border-bottom:1px solid #C87A53; align-self:flex-start; padding-bottom:2px;">Nous écrire directement par email</a>
+            <a data-cursor="link" href="mailto:contact@brenartstudio.fr" style="font-size:14px; font-weight:500; color:#C87A53; text-decoration:none; border-bottom:1px solid #C87A53; align-self:flex-start; padding-bottom:2px;">Nous écrire directement par email</a>
           </div>
         </form>
         <div data-bs-prehide="1" style="display:{{ sentD }}; flex-direction:column; gap:16px; padding:24px 0;">
@@ -1660,8 +1660,8 @@
       <div style="display:flex; flex-direction:column; gap:clamp(28px,3vw,40px);">
         <div style="background:rgba(255,255,255,0.05); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,0.13); border-radius:var(--bs-r-frame); padding:clamp(28px,3vw,40px); display:flex; flex-direction:column; gap:18px;">
           <p style="font-size:12px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">En direct</p>
-          <a href="mailto:contact@brenartstudio.fr" style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(18px,1.8vw,24px); color:#FFFFFF; text-decoration:none; border-bottom:1px solid #C87A53; padding-bottom:4px; align-self:flex-start; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">contact@brenartstudio.fr</a>
-          <a href="tel:+33670174812" style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(18px,1.8vw,24px); color:#FFFFFF; text-decoration:none; border-bottom:1px solid #C87A53; padding-bottom:4px; align-self:flex-start; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">+33 6 70 17 48 12</a>
+          <a data-cursor="link" href="mailto:contact@brenartstudio.fr" style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(18px,1.8vw,24px); color:#FFFFFF; text-decoration:none; border-bottom:1px solid #C87A53; padding-bottom:4px; align-self:flex-start; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">contact@brenartstudio.fr</a>
+          <a data-cursor="link" href="tel:+33670174812" style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:clamp(18px,1.8vw,24px); color:#FFFFFF; text-decoration:none; border-bottom:1px solid #C87A53; padding-bottom:4px; align-self:flex-start; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">+33 6 70 17 48 12</a>
           <div style="display:flex; flex-direction:column; gap:6px;">
             <p style="font-size:14.5px; color:rgba(255,255,255,0.65); margin:0;">Basé à Toulouse, déplacements possibles en Occitanie.</p>
             <p style="font-size:14.5px; color:rgba(255,255,255,0.65); margin:0;">Réponse sous 48&nbsp;h ouvrées.</p>
@@ -1673,7 +1673,7 @@
           <div style="display:flex; flex-direction:column; gap:12px;">
 
             <div style="background:rgba(255,255,255,0.05); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,0.13); border-radius:var(--bs-r-frame); overflow:hidden;">
-              <button onClick="{{ faqT0 }}" aria-expanded="{{ faqA0 }}" style="width:100%; display:flex; align-items:center; justify-content:space-between; gap:16px; background:none; border:none; cursor:pointer; padding:20px 24px; font-family:'Inter',sans-serif; font-size:15.5px; font-weight:500; color:#FFFFFF; text-align:left;">
+              <button data-cursor="link" onClick="{{ faqT0 }}" aria-expanded="{{ faqA0 }}" style="width:100%; display:flex; align-items:center; justify-content:space-between; gap:16px; background:none; border:none; cursor:pointer; padding:20px 24px; font-family:'Inter',sans-serif; font-size:15.5px; font-weight:500; color:#FFFFFF; text-align:left;">
                 <span>Comment se déroule un projet&nbsp;?</span>
                 <span style="display:inline-block; font-family:'Satoshi',sans-serif; font-size:20px; color:#C87A53; flex-shrink:0; transform:{{ faqR0 }}; transition:transform var(--bs-t-mid) var(--bs-ease);">+</span>
               </button>
@@ -1683,7 +1683,7 @@
             </div>
 
             <div style="background:rgba(255,255,255,0.05); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,0.13); border-radius:var(--bs-r-frame); overflow:hidden;">
-              <button onClick="{{ faqT1 }}" aria-expanded="{{ faqA1 }}" style="width:100%; display:flex; align-items:center; justify-content:space-between; gap:16px; background:none; border:none; cursor:pointer; padding:20px 24px; font-family:'Inter',sans-serif; font-size:15.5px; font-weight:500; color:#FFFFFF; text-align:left;">
+              <button data-cursor="link" onClick="{{ faqT1 }}" aria-expanded="{{ faqA1 }}" style="width:100%; display:flex; align-items:center; justify-content:space-between; gap:16px; background:none; border:none; cursor:pointer; padding:20px 24px; font-family:'Inter',sans-serif; font-size:15.5px; font-weight:500; color:#FFFFFF; text-align:left;">
                 <span>Quels sont les délais&nbsp;?</span>
                 <span style="display:inline-block; font-family:'Satoshi',sans-serif; font-size:20px; color:#C87A53; flex-shrink:0; transform:{{ faqR1 }}; transition:transform var(--bs-t-mid) var(--bs-ease);">+</span>
               </button>
@@ -1693,7 +1693,7 @@
             </div>
 
             <div style="background:rgba(255,255,255,0.05); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,0.13); border-radius:var(--bs-r-frame); overflow:hidden;">
-              <button onClick="{{ faqT2 }}" aria-expanded="{{ faqA2 }}" style="width:100%; display:flex; align-items:center; justify-content:space-between; gap:16px; background:none; border:none; cursor:pointer; padding:20px 24px; font-family:'Inter',sans-serif; font-size:15.5px; font-weight:500; color:#FFFFFF; text-align:left;">
+              <button data-cursor="link" onClick="{{ faqT2 }}" aria-expanded="{{ faqA2 }}" style="width:100%; display:flex; align-items:center; justify-content:space-between; gap:16px; background:none; border:none; cursor:pointer; padding:20px 24px; font-family:'Inter',sans-serif; font-size:15.5px; font-weight:500; color:#FFFFFF; text-align:left;">
                 <span>De quoi avez-vous besoin pour démarrer&nbsp;?</span>
                 <span style="display:inline-block; font-family:'Satoshi',sans-serif; font-size:20px; color:#C87A53; flex-shrink:0; transform:{{ faqR2 }}; transition:transform var(--bs-t-mid) var(--bs-ease);">+</span>
               </button>
@@ -1703,7 +1703,7 @@
             </div>
 
             <div style="background:rgba(255,255,255,0.05); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,0.13); border-radius:var(--bs-r-frame); overflow:hidden;">
-              <button onClick="{{ faqT3 }}" aria-expanded="{{ faqA3 }}" style="width:100%; display:flex; align-items:center; justify-content:space-between; gap:16px; background:none; border:none; cursor:pointer; padding:20px 24px; font-family:'Inter',sans-serif; font-size:15.5px; font-weight:500; color:#FFFFFF; text-align:left;">
+              <button data-cursor="link" onClick="{{ faqT3 }}" aria-expanded="{{ faqA3 }}" style="width:100%; display:flex; align-items:center; justify-content:space-between; gap:16px; background:none; border:none; cursor:pointer; padding:20px 24px; font-family:'Inter',sans-serif; font-size:15.5px; font-weight:500; color:#FFFFFF; text-align:left;">
                 <span>Travaillez-vous seul&nbsp;?</span>
                 <span style="display:inline-block; font-family:'Satoshi',sans-serif; font-size:20px; color:#C87A53; flex-shrink:0; transform:{{ faqR3 }}; transition:transform var(--bs-t-mid) var(--bs-ease);">+</span>
               </button>
@@ -1713,7 +1713,7 @@
             </div>
 
             <div style="background:rgba(255,255,255,0.05); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,0.13); border-radius:var(--bs-r-frame); overflow:hidden;">
-              <button onClick="{{ faqT4 }}" aria-expanded="{{ faqA4 }}" style="width:100%; display:flex; align-items:center; justify-content:space-between; gap:16px; background:none; border:none; cursor:pointer; padding:20px 24px; font-family:'Inter',sans-serif; font-size:15.5px; font-weight:500; color:#FFFFFF; text-align:left;">
+              <button data-cursor="link" onClick="{{ faqT4 }}" aria-expanded="{{ faqA4 }}" style="width:100%; display:flex; align-items:center; justify-content:space-between; gap:16px; background:none; border:none; cursor:pointer; padding:20px 24px; font-family:'Inter',sans-serif; font-size:15.5px; font-weight:500; color:#FFFFFF; text-align:left;">
                 <span>Quel budget prévoir, et pour qui ce n’est pas adapté&nbsp;?</span>
                 <span style="display:inline-block; font-family:'Satoshi',sans-serif; font-size:20px; color:#C87A53; flex-shrink:0; transform:{{ faqR4 }}; transition:transform var(--bs-t-mid) var(--bs-ease);">+</span>
               </button>
@@ -1736,33 +1736,33 @@
     <div class="bs-shell">
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:clamp(36px,5vw,64px); margin-bottom:clamp(48px,6vw,72px);">
         <div style="display:flex; flex-direction:column; gap:16px;">
-          <a href="/" aria-label="Bren’Art Studio, accueil" style="display:inline-flex; align-items:center; text-decoration:none;"><picture style="display:contents"><source type="image/avif" srcset="assets/opt/logotype-blanc-374.avif"><img src="assets/logotype-blanc.png" alt="Bren’Art Studio" width="1168" height="162" style="display:block; height:26px; width:auto;"></picture></a>
+          <a data-cursor="link" href="/" aria-label="Bren’Art Studio, accueil" style="display:inline-flex; align-items:center; text-decoration:none;"><picture style="display:contents"><source type="image/avif" srcset="assets/opt/logotype-blanc-374.avif"><img src="assets/logotype-blanc.png" alt="Bren’Art Studio" width="1168" height="162" style="display:block; height:26px; width:auto;"></picture></a>
           <p style="font-size:14.5px; line-height:1.6; color:rgba(255,255,255,0.5); margin:0; max-width:280px;">Studio de création digitale à Toulouse. De l’idée à la mise en ligne.</p>
         </div>
         <div style="display:flex; flex-direction:column; gap:12px;">
           <p style="font-size:12px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0 0 4px;">Pages</p>
-          <a href="/" style="color:rgba(255,255,255,0.7); text-decoration:none; font-size:14.5px; transition:color var(--bs-t-fast) ease; align-self:flex-start;" style-hover="color:#C87A53;">Accueil</a>
-          <a href="/portfolio" style="color:rgba(255,255,255,0.7); text-decoration:none; font-size:14.5px; transition:color var(--bs-t-fast) ease; align-self:flex-start;" style-hover="color:#C87A53;">Portfolio</a>
-          <a href="/services" style="color:rgba(255,255,255,0.7); text-decoration:none; font-size:14.5px; transition:color var(--bs-t-fast) ease; align-self:flex-start;" style-hover="color:#C87A53;">Services</a>
-          <a href="/a-propos" style="color:rgba(255,255,255,0.7); text-decoration:none; font-size:14.5px; transition:color var(--bs-t-fast) ease; align-self:flex-start;" style-hover="color:#C87A53;">À propos</a>
-          <a href="/contact" style="color:rgba(255,255,255,0.7); text-decoration:none; font-size:14.5px; transition:color var(--bs-t-fast) ease; align-self:flex-start;" style-hover="color:#C87A53;">Contact</a>
+          <a data-cursor="link" href="/" style="color:rgba(255,255,255,0.7); text-decoration:none; font-size:14.5px; transition:color var(--bs-t-fast) ease; align-self:flex-start;" style-hover="color:#C87A53;">Accueil</a>
+          <a data-cursor="link" href="/portfolio" style="color:rgba(255,255,255,0.7); text-decoration:none; font-size:14.5px; transition:color var(--bs-t-fast) ease; align-self:flex-start;" style-hover="color:#C87A53;">Portfolio</a>
+          <a data-cursor="link" href="/services" style="color:rgba(255,255,255,0.7); text-decoration:none; font-size:14.5px; transition:color var(--bs-t-fast) ease; align-self:flex-start;" style-hover="color:#C87A53;">Services</a>
+          <a data-cursor="link" href="/a-propos" style="color:rgba(255,255,255,0.7); text-decoration:none; font-size:14.5px; transition:color var(--bs-t-fast) ease; align-self:flex-start;" style-hover="color:#C87A53;">À propos</a>
+          <a data-cursor="link" href="/contact" style="color:rgba(255,255,255,0.7); text-decoration:none; font-size:14.5px; transition:color var(--bs-t-fast) ease; align-self:flex-start;" style-hover="color:#C87A53;">Contact</a>
         </div>
         <div style="display:flex; flex-direction:column; gap:12px;">
           <p style="font-size:12px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0 0 4px;">Réseaux</p>
           <div style="display:flex; align-items:center; gap:12px; margin-top:-9px;">
-            <a href="https://www.instagram.com/merald_brn?igsh=bnVnb2N2dGx4dnps&utm_source=qr" target="_blank" rel="noopener" aria-label="Instagram" style="display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; border:1px solid rgba(255,255,255,0.2); border-radius:var(--bs-r-pill); transition:border-color var(--bs-t-fast) ease, background var(--bs-t-fast) ease;" style-hover="border-color:#C87A53; background:rgba(200,122,83,0.12);"><picture style="display:contents"><source type="image/avif" srcset="assets/opt/instagram-white-48.avif"><img src="assets/opt/instagram-white-48.png" alt="Instagram" width="20" height="20" style="display:block; width:20px; height:20px;" loading="lazy" decoding="async"></picture></a>
-            <a href="https://www.linkedin.com/in/m%C3%A9rald-design/" target="_blank" rel="noopener" aria-label="LinkedIn" style="display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; border:1px solid rgba(255,255,255,0.2); border-radius:var(--bs-r-pill); transition:border-color var(--bs-t-fast) ease, background var(--bs-t-fast) ease;" style-hover="border-color:#C87A53; background:rgba(200,122,83,0.12);"><picture style="display:contents"><source type="image/avif" srcset="assets/opt/linkedin-white-48.avif"><img src="assets/opt/linkedin-white-48.png" alt="LinkedIn" width="20" height="20" style="display:block; width:20px; height:20px;" loading="lazy" decoding="async"></picture></a>
+            <a data-cursor="link" href="https://www.instagram.com/merald_brn?igsh=bnVnb2N2dGx4dnps&utm_source=qr" target="_blank" rel="noopener" aria-label="Instagram" style="display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; border:1px solid rgba(255,255,255,0.2); border-radius:var(--bs-r-pill); transition:border-color var(--bs-t-fast) ease, background var(--bs-t-fast) ease;" style-hover="border-color:#C87A53; background:rgba(200,122,83,0.12);"><picture style="display:contents"><source type="image/avif" srcset="assets/opt/instagram-white-48.avif"><img src="assets/opt/instagram-white-48.png" alt="Instagram" width="20" height="20" style="display:block; width:20px; height:20px;" loading="lazy" decoding="async"></picture></a>
+            <a data-cursor="link" href="https://www.linkedin.com/in/m%C3%A9rald-design/" target="_blank" rel="noopener" aria-label="LinkedIn" style="display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; border:1px solid rgba(255,255,255,0.2); border-radius:var(--bs-r-pill); transition:border-color var(--bs-t-fast) ease, background var(--bs-t-fast) ease;" style-hover="border-color:#C87A53; background:rgba(200,122,83,0.12);"><picture style="display:contents"><source type="image/avif" srcset="assets/opt/linkedin-white-48.avif"><img src="assets/opt/linkedin-white-48.png" alt="LinkedIn" width="20" height="20" style="display:block; width:20px; height:20px;" loading="lazy" decoding="async"></picture></a>
           </div>
         </div>
         <div style="display:flex; flex-direction:column; gap:12px;">
           <p style="font-size:12px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0 0 4px;">Contact</p>
-          <a href="mailto:contact@brenartstudio.fr" style="color:rgba(255,255,255,0.7); text-decoration:none; font-size:14.5px; transition:color var(--bs-t-fast) ease; align-self:flex-start;" style-hover="color:#C87A53;">contact@brenartstudio.fr</a>
+          <a data-cursor="link" href="mailto:contact@brenartstudio.fr" style="color:rgba(255,255,255,0.7); text-decoration:none; font-size:14.5px; transition:color var(--bs-t-fast) ease; align-self:flex-start;" style-hover="color:#C87A53;">contact@brenartstudio.fr</a>
           <p style="color:rgba(255,255,255,0.5); font-size:14.5px; margin:0;">Toulouse, France</p>
         </div>
       </div>
       <div style="border-top:1px solid rgba(255,255,255,0.08); padding-top:28px; display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px;">
         <p style="font-size:13px; color:rgba(255,255,255,0.5); margin:0;">© 2026 Bren’Art Studio. Tous droits réservés.</p>
-        <p style="font-size:13px; margin:0; display:flex; flex-wrap:wrap; gap:20px;"><a href="/mentions-legales" style="color:rgba(255,255,255,0.5); text-decoration:none; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">Mentions légales</a><a href="/confidentialite" style="color:rgba(255,255,255,0.5); text-decoration:none; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">Confidentialité</a><a href="/cgv" style="color:rgba(255,255,255,0.5); text-decoration:none; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">CGV</a><a href="/confidentialite" data-bs-consent="open" style="color:rgba(255,255,255,0.5); text-decoration:none; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">Cookies</a></p>
+        <p style="font-size:13px; margin:0; display:flex; flex-wrap:wrap; gap:20px;"><a data-cursor="link" href="/mentions-legales" style="color:rgba(255,255,255,0.5); text-decoration:none; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">Mentions légales</a><a data-cursor="link" href="/confidentialite" style="color:rgba(255,255,255,0.5); text-decoration:none; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">Confidentialité</a><a data-cursor="link" href="/cgv" style="color:rgba(255,255,255,0.5); text-decoration:none; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">CGV</a><a data-cursor="link" href="/confidentialite" data-bs-consent="open" style="color:rgba(255,255,255,0.5); text-decoration:none; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">Cookies</a></p>
       </div>
     </div>
   </footer>
@@ -1856,6 +1856,19 @@ class Component extends DCLogic {
     // accolade au premier paint, valeur lisible sans JS). L'animation ne fait que
     // remonter de 0 jusqu'à cette valeur quand le bloc entre dans le viewport.
     this._initNavPill();
+
+    // Curseur personnalisé : le module n'est demandé au réseau QUE si le pointeur
+    // est fin et que le motion réduit n'est pas demandé. Sur tactile et en
+    // prefers-reduced-motion, rien n'est téléchargé ni exécuté.
+    // Un <script> injecté plutôt qu'un import() dynamique : le bloc de logique
+    // passe par Babel standalone, qui réécrit l'import en require et casserait
+    // le chargement. L'effet recherché — aucun octet sur mobile — est le même.
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches && !this._rm.matches) {
+      const cur = document.createElement('script');
+      cur.src = 'assets/cursor.js';
+      cur.defer = true;
+      document.head.appendChild(cur);
+    }
 
     this._whenEl('[data-bs-stats]', 8000, (statEl) => {
       if (!statEl) return;
@@ -2122,51 +2135,18 @@ class Component extends DCLogic {
     };
     gsap.ticker.add(this._pbLoop);
 
-    // — Curseur personnalisé + vignette flottante (pointeur fin uniquement)
+    // — Vignette flottante du portfolio (pointeur fin uniquement)
+    //   Le curseur personnalisé a quitté cette couche : il vit dans
+    //   assets/cursor.js, chargé conditionnellement et sans dépendance à GSAP.
     if (this._fp.matches) {
-      const c = document.createElement('div');
-      c.setAttribute('aria-hidden', 'true');
-      c.style.cssText = 'position:fixed;top:0;left:0;width:28px;height:28px;border-radius:50%;border:1.5px solid #C87A53;background:transparent;box-sizing:border-box;z-index:600;pointer-events:none;opacity:0;';
-      document.body.appendChild(c);
-      this._cursor = c;
-      gsap.set(c, { xPercent: -50, yPercent: -50 });
-      const cx = gsap.quickTo(c, 'x', { duration: 0.34, ease: 'power3.out' });
-      const cy = gsap.quickTo(c, 'y', { duration: 0.34, ease: 'power3.out' });
-
-      let fx = null, fy = null;
       this._whenEl('[data-bs-flt]', 5000, (f) => {
         if (!f) return;
         gsap.set(f, { xPercent: -50, yPercent: -56 });
-        fx = gsap.quickTo(f, 'x', { duration: 0.55, ease: 'power3.out' });
-        fy = gsap.quickTo(f, 'y', { duration: 0.55, ease: 'power3.out' });
+        const fx = gsap.quickTo(f, 'x', { duration: 0.55, ease: 'power3.out' });
+        const fy = gsap.quickTo(f, 'y', { duration: 0.55, ease: 'power3.out' });
+        this._onMove = (e) => { fx(e.clientX); fy(e.clientY); };
+        window.addEventListener('mousemove', this._onMove);
       });
-      this._onMove = (e) => {
-        if (c.style.opacity === '0') c.style.opacity = '1';
-        cx(e.clientX); cy(e.clientY);
-        if (fx) { fx(e.clientX); fy(e.clientY); }
-      };
-      window.addEventListener('mousemove', this._onMove);
-      this._onOver = (e) => {
-        const on = !!(e.target.closest && e.target.closest('a, button'));
-        gsap.to(c, { scale: on ? 1.7 : 1, backgroundColor: on ? 'rgba(200,122,83,0.18)' : 'rgba(200,122,83,0)', duration: 0.3, ease: 'power3.out' });
-      };
-      document.addEventListener('mouseover', this._onOver);
-      // le point devient le curseur : natif masqué, feedback au clic, disparition hors fenêtre
-      const cs = document.createElement('style');
-      cs.textContent = 'html, body, a, button, select, [role="button"] { cursor:none !important; }';
-      document.head.appendChild(cs);
-      this._curStyle = cs;
-      this._onDown = () => gsap.to(c, { scale: 0.7, duration: 0.18, ease: 'power2.out' });
-      this._onUp = (e) => {
-        const on = !!(e.target && e.target.closest && e.target.closest('a, button'));
-        gsap.to(c, { scale: on ? 1.7 : 1, duration: 0.3, ease: 'power3.out' });
-      };
-      window.addEventListener('mousedown', this._onDown);
-      window.addEventListener('mouseup', this._onUp);
-      this._onDocLeave = () => gsap.to(c, { autoAlpha: 0, duration: 0.25 });
-      this._onDocEnter = () => gsap.to(c, { autoAlpha: 1, duration: 0.25 });
-      document.documentElement.addEventListener('mouseleave', this._onDocLeave);
-      document.documentElement.addEventListener('mouseenter', this._onDocEnter);
     }
 
     // — Navbar : entrée + micro-rétrécissement au scroll
@@ -2514,14 +2494,9 @@ class Component extends DCLogic {
     if (this._mq && this._mq.removeEventListener) this._mq.removeEventListener('change', this._onMq);
     if (this._raf) cancelAnimationFrame(this._raf);
     if (this._onMove) window.removeEventListener('mousemove', this._onMove);
-    if (this._onOver) document.removeEventListener('mouseover', this._onOver);
     if (this._onKey) window.removeEventListener('keydown', this._onKey);
     if (this._statIo) this._statIo.disconnect();
-    if (this._onDown) { window.removeEventListener('mousedown', this._onDown); window.removeEventListener('mouseup', this._onUp); }
-    if (this._onDocLeave) { document.documentElement.removeEventListener('mouseleave', this._onDocLeave); document.documentElement.removeEventListener('mouseenter', this._onDocEnter); }
-    if (this._curStyle && this._curStyle.parentNode) this._curStyle.parentNode.removeChild(this._curStyle);
     if (this._pbar && this._pbar.parentNode) this._pbar.parentNode.removeChild(this._pbar);
-    if (this._cursor && this._cursor.parentNode) this._cursor.parentNode.removeChild(this._cursor);
     if (this._worksTag && this._worksTag.parentNode) this._worksTag.parentNode.removeChild(this._worksTag);
     if (this._gsap) {
       if (this._velTick) this._gsap.ticker.remove(this._velTick);
