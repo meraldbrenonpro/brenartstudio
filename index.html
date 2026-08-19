@@ -306,10 +306,10 @@
       --bs-terracotta-dp:#B56C46;   /* survol du CTA « Signature » */
       --bs-ink:#070707;             /* fond global */
       --bs-ivory:#FFFFFF;
-      --bs-sand:#B99E83;            /* labels secondaires sur fond brun */
-      --bs-brown:#2A1C14;           /* fond des cartes tarifs */
-      --bs-brown-line:#4E3D30;      /* bordure des cartes tarifs */
-      --bs-espresso:#221610;        /* theme-color, texte sur ivoire */
+      --bs-label:rgba(255,255,255,0.6); /* labels secondaires sur fond sombre */
+      --bs-panel:#101010;           /* fond des cartes tarifs */
+      --bs-panel-line:#333333;      /* bordure des cartes tarifs */
+      --bs-ink-2:#0E0E0E;           /* aplat sous les visuels, encre sur ivoire */
 
       /* — Rythme vertical : 3 paliers au lieu des 8 recettes qui coexistaient — */
       --bs-shell:1280px;                        /* largeur de coquille */
@@ -380,8 +380,8 @@
     /* Cartes — trois habillages, un seul rayon et un seul padding de référence */
     .bs-card { border-radius:var(--bs-r-frame); box-sizing:border-box; padding:var(--bs-card-pad); }
     .bs-card--glass { background:rgba(255,255,255,0.05); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,0.13); }
-    .bs-card--ivory { background:rgba(255,252,248,0.55); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid rgba(7,7,7,0.12); box-shadow:0 20px 50px rgba(7,7,7,0.07); }
-    .bs-card--brown { background:var(--bs-brown); border:1px solid var(--bs-brown-line); }
+    .bs-card--ivory { background:rgba(255,255,255,0.55); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid rgba(7,7,7,0.12); box-shadow:0 20px 50px rgba(7,7,7,0.07); }
+    .bs-card--panel { background:var(--bs-panel); border:1px solid var(--bs-panel-line); }
     /* Cadre média : même rayon que les cartes, pour que visuels et cartes se répondent */
     .bs-frame { border-radius:var(--bs-r-frame); overflow:hidden; }
 
@@ -480,7 +480,7 @@
     /* Barre de défilement assortie au fond */
     ::-webkit-scrollbar { width:11px; }
     ::-webkit-scrollbar-track { background:#070707; }
-    ::-webkit-scrollbar-thumb { background:#2E2A26; border-radius:6px; border:3px solid #070707; }
+    ::-webkit-scrollbar-thumb { background:#2A2A2A; border-radius:6px; border:3px solid #070707; }
     ::-webkit-scrollbar-thumb:hover { background:#C87A53; }
     /* Zoom lent de la vidéo du hero */
     @keyframes bs-heroZoom { from { transform:scale(1); } to { transform:scale(1.07); } }
@@ -507,7 +507,7 @@
 
   <!-- ============ HALOS AMBIANTS (toutes pages) ============ -->
   <div aria-hidden="true" style="position:fixed; inset:0; z-index:-1; pointer-events:none; overflow:hidden;">
-    <div style="position:absolute; top:-240px; left:-200px; width:980px; height:760px; border-radius:50%; background:radial-gradient(ellipse at center, rgba(200,122,83,0.15) 0%, rgba(50,50,50,0.13) 40%, transparent 70%); filter:blur(120px);"></div>
+    <div style="position:absolute; top:-240px; left:-200px; width:980px; height:760px; border-radius:50%; background:radial-gradient(ellipse at center, rgba(255,255,255,0.07) 0%, rgba(50,50,50,0.13) 40%, transparent 70%); filter:blur(120px);"></div>
     <div style="position:absolute; top:30%; right:-300px; width:820px; height:820px; border-radius:50%; background:radial-gradient(circle, rgba(255,255,255,0.09) 0%, transparent 65%); filter:blur(130px);"></div>
     <div style="position:absolute; bottom:-300px; left:25%; width:900px; height:640px; border-radius:50%; background:radial-gradient(ellipse at center, rgba(50,50,50,0.2) 0%, transparent 68%); filter:blur(140px);"></div>
   </div>
@@ -551,7 +551,7 @@
 
     <!-- Hero (vidéo d'ambiance en fond, traitée encre) -->
     <div style="position:relative; overflow:hidden;">
-      <video data-bs-hero-video="1" src="uploads/hero-ambiance.mp4" poster="assets/hero-poster.jpg" muted="muted" loop="loop" playsinline="playsinline" preload="none" aria-hidden="true" tabindex="-1" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; animation:bs-heroZoom 22s ease-in-out infinite alternate; filter:grayscale(0.92) sepia(0.5) hue-rotate(-14deg) saturate(1.05) brightness(0.5) contrast(1.06); opacity:0.55; pointer-events:none;"></video>
+      <video data-bs-hero-video="1" src="uploads/hero-ambiance.mp4" poster="assets/hero-poster.jpg" muted="muted" loop="loop" playsinline="playsinline" preload="none" aria-hidden="true" tabindex="-1" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; animation:bs-heroZoom 22s ease-in-out infinite alternate; filter:grayscale(1) brightness(0.5) contrast(1.06); opacity:0.55; pointer-events:none;"></video>
       <div aria-hidden="true" style="position:absolute; inset:0; pointer-events:none; background:repeating-linear-gradient(115deg, rgba(7,7,7,0.12) 0px, rgba(7,7,7,0.12) 1px, transparent 1px, transparent 5px), linear-gradient(90deg, rgba(7,7,7,0.82) 0%, rgba(7,7,7,0.3) 55%, rgba(7,7,7,0.45) 100%), linear-gradient(180deg, rgba(7,7,7,0.85) 0%, rgba(7,7,7,0.35) 42%, rgba(7,7,7,0.6) 74%, #070707 100%);"></div>
       <div class="bs-shell" style="position:relative; box-sizing:border-box; min-height:100svh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:clamp(120px,16vh,180px) clamp(20px,4vw,48px) clamp(70px,9vw,120px);">
       <div style="display:flex; flex-direction:column; align-items:center; text-align:center; width:100%;">
@@ -613,7 +613,7 @@
         </div>
         <div data-bs-works-row="1">
           <a href="/portfolio/ineeva" data-bs-work="1" style="text-decoration:none; color:#FFFFFF; display:block;">
-            <div class="bs-frame" style="position:relative; aspect-ratio:3/2; border:1px solid rgba(255,255,255,0.1); background:var(--bs-espresso); margin-bottom:18px;"><div data-bs-work-zoom="1" style="position:absolute; inset:0; overflow:hidden;">
+            <div class="bs-frame" style="position:relative; aspect-ratio:3/2; border:1px solid rgba(255,255,255,0.1); background:var(--bs-ink-2); margin-bottom:18px;"><div data-bs-work-zoom="1" style="position:absolute; inset:0; overflow:hidden;">
               <picture style="display:contents"><source type="image/avif" srcset="assets/opt/ineeva-principal-1000.avif 1000w, assets/opt/ineeva-principal-1800.avif 1800w" sizes="(max-width: 860px) 100vw, 1291px"><source type="image/webp" srcset="assets/ineeva-principal.webp"><img loading="lazy" decoding="async" src="assets/ineeva-principal.jpg" alt="Identité Ineeva" style="width:100%; height:100%; object-fit:cover; object-position:62% center; display:block;" width="2400" height="1600"></picture>
             </div></div>
             <div style="display:flex; align-items:baseline; justify-content:space-between; gap:12px;">
@@ -622,7 +622,7 @@
             </div>
           </a>
           <a href="/portfolio/acasa" data-bs-work="1" style="text-decoration:none; color:#FFFFFF; display:block;">
-            <div class="bs-frame" style="position:relative; aspect-ratio:3/2; border:1px solid rgba(255,255,255,0.1); background:var(--bs-espresso); margin-bottom:18px;"><div data-bs-work-zoom="1" style="position:absolute; inset:0; overflow:hidden;">
+            <div class="bs-frame" style="position:relative; aspect-ratio:3/2; border:1px solid rgba(255,255,255,0.1); background:var(--bs-ink-2); margin-bottom:18px;"><div data-bs-work-zoom="1" style="position:absolute; inset:0; overflow:hidden;">
               <picture style="display:contents"><source type="image/avif" srcset="assets/opt/acasa-univers-700.avif 700w, assets/opt/acasa-univers-1400.avif 1400w" sizes="(max-width: 860px) 100vw, 610px"><source type="image/webp" srcset="assets/acasa-univers.webp"><img loading="lazy" decoding="async" src="assets/acasa-univers.png" alt="Univers Acasa : wordmark posé sur une enfilade en teck" style="width:100%; height:100%; object-fit:cover; object-position:center; display:block;" width="2688" height="1536"></picture>
             </div></div>
             <div style="display:flex; align-items:baseline; justify-content:space-between; gap:12px;">
@@ -631,7 +631,7 @@
             </div>
           </a>
           <a href="/portfolio/laure-fagbohoun" data-bs-work="1" style="text-decoration:none; color:#FFFFFF; display:block;">
-            <div class="bs-frame" style="position:relative; aspect-ratio:3/2; border:1px solid rgba(255,255,255,0.1); background:var(--bs-espresso); margin-bottom:18px;"><div data-bs-work-zoom="1" style="position:absolute; inset:0; overflow:hidden;">
+            <div class="bs-frame" style="position:relative; aspect-ratio:3/2; border:1px solid rgba(255,255,255,0.1); background:var(--bs-ink-2); margin-bottom:18px;"><div data-bs-work-zoom="1" style="position:absolute; inset:0; overflow:hidden;">
               <picture style="display:contents"><source type="image/avif" srcset="assets/opt/laure-principal-1000.avif 1000w, assets/opt/laure-principal-1800.avif 1800w" sizes="(max-width: 860px) 100vw, 1291px"><img loading="lazy" decoding="async" src="assets/opt/laure-principal-2000.jpg" alt="Site Laure Fagbohoun présenté sur un iMac" style="width:100%; height:100%; object-fit:cover; object-position:center; display:block;" width="5376" height="3584"></picture>
             </div></div>
             <div style="display:flex; align-items:baseline; justify-content:space-between; gap:12px;">
@@ -739,9 +739,9 @@
           <figure data-bs-testimonial data-i="1" style="position:relative; z-index:3; flex:none; width:clamp(292px,27vw,358px); transform:translateY(-14px); background:#FFFFFF; border:none; border-radius:var(--bs-r-frame); padding:clamp(34px,2.7vw,42px) clamp(28px,2.4vw,34px); display:flex; flex-direction:column; gap:24px; box-shadow:0 34px 72px rgba(0,0,0,0.52);">
             <div aria-hidden="true" style="width:54px; height:54px; border-radius:50%; overflow:hidden; border:1px solid rgba(200,122,83,0.42); flex:none; background:#3A4652;"><picture style="display:contents"><source type="image/avif" srcset="assets/opt/laure-fagbohoun-avis-108.avif"><img src="assets/opt/laure-fagbohoun-avis-108.png" alt="" style="width:100%; height:100%; object-fit:cover; object-position:center top; display:block;" width="816" height="962" loading="lazy" decoding="async"></picture></div>
             <div role="img" aria-label="Noté 5 étoiles sur 5" style="display:flex; gap:4px; color:#C87A53; font-size:15px; line-height:1;"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span></div>
-            <blockquote style="margin:0; font-family:'Satoshi',sans-serif; font-weight:400; font-size:clamp(18px,1.55vw,22px); line-height:1.44; color:#221610;">«&nbsp;Il a su donner vie à une idée qui n’existait encore que dans ma tête, avec un résultat qui dépasse toutes mes attentes.&nbsp;»</blockquote>
+            <blockquote style="margin:0; font-family:'Satoshi',sans-serif; font-weight:400; font-size:clamp(18px,1.55vw,22px); line-height:1.44; color:#070707;">«&nbsp;Il a su donner vie à une idée qui n’existait encore que dans ma tête, avec un résultat qui dépasse toutes mes attentes.&nbsp;»</blockquote>
             <figcaption style="margin-top:auto; display:flex; flex-direction:column; gap:5px;">
-              <span style="font-size:12px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:#221610;">Laure Fagbohoun</span>
+              <span style="font-size:12px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:#070707;">Laure Fagbohoun</span>
               <span style="font-size:13.5px; color:rgba(34,22,16,0.7);">Pasteure, autrice de «&nbsp;Lettre à ma fille&nbsp;»</span>
             </figcaption>
           </figure>
@@ -799,7 +799,7 @@
       <div data-bs-works-grid="1">
 
         <a href="/portfolio/ineeva" data-bs-work="1" style="display:block; text-decoration:none; color:#FFFFFF;">
-          <div data-bs-work-frame="1" style="position:relative; aspect-ratio:3/2; border-radius:var(--bs-r-frame); overflow:hidden; border:1px solid rgba(255,255,255,0.10); background:#221610;">
+          <div data-bs-work-frame="1" style="position:relative; aspect-ratio:3/2; border-radius:var(--bs-r-frame); overflow:hidden; border:1px solid rgba(255,255,255,0.10); background:#0E0E0E;">
             <div data-bs-work-zoom="1" style="position:absolute; inset:0; overflow:hidden;">
               <div data-bs-work-img="1" style="position:absolute; top:-7%; left:0; width:100%; height:114%;"><picture style="display:contents"><source type="image/avif" srcset="assets/opt/ineeva-principal-1000.avif 1000w, assets/opt/ineeva-principal-1800.avif 1800w" sizes="(max-width: 860px) 100vw, 1291px"><source type="image/webp" srcset="assets/ineeva-principal.webp"><img loading="lazy" decoding="async" src="assets/ineeva-principal.jpg" alt="Identité Ineeva" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:62% center; display:block;" width="2400" height="1600"></picture></div>
             </div>
@@ -812,7 +812,7 @@
         </a>
 
         <a href="/portfolio/acasa" data-bs-work="1" style="display:block; text-decoration:none; color:#FFFFFF;">
-          <div data-bs-work-frame="1" style="position:relative; aspect-ratio:3/2; border-radius:var(--bs-r-frame); overflow:hidden; border:1px solid rgba(255,255,255,0.10); background:#221610;">
+          <div data-bs-work-frame="1" style="position:relative; aspect-ratio:3/2; border-radius:var(--bs-r-frame); overflow:hidden; border:1px solid rgba(255,255,255,0.10); background:#0E0E0E;">
             <div data-bs-work-zoom="1" style="position:absolute; inset:0; overflow:hidden;">
               <div data-bs-work-img="1" style="position:absolute; top:-7%; left:0; width:100%; height:114%;"><picture style="display:contents"><source type="image/avif" srcset="assets/opt/acasa-univers-700.avif 700w, assets/opt/acasa-univers-1400.avif 1400w" sizes="(max-width: 860px) 100vw, 610px"><source type="image/webp" srcset="assets/acasa-univers.webp"><img loading="lazy" decoding="async" src="assets/acasa-univers.png" alt="Univers Acasa : wordmark posé sur une enfilade en teck" style="width:100%; height:100%; object-fit:cover; object-position:center; display:block;" width="2688" height="1536"></picture></div>
             </div>
@@ -825,7 +825,7 @@
         </a>
 
         <a href="/portfolio/laure-fagbohoun" data-bs-work="1" style="display:block; text-decoration:none; color:#FFFFFF;">
-          <div data-bs-work-frame="1" style="position:relative; aspect-ratio:3/2; border-radius:var(--bs-r-frame); overflow:hidden; border:1px solid rgba(255,255,255,0.10); background:#221610;">
+          <div data-bs-work-frame="1" style="position:relative; aspect-ratio:3/2; border-radius:var(--bs-r-frame); overflow:hidden; border:1px solid rgba(255,255,255,0.10); background:#0E0E0E;">
             <div data-bs-work-zoom="1" style="position:absolute; inset:0; overflow:hidden;">
               <div data-bs-work-img="1" style="position:absolute; top:-7%; left:0; width:100%; height:114%;"><picture style="display:contents"><source type="image/avif" srcset="assets/opt/laure-principal-1000.avif 1000w, assets/opt/laure-principal-1800.avif 1800w" sizes="(max-width: 860px) 100vw, 1291px"><img loading="lazy" decoding="async" src="assets/opt/laure-principal-2000.jpg" alt="Site Laure Fagbohoun présenté sur un iMac" style="width:100%; height:100%; object-fit:cover; object-position:center; display:block;" width="5376" height="3584"></picture></div>
             </div>
@@ -838,7 +838,7 @@
         </a>
 
         <a href="/portfolio/koryaa" data-bs-work="1" style="display:block; text-decoration:none; color:#FFFFFF;">
-          <div data-bs-work-frame="1" style="position:relative; aspect-ratio:3/2; border-radius:var(--bs-r-frame); overflow:hidden; border:1px solid rgba(255,255,255,0.10); background:#221610;">
+          <div data-bs-work-frame="1" style="position:relative; aspect-ratio:3/2; border-radius:var(--bs-r-frame); overflow:hidden; border:1px solid rgba(255,255,255,0.10); background:#0E0E0E;">
             <div data-bs-work-zoom="1" style="position:absolute; inset:0; overflow:hidden;">
               <div data-bs-work-img="1" style="position:absolute; top:-7%; left:0; width:100%; height:114%;"><picture style="display:contents"><source type="image/avif" srcset="assets/opt/koryaa-principal-1000.avif 1000w, assets/opt/koryaa-principal-1536.avif 1536w" sizes="(max-width: 860px) 100vw, 1291px"><img loading="lazy" decoding="async" src="assets/koryaa-principal.png" alt="Branding Koryaa : portrait beauté et wordmark cosmétique capillaire" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; display:block;" width="1536" height="1024"></picture></div>
             </div>
@@ -868,7 +868,7 @@
         <a href="/portfolio" style="display:inline-block; color:rgba(255,255,255,0.6); text-decoration:none; font-size:14px; font-weight:500; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">← Portfolio</a>
         <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:12px; letter-spacing:0.08em; color:rgba(255,255,255,0.5);">01 / 04</span>
       </div>
-      <div data-bs-case-hero="1" style="position:relative; aspect-ratio:16/9; border-radius:var(--bs-r-frame); overflow:hidden; border:1px solid rgba(255,255,255,0.1); background:#221610;">
+      <div data-bs-case-hero="1" style="position:relative; aspect-ratio:16/9; border-radius:var(--bs-r-frame); overflow:hidden; border:1px solid rgba(255,255,255,0.1); background:#0E0E0E;">
         <picture style="display:contents"><source type="image/avif" srcset="assets/opt/ineeva-principal-1000.avif 1000w, assets/opt/ineeva-principal-1800.avif 1800w" sizes="(max-width: 860px) 100vw, 1291px"><source type="image/webp" srcset="assets/ineeva-principal.webp"><img loading="lazy" decoding="async" src="assets/ineeva-principal.jpg" alt="Identité Ineeva : portrait beauté, peau lumineuse et wordmark INEEVA au trait" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;" width="2400" height="1600"></picture>
         <div aria-hidden="true" style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(7,7,7,0) 52%, rgba(7,7,7,0.7) 100%);"></div>
         <h1 style="position:absolute; left:clamp(18px,3.5vw,52px); right:clamp(18px,3.5vw,52px); bottom:clamp(14px,2vw,26px); margin:0; font-family:'Satoshi',sans-serif; font-weight:600; font-size:clamp(20px,3vw,38px); line-height:0.95; letter-spacing:-0.01em; text-transform:uppercase; color:#FFFFFF;"><span style="display:block; overflow:hidden; padding-bottom:0.08em; margin-bottom:-0.08em;"><span data-hero-line="1" style="display:block;">Ineeva<span aria-hidden="true" style="display:inline-block; width:0.16em; height:0.16em; background:#C87A53; margin-left:0.14em; vertical-align:baseline;"></span></span></span></h1>
@@ -935,7 +935,7 @@
           <h2 style="font-family:'Satoshi',sans-serif; font-weight:600; font-size:clamp(32px,4.5vw,56px); line-height:1.04; letter-spacing:-0.01em; margin:0; color:#FFFFFF;">Naviguez sur le site</h2>
         </div>
 
-        <div style="border-radius:var(--bs-r-frame); overflow:hidden; border:1px solid rgba(255,255,255,0.1); box-shadow:0 36px 90px -34px rgba(0,0,0,0.7); background:#221610;">
+        <div style="border-radius:var(--bs-r-frame); overflow:hidden; border:1px solid rgba(255,255,255,0.1); box-shadow:0 36px 90px -34px rgba(0,0,0,0.7); background:#0E0E0E;">
           <div style="display:flex; align-items:center; gap:14px; padding:13px 18px; border-bottom:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.03);">
             <div style="display:flex; gap:8px; flex-shrink:0;">
               <span style="display:block; width:11px; height:11px; border-radius:50%; background:rgba(255,255,255,0.2);"></span>
@@ -947,13 +947,13 @@
             </div>
             <div style="width:51px; flex-shrink:0;"></div>
           </div>
-          <div data-bs-embed-frame style="position:relative; aspect-ratio:16/10; background:#221610;">
+          <div data-bs-embed-frame style="position:relative; aspect-ratio:16/10; background:#0E0E0E;">
             <iframe src="https://ineeva.fr/" title="Site Ineeva en direct" loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups allow-forms" referrerpolicy="no-referrer-when-downgrade" ref="{{ ineevaRef }}" style="display:{{ iframeD }}; position:absolute; inset:0; width:100%; height:100%; border:0; background:#fff;"></iframe>
-            <div style="display:{{ loadingD }}; position:absolute; inset:0; pointer-events:none; flex-direction:column; align-items:center; justify-content:center; gap:16px; background:#221610;">
+            <div style="display:{{ loadingD }}; position:absolute; inset:0; pointer-events:none; flex-direction:column; align-items:center; justify-content:center; gap:16px; background:#0E0E0E;">
               <span aria-hidden="true" style="display:block; width:34px; height:34px; border-radius:50%; border:2px solid rgba(255,255,255,0.18); border-top-color:#C87A53; animation:bs-spin 0.8s linear infinite;"></span>
               <p style="font-family:'Inter',sans-serif; font-size:13px; letter-spacing:0.04em; color:rgba(255,255,255,0.5); margin:0;">Chargement de l’aperçu…</p>
             </div>
-            <div style="display:{{ fallbackD }}; position:absolute; inset:0; flex-direction:column; align-items:center; justify-content:center; gap:24px; padding:clamp(32px,5vw,56px); text-align:center; background:#221610;">
+            <div style="display:{{ fallbackD }}; position:absolute; inset:0; flex-direction:column; align-items:center; justify-content:center; gap:24px; padding:clamp(32px,5vw,56px); text-align:center; background:#0E0E0E;">
               <p style="font-family:'Inter',sans-serif; font-size:clamp(16px,2vw,20px); line-height:1.5; color:#FFFFFF; margin:0; max-width:380px;">Le site s’affiche en plein écran</p>
               <a href="https://ineeva.fr/" target="_blank" rel="noopener" style="font-family:'Inter',sans-serif; font-weight:600; font-size:15px; letter-spacing:0.01em; color:#070707; background:#C87A53; padding:14px 28px; border-radius:var(--bs-r-btn); text-decoration:none; transition:transform var(--bs-t-fast) ease, filter var(--bs-t-fast) ease;" style-hover="filter:brightness(1.06); transform:translateY(-2px);">Ouvrir ineeva.fr →</a>
             </div>
@@ -999,7 +999,7 @@
         <a href="/portfolio" style="display:inline-block; color:rgba(255,255,255,0.6); text-decoration:none; font-size:14px; font-weight:500; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">← Portfolio</a>
         <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:12px; letter-spacing:0.08em; color:rgba(255,255,255,0.5);">02 / 04</span>
       </div>
-      <div data-bs-case-hero="1" style="position:relative; aspect-ratio:16/9; border-radius:var(--bs-r-frame); overflow:hidden; border:1px solid rgba(255,255,255,0.1); background:#221610;">
+      <div data-bs-case-hero="1" style="position:relative; aspect-ratio:16/9; border-radius:var(--bs-r-frame); overflow:hidden; border:1px solid rgba(255,255,255,0.1); background:#0E0E0E;">
         <picture style="display:contents"><source type="image/avif" srcset="assets/opt/acasa-principal-1000.avif 1000w, assets/opt/acasa-principal-1800.avif 1800w" sizes="(max-width: 860px) 100vw, 1291px"><source type="image/webp" srcset="assets/acasa-principal.webp"><img loading="lazy" decoding="async" src="assets/acasa-principal.png" alt="Identité Acasa : wordmark posé sur une enfilade en teck des années 60" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;" width="2688" height="1536"></picture>
         <div aria-hidden="true" style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(7,7,7,0) 52%, rgba(7,7,7,0.7) 100%);"></div>
         <h1 style="position:absolute; left:clamp(18px,3.5vw,52px); right:clamp(18px,3.5vw,52px); bottom:clamp(14px,2vw,26px); margin:0; font-family:'Satoshi',sans-serif; font-weight:600; font-size:clamp(20px,3vw,38px); line-height:0.95; letter-spacing:-0.01em; text-transform:uppercase; color:#FFFFFF;"><span style="display:block; overflow:hidden; padding-bottom:0.08em; margin-bottom:-0.08em;"><span data-hero-line="1" style="display:block;">Acasa<span aria-hidden="true" style="display:inline-block; width:0.16em; height:0.16em; background:#C87A53; margin-left:0.14em; vertical-align:baseline;"></span></span></span></h1>
@@ -1042,7 +1042,7 @@
     </div>
 
     <div style="max-width:1480px; margin:0 auto; padding:0 clamp(20px,4vw,48px); display:flex; flex-direction:column; gap:clamp(24px,4vw,56px);">
-      <div style="aspect-ratio:16/9; border-radius:var(--bs-r-frame); overflow:hidden; border:1px solid rgba(255,255,255,0.1); background:#221610;">
+      <div style="aspect-ratio:16/9; border-radius:var(--bs-r-frame); overflow:hidden; border:1px solid rgba(255,255,255,0.1); background:#0E0E0E;">
         <picture style="display:contents"><source type="image/avif" srcset="assets/opt/acasa-logo-grid-1000.avif"><source type="image/webp" srcset="assets/acasa-logo-grid.webp"><img loading="lazy" decoding="async" src="assets/acasa-logo-grid.png" alt="Wordmark Acasa décliné en quatre variations couleur : blanc, ocre et crème sur fonds noir et brun" style="width:100%; height:100%; object-fit:contain; display:block;" width="5797" height="3128"></picture>
       </div>
       <div style="aspect-ratio:1395/752; border-radius:var(--bs-r-frame); overflow:hidden; border:1px solid rgba(255,255,255,0.1); background:#EDE5D4;">
@@ -1054,7 +1054,7 @@
       <div style="aspect-ratio:16/9; border-radius:var(--bs-r-frame); overflow:hidden; border:1px solid rgba(255,255,255,0.1); background:#E9C89A;">
         <picture style="display:contents"><source type="image/avif" srcset="assets/opt/acasa-logo-grain-1000.avif 1000w, assets/opt/acasa-logo-grain-2000.avif 2000w" sizes="(max-width: 860px) 100vw, 1291px"><source type="image/webp" srcset="assets/acasa-logo-grain.webp"><img loading="lazy" decoding="async" src="assets/acasa-logo-grain.png" alt="Wordmark Acasa brun à effet grain, centré sur fond sable" style="width:100%; height:100%; object-fit:cover; display:block;" width="2900" height="1564"></picture>
       </div>
-      <div style="aspect-ratio:16/9; border-radius:var(--bs-r-frame); overflow:hidden; border:1px solid rgba(255,255,255,0.1); background:#221610;">
+      <div style="aspect-ratio:16/9; border-radius:var(--bs-r-frame); overflow:hidden; border:1px solid rgba(255,255,255,0.1); background:#0E0E0E;">
         <video src="assets/acasa-palette.mp4" data-bs-loop-video="1" loop muted playsinline preload="none" aria-label="Animation de la palette chromatique Acasa" style="width:100%; height:100%; object-fit:cover; display:block;"></video>
       </div>
     </div>
@@ -1092,7 +1092,7 @@
         <a href="/portfolio" style="display:inline-block; color:rgba(255,255,255,0.6); text-decoration:none; font-size:14px; font-weight:500; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">← Portfolio</a>
         <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:12px; letter-spacing:0.08em; color:rgba(255,255,255,0.5);">03 / 04</span>
       </div>
-      <div data-bs-case-hero="1" style="position:relative; aspect-ratio:16/9; border-radius:var(--bs-r-frame); overflow:hidden; border:1px solid rgba(255,255,255,0.1); background:#221610;">
+      <div data-bs-case-hero="1" style="position:relative; aspect-ratio:16/9; border-radius:var(--bs-r-frame); overflow:hidden; border:1px solid rgba(255,255,255,0.1); background:#0E0E0E;">
         <picture style="display:contents"><source type="image/avif" srcset="assets/opt/laure-principal-1000.avif 1000w, assets/opt/laure-principal-1800.avif 1800w" sizes="(max-width: 860px) 100vw, 1291px"><img loading="lazy" decoding="async" src="assets/opt/laure-principal-2000.jpg" alt="Site Laure Fagbohoun présenté sur un iMac, ambiance lumière chaude" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center;" width="5376" height="3584"></picture>
         <div aria-hidden="true" style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(7,7,7,0) 52%, rgba(7,7,7,0.7) 100%);"></div>
         <h1 style="position:absolute; left:clamp(18px,3.5vw,52px); right:clamp(18px,3.5vw,52px); bottom:clamp(14px,2vw,26px); margin:0; font-family:'Satoshi',sans-serif; font-weight:600; font-size:clamp(20px,3vw,38px); line-height:0.95; letter-spacing:-0.01em; text-transform:uppercase; color:#FFFFFF;"><span style="display:block; overflow:hidden; padding-bottom:0.08em; margin-bottom:-0.08em;"><span data-hero-line="1" style="display:block;">Laure Fagbohoun<span aria-hidden="true" style="display:inline-block; width:0.16em; height:0.16em; background:#C87A53; margin-left:0.14em; vertical-align:baseline;"></span></span></span></h1>
@@ -1148,7 +1148,7 @@
           <h2 style="font-family:'Satoshi',sans-serif; font-weight:600; font-size:clamp(32px,4.5vw,56px); line-height:1.04; letter-spacing:-0.01em; margin:0; color:#FFFFFF;">Naviguez sur le site</h2>
         </div>
 
-        <div style="border-radius:var(--bs-r-frame); overflow:hidden; border:1px solid rgba(255,255,255,0.1); box-shadow:0 36px 90px -34px rgba(0,0,0,0.7); background:#221610;">
+        <div style="border-radius:var(--bs-r-frame); overflow:hidden; border:1px solid rgba(255,255,255,0.1); box-shadow:0 36px 90px -34px rgba(0,0,0,0.7); background:#0E0E0E;">
           <div style="display:flex; align-items:center; gap:14px; padding:13px 18px; border-bottom:1px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.03);">
             <div style="display:flex; gap:8px; flex-shrink:0;">
               <span style="display:block; width:11px; height:11px; border-radius:50%; background:rgba(255,255,255,0.2);"></span>
@@ -1160,13 +1160,13 @@
             </div>
             <div style="width:51px; flex-shrink:0;"></div>
           </div>
-          <div data-bs-embed-frame style="position:relative; aspect-ratio:16/10; background:#221610;">
+          <div data-bs-embed-frame style="position:relative; aspect-ratio:16/10; background:#0E0E0E;">
             <iframe src="https://laure-fagbohoun.fr/" title="Site Laure Fagbohoun en direct" loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups allow-forms" referrerpolicy="no-referrer-when-downgrade" ref="{{ laureRef }}" style="display:{{ laureIframeD }}; position:absolute; inset:0; width:100%; height:100%; border:0; background:#fff;"></iframe>
-            <div style="display:{{ laureLoadingD }}; position:absolute; inset:0; pointer-events:none; flex-direction:column; align-items:center; justify-content:center; gap:16px; background:#221610;">
+            <div style="display:{{ laureLoadingD }}; position:absolute; inset:0; pointer-events:none; flex-direction:column; align-items:center; justify-content:center; gap:16px; background:#0E0E0E;">
               <span aria-hidden="true" style="display:block; width:34px; height:34px; border-radius:50%; border:2px solid rgba(255,255,255,0.18); border-top-color:#C87A53; animation:bs-spin 0.8s linear infinite;"></span>
               <p style="font-family:'Inter',sans-serif; font-size:13px; letter-spacing:0.04em; color:rgba(255,255,255,0.5); margin:0;">Chargement de l’aperçu…</p>
             </div>
-            <div style="display:{{ laureFallbackD }}; position:absolute; inset:0; flex-direction:column; align-items:center; justify-content:center; gap:24px; padding:clamp(32px,5vw,56px); text-align:center; background:#221610;">
+            <div style="display:{{ laureFallbackD }}; position:absolute; inset:0; flex-direction:column; align-items:center; justify-content:center; gap:24px; padding:clamp(32px,5vw,56px); text-align:center; background:#0E0E0E;">
               <p style="font-family:'Inter',sans-serif; font-size:clamp(16px,2vw,20px); line-height:1.5; color:#FFFFFF; margin:0; max-width:380px;">Le site s’affiche en plein écran</p>
               <a href="https://laure-fagbohoun.fr/" target="_blank" rel="noopener" style="font-family:'Inter',sans-serif; font-weight:600; font-size:15px; letter-spacing:0.01em; color:#070707; background:#C87A53; padding:14px 28px; border-radius:var(--bs-r-btn); text-decoration:none; transition:transform var(--bs-t-fast) ease, filter var(--bs-t-fast) ease;" style-hover="filter:brightness(1.06); transform:translateY(-2px);">Ouvrir laure-fagbohoun.fr →</a>
             </div>
@@ -1322,16 +1322,16 @@
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:24px; align-items:stretch;">
 
         <!-- 01 · Essentiel -->
-        <div class="bs-card bs-card--brown" style="display:flex; flex-direction:column;">
+        <div class="bs-card bs-card--panel" style="display:flex; flex-direction:column;">
           <div style="display:flex; align-items:center; justify-content:space-between; min-height:26px;">
             <span style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:14px; letter-spacing:0.1em; color:#C87A53;">01</span>
           </div>
           <h2 style="font-family:'Satoshi',sans-serif; font-weight:600; font-size:clamp(26px,2.4vw,32px); line-height:1.1; letter-spacing:-0.01em; margin:22px 0 0; color:#FFFFFF;">Essentiel</h2>
-          <p style="margin:14px 0 0; font-size:14px; line-height:1; color:#B99E83;">À partir de <span style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:21px; color:#FFFFFF; margin-left:4px;">1&nbsp;800&nbsp;€</span></p>
+          <p style="margin:14px 0 0; font-size:14px; line-height:1; color:var(--bs-label);">À partir de <span style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:21px; color:#FFFFFF; margin-left:4px;">1&nbsp;800&nbsp;€</span></p>
           <p style="font-size:17px; line-height:1.45; color:#FFFFFF; font-style:italic; margin:18px 0 0; max-width:30ch;">Une marque qui tient debout, sans superflu.</p>
           <p style="font-size:15.5px; line-height:1.6; color:rgba(255,255,255,0.78); margin:16px 0 0;">Le socle pour exister proprement&nbsp;: une identité claire et une première présence en ligne, posées sur des bases saines.</p>
           <div style="height:1px; background:rgba(255,255,255,0.12); margin:26px 0 18px;"></div>
-          <p style="font-family:'Inter',sans-serif; font-size:11px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:#B99E83; margin:0 0 4px;">Ce qui est inclus</p>
+          <p style="font-family:'Inter',sans-serif; font-size:11px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:var(--bs-label); margin:0 0 4px;">Ce qui est inclus</p>
           <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column;">
             <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:15px; line-height:1.45; color:#FFFFFF;">Logo et déclinaisons essentielles</span></li>
             <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:15px; line-height:1.45; color:#FFFFFF;">Palette, typographies et règles d’usage</span></li>
@@ -1341,19 +1341,19 @@
           </ul>
           <div style="margin:auto 0 0;">
             <div style="height:1px; background:rgba(255,255,255,0.12); margin:28px 0 16px;"></div>
-            <p style="font-size:13.5px; line-height:1.55; color:#B99E83; font-style:italic; margin:0;"><span style="display:block; font-family:'Inter',sans-serif; font-style:normal; font-weight:500; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:#B99E83; margin-bottom:7px; opacity:0.85;">Idéal pour</span>un indépendant, un particulier exigeant ou un projet qui démarre et veut une base nette, sans se disperser.</p>
+            <p style="font-size:13.5px; line-height:1.55; color:var(--bs-label); font-style:italic; margin:0;"><span style="display:block; font-family:'Inter',sans-serif; font-style:normal; font-weight:500; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--bs-label); margin-bottom:7px; opacity:0.85;">Idéal pour</span>un indépendant, un particulier exigeant ou un projet qui démarre et veut une base nette, sans se disperser.</p>
             <a href="/contact" style="display:flex; align-items:center; justify-content:center; box-sizing:border-box; width:100%; margin-top:24px; padding:16px 22px; border-radius:var(--bs-r-btn); border:1px solid rgba(255,255,255,0.32); background:transparent; color:#FFFFFF; font-family:'Inter',sans-serif; font-weight:500; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; text-decoration:none; cursor:pointer; transition:color var(--bs-t-fast) ease, border-color var(--bs-t-fast) ease;" style-hover="color:#C87A53; border-color:#C87A53;">Démarrer avec Essentiel</a>
           </div>
         </div>
 
         <!-- 02 · Signature (offre cœur) -->
-        <div class="bs-card" style="position:relative; background:var(--bs-brown); border:1px solid var(--bs-terracotta); display:flex; flex-direction:column; box-shadow:0 0 0 1px rgba(200,122,83,0.18), 0 24px 60px rgba(0,0,0,0.4);">
+        <div class="bs-card" style="position:relative; background:var(--bs-panel); border:1px solid var(--bs-terracotta); display:flex; flex-direction:column; box-shadow:0 0 0 1px rgba(200,122,83,0.18), 0 24px 60px rgba(0,0,0,0.4);">
           <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:26px;">
             <span style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:14px; letter-spacing:0.1em; color:#C87A53;">02</span>
             <span style="display:inline-flex; align-items:center; gap:7px; border:1px solid rgba(200,122,83,0.55); border-radius:var(--bs-r-pill); padding:6px 13px;"><span style="flex:none; width:5px; height:5px; border-radius:50%; background:#C87A53;"></span><span style="font-family:'Inter',sans-serif; font-size:10.5px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:#FFFFFF;">Le cœur du studio</span></span>
           </div>
           <h2 style="font-family:'Satoshi',sans-serif; font-weight:600; font-size:clamp(26px,2.4vw,32px); line-height:1.1; letter-spacing:-0.01em; margin:22px 0 0; color:#FFFFFF;">Signature</h2>
-          <p style="margin:14px 0 0; font-size:14px; line-height:1; color:#B99E83;">À partir de <span style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:21px; color:#FFFFFF; margin-left:4px;">3&nbsp;500&nbsp;€</span></p>
+          <p style="margin:14px 0 0; font-size:14px; line-height:1; color:var(--bs-label);">À partir de <span style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:21px; color:#FFFFFF; margin-left:4px;">3&nbsp;500&nbsp;€</span></p>
           <p style="font-size:17px; line-height:1.45; color:#FFFFFF; font-style:italic; margin:18px 0 0; max-width:30ch;">L’identité et le site qui vous installent durablement.</p>
           <p style="font-size:15.5px; line-height:1.6; color:rgba(255,255,255,0.78); margin:16px 0 0;">L’offre complète, de l’atelier de cadrage à la mise en ligne. Une marque pensée pour durer et un site vitrine qui la fait vivre.</p>
           <div style="height:1px; background:rgba(255,255,255,0.12); margin:26px 0 18px;"></div>
@@ -1367,18 +1367,18 @@
           </ul>
           <div style="margin:auto 0 0;">
             <div style="height:1px; background:rgba(255,255,255,0.12); margin:28px 0 16px;"></div>
-            <p style="font-size:13.5px; line-height:1.55; color:#B99E83; font-style:italic; margin:0;"><span style="display:block; font-family:'Inter',sans-serif; font-style:normal; font-weight:500; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:#B99E83; margin-bottom:7px; opacity:0.85;">Idéal pour</span>une PME, un acteur local ou une marque lifestyle qui veut une présence cohérente et professionnelle, qui la démarque.</p>
-            <a href="/contact" style="display:flex; align-items:center; justify-content:center; box-sizing:border-box; width:100%; margin-top:24px; padding:17px 22px; border-radius:var(--bs-r-btn); border:none; background:#C87A53; color:#221610; font-family:'Inter',sans-serif; font-weight:600; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; text-decoration:none; cursor:pointer; transition:background var(--bs-t-fast) ease;" style-hover="background:#B56C46;">Choisir Signature</a>
+            <p style="font-size:13.5px; line-height:1.55; color:var(--bs-label); font-style:italic; margin:0;"><span style="display:block; font-family:'Inter',sans-serif; font-style:normal; font-weight:500; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--bs-label); margin-bottom:7px; opacity:0.85;">Idéal pour</span>une PME, un acteur local ou une marque lifestyle qui veut une présence cohérente et professionnelle, qui la démarque.</p>
+            <a href="/contact" style="display:flex; align-items:center; justify-content:center; box-sizing:border-box; width:100%; margin-top:24px; padding:17px 22px; border-radius:var(--bs-r-btn); border:none; background:#C87A53; color:#070707; font-family:'Inter',sans-serif; font-weight:600; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; text-decoration:none; cursor:pointer; transition:background var(--bs-t-fast) ease;" style-hover="background:#B56C46;">Choisir Signature</a>
           </div>
         </div>
 
         <!-- 03 · Intégral -->
-        <div class="bs-card bs-card--brown" style="display:flex; flex-direction:column;">
+        <div class="bs-card bs-card--panel" style="display:flex; flex-direction:column;">
           <div style="display:flex; align-items:center; justify-content:space-between; min-height:26px;">
             <span style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:14px; letter-spacing:0.1em; color:#C87A53;">03</span>
           </div>
           <h2 style="font-family:'Satoshi',sans-serif; font-weight:600; font-size:clamp(26px,2.4vw,32px); line-height:1.1; letter-spacing:-0.01em; margin:22px 0 0; color:#FFFFFF;">Intégral</h2>
-          <p style="margin:14px 0 0; font-size:14px; line-height:1; color:#B99E83;">À partir de <span style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:21px; color:#FFFFFF; margin-left:4px;">6&nbsp;500&nbsp;€</span></p>
+          <p style="margin:14px 0 0; font-size:14px; line-height:1; color:var(--bs-label);">À partir de <span style="font-family:'Satoshi',sans-serif; font-weight:500; font-size:21px; color:#FFFFFF; margin-left:4px;">6&nbsp;500&nbsp;€</span></p>
           <p style="font-size:17px; line-height:1.45; color:#FFFFFF; font-style:italic; margin:18px 0 0; max-width:30ch;">De la stratégie à la mise en ligne, d’une seule main.</p>
           <p style="font-size:15.5px; line-height:1.6; color:rgba(255,255,255,0.78); margin:16px 0 0;">L’accompagnement A→Z. On part de la stratégie de marque, avant de construire l’ensemble du dispositif et de le mettre en orbite.</p>
           <div style="height:1px; background:rgba(255,255,255,0.12); margin:26px 0 18px;"></div>
@@ -1391,23 +1391,23 @@
           </ul>
           <div style="margin:auto 0 0;">
             <div style="height:1px; background:rgba(255,255,255,0.12); margin:28px 0 16px;"></div>
-            <p style="font-size:13.5px; line-height:1.55; color:#B99E83; font-style:italic; margin:0;"><span style="display:block; font-family:'Inter',sans-serif; font-style:normal; font-weight:500; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:#B99E83; margin-bottom:7px; opacity:0.85;">Idéal pour</span>une startup en lancement, ou une marque en pleine refonte, quand tout doit être pensé et aligné d’un coup.</p>
+            <p style="font-size:13.5px; line-height:1.55; color:var(--bs-label); font-style:italic; margin:0;"><span style="display:block; font-family:'Inter',sans-serif; font-style:normal; font-weight:500; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--bs-label); margin-bottom:7px; opacity:0.85;">Idéal pour</span>une startup en lancement, ou une marque en pleine refonte, quand tout doit être pensé et aligné d’un coup.</p>
             <a href="/contact" style="display:flex; align-items:center; justify-content:center; box-sizing:border-box; width:100%; margin-top:24px; padding:16px 22px; border-radius:var(--bs-r-btn); border:1px solid rgba(255,255,255,0.32); background:transparent; color:#FFFFFF; font-family:'Inter',sans-serif; font-weight:500; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; text-decoration:none; cursor:pointer; transition:color var(--bs-t-fast) ease, border-color var(--bs-t-fast) ease;" style-hover="color:#C87A53; border-color:#C87A53;">Discuter de l’Intégral</a>
           </div>
         </div>
 
       </div>
 
-      <div class="bs-card bs-card--brown" style="margin-top:clamp(24px,3vw,40px); display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:clamp(20px,3vw,40px);">
+      <div class="bs-card bs-card--panel" style="margin-top:clamp(24px,3vw,40px); display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:clamp(20px,3vw,40px);">
         <div style="display:flex; flex-direction:column; gap:8px; max-width:640px;">
-          <p style="font-family:'Inter',sans-serif; font-size:11px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:#B99E83; margin:0;">Un besoin hors cadre&nbsp;?</p>
+          <p style="font-family:'Inter',sans-serif; font-size:11px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:var(--bs-label); margin:0;">Un besoin hors cadre&nbsp;?</p>
           <h3 style="font-family:'Satoshi',sans-serif; font-weight:600; font-size:clamp(22px,2.2vw,30px); line-height:1.15; letter-spacing:-0.01em; color:#FFFFFF; margin:0;">Projet sur-mesure</h3>
           <p style="font-size:15.5px; line-height:1.6; color:rgba(255,255,255,0.78); margin:0;">Un périmètre atypique, plusieurs marques, un rythme particulier&nbsp;? On dessine l’offre et le budget ensemble.</p>
         </div>
         <a href="/contact" style="flex:none; display:inline-flex; align-items:center; justify-content:center; box-sizing:border-box; padding:16px 28px; border-radius:var(--bs-r-btn); border:1px solid #C87A53; background:#C87A53; color:#FFFFFF; font-family:'Inter',sans-serif; font-weight:500; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; text-decoration:none; cursor:pointer; transition:background var(--bs-t-fast) ease, color var(--bs-t-fast) ease;" style-hover="background:transparent; color:#C87A53;">À définir ensemble</a>
       </div>
 
-      <p style="margin:clamp(28px,3vw,40px) 0 0; font-size:13.5px; line-height:1.6; color:#B99E83;">Tarifs nets, TVA non applicable, art. 293 B du CGI. Paiement échelonné possible.</p>
+      <p style="margin:clamp(28px,3vw,40px) 0 0; font-size:13.5px; line-height:1.6; color:var(--bs-label);">Tarifs nets, TVA non applicable, art. 293 B du CGI. Paiement échelonné possible.</p>
     </div>
 
     <!-- Comment on travaille -->
