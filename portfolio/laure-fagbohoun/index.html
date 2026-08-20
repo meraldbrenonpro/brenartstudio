@@ -3,104 +3,6 @@
 <head>
 <meta charset="utf-8">
 <base href="/">
-<!-- ============ CONSENTEMENT (RGPD) ============
-     Consent Mode v2 : les quatre signaux Google sont refusés par défaut, posés
-     AVANT toute autre balise. Et le conteneur GTM n'est pas chargé du tout tant
-     que la personne n'a pas accepté — un « denied » par défaut laisserait encore
-     partir des pings cookieless, ce que la CNIL n'exempte pas pour de la mesure
-     d'audience publicitaire. Le choix est mémorisé en localStorage. -->
-<script>
-(function (w, d) {
-  var KEY = 'bsConsent', ID = 'GTM-T2F73X7P';
-  w.dataLayer = w.dataLayer || [];
-  function gtag() { w.dataLayer.push(arguments); }
-  w.gtag = gtag;
-
-  gtag('consent', 'default', {
-    ad_storage: 'denied',
-    ad_user_data: 'denied',
-    ad_personalization: 'denied',
-    analytics_storage: 'denied',
-    functionality_storage: 'denied',
-    personalization_storage: 'denied',
-    security_storage: 'granted',
-    wait_for_update: 500
-  });
-
-  function read() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
-  function write(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
-
-  var loaded = false;
-  function loadGtm() {
-    if (loaded) return;
-    loaded = true;
-    w.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-    var f = d.getElementsByTagName('script')[0], j = d.createElement('script');
-    j.async = true;
-    j.src = 'https://www.googletagmanager.com/gtm.js?id=' + ID;
-    f.parentNode.insertBefore(j, f);
-  }
-
-  function grant() {
-    gtag('consent', 'update', {
-      ad_storage: 'granted',
-      ad_user_data: 'granted',
-      ad_personalization: 'granted',
-      analytics_storage: 'granted',
-      functionality_storage: 'granted',
-      personalization_storage: 'granted'
-    });
-    loadGtm();
-  }
-
-  w.bsConsent = {
-    accept: function () { write('granted'); grant(); hide(); },
-    refuse: function () { write('denied'); hide(); },
-    open: function () { show(); }
-  };
-
-  var box = null, lastFocus = null;
-  function el() { return box || (box = d.getElementById('bs-consent')); }
-  function show() {
-    var b = el(); if (!b) return;
-    lastFocus = d.activeElement;
-    b.hidden = false;
-    var btn = b.querySelector('[data-bs-consent="accept"]');
-    if (btn) btn.focus();
-  }
-  function hide() {
-    var b = el(); if (!b) return;
-    b.hidden = true;
-    if (lastFocus && lastFocus.focus) lastFocus.focus();
-  }
-
-  d.addEventListener('click', function (e) {
-    var t = e.target.closest ? e.target.closest('[data-bs-consent]') : null;
-    if (!t) return;
-    e.preventDefault();
-    var a = t.getAttribute('data-bs-consent');
-    if (a === 'accept') w.bsConsent.accept();
-    else if (a === 'refuse') w.bsConsent.refuse();
-    else if (a === 'open') w.bsConsent.open();
-  });
-
-  // Échap = refus explicite : fermer sans choisir laisserait un bandeau qui
-  // revient à chaque page, ou pire un consentement implicite.
-  d.addEventListener('keydown', function (e) {
-    var b = el();
-    if (e.key === 'Escape' && b && !b.hidden) w.bsConsent.refuse();
-  });
-
-  function init() {
-    var v = read();
-    if (v === 'granted') grant();
-    else if (v !== 'denied') show();
-  }
-  if (d.readyState === 'loading') d.addEventListener('DOMContentLoaded', init);
-  else init();
-})(window, document);
-</script>
-<!-- ============ FIN CONSENTEMENT ============ -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Laure Fagbohoun, site portfolio | Bren’Art Studio</title>
 <meta name="description" content="Direction artistique et site portfolio pour Laure Fagbohoun. Une réalisation Bren’Art Studio, studio de création digitale à Toulouse.">
@@ -288,21 +190,6 @@
 <!--/bs-page-ld-->
 </head>
 <body>
-<!-- Bandeau de consentement — hors du template x-dc pour rester indépendant de
-     l'hydratation React : il doit pouvoir s'afficher même si le runtime échoue. -->
-<div id="bs-consent" role="dialog" aria-modal="false" aria-labelledby="bs-consent-t" aria-describedby="bs-consent-d" hidden
-     style="position:fixed; left:0; right:0; bottom:0; z-index:9000; display:flex; justify-content:center; padding:clamp(12px,2vw,24px); pointer-events:none;">
-  <div style="pointer-events:auto; box-sizing:border-box; width:100%; max-width:var(--bs-shell,1280px); display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:clamp(16px,2vw,32px); padding:clamp(18px,2vw,24px) clamp(20px,2.4vw,28px); background:rgba(7,7,7,0.92); backdrop-filter:blur(22px) saturate(1.2); -webkit-backdrop-filter:blur(22px) saturate(1.2); border:1px solid rgba(255,255,255,0.14); border-radius:var(--bs-r-frame,24px); box-shadow:0 24px 60px rgba(0,0,0,0.55);">
-    <div style="flex:1 1 420px; min-width:0;">
-      <p id="bs-consent-t" style="margin:0 0 6px; font-family:'Archivo',sans-serif; font-weight:500; font-size:16px; color:#FFFFFF;">Mesure d’audience</p>
-      <p id="bs-consent-d" style="margin:0; font-size:14px; line-height:1.6; color:rgba(255,255,255,0.7);">Aucun traceur n’est déposé sans votre accord. Vous pouvez refuser&nbsp;: le site fonctionne à l’identique. <a href="/confidentialite" style="color:#FFFFFF; text-decoration:underline; text-decoration-color:#C87A53; text-underline-offset:3px;">Politique de confidentialité</a></p>
-    </div>
-    <div style="display:flex; flex-wrap:wrap; gap:12px; flex-shrink:0;">
-      <button type="button" data-cursor="link" data-bs-consent="refuse" style="cursor:pointer; font-family:'Archivo',sans-serif; font-size:14px; font-weight:500; color:#FFFFFF; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.25); padding:12px 24px; border-radius:var(--bs-r-pill,999px); transition:border-color var(--bs-t-fast,.2s) ease;">Refuser</button>
-      <button type="button" data-cursor="link" data-bs-consent="accept" style="cursor:pointer; font-family:'Archivo',sans-serif; font-size:14px; font-weight:500; color:#FFFFFF; background:#C87A53; border:1px solid #C87A53; padding:12px 24px; border-radius:var(--bs-r-pill,999px); transition:background var(--bs-t-fast,.2s) ease;">Accepter</button>
-    </div>
-  </div>
-</div>
 <!-- ============ ANIMATION D'OUVERTURE — logo mark blanc sur noir, 1re vue de la session ============ -->
 <style>
   #bs-intro { position:fixed; inset:0; z-index:9999; background:#070707; display:flex; align-items:center; justify-content:center; animation:bs-introVeil .6s ease 1.25s both; }
@@ -1863,7 +1750,7 @@
       </div>
       <div style="border-top:1px solid rgba(255,255,255,0.08); padding-top:28px; display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px;">
         <p style="font-size:13px; color:rgba(255,255,255,0.5); margin:0;">© 2026 Bren’Art Studio. Tous droits réservés.</p>
-        <p style="font-size:13px; margin:0; display:flex; flex-wrap:wrap; gap:20px;"><a data-cursor="link" href="/mentions-legales" style="color:rgba(255,255,255,0.5); text-decoration:none; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">Mentions légales</a><a data-cursor="link" href="/confidentialite" style="color:rgba(255,255,255,0.5); text-decoration:none; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">Confidentialité</a><a data-cursor="link" href="/cgv" style="color:rgba(255,255,255,0.5); text-decoration:none; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">CGV</a><a data-cursor="link" href="/confidentialite" data-bs-consent="open" style="color:rgba(255,255,255,0.5); text-decoration:none; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">Cookies</a></p>
+        <p style="font-size:13px; margin:0; display:flex; flex-wrap:wrap; gap:20px;"><a data-cursor="link" href="/mentions-legales" style="color:rgba(255,255,255,0.5); text-decoration:none; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">Mentions légales</a><a data-cursor="link" href="/confidentialite" style="color:rgba(255,255,255,0.5); text-decoration:none; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">Confidentialité</a><a data-cursor="link" href="/cgv" style="color:rgba(255,255,255,0.5); text-decoration:none; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">CGV</a></p>
       </div>
     </div>
   </footer>
