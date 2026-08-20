@@ -351,7 +351,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
   <!-- Archivo, famille unique de la charte, en lieu et place d'Inter (corps) et de
        Satoshi (titres). Un seul hote tiers au lieu de deux : Fontshare disparait. -->
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <!-- Chargement différé : la couche motion attend ces libs via _waitLibs() et
        retombe proprement sur « pas d'animation » si elles n'arrivent pas. Elles ne
        doivent donc plus bloquer le rendu.
@@ -416,6 +416,30 @@
       --bs-t-slow:.65s;   /* zoom d'image */
       --bs-t-panel:.5s;   /* dépliage de l'accordéon FAQ */
       --bs-t-xslow:.9s;   /* image « projet suivant » */
+    }
+
+    /* ================= Serif d'accent =================
+       Instrument Serif 400, unique face d'accent, deux emplois et pas un de plus.
+       Voir spec/changes/typo-serif-accent/proposal.md.
+
+       Italique quand le serif souligne un mot DANS une phrase : c'est une emphase.
+       Romain quand il porte le titre entier : c'est une composition de titre.
+
+       1.14em compense la hauteur d'oeil plus basse du serif face a Archivo.
+       letter-spacing:0 annule l'approche negative des titres, qui resserre trop
+       un serif et colle ses pleins et delies.
+       ================================================== */
+    h1 em {
+      font-family:'Instrument Serif',serif; font-weight:400; font-style:italic;
+      font-size:1.14em; letter-spacing:0;
+    }
+    h1[data-bs-serif] {
+      font-family:'Instrument Serif',serif; font-weight:400;
+      text-transform:none; letter-spacing:0;
+      font-size:clamp(26px,3.8vw,48px);
+    }
+    blockquote {
+      font-family:'Instrument Serif',serif; font-weight:400; line-height:1.5;
     }
 
     /* ================= Motifs de mise en page =================
@@ -660,7 +684,7 @@
       <div class="bs-shell" style="position:relative; box-sizing:border-box; min-height:100svh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:clamp(120px,16vh,180px) clamp(20px,4vw,48px) clamp(70px,9vw,120px);">
       <div style="display:flex; flex-direction:column; align-items:center; text-align:center; width:100%;">
         <div style="margin:0;"><span style="display:block; overflow:hidden;"><span data-hero-line="1" style="display:block;"><img src="assets/logo-mark-blanc.png" alt="Bren’Art Studio" width="200" height="238" fetchpriority="high" style="display:block; width:auto; height:clamp(118px,13vw,168px); margin:0 auto;"></span></span></div>
-        <h1 style="text-align:center; max-width:min(92%,600px); margin:clamp(22px,2.6vw,38px) 0 0;"><span style="display:block; font-family:'Archivo',sans-serif; font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.6); margin:0 0 clamp(12px,1.4vw,18px);">Studio de création digitale à Toulouse.</span> <span style="display:block; font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(19px,2vw,30px); line-height:1.2; letter-spacing:-0.01em; color:rgba(255,255,255,0.92);">Une marque qu’on reconnaît avant de la lire.</span></h1>
+        <h1 style="text-align:center; max-width:min(92%,600px); margin:clamp(22px,2.6vw,38px) 0 0;"><span style="display:block; font-family:'Archivo',sans-serif; font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.6); margin:0 0 clamp(12px,1.4vw,18px);">Studio de création digitale à Toulouse.</span> <span style="display:block; font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(19px,2vw,30px); line-height:1.2; letter-spacing:-0.01em; color:rgba(255,255,255,0.92);">Une marque qu’on <em>reconnaît</em> avant de la lire.</span></h1>
         <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:16px; margin-top:clamp(28px,3.5vw,40px);">
           <a data-cursor="link" href="/contact" data-bs-mag-target="1" style="display:inline-flex; align-items:center; gap:10px; background:#C87A53; color:#FFFFFF; text-decoration:none; font-size:15px; font-weight:500; padding:17px 32px; border-radius:var(--bs-r-pill); transition:background var(--bs-t-fast) ease, box-shadow var(--bs-t-fast) ease, transform var(--bs-t-fast) ease;" style-hover="background:#D89265; box-shadow:0 8px 24px rgba(0,0,0,0.4); transform:translateY(-2px);">Démarrer un projet</a>
           <a data-cursor="link" href="/portfolio" style="display:inline-flex; align-items:center; gap:10px; background:rgba(255,255,255,0.05); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.25); color:#FFFFFF; text-decoration:none; font-size:15px; font-weight:500; padding:16px 32px; border-radius:var(--bs-r-pill); transition:border-color var(--bs-t-fast) ease, transform var(--bs-t-fast) ease;" style-hover="border-color:rgba(255,255,255,0.6); transform:translateY(-2px);">Voir le portfolio</a>
@@ -832,7 +856,7 @@
           <figure data-bs-testimonial data-i="0" style="position:relative; z-index:1; flex:none; width:clamp(280px,25vw,338px); margin:0 -28px 0 0; transform:rotate(-5deg) translateY(18px); background:rgba(255,255,255,0.06); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,0.14); border-radius:var(--bs-r-frame); padding:clamp(28px,2.4vw,36px) clamp(26px,2.2vw,32px); display:flex; flex-direction:column; gap:24px; box-shadow:0 24px 50px rgba(0,0,0,0.42);">
             <div aria-hidden="true" style="width:54px; height:54px; border-radius:50%; overflow:hidden; border:1px solid rgba(200,122,83,0.42); flex:none; background:#C13C2B;"><picture style="display:contents"><source type="image/avif" srcset="assets/opt/ineeva-avatar-122.avif"><img src="assets/opt/ineeva-avatar-122.png" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" width="560" height="560" loading="lazy" decoding="async"></picture></div>
             <div role="img" aria-label="Noté 5 étoiles sur 5" style="display:flex; gap:4px; color:#C87A53; font-size:15px; line-height:1;"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span></div>
-            <blockquote style="margin:0; font-family:'Archivo',sans-serif; font-weight:400; font-size:clamp(16.5px,1.4vw,19px); line-height:1.46; color:#FFFFFF;">«&nbsp;Mérald a écouté bien au-delà de mes mots. Il a donné à ma vision une identité claire, forte et pleine de sens — un accompagnement porté avec cœur.&nbsp;»</blockquote>
+            <blockquote style="margin:0; font-size:clamp(19px,1.6vw,22px); color:#FFFFFF;">«&nbsp;Mérald a écouté bien au-delà de mes mots. Il a donné à ma vision une identité claire, forte et pleine de sens — un accompagnement porté avec cœur.&nbsp;»</blockquote>
             <figcaption style="margin-top:auto; display:flex; flex-direction:column; gap:5px;">
               <span style="font-size:12px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:#FFFFFF;">INEEVA</span>
               <span style="font-size:13.5px; color:rgba(255,255,255,0.5);">Association</span>
@@ -843,7 +867,7 @@
           <figure data-bs-testimonial data-i="1" style="position:relative; z-index:3; flex:none; width:clamp(292px,27vw,358px); transform:translateY(-14px); background:#FFFFFF; border:none; border-radius:var(--bs-r-frame); padding:clamp(34px,2.7vw,42px) clamp(28px,2.4vw,34px); display:flex; flex-direction:column; gap:24px; box-shadow:0 34px 72px rgba(0,0,0,0.52);">
             <div aria-hidden="true" style="width:54px; height:54px; border-radius:50%; overflow:hidden; border:1px solid rgba(200,122,83,0.42); flex:none; background:#3A4652;"><picture style="display:contents"><source type="image/avif" srcset="assets/opt/laure-fagbohoun-avis-108.avif"><img src="assets/opt/laure-fagbohoun-avis-108.png" alt="" style="width:100%; height:100%; object-fit:cover; object-position:center top; display:block;" width="816" height="962" loading="lazy" decoding="async"></picture></div>
             <div role="img" aria-label="Noté 5 étoiles sur 5" style="display:flex; gap:4px; color:#C87A53; font-size:15px; line-height:1;"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span></div>
-            <blockquote style="margin:0; font-family:'Archivo',sans-serif; font-weight:400; font-size:clamp(18px,1.55vw,22px); line-height:1.44; color:#070707;">«&nbsp;Il a su donner vie à une idée qui n’existait encore que dans ma tête, avec un résultat qui dépasse toutes mes attentes.&nbsp;»</blockquote>
+            <blockquote style="margin:0; font-size:clamp(21px,1.8vw,25px); color:#070707;">«&nbsp;Il a su donner vie à une idée qui n’existait encore que dans ma tête, avec un résultat qui dépasse toutes mes attentes.&nbsp;»</blockquote>
             <figcaption style="margin-top:auto; display:flex; flex-direction:column; gap:5px;">
               <span style="font-size:12px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:#070707;">Laure Fagbohoun</span>
               <span style="font-size:13.5px; color:rgba(34,22,16,0.7);">Pasteure, autrice de «&nbsp;Lettre à ma fille&nbsp;»</span>
@@ -854,7 +878,7 @@
           <figure data-bs-testimonial data-i="2" style="position:relative; z-index:1; flex:none; width:clamp(280px,25vw,338px); margin:0 0 0 -28px; transform:rotate(5deg) translateY(18px); background:rgba(255,255,255,0.06); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,0.14); border-radius:var(--bs-r-frame); padding:clamp(28px,2.4vw,36px) clamp(26px,2.2vw,32px); display:flex; flex-direction:column; gap:24px; box-shadow:0 24px 50px rgba(0,0,0,0.42);">
             <div aria-hidden="true" style="width:54px; height:54px; border-radius:50%; overflow:hidden; border:1px solid rgba(200,122,83,0.42); flex:none; background:#2E1A2C;"><picture style="display:contents"><source type="image/avif" srcset="assets/opt/koryaa-avatar-122.avif"><img src="assets/opt/koryaa-avatar-122.png" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" width="122" height="122" loading="lazy" decoding="async"></picture></div>
             <div role="img" aria-label="Noté 5 étoiles sur 5" style="display:flex; gap:4px; color:#C87A53; font-size:15px; line-height:1;"><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span><span aria-hidden="true">★</span></div>
-            <blockquote style="margin:0; font-family:'Archivo',sans-serif; font-weight:400; font-size:clamp(16.5px,1.4vw,19px); line-height:1.46; color:#FFFFFF;">«&nbsp;J’avais une idée de l’univers de marque mais je n’avais pas encore réussi à matérialiser ma pensée. Mérald m’a aidée à donner vie à mon projet de manière visuelle.&nbsp;»</blockquote>
+            <blockquote style="margin:0; font-size:clamp(19px,1.6vw,22px); color:#FFFFFF;">«&nbsp;J’avais une idée de l’univers de marque mais je n’avais pas encore réussi à matérialiser ma pensée. Mérald m’a aidée à donner vie à mon projet de manière visuelle.&nbsp;»</blockquote>
             <figcaption style="margin-top:auto; display:flex; flex-direction:column; gap:5px;">
               <span style="font-size:12px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:#FFFFFF;">Ornela</span>
               <span style="font-size:13.5px; color:rgba(255,255,255,0.5);">Fondatrice de Koryaa</span>
@@ -890,7 +914,7 @@
             <span style="display:block; width:24px; height:1px; background:#C87A53;"></span>
             <span style="font-size:12px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; color:rgba(255,255,255,0.6);">Portfolio</span>
           </div>
-          <h1 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(46px,8vw,128px); line-height:0.98; letter-spacing:-0.02em; color:#FFFFFF; margin:0;">Travaux sélectionnés<span style="display:inline-block; width:clamp(12px,1.1vw,18px); height:clamp(12px,1.1vw,18px); background:#C87A53; margin-left:0.14em;"></span></h1>
+          <h1 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(46px,8vw,128px); line-height:0.98; letter-spacing:-0.02em; color:#FFFFFF; margin:0;">Travaux <em>sélectionnés</em><span style="display:inline-block; width:clamp(12px,1.1vw,18px); height:clamp(12px,1.1vw,18px); background:#C87A53; margin-left:0.14em;"></span></h1>
         </div>
         <p style="font-family:ui-monospace,'SF Mono',monospace; font-size:13px; letter-spacing:0.16em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0 0 clamp(8px,1vw,16px); white-space:nowrap;">Branding · Sites sur-mesure</p>
       </div>
@@ -975,7 +999,7 @@
       <div data-bs-case-hero="1" style="position:relative; aspect-ratio:16/9; border-radius:var(--bs-r-frame); overflow:hidden; border:1px solid rgba(255,255,255,0.1); background:#0E0E0E;">
         <picture style="display:contents"><source type="image/avif" srcset="assets/opt/ineeva-principal-1000.avif 1000w, assets/opt/ineeva-principal-1800.avif 1800w" sizes="(max-width: 860px) 100vw, 1291px"><source type="image/webp" srcset="assets/ineeva-principal.webp"><img loading="lazy" decoding="async" src="assets/ineeva-principal.jpg" alt="Identité Ineeva : portrait beauté, peau lumineuse et wordmark INEEVA au trait" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;" width="2400" height="1600"></picture>
         <div aria-hidden="true" style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(7,7,7,0) 52%, rgba(7,7,7,0.7) 100%);"></div>
-        <h1 style="position:absolute; left:clamp(18px,3.5vw,52px); right:clamp(18px,3.5vw,52px); bottom:clamp(14px,2vw,26px); margin:0; font-family:'Archivo',sans-serif; font-weight:600; font-size:clamp(20px,3vw,38px); line-height:0.95; letter-spacing:-0.01em; text-transform:uppercase; color:#FFFFFF;"><span style="display:block; overflow:hidden; padding-bottom:0.08em; margin-bottom:-0.08em;"><span data-hero-line="1" style="display:block;">Ineeva<span aria-hidden="true" style="display:inline-block; width:0.16em; height:0.16em; background:#C87A53; margin-left:0.14em; vertical-align:baseline;"></span></span></span></h1>
+        <h1 data-bs-serif="1" style="position:absolute; left:clamp(18px,3.5vw,52px); right:clamp(18px,3.5vw,52px); bottom:clamp(14px,2vw,26px); margin:0; line-height:1.02; color:#FFFFFF;"><span style="display:block; overflow:hidden; padding-bottom:0.08em; margin-bottom:-0.08em;"><span data-hero-line="1" style="display:block;">Ineeva<span aria-hidden="true" style="display:inline-block; width:0.16em; height:0.16em; background:#C87A53; margin-left:0.14em; vertical-align:baseline;"></span></span></span></h1>
       </div>
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:24px; border-top:1px solid rgba(255,255,255,0.12); padding-top:28px; margin-top:clamp(36px,4vw,56px);">
         <div style="display:flex; flex-direction:column; gap:6px;">
@@ -1121,7 +1145,7 @@
       <div data-bs-case-hero="1" style="position:relative; aspect-ratio:16/9; border-radius:var(--bs-r-frame); overflow:hidden; border:1px solid rgba(255,255,255,0.1); background:#0E0E0E;">
         <picture style="display:contents"><source type="image/avif" srcset="assets/opt/acasa-principal-1000.avif 1000w, assets/opt/acasa-principal-1800.avif 1800w" sizes="(max-width: 860px) 100vw, 1291px"><source type="image/webp" srcset="assets/acasa-principal.webp"><img loading="lazy" decoding="async" src="assets/acasa-principal.png" alt="Identité Acasa : wordmark posé sur une enfilade en teck des années 60" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;" width="2688" height="1536"></picture>
         <div aria-hidden="true" style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(7,7,7,0) 52%, rgba(7,7,7,0.7) 100%);"></div>
-        <h1 style="position:absolute; left:clamp(18px,3.5vw,52px); right:clamp(18px,3.5vw,52px); bottom:clamp(14px,2vw,26px); margin:0; font-family:'Archivo',sans-serif; font-weight:600; font-size:clamp(20px,3vw,38px); line-height:0.95; letter-spacing:-0.01em; text-transform:uppercase; color:#FFFFFF;"><span style="display:block; overflow:hidden; padding-bottom:0.08em; margin-bottom:-0.08em;"><span data-hero-line="1" style="display:block;">Acasa<span aria-hidden="true" style="display:inline-block; width:0.16em; height:0.16em; background:#C87A53; margin-left:0.14em; vertical-align:baseline;"></span></span></span></h1>
+        <h1 data-bs-serif="1" style="position:absolute; left:clamp(18px,3.5vw,52px); right:clamp(18px,3.5vw,52px); bottom:clamp(14px,2vw,26px); margin:0; line-height:1.02; color:#FFFFFF;"><span style="display:block; overflow:hidden; padding-bottom:0.08em; margin-bottom:-0.08em;"><span data-hero-line="1" style="display:block;">Acasa<span aria-hidden="true" style="display:inline-block; width:0.16em; height:0.16em; background:#C87A53; margin-left:0.14em; vertical-align:baseline;"></span></span></span></h1>
       </div>
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:24px; border-top:1px solid rgba(255,255,255,0.12); padding-top:28px; margin-top:clamp(36px,4vw,56px);">
         <div style="display:flex; flex-direction:column; gap:6px;">
@@ -1228,7 +1252,7 @@
       <div data-bs-case-hero="1" style="position:relative; aspect-ratio:16/9; border-radius:var(--bs-r-frame); overflow:hidden; border:1px solid rgba(255,255,255,0.1); background:#0E0E0E;">
         <picture style="display:contents"><source type="image/avif" srcset="assets/opt/laure-principal-1000.avif 1000w, assets/opt/laure-principal-1800.avif 1800w" sizes="(max-width: 860px) 100vw, 1291px"><img loading="lazy" decoding="async" src="assets/opt/laure-principal-2000.jpg" alt="Site Laure Fagbohoun présenté sur un iMac, ambiance lumière chaude" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center;" width="5376" height="3584"></picture>
         <div aria-hidden="true" style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(7,7,7,0) 52%, rgba(7,7,7,0.7) 100%);"></div>
-        <h1 style="position:absolute; left:clamp(18px,3.5vw,52px); right:clamp(18px,3.5vw,52px); bottom:clamp(14px,2vw,26px); margin:0; font-family:'Archivo',sans-serif; font-weight:600; font-size:clamp(20px,3vw,38px); line-height:0.95; letter-spacing:-0.01em; text-transform:uppercase; color:#FFFFFF;"><span style="display:block; overflow:hidden; padding-bottom:0.08em; margin-bottom:-0.08em;"><span data-hero-line="1" style="display:block;">Laure Fagbohoun<span aria-hidden="true" style="display:inline-block; width:0.16em; height:0.16em; background:#C87A53; margin-left:0.14em; vertical-align:baseline;"></span></span></span></h1>
+        <h1 data-bs-serif="1" style="position:absolute; left:clamp(18px,3.5vw,52px); right:clamp(18px,3.5vw,52px); bottom:clamp(14px,2vw,26px); margin:0; line-height:1.02; color:#FFFFFF;"><span style="display:block; overflow:hidden; padding-bottom:0.08em; margin-bottom:-0.08em;"><span data-hero-line="1" style="display:block;">Laure Fagbohoun<span aria-hidden="true" style="display:inline-block; width:0.16em; height:0.16em; background:#C87A53; margin-left:0.14em; vertical-align:baseline;"></span></span></span></h1>
       </div>
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:24px; border-top:1px solid rgba(255,255,255,0.12); padding-top:28px; margin-top:clamp(36px,4vw,56px);">
         <div style="display:flex; flex-direction:column; gap:6px;">
@@ -1364,7 +1388,7 @@
       <div data-bs-case-hero="1" style="position:relative; aspect-ratio:16/9; border-radius:var(--bs-r-frame); overflow:hidden; border:1px solid rgba(255,255,255,0.1); background:#3A2233;">
         <picture style="display:contents"><source type="image/avif" srcset="assets/opt/koryaa-principal-1000.avif 1000w, assets/opt/koryaa-principal-1536.avif 1536w" sizes="(max-width: 860px) 100vw, 1291px"><img loading="lazy" decoding="async" src="assets/koryaa-principal.png" alt="Visuel principal du branding Koryaa : portrait beauté et wordmark cosmétique capillaire au Sea Moss" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;" width="1536" height="1024"></picture>
         <div aria-hidden="true" style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(7,7,7,0) 52%, rgba(7,7,7,0.7) 100%);"></div>
-        <h1 style="position:absolute; left:clamp(18px,3.5vw,52px); right:clamp(18px,3.5vw,52px); bottom:clamp(14px,2vw,26px); margin:0; font-family:'Archivo',sans-serif; font-weight:600; font-size:clamp(20px,3vw,38px); line-height:0.95; letter-spacing:-0.01em; text-transform:uppercase; color:#FFFFFF;"><span style="display:block; overflow:hidden; padding-bottom:0.08em; margin-bottom:-0.08em;"><span data-hero-line="1" style="display:block;">Koryaa<span aria-hidden="true" style="display:inline-block; width:0.16em; height:0.16em; background:#C87A53; margin-left:0.14em; vertical-align:baseline;"></span></span></span></h1>
+        <h1 data-bs-serif="1" style="position:absolute; left:clamp(18px,3.5vw,52px); right:clamp(18px,3.5vw,52px); bottom:clamp(14px,2vw,26px); margin:0; line-height:1.02; color:#FFFFFF;"><span style="display:block; overflow:hidden; padding-bottom:0.08em; margin-bottom:-0.08em;"><span data-hero-line="1" style="display:block;">Koryaa<span aria-hidden="true" style="display:inline-block; width:0.16em; height:0.16em; background:#C87A53; margin-left:0.14em; vertical-align:baseline;"></span></span></span></h1>
       </div>
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:24px; border-top:1px solid rgba(255,255,255,0.12); padding-top:28px; margin-top:clamp(36px,4vw,56px);">
         <div style="display:flex; flex-direction:column; gap:6px;">
@@ -1475,7 +1499,7 @@
         <span style="display:block; width:24px; height:1px; background:#C87A53;"></span>
         <span style="font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.6);">Services</span>
       </div>
-      <h1 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(44px,6.5vw,96px); line-height:1.02; letter-spacing:-0.02em; margin:0 0 28px; max-width:900px;">Trois offres, une seule main<span style="color:#C87A53;">.</span></h1>
+      <h1 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(44px,6.5vw,96px); line-height:1.02; letter-spacing:-0.02em; margin:0 0 28px; max-width:900px;">Trois offres, <em>une seule main</em><span style="color:#C87A53;">.</span></h1>
       <p style="font-size:clamp(16px,1.5vw,19px); line-height:1.65; color:rgba(255,255,255,0.7); max-width:600px; margin:0;">De la stratégie à la mise en ligne, le périmètre s’ajuste à votre situation. Tout est sur-mesure&nbsp;; rien n’est superflu.</p>
     </div>
 
@@ -1617,7 +1641,7 @@
         <span style="display:block; width:24px; height:1px; background:#C87A53;"></span>
         <span style="font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.6);">À propos</span>
       </div>
-      <h1 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(44px,6.5vw,96px); line-height:1.02; letter-spacing:-0.02em; margin:0 0 clamp(48px,6vw,80px); max-width:980px;">Le visage et la voix du&nbsp;studio<span style="color:#C87A53;">.</span></h1>
+      <h1 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(44px,6.5vw,96px); line-height:1.02; letter-spacing:-0.02em; margin:0 0 clamp(48px,6vw,80px); max-width:980px;">Le visage et la <em>voix</em> du&nbsp;studio<span style="color:#C87A53;">.</span></h1>
 
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:clamp(40px,6vw,80px); align-items:start;">
         <div style="position:sticky; top:108px;">
@@ -1709,7 +1733,7 @@
         <span style="display:block; width:24px; height:1px; background:#C87A53;"></span>
         <span style="font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.6);">Contact</span>
       </div>
-      <h1 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(44px,6.5vw,96px); line-height:1.02; letter-spacing:-0.02em; margin:0 0 28px;">Parlons de votre projet<span style="color:#C87A53;">.</span></h1>
+      <h1 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(44px,6.5vw,96px); line-height:1.02; letter-spacing:-0.02em; margin:0 0 28px;"><em>Parlons</em> de votre projet<span style="color:#C87A53;">.</span></h1>
       <p style="font-size:clamp(16px,1.5vw,19px); line-height:1.65; color:rgba(255,255,255,0.7); max-width:600px; margin:0;">Présentez votre situation en quelques lignes. Que vous cherchiez à contacter un designer à Toulouse ou à obtenir un devis identité digitale, vous recevrez une réponse argumentée sous 48&nbsp;h ouvrées.</p>
     </div>
 
