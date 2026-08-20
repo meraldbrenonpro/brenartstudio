@@ -300,6 +300,7 @@
       --bs-t-fast:.2s;    /* couleur, bordure : réaction immédiate */
       --bs-t:.3s;         /* transformations courtes, ombres */
       --bs-t-mid:.45s;    /* atténuation des voisines */
+      --bs-t-nav:.5s;     /* glissement de l'indicateur de navigation */
       --bs-t-slow:.65s;   /* zoom d'image */
       --bs-t-panel:.5s;   /* dépliage de l'accordéon FAQ */
       --bs-t-xslow:.9s;   /* image « projet suivant » */
@@ -413,7 +414,12 @@
       width:0; height:0; opacity:0;
       background:var(--bs-ivory); border-radius:4px;
       pointer-events:none; will-change:transform, width;
+      transition:transform var(--bs-t-nav) var(--bs-ease),
+                 width var(--bs-t-nav) var(--bs-ease);
     }
+    /* Pose initiale, redimensionnement, motion réduit : on repositionne sans
+       glisser. L'attribut reste en place jusqu'au prochain déplacement animé. */
+    [data-bs-navpill][data-bs-instant] { transition:none; }
     a[data-bs-navlink] {
       position:relative; z-index:1;
       display:inline-flex; align-items:center;
@@ -1978,7 +1984,6 @@ class Component extends DCLogic {
       this._navBar = bar;
       this._navPill = pill;
 
-      const EASE = 'cubic-bezier(0.16,1,0.3,1)';
       const links = () => Array.prototype.slice.call(bar.querySelectorAll('[data-bs-navlink]'));
       const activeLink = () => links().filter((a) => a.getAttribute('aria-current') === 'page')[0] || null;
       let covered = null;
@@ -2013,9 +2018,8 @@ class Component extends DCLogic {
         // Largeur nulle : nav masquée (mobile) ou polices pas encore posées.
         // On sort sans rien peindre, le soulignement d'aria-current prend le relais.
         if (!r.width || !b.width) { pill.style.opacity = '0'; return; }
-        pill.style.transition = (animate && !this._rm.matches)
-          ? 'transform 320ms ' + EASE + ', width 320ms ' + EASE
-          : 'none';
+        if (animate && !this._rm.matches) pill.removeAttribute('data-bs-instant');
+        else pill.setAttribute('data-bs-instant', '');
         pill.style.width = r.width + 'px';
         pill.style.height = r.height + 'px';
         pill.style.transform = 'translate(' + (r.left - b.left) + 'px, -50%)';
