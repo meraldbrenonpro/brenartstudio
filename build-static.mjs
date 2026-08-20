@@ -36,30 +36,71 @@ const ORIGIN = 'https://brenartstudio.fr';
 // plutôt que neuf blocs JSON-LD recopiés à la main dans index.html.
 const PAGE_META = {
   'portfolio':      { crumb: 'Portfolio' },
-  'services':       { crumb: 'Services' },
-  'about':          { crumb: 'À propos' },
-  'contact':        { crumb: 'Contact' },
+  'services':       { crumb: 'Services', og: ['services', "Bren'Art Studio, services : trois offres, une seule main."] },
+  'about':          { crumb: 'À propos', person: true, og: ['a-propos', "Mérald Brenon, designer digital à Toulouse, fondateur de Bren'Art Studio."] },
+  'contact':        { crumb: 'Contact', faq: true },
   'portfolio-ineeva': {
     crumb: 'Ineeva', parent: ['Portfolio', '/portfolio'],
+    og: ['ineeva', "Ineeva, identité de marque conçue par Bren'Art Studio."],
     work: { name: 'Ineeva — identité de marque',
             about: "Identité visuelle et présence en ligne d'une association",
             genre: 'Identité de marque' } },
   'portfolio-acasa': {
     crumb: 'Acasa', parent: ['Portfolio', '/portfolio'],
+    og: ['acasa', "Acasa, identité de marque conçue par Bren'Art Studio."],
     work: { name: 'Acasa — identité de marque',
             about: "Identité visuelle d'un magasin de meubles",
             genre: 'Identité de marque' } },
   'portfolio-koryaa': {
     crumb: 'Koryaa', parent: ['Portfolio', '/portfolio'],
+    og: ['koryaa', "Koryaa, identité de marque conçue par Bren'Art Studio."],
     work: { name: 'Koryaa — identité de marque',
             about: "Identité visuelle d'une marque de cosmétique capillaire",
             genre: 'Identité de marque' } },
   'portfolio-laure-fagbohoun': {
     crumb: 'Laure Fagbohoun', parent: ['Portfolio', '/portfolio'],
+    og: ['laure-fagbohoun', "Laure Fagbohoun, site vitrine conçu par Bren'Art Studio."],
     work: { name: 'Laure Fagbohoun — site vitrine',
             about: "Site vitrine d'autrice et conférencière",
             genre: 'Site web' } },
 };
+
+// --- Extraire la FAQ depuis le markup affiché (source unique) ---------------
+// Le bloc FAQPage était recopié à la main dans le <head> : une réponse avait déjà
+// divergé du texte à l'écran (« Quatre à six semaines… » balisé, « Comptez quatre
+// à six semaines… Il est tenu. » affiché). Google demande que le balisage
+// corresponde au contenu visible ; on le lit donc directement dans le markup.
+function stripTags(s) {
+  return s
+    .replace(/<[^>]+>/g, '')
+    .replace(/&nbsp;/g, '\u00A0')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function extractFaq(html) {
+  const re = /onClick="\{\{ faqT\d+ \}\}"[\s\S]*?<span>([\s\S]*?)<\/span>[\s\S]*?aria-hidden="\{\{ faqH\d+ \}\}"[\s\S]*?<p[^>]*>([\s\S]*?)<\/p>/g;
+  const out = [];
+  let m;
+  while ((m = re.exec(html))) {
+    const name = stripTags(m[1]);
+    const text = stripTags(m[2]);
+    if (name && text) {
+      out.push({
+        '@type': 'Question',
+        name,
+        acceptedAnswer: { '@type': 'Answer', text },
+      });
+    }
+  }
+  if (!out.length) throw new Error('FAQ introuvable dans le markup');
+  return out;
+}
 
 // --- 1. Extraire la table SEO _seo() depuis index.html (source unique) ------
 function extractSeoMap(html) {
@@ -119,6 +160,20 @@ function transform(html, page, seo) {
   out = out.replace(/(<meta property="og:description" content=")[\s\S]*?(">)/i, `$1${escAttr(seo.d)}$2`);
   out = out.replace(/(<meta property="og:url" content=")[\s\S]*?(">)/i, `$1${url}$2`);
   out = out.replace(/(<meta name="twitter:title" content=")[\s\S]*?(">)/i, `$1${escAttr(seo.t)}$2`);
+
+  // Image de partage dédiée : une seule og-image.jpg servait les neuf URL, chaque
+  // partage renvoyait donc le même visuel générique. Les pages qui en ont une
+  // pointent vers assets/og/<slug>.jpg (1200x630, fond #070707, visuel du projet
+  // et logotype blanc), les autres gardent l'image générale.
+  const og = PAGE_META[page] && PAGE_META[page].og;
+  if (og) {
+    const img = `${ORIGIN}/assets/og/${og[0]}.jpg`;
+    out = out.replace(/(<meta property="og:image" content=")[\s\S]*?(">)/i, `$1${img}$2`);
+    out = out.replace(/(<meta property="og:image:secure_url" content=")[\s\S]*?(">)/i, `$1${img}$2`);
+    out = out.replace(/(<meta property="og:image:alt" content=")[\s\S]*?(">)/i, `$1${escAttr(og[1])}$2`);
+    out = out.replace(/(<meta name="twitter:image" content=")[\s\S]*?(">)/i, `$1${img}$2`);
+    out = out.replace(/(<meta name="twitter:image:alt" content=")[\s\S]*?(">)/i, `$1${escAttr(og[1])}$2`);
+  }
   out = out.replace(/(<meta name="twitter:description" content=")[\s\S]*?(">)/i, `$1${escAttr(seo.d)}$2`);
 
   // Liens internes #cle -> URL propre (meilleur crawl + partage)
@@ -135,9 +190,25 @@ function transform(html, page, seo) {
   // perdrait son point d'ancrage et ne pourrait plus jamais réafficher la section.
   // On passe donc par une feuille de style, que le style inline écrit par le runtime
   // écrase dès l'hydratation — l'ordre de priorité CSS fait le travail.
+  // Même mécanique pour les blocs conditionnels (accusé de réception du formulaire,
+  // message d'erreur, libellé « Envoi… », couche motion) : avant hydratation leur
+  // « display:{{ x }} » est invalide, donc ignoré, et ils s'affichaient tous en même
+  // temps. On les masque par défaut ; le style inline écrit par le runtime reprend
+  // la main dès l'hydratation.
+  // Etat actif de la navigation avant hydratation (et sans JavaScript du tout) :
+  // aria-current est posé par le runtime, il n'existe donc pas dans le HTML servi.
+  // On désigne ici le lien de la page courante par son href. L'indicateur blanc,
+  // lui, a besoin d'une mesure : sans JS il reste invisible, et c'est ce
+  // soulignement qui porte l'information.
+  const navKey = page.indexOf('portfolio') === 0 ? 'portfolio' : page;
+  const navHref = PAGE_TO_PATH[navKey] || '/';
   out = out.replace('</head>',
     `<style id="bs-prerender">section[data-page]{display:none}` +
-    `section[data-page="${page}"]{display:block}</style>\n</head>`);
+    `section[data-page="${page}"]{display:block}` +
+    `[data-bs-prehide]{display:none}` +
+    `[data-bs-navlink][href="${navHref}"],[data-bs-navmob][href="${navHref}"]{color:#FFFFFF}` +
+    `[data-bs-navlink][href="${navHref}"]{text-decoration-color:#FFFFFF}` +
+    `</style>\n</head>`);
 
   // --- JSON-LD par page : fil d'ariane + fiche d'œuvre ---------------------
   const meta = PAGE_META[page];
@@ -149,6 +220,20 @@ function transform(html, page, seo) {
     items.push({ '@type': 'ListItem', position: items.length + 1, name: meta.crumb, item: url });
 
     const blocks = [{ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: items }];
+
+    // FAQ : le bloc ne doit être servi que sur la page qui AFFICHE les questions.
+    // Il vivait dans le <head> partagé, donc sur les 9 URL, y compris huit où le
+    // contenu n'est nulle part dans le DOM — ce que Google refuse (le contenu
+    // balisé doit être visible sur la page).
+    if (meta.faq) {
+      blocks.push({
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        '@id': url + '#faq',
+        mainEntity: FAQ,
+        worksFor: { '@id': ORIGIN + '/#studio' },
+      });
+    }
 
     if (meta.work) {
       blocks.push({
@@ -175,6 +260,8 @@ function transform(html, page, seo) {
 // --- 3. Génération ----------------------------------------------------------
 const html = readFileSync(SRC, 'utf8');
 const M = extractSeoMap(html);
+const FAQ = extractFaq(html);
+console.log(`   FAQ : ${FAQ.length} question(s) lue(s) dans le markup`);
 
 let count = 0;
 for (const [page, path] of Object.entries(PAGE_TO_PATH)) {
