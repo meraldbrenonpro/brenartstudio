@@ -13,6 +13,8 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png?v=2">
 <link rel="preload" as="image" href="assets/logo-mark-blanc.png">
 <link rel="preload" as="image" href="assets/logotype-blanc.png">
+<link rel="preload" as="image" href="assets/opt/hero-bureau-mobile-800.jpg" media="(max-width:700px)" fetchpriority="high">
+<link rel="preload" as="image" href="assets/hero-bureau.jpg" imagesrcset="assets/opt/hero-bureau-1200.jpg 1200w, assets/hero-bureau.jpg 1800w" imagesizes="100vw" media="(min-width:701px)" fetchpriority="high">
 <link rel="canonical" href="https://brenartstudio.fr/portfolio">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Bren’Art Studio">
@@ -298,7 +300,6 @@
 
     /* Eyebrow : filet terracotta + label en capitales */
     .bs-eyebrow { display:flex; align-items:center; gap:14px; margin-bottom:20px; }
-    .bs-eyebrow-rule { display:block; flex:none; width:24px; height:1px; background:var(--bs-terracotta); }
     .bs-eyebrow-label { font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.6); }
     .bs-eyebrow--ink .bs-eyebrow-label { color:rgba(7,7,7,0.62); }
 
@@ -452,6 +453,33 @@
     ::-webkit-scrollbar-thumb:hover { background:#C87A53; }
     /* Zoom lent de la vidéo du hero */
     @keyframes bs-heroZoom { from { transform:scale(1); } to { transform:scale(1.07); } }
+
+    /* Hero : carte encastree sur l'encre. Marges laterales a 10% et ratio 28/15
+       reprennent la geometrie de la reference (1120x600 dans un viewport de 1400). */
+    /* 10% et non 10vw : le pourcentage exclut la barre de defilement, donc marges vraiment symetriques */
+    .bs-hero-frame { padding:clamp(84px,11vh,120px) 10% clamp(48px,6vw,72px); }
+    .bs-hero-card { position:relative; overflow:hidden; border-radius:var(--bs-r-frame);
+                    aspect-ratio:28/15; min-height:430px; display:flex; align-items:center;
+                    justify-content:center; background:var(--bs-ink-2); }
+    .bs-hero-inner { position:relative; display:flex; flex-direction:column; align-items:center;
+                     text-align:center; width:100%; padding:clamp(24px,4vw,56px); box-sizing:border-box; }
+    /* En etroit la carte se redresse : un 28/15 ferait une bande de 200px de haut. */
+    @media (max-width:700px) {
+      .bs-hero-frame { padding:clamp(76px,10vh,104px) clamp(16px,4vw,24px) clamp(40px,7vw,56px); }
+      .bs-hero-card { aspect-ratio:3/4; min-height:0; }
+    }
+
+    /* Hero : titre-manchette + mots surlignes (bloc terracotta, serif d'accent) */
+    .bs-hero-title { font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(30px,5.2vw,68px);
+                     line-height:1.06; letter-spacing:-0.025em; color:#FFFFFF; margin:0; text-wrap:balance;
+                     text-shadow:0 2px 30px rgba(0,0,0,0.45); }
+    .bs-hero-mark { display:inline-block; background:var(--bs-terracotta); color:#0A0A0A;
+                    font-family:'Instrument Serif',Georgia,serif; font-weight:400; font-style:italic;
+                    padding:0.02em 0.3em 0.1em; border-radius:var(--bs-r-tiny); margin:0 0.04em;
+                    line-height:1; text-shadow:none; }
+    /* le point final colle au bloc : on annule la marge droite du bloc qui le detachait */
+    .bs-hero-mark + .bs-hero-stop { margin-left:-0.04em; }
+    @media (prefers-reduced-motion: reduce) { [data-bs-hero-img] { animation:none !important; } }
     /* Aperçu live (embed site) — sur mobile le cadre 16/10 est trop court (~208px)
        et ne montre qu'un bandeau du site. On passe en cadre portrait pour afficher
        la vraie mise en page responsive du site embarqué. */
@@ -518,23 +546,22 @@
   <!-- ============ PAGE ACCUEIL ============ -->
   <section data-page="accueil" data-screen-label="Accueil" style="display:{{ dAccueil }};">
 
-    <!-- Hero (vidéo d'ambiance en fond, traitée encre) -->
-    <div style="position:relative; overflow:hidden;">
-      <video data-bs-hero-video="1" src="uploads/hero-ambiance.mp4" poster="assets/hero-poster.jpg" muted="muted" loop="loop" playsinline="playsinline" preload="none" aria-hidden="true" tabindex="-1" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; animation:bs-heroZoom 22s ease-in-out infinite alternate; filter:grayscale(1) brightness(0.5) contrast(1.06); opacity:0.55; pointer-events:none;"></video>
-      <div aria-hidden="true" style="position:absolute; inset:0; pointer-events:none; background:repeating-linear-gradient(115deg, rgba(7,7,7,0.12) 0px, rgba(7,7,7,0.12) 1px, transparent 1px, transparent 5px), linear-gradient(90deg, rgba(7,7,7,0.82) 0%, rgba(7,7,7,0.3) 55%, rgba(7,7,7,0.45) 100%), linear-gradient(180deg, rgba(7,7,7,0.85) 0%, rgba(7,7,7,0.35) 42%, rgba(7,7,7,0.6) 74%, #070707 100%);"></div>
-      <div class="bs-shell" style="position:relative; box-sizing:border-box; min-height:100svh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:clamp(120px,16vh,180px) clamp(20px,4vw,48px) clamp(70px,9vw,120px);">
-      <div style="display:flex; flex-direction:column; align-items:center; text-align:center; width:100%;">
-        <div style="margin:0;"><span style="display:block; overflow:hidden;"><span data-hero-line="1" style="display:block;"><img src="assets/logo-mark-blanc.png" alt="Bren’Art Studio" width="200" height="238" fetchpriority="high" style="display:block; width:auto; height:clamp(118px,13vw,168px); margin:0 auto;"></span></span></div>
-        <h1 style="text-align:center; max-width:min(92%,600px); margin:clamp(22px,2.6vw,38px) 0 0;"><span style="display:block; font-family:'Archivo',sans-serif; font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.6); margin:0 0 clamp(12px,1.4vw,18px);">Studio de création digitale à Toulouse.</span> <span style="display:block; font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(19px,2vw,30px); line-height:1.2; letter-spacing:-0.01em; color:rgba(255,255,255,0.92);">Une marque qu’on <em>reconnaît</em> avant de la lire.</span></h1>
-        <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:16px; margin-top:clamp(28px,3.5vw,40px);">
-          <a data-cursor="link" href="/contact" data-bs-mag-target="1" style="display:inline-flex; align-items:center; gap:10px; background:#C87A53; color:#FFFFFF; text-decoration:none; font-size:15px; font-weight:500; padding:17px 32px; border-radius:var(--bs-r-pill); transition:background var(--bs-t-fast) ease, box-shadow var(--bs-t-fast) ease, transform var(--bs-t-fast) ease;" style-hover="background:#D89265; box-shadow:0 8px 24px rgba(0,0,0,0.4); transform:translateY(-2px);">Démarrer un projet</a>
-          <a data-cursor="link" href="/portfolio" style="display:inline-flex; align-items:center; gap:10px; background:rgba(255,255,255,0.05); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.25); color:#FFFFFF; text-decoration:none; font-size:15px; font-weight:500; padding:16px 32px; border-radius:var(--bs-r-pill); transition:border-color var(--bs-t-fast) ease, transform var(--bs-t-fast) ease;" style-hover="border-color:rgba(255,255,255,0.6); transform:translateY(-2px);">Voir le portfolio</a>
+    <!-- Hero : carte encastrée sur l'encre, proportions calquées sur la référence (1120x600 @1400, marges 10%).
+         Visuel : bureau en plongée, ombres de fenêtre sur bois chaud — photo Sou Jest / Unsplash
+         (https://unsplash.com/photos/GbMBVCWp0j4), recadrée 3:2 (desktop) et 2:3 (mobile). -->
+    <div class="bs-hero-frame">
+      <div class="bs-hero-card">
+        <!-- Photo d'ambiance — Pexels 9419359, licence Pexels (usage commercial libre, attribution non requise) : https://www.pexels.com/photo/wooden-chair-near-table-9419359/ -->
+        <picture style="display:contents"><source media="(max-width:700px)" srcset="assets/opt/hero-bureau-mobile-800.jpg"><img data-bs-hero-img="1" src="assets/hero-bureau.jpg" srcset="assets/opt/hero-bureau-1200.jpg 1200w, assets/hero-bureau.jpg 1800w" sizes="(max-width:700px) 100vw, 80vw" alt="" aria-hidden="true" fetchpriority="high" decoding="async" width="1800" height="1200" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; animation:bs-heroZoom 22s ease-in-out infinite alternate; filter:brightness(0.82) contrast(1.05); pointer-events:none;"></picture>
+        <!-- Voile : trame fine (texture de marque) + assombrissement central pour la lisibilité du titre -->
+        <div aria-hidden="true" style="position:absolute; inset:0; pointer-events:none; background:repeating-linear-gradient(115deg, rgba(7,7,7,0.12) 0px, rgba(7,7,7,0.12) 1px, transparent 1px, transparent 5px), radial-gradient(ellipse 80% 62% at 50% 50%, rgba(7,7,7,0.58) 0%, rgba(7,7,7,0.26) 62%, rgba(7,7,7,0.10) 100%);"></div>
+        <div class="bs-hero-inner">
+          <h1 style="text-align:center; max-width:min(94%,880px); margin:0;"><span style="display:block; font-family:'Archivo',sans-serif; font-size:12px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; color:rgba(255,255,255,0.72); margin:0 0 clamp(16px,2vw,24px);">Studio de création digitale à Toulouse</span> <span class="bs-hero-title">Une marque qu’on <span class="bs-hero-mark">reconnaît</span> avant même de la <span class="bs-hero-mark">lire</span><span class="bs-hero-stop">.</span></span></h1>
+          <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:16px; margin-top:clamp(26px,3.2vw,38px);">
+            <a data-cursor="link" href="/contact" data-bs-mag-target="1" style="display:inline-flex; align-items:center; gap:10px; background:#C87A53; color:#FFFFFF; text-decoration:none; font-size:15px; font-weight:500; padding:17px 32px; border-radius:var(--bs-r-pill); transition:background var(--bs-t-fast) ease, box-shadow var(--bs-t-fast) ease, transform var(--bs-t-fast) ease;" style-hover="background:#D89265; box-shadow:0 8px 24px rgba(0,0,0,0.4); transform:translateY(-2px);">Démarrer un projet</a>
+            <a data-cursor="link" href="/portfolio" style="display:inline-flex; align-items:center; gap:10px; background:rgba(255,255,255,0.05); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.25); color:#FFFFFF; text-decoration:none; font-size:15px; font-weight:500; padding:16px 32px; border-radius:var(--bs-r-pill); transition:border-color var(--bs-t-fast) ease, transform var(--bs-t-fast) ease;" style-hover="border-color:rgba(255,255,255,0.6); transform:translateY(-2px);">Voir le portfolio</a>
+          </div>
         </div>
-      </div>
-      </div>
-      <div style="position:absolute; left:clamp(16px,2.4vw,32px); bottom:clamp(30px,5vw,56px); max-width:min(90%,440px);">
-        <p style="margin:0; text-align:left; font-size:clamp(13px,1vw,15px); line-height:1.55; color:rgba(255,255,255,0.62);">Une seule main pense votre identité et votre site, du premier trait au dernier pixel.</p>
-        <p style="margin:clamp(10px,1.2vw,14px) 0 0; text-align:left; font-size:11.5px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.5);">Aux côtés d’Ineeva, Koryaa et Laure Fagbohoun</p>
       </div>
     </div>
 
@@ -542,28 +569,27 @@
     <div class="bs-section" style="background:#FFFFFF; color:#070707;">
       <div class="bs-shell">
         <div class="bs-eyebrow bs-eyebrow--ink">
-          <span class="bs-eyebrow-rule"></span>
-          <span class="bs-eyebrow-label">Services</span>
+          <span class="bs-eyebrow-label">Ce que je fais</span>
         </div>
         <div class="bs-sechead">
-          <h2 class="bs-h2" style="margin:0; max-width:640px;">Trois offres, un seul fil&nbsp;conducteur.</h2>
+          <h2 class="bs-h2" style="margin:0; max-width:640px;">Trois façons de travailler&nbsp;ensemble.</h2>
           <a data-cursor="link" href="/services" style="color:#070707; text-decoration:none; font-size:15px; font-weight:500; border-bottom:1px solid #C87A53; padding-bottom:4px; white-space:nowrap; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">Découvrir les services&nbsp;→</a>
         </div>
         <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:24px;">
           <div class="bs-card bs-card--ivory" style="transition:transform var(--bs-t) ease, box-shadow var(--bs-t) ease;" style-hover="transform:translateY(-4px); box-shadow:0 30px 60px rgba(7,7,7,0.12);">
             <p style="font-family:'Archivo',sans-serif; font-weight:500; font-size:14px; color:#C87A53; margin:0 0 18px; letter-spacing:0.08em;">01</p>
             <h3 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:24px; line-height:1.2; margin:0 0 12px;">Brand Design</h3>
-            <p style="font-size:15px; line-height:1.6; color:rgba(7,7,7,0.68); margin:0;">Identité visuelle, logo et charte : une marque qu’on reconnaît avant de la lire.</p>
+            <p style="font-size:15px; line-height:1.6; color:rgba(7,7,7,0.68); margin:0;">Votre logo, vos couleurs, vos typos — et surtout la cohérence qui les tient ensemble.</p>
           </div>
           <div class="bs-card bs-card--ivory" style="transition:transform var(--bs-t) ease, box-shadow var(--bs-t) ease;" style-hover="transform:translateY(-4px); box-shadow:0 30px 60px rgba(7,7,7,0.12);">
             <p style="font-family:'Archivo',sans-serif; font-weight:500; font-size:14px; color:#C87A53; margin:0 0 18px; letter-spacing:0.08em;">02</p>
             <h3 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:24px; line-height:1.2; margin:0 0 12px;">Web Design</h3>
-            <p style="font-size:15px; line-height:1.6; color:rgba(7,7,7,0.68); margin:0;">Site vitrine, landing page ou refonte : rapide, lisible, fait pour durer.</p>
+            <p style="font-size:15px; line-height:1.6; color:rgba(7,7,7,0.68); margin:0;">Un site vitrine, une landing ou une refonte. Rapide à charger, simple à lire, fait pour durer.</p>
           </div>
           <div class="bs-card bs-card--ivory" style="transition:transform var(--bs-t) ease, box-shadow var(--bs-t) ease;" style-hover="transform:translateY(-4px); box-shadow:0 30px 60px rgba(7,7,7,0.12);">
             <p style="font-family:'Archivo',sans-serif; font-weight:500; font-size:14px; color:#C87A53; margin:0 0 18px; letter-spacing:0.08em;">03</p>
             <h3 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:24px; line-height:1.2; margin:0 0 12px;">Brand + Web</h3>
-            <p style="font-size:15px; line-height:1.6; color:rgba(7,7,7,0.68); margin:0;">L’offre complète, d’une seule main, de l’idée à la mise en ligne.</p>
+            <p style="font-size:15px; line-height:1.6; color:rgba(7,7,7,0.68); margin:0;">Tout, d’une seule main : de la première idée jusqu’au jour de la mise en ligne.</p>
           </div>
         </div>
       </div>
@@ -573,11 +599,10 @@
     <div class="bs-section">
       <div class="bs-shell">
         <div class="bs-eyebrow">
-          <span class="bs-eyebrow-rule"></span>
-          <span class="bs-eyebrow-label">Portfolio</span>
+          <span class="bs-eyebrow-label">Quelques projets</span>
         </div>
         <div class="bs-sechead">
-          <h2 class="bs-h2" style="margin:0;">Le travail parle d’abord.</h2>
+          <h2 class="bs-h2" style="margin:0;">Je préfère montrer que raconter.</h2>
           <a data-cursor="link" href="/portfolio" style="color:#FFFFFF; text-decoration:none; font-size:15px; font-weight:500; border-bottom:1px solid #C87A53; padding-bottom:4px; white-space:nowrap; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">Tous les projets&nbsp;→</a>
         </div>
         <div data-bs-works-row="1">
@@ -616,20 +641,19 @@
     <div class="bs-section" style="border-top:1px solid rgba(255,255,255,0.08);">
       <div class="bs-shell">
         <div class="bs-eyebrow">
-          <span class="bs-eyebrow-rule"></span>
-          <span class="bs-eyebrow-label">Méthode</span>
+          <span class="bs-eyebrow-label">Ma façon de faire</span>
         </div>
-        <h2 class="bs-h2" style="margin:0 0 clamp(40px,5vw,64px); max-width:700px;">Quatre partis pris, tenus sur chaque projet.</h2>
+        <h2 class="bs-h2" style="margin:0 0 clamp(40px,5vw,64px); max-width:700px;">Quatre choses sur lesquelles je ne transige jamais.</h2>
         <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; margin-bottom:clamp(56px,7vw,90px);">
           <div class="bs-card bs-card--glass">
             <p style="font-family:'Archivo',sans-serif; font-weight:500; font-size:14px; color:#C87A53; margin:0 0 20px; letter-spacing:0.08em;">01</p>
             <h3 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:22px; margin:0 0 10px;">Épure</h3>
-            <p style="font-size:14.5px; line-height:1.6; color:rgba(255,255,255,0.65); margin:0;">Chaque élément gagne sa place. Ce qui ne sert pas la lecture sort.</p>
+            <p style="font-size:14.5px; line-height:1.6; color:rgba(255,255,255,0.65); margin:0;">Chaque élément doit gagner sa place. Ce qui ne sert pas la lecture, je l’enlève.</p>
           </div>
           <div class="bs-card bs-card--glass">
             <p style="font-family:'Archivo',sans-serif; font-weight:500; font-size:14px; color:#C87A53; margin:0 0 20px; letter-spacing:0.08em;">02</p>
             <h3 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:22px; margin:0 0 10px;">Intention</h3>
-            <p style="font-size:14.5px; line-height:1.6; color:rgba(255,255,255,0.65); margin:0;">Aucun choix par défaut. Chaque décision se justifie, et on vous l’explique.</p>
+            <p style="font-size:14.5px; line-height:1.6; color:rgba(255,255,255,0.65); margin:0;">Aucun choix par défaut. Chaque décision a une raison, et je vous la donne.</p>
           </div>
           <div class="bs-card bs-card--glass">
             <p style="font-family:'Archivo',sans-serif; font-weight:500; font-size:14px; color:#C87A53; margin:0 0 20px; letter-spacing:0.08em;">03</p>
@@ -671,8 +695,7 @@
         </div>
         <div>
           <div class="bs-eyebrow bs-eyebrow--ink">
-            <span class="bs-eyebrow-rule"></span>
-            <span class="bs-eyebrow-label">Derrière le studio</span>
+            <span class="bs-eyebrow-label">Qui vous répond</span>
           </div>
           <h2 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(32px,4vw,56px); line-height:1.08; letter-spacing:-0.015em; margin:0 0 24px;">Je m’appelle Mérald&nbsp;Brenon.</h2>
           <p style="font-size:17px; line-height:1.65; color:rgba(7,7,7,0.7); margin:0 0 16px; max-width:520px;">Designer digital à Toulouse, je porte chaque projet de la première question à la mise en ligne. Vous parlez à la personne qui fait le travail, du premier appel au dernier pixel.</p>
@@ -686,7 +709,6 @@
     <div data-screen-label="Témoignages" class="bs-section" style="overflow:hidden;">
       <div class="bs-shell">
         <div class="bs-eyebrow">
-          <span class="bs-eyebrow-rule"></span>
           <span class="bs-eyebrow-label">Ils en parlent</span>
         </div>
         <h2 class="bs-h2" style="margin:0 0 clamp(48px,6vw,84px); max-width:16ch;">Des clients qui restent<span style="color:#C87A53;">.</span></h2>
@@ -735,7 +757,7 @@
     <div style="padding:0 clamp(20px,4vw,48px) clamp(70px,9vw,130px);">
       <div class="bs-shell" style="background:rgba(255,255,255,0.05); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,0.13); border-radius:var(--bs-r-frame); padding:clamp(48px,7vw,90px) clamp(28px,5vw,80px); text-align:center;">
         <h2 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(36px,5vw,72px); line-height:1.05; letter-spacing:-0.015em; margin:0 0 20px;">Un projet en tête&nbsp;?</h2>
-        <p style="font-size:17px; line-height:1.6; color:rgba(255,255,255,0.7); max-width:520px; margin:0 auto 36px;">Parlons-en simplement. Vous repartez avec un avis honnête, un cadre et un calendrier.</p>
+        <p style="font-size:17px; line-height:1.6; color:rgba(255,255,255,0.7); max-width:520px; margin:0 auto 36px;">Écrivez-moi, même si ce n’est encore qu’une intuition. Vous repartirez avec un avis honnête, un cadre et un calendrier.</p>
         <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:16px;">
           <a data-cursor="link" href="/contact" data-bs-mag-target="1" style="display:inline-flex; align-items:center; background:#C87A53; color:#FFFFFF; text-decoration:none; font-size:15px; font-weight:500; padding:17px 32px; border-radius:var(--bs-r-pill); transition:background var(--bs-t-fast) ease, box-shadow var(--bs-t-fast) ease, transform var(--bs-t-fast) ease;" style-hover="background:#D89265; box-shadow:0 8px 24px rgba(0,0,0,0.4); transform:translateY(-2px);">Démarrer un projet</a>
           <a data-cursor="link" href="mailto:contact@brenartstudio.fr" style="display:inline-flex; align-items:center; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.25); color:#FFFFFF; text-decoration:none; font-size:15px; font-weight:500; padding:16px 32px; border-radius:var(--bs-r-pill); transition:border-color var(--bs-t-fast) ease;" style-hover="border-color:rgba(255,255,255,0.6);">contact@brenartstudio.fr</a>
@@ -752,7 +774,7 @@
       <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:clamp(24px,4vw,56px); flex-wrap:wrap;">
         <div style="min-width:0;">
           <div style="display:flex; align-items:center; gap:14px; margin-bottom:clamp(20px,2.5vw,30px);">
-            <span style="display:block; width:24px; height:1px; background:#C87A53;"></span>
+            
             <span style="font-size:12px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; color:rgba(255,255,255,0.6);">Portfolio</span>
           </div>
           <h1 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(46px,8vw,128px); line-height:0.98; letter-spacing:-0.02em; color:#FFFFFF; margin:0;">Travaux <em>sélectionnés</em><span style="display:inline-block; width:clamp(12px,1.1vw,18px); height:clamp(12px,1.1vw,18px); background:#C87A53; margin-left:0.14em;"></span></h1>
@@ -776,7 +798,7 @@
           </div>
           <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-top:clamp(16px,1.6vw,22px);">
             <span data-bs-work-name="1" style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(26px,3vw,42px); line-height:1.04; letter-spacing:-0.01em; transition:color var(--bs-t) ease;">Ineeva</span>
-            <span style="display:inline-flex; align-items:center; gap:9px; flex-shrink:0; font-size:11.5px; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); white-space:nowrap;"><span style="display:block; width:16px; height:1px; background:#C87A53;"></span>Branding &amp; Webdesign</span>
+            <span style="display:inline-flex; align-items:center; gap:9px; flex-shrink:0; font-size:11.5px; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); white-space:nowrap;">Branding &amp; Webdesign</span>
           </div>
         </a>
 
@@ -789,7 +811,7 @@
           </div>
           <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-top:clamp(16px,1.6vw,22px);">
             <span data-bs-work-name="1" style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(26px,3vw,42px); line-height:1.04; letter-spacing:-0.01em; transition:color var(--bs-t) ease;">Acasa</span>
-            <span style="display:inline-flex; align-items:center; gap:9px; flex-shrink:0; font-size:11.5px; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); white-space:nowrap;"><span style="display:block; width:16px; height:1px; background:#C87A53;"></span>Branding</span>
+            <span style="display:inline-flex; align-items:center; gap:9px; flex-shrink:0; font-size:11.5px; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); white-space:nowrap;">Branding</span>
           </div>
         </a>
 
@@ -802,7 +824,7 @@
           </div>
           <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-top:clamp(16px,1.6vw,22px);">
             <span data-bs-work-name="1" style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(26px,3vw,42px); line-height:1.04; letter-spacing:-0.01em; transition:color var(--bs-t) ease;">Laure Fagbohoun</span>
-            <span style="display:inline-flex; align-items:center; gap:9px; flex-shrink:0; font-size:11.5px; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); white-space:nowrap;"><span style="display:block; width:16px; height:1px; background:#C87A53;"></span>Webdesign</span>
+            <span style="display:inline-flex; align-items:center; gap:9px; flex-shrink:0; font-size:11.5px; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); white-space:nowrap;">Webdesign</span>
           </div>
         </a>
 
@@ -815,7 +837,7 @@
           </div>
           <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-top:clamp(16px,1.6vw,22px);">
             <span data-bs-work-name="1" style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(26px,3vw,42px); line-height:1.04; letter-spacing:-0.01em; transition:color var(--bs-t) ease;">Koryaa</span>
-            <span style="display:inline-flex; align-items:center; gap:9px; flex-shrink:0; font-size:11.5px; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); white-space:nowrap;"><span style="display:block; width:16px; height:1px; background:#C87A53;"></span>Branding</span>
+            <span style="display:inline-flex; align-items:center; gap:9px; flex-shrink:0; font-size:11.5px; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); white-space:nowrap;">Branding</span>
           </div>
         </a>
       </div>
@@ -844,23 +866,23 @@
       </div>
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:24px; border-top:1px solid rgba(255,255,255,0.12); padding-top:28px; margin-top:clamp(36px,4vw,56px);">
         <div style="display:flex; flex-direction:column; gap:6px;">
-          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;"><span aria-hidden="true" style="display:inline-block; width:14px; height:1px; background:#C87A53; flex-shrink:0;"></span>Client</p>
+          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">Client</p>
           <p style="font-size:15.5px; color:rgba(255,255,255,0.85); margin:0;">Ineeva</p>
         </div>
         <div style="display:flex; flex-direction:column; gap:6px;">
-          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;"><span aria-hidden="true" style="display:inline-block; width:14px; height:1px; background:#C87A53; flex-shrink:0;"></span>Services</p>
+          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">Services</p>
           <p style="font-size:15.5px; color:rgba(255,255,255,0.85); margin:0;">Identité de marque · Stratégie digitale</p>
         </div>
         <div style="display:flex; flex-direction:column; gap:6px;">
-          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;"><span aria-hidden="true" style="display:inline-block; width:14px; height:1px; background:#C87A53; flex-shrink:0;"></span>Secteur</p>
+          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">Secteur</p>
           <p style="font-size:15.5px; color:rgba(255,255,255,0.85); margin:0;">Association</p>
         </div>
         <div style="display:flex; flex-direction:column; gap:6px;">
-          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;"><span aria-hidden="true" style="display:inline-block; width:14px; height:1px; background:#C87A53; flex-shrink:0;"></span>Année</p>
+          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">Année</p>
           <p style="font-size:15.5px; color:rgba(255,255,255,0.85); margin:0;">2026</p>
         </div>
         <div style="display:flex; flex-direction:column; gap:6px;">
-          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;"><span aria-hidden="true" style="display:inline-block; width:14px; height:1px; background:#C87A53; flex-shrink:0;"></span>Crédits</p>
+          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">Crédits</p>
           <p style="font-size:15.5px; color:rgba(255,255,255,0.85); margin:0;">Mérald Brenon, Bren’Art Studio</p>
         </div>
       </div>
@@ -868,7 +890,6 @@
 
     <div class="bs-shell" style="padding:0 clamp(20px,4vw,48px) clamp(48px,6vw,80px);">
       <div class="bs-eyebrow">
-        <span class="bs-eyebrow-rule"></span>
         <span class="bs-eyebrow-label">Le projet</span>
       </div>
       <div style="max-width:720px; display:flex; flex-direction:column; gap:18px;">
@@ -885,7 +906,6 @@
          remplacera avantageusement la première phrase. -->
     <div class="bs-shell" style="padding:0 clamp(20px,4vw,48px) clamp(48px,6vw,80px);">
       <div class="bs-eyebrow">
-        <span class="bs-eyebrow-rule"></span>
         <span class="bs-eyebrow-label">Ce que ça a changé</span>
       </div>
       <div class="bs-card bs-card--panel" style="max-width:720px; display:flex; flex-direction:column; gap:14px;">
@@ -967,9 +987,9 @@
 
     <div class="bs-section bs-section--lg" style="max-width:1480px; margin:0 auto; text-align:center;">
       <div style="display:flex; align-items:center; justify-content:center; gap:14px; margin-bottom:clamp(22px,3vw,34px);">
-        <span style="display:block; width:24px; height:1px; background:#C87A53;"></span>
+        
         <span style="font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.6);">Un projet en tête&nbsp;?</span>
-        <span style="display:block; width:24px; height:1px; background:#C87A53;"></span>
+        
       </div>
       <h2 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(44px,7vw,104px); line-height:1; letter-spacing:-0.015em; text-transform:uppercase; margin:0 0 clamp(30px,4vw,48px); color:#FFFFFF;">Parlons-en<span style="color:#C87A53;">.</span></h2>
       <a data-cursor="link" href="mailto:contact@brenartstudio.fr" data-bs-mag-target="1" style="display:inline-block; font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(22px,4.2vw,60px); line-height:1.15; color:#FFFFFF; text-decoration:underline; text-decoration-color:rgba(200,122,83,0.4); text-decoration-thickness:2px; text-underline-offset:0.22em; overflow-wrap:anywhere; transition:color var(--bs-t-fast) ease, text-decoration-color var(--bs-t-fast) ease;" style-hover="color:#C87A53; text-decoration-color:#C87A53;">contact@brenartstudio.fr</a>
@@ -990,23 +1010,23 @@
       </div>
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:24px; border-top:1px solid rgba(255,255,255,0.12); padding-top:28px; margin-top:clamp(36px,4vw,56px);">
         <div style="display:flex; flex-direction:column; gap:6px;">
-          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;"><span aria-hidden="true" style="display:inline-block; width:14px; height:1px; background:#C87A53; flex-shrink:0;"></span>Client</p>
+          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">Client</p>
           <p style="font-size:15.5px; color:rgba(255,255,255,0.85); margin:0;">Acasa</p>
         </div>
         <div style="display:flex; flex-direction:column; gap:6px;">
-          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;"><span aria-hidden="true" style="display:inline-block; width:14px; height:1px; background:#C87A53; flex-shrink:0;"></span>Services</p>
+          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">Services</p>
           <p style="font-size:15.5px; color:rgba(255,255,255,0.85); margin:0;">Identité de marque · Branding</p>
         </div>
         <div style="display:flex; flex-direction:column; gap:6px;">
-          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;"><span aria-hidden="true" style="display:inline-block; width:14px; height:1px; background:#C87A53; flex-shrink:0;"></span>Secteur</p>
+          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">Secteur</p>
           <p style="font-size:15.5px; color:rgba(255,255,255,0.85); margin:0;">Magasin de meubles</p>
         </div>
         <div style="display:flex; flex-direction:column; gap:6px;">
-          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;"><span aria-hidden="true" style="display:inline-block; width:14px; height:1px; background:#C87A53; flex-shrink:0;"></span>Année</p>
+          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">Année</p>
           <p style="font-size:15.5px; color:rgba(255,255,255,0.85); margin:0;">2025</p>
         </div>
         <div style="display:flex; flex-direction:column; gap:6px;">
-          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;"><span aria-hidden="true" style="display:inline-block; width:14px; height:1px; background:#C87A53; flex-shrink:0;"></span>Crédits</p>
+          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">Crédits</p>
           <p style="font-size:15.5px; color:rgba(255,255,255,0.85); margin:0;">Mérald Brenon, Bren’Art Studio</p>
         </div>
       </div>
@@ -1014,7 +1034,6 @@
 
     <div class="bs-shell" style="padding:0 clamp(20px,4vw,48px) clamp(48px,6vw,80px);">
       <div class="bs-eyebrow">
-        <span class="bs-eyebrow-rule"></span>
         <span class="bs-eyebrow-label">Le projet</span>
       </div>
       <div style="max-width:720px; display:flex; flex-direction:column; gap:18px;">
@@ -1030,7 +1049,6 @@
          remplacera avantageusement la première phrase. -->
     <div class="bs-shell" style="padding:0 clamp(20px,4vw,48px) clamp(48px,6vw,80px);">
       <div class="bs-eyebrow">
-        <span class="bs-eyebrow-rule"></span>
         <span class="bs-eyebrow-label">Ce que ça a changé</span>
       </div>
       <div class="bs-card bs-card--panel" style="max-width:720px; display:flex; flex-direction:column; gap:14px;">
@@ -1074,9 +1092,9 @@
 
     <div class="bs-section bs-section--lg" style="max-width:1480px; margin:0 auto; text-align:center;">
       <div style="display:flex; align-items:center; justify-content:center; gap:14px; margin-bottom:clamp(22px,3vw,34px);">
-        <span style="display:block; width:24px; height:1px; background:#C87A53;"></span>
+        
         <span style="font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.6);">Un projet en tête&nbsp;?</span>
-        <span style="display:block; width:24px; height:1px; background:#C87A53;"></span>
+        
       </div>
       <h2 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(44px,7vw,104px); line-height:1; letter-spacing:-0.015em; text-transform:uppercase; margin:0 0 clamp(30px,4vw,48px); color:#FFFFFF;">Parlons-en<span style="color:#C87A53;">.</span></h2>
       <a data-cursor="link" href="mailto:contact@brenartstudio.fr" data-bs-mag-target="1" style="display:inline-block; font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(22px,4.2vw,60px); line-height:1.15; color:#FFFFFF; text-decoration:underline; text-decoration-color:rgba(200,122,83,0.4); text-decoration-thickness:2px; text-underline-offset:0.22em; overflow-wrap:anywhere; transition:color var(--bs-t-fast) ease, text-decoration-color var(--bs-t-fast) ease;" style-hover="color:#C87A53; text-decoration-color:#C87A53;">contact@brenartstudio.fr</a>
@@ -1097,23 +1115,23 @@
       </div>
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:24px; border-top:1px solid rgba(255,255,255,0.12); padding-top:28px; margin-top:clamp(36px,4vw,56px);">
         <div style="display:flex; flex-direction:column; gap:6px;">
-          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;"><span aria-hidden="true" style="display:inline-block; width:14px; height:1px; background:#C87A53; flex-shrink:0;"></span>Client</p>
+          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">Client</p>
           <p style="font-size:15.5px; color:rgba(255,255,255,0.85); margin:0;">Laure Fagbohoun</p>
         </div>
         <div style="display:flex; flex-direction:column; gap:6px;">
-          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;"><span aria-hidden="true" style="display:inline-block; width:14px; height:1px; background:#C87A53; flex-shrink:0;"></span>Services</p>
+          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">Services</p>
           <p style="font-size:15.5px; color:rgba(255,255,255,0.85); margin:0;">Direction artistique · Site portfolio</p>
         </div>
         <div style="display:flex; flex-direction:column; gap:6px;">
-          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;"><span aria-hidden="true" style="display:inline-block; width:14px; height:1px; background:#C87A53; flex-shrink:0;"></span>Secteur</p>
+          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">Secteur</p>
           <p style="font-size:15.5px; color:rgba(255,255,255,0.85); margin:0;">Site portfolio</p>
         </div>
         <div style="display:flex; flex-direction:column; gap:6px;">
-          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;"><span aria-hidden="true" style="display:inline-block; width:14px; height:1px; background:#C87A53; flex-shrink:0;"></span>Année</p>
+          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">Année</p>
           <p style="font-size:15.5px; color:rgba(255,255,255,0.85); margin:0;">2025</p>
         </div>
         <div style="display:flex; flex-direction:column; gap:6px;">
-          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;"><span aria-hidden="true" style="display:inline-block; width:14px; height:1px; background:#C87A53; flex-shrink:0;"></span>Crédits</p>
+          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">Crédits</p>
           <p style="font-size:15.5px; color:rgba(255,255,255,0.85); margin:0;">Mérald Brenon, Bren’Art Studio</p>
         </div>
       </div>
@@ -1121,7 +1139,6 @@
 
     <div class="bs-shell" style="padding:0 clamp(20px,4vw,48px) clamp(48px,6vw,80px);">
       <div class="bs-eyebrow">
-        <span class="bs-eyebrow-rule"></span>
         <span class="bs-eyebrow-label">Le projet</span>
       </div>
       <div style="max-width:720px; display:flex; flex-direction:column; gap:18px;">
@@ -1137,7 +1154,6 @@
          remplacera avantageusement la première phrase. -->
     <div class="bs-shell" style="padding:0 clamp(20px,4vw,48px) clamp(48px,6vw,80px);">
       <div class="bs-eyebrow">
-        <span class="bs-eyebrow-rule"></span>
         <span class="bs-eyebrow-label">Ce que ça a changé</span>
       </div>
       <div class="bs-card bs-card--panel" style="max-width:720px; display:flex; flex-direction:column; gap:14px;">
@@ -1210,9 +1226,9 @@
 
     <div class="bs-section bs-section--lg" style="max-width:1480px; margin:0 auto; text-align:center;">
       <div style="display:flex; align-items:center; justify-content:center; gap:14px; margin-bottom:clamp(22px,3vw,34px);">
-        <span style="display:block; width:24px; height:1px; background:#C87A53;"></span>
+        
         <span style="font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.6);">Un projet en tête&nbsp;?</span>
-        <span style="display:block; width:24px; height:1px; background:#C87A53;"></span>
+        
       </div>
       <h2 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(44px,7vw,104px); line-height:1; letter-spacing:-0.015em; text-transform:uppercase; margin:0 0 clamp(30px,4vw,48px); color:#FFFFFF;">Parlons-en<span style="color:#C87A53;">.</span></h2>
       <a data-cursor="link" href="mailto:contact@brenartstudio.fr" data-bs-mag-target="1" style="display:inline-block; font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(22px,4.2vw,60px); line-height:1.15; color:#FFFFFF; text-decoration:underline; text-decoration-color:rgba(200,122,83,0.4); text-decoration-thickness:2px; text-underline-offset:0.22em; overflow-wrap:anywhere; transition:color var(--bs-t-fast) ease, text-decoration-color var(--bs-t-fast) ease;" style-hover="color:#C87A53; text-decoration-color:#C87A53;">contact@brenartstudio.fr</a>
@@ -1233,23 +1249,23 @@
       </div>
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:24px; border-top:1px solid rgba(255,255,255,0.12); padding-top:28px; margin-top:clamp(36px,4vw,56px);">
         <div style="display:flex; flex-direction:column; gap:6px;">
-          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;"><span aria-hidden="true" style="display:inline-block; width:14px; height:1px; background:#C87A53; flex-shrink:0;"></span>Client</p>
+          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">Client</p>
           <p style="font-size:15.5px; color:rgba(255,255,255,0.85); margin:0;">Koryaa</p>
         </div>
         <div style="display:flex; flex-direction:column; gap:6px;">
-          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;"><span aria-hidden="true" style="display:inline-block; width:14px; height:1px; background:#C87A53; flex-shrink:0;"></span>Services</p>
+          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">Services</p>
           <p style="font-size:15.5px; color:rgba(255,255,255,0.85); margin:0;">Identité de marque · Branding</p>
         </div>
         <div style="display:flex; flex-direction:column; gap:6px;">
-          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;"><span aria-hidden="true" style="display:inline-block; width:14px; height:1px; background:#C87A53; flex-shrink:0;"></span>Secteur</p>
+          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">Secteur</p>
           <p style="font-size:15.5px; color:rgba(255,255,255,0.85); margin:0;">Cosmétique capillaire</p>
         </div>
         <div style="display:flex; flex-direction:column; gap:6px;">
-          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;"><span aria-hidden="true" style="display:inline-block; width:14px; height:1px; background:#C87A53; flex-shrink:0;"></span>Année</p>
+          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">Année</p>
           <p style="font-size:15.5px; color:rgba(255,255,255,0.85); margin:0;">2024</p>
         </div>
         <div style="display:flex; flex-direction:column; gap:6px;">
-          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;"><span aria-hidden="true" style="display:inline-block; width:14px; height:1px; background:#C87A53; flex-shrink:0;"></span>Crédits</p>
+          <p style="display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">Crédits</p>
           <p style="font-size:15.5px; color:rgba(255,255,255,0.85); margin:0;">Mérald Brenon, Bren’Art Studio</p>
         </div>
       </div>
@@ -1257,7 +1273,6 @@
 
     <div class="bs-shell" style="padding:0 clamp(20px,4vw,48px) clamp(48px,6vw,80px);">
       <div class="bs-eyebrow">
-        <span class="bs-eyebrow-rule"></span>
         <span class="bs-eyebrow-label">Le projet</span>
       </div>
       <div style="max-width:720px; display:flex; flex-direction:column; gap:18px;">
@@ -1273,7 +1288,6 @@
          remplacera avantageusement la première phrase. -->
     <div class="bs-shell" style="padding:0 clamp(20px,4vw,48px) clamp(48px,6vw,80px);">
       <div class="bs-eyebrow">
-        <span class="bs-eyebrow-rule"></span>
         <span class="bs-eyebrow-label">Ce que ça a changé</span>
       </div>
       <div class="bs-card bs-card--panel" style="max-width:720px; display:flex; flex-direction:column; gap:14px;">
@@ -1324,9 +1338,9 @@
 
     <div class="bs-section bs-section--lg" style="max-width:1480px; margin:0 auto; text-align:center;">
       <div style="display:flex; align-items:center; justify-content:center; gap:14px; margin-bottom:clamp(22px,3vw,34px);">
-        <span style="display:block; width:24px; height:1px; background:#C87A53;"></span>
+        
         <span style="font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.6);">Un projet en tête&nbsp;?</span>
-        <span style="display:block; width:24px; height:1px; background:#C87A53;"></span>
+        
       </div>
       <h2 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(44px,7vw,104px); line-height:1; letter-spacing:-0.015em; text-transform:uppercase; margin:0 0 clamp(30px,4vw,48px); color:#FFFFFF;">Parlons-en<span style="color:#C87A53;">.</span></h2>
       <a data-cursor="link" href="mailto:contact@brenartstudio.fr" data-bs-mag-target="1" style="display:inline-block; font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(22px,4.2vw,60px); line-height:1.15; color:#FFFFFF; text-decoration:underline; text-decoration-color:rgba(200,122,83,0.4); text-decoration-thickness:2px; text-underline-offset:0.22em; overflow-wrap:anywhere; transition:color var(--bs-t-fast) ease, text-decoration-color var(--bs-t-fast) ease;" style-hover="color:#C87A53; text-decoration-color:#C87A53;">contact@brenartstudio.fr</a>
@@ -1337,11 +1351,11 @@
   <section data-page="services" data-screen-label="Services" style="display:{{ dServices }};">
     <div class="bs-shell" style="padding:var(--bs-pad-top) var(--bs-pad-x) clamp(50px,6vw,80px);">
       <div style="display:flex; align-items:center; gap:14px; margin-bottom:24px;">
-        <span style="display:block; width:24px; height:1px; background:#C87A53;"></span>
+        
         <span style="font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.6);">Services</span>
       </div>
       <h1 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(44px,6.5vw,96px); line-height:1.02; letter-spacing:-0.02em; margin:0 0 28px; max-width:900px;">Trois offres, <em>une seule main</em><span style="color:#C87A53;">.</span></h1>
-      <p style="font-size:clamp(16px,1.5vw,19px); line-height:1.65; color:rgba(255,255,255,0.7); max-width:600px; margin:0;">De la stratégie à la mise en ligne, le périmètre s’ajuste à votre situation. Tout est sur-mesure&nbsp;; rien n’est superflu.</p>
+      <p style="font-size:clamp(16px,1.5vw,19px); line-height:1.65; color:rgba(255,255,255,0.7); max-width:600px; margin:0;">De la stratégie à la mise en ligne, j’ajuste le périmètre à votre situation. Tout est sur-mesure, rien n’est superflu.</p>
     </div>
 
     <div class="bs-shell" style="padding:0 clamp(20px,4vw,48px);">
@@ -1354,6 +1368,7 @@
           </div>
           <h2 style="font-family:'Archivo',sans-serif; font-weight:600; font-size:clamp(26px,2.4vw,32px); line-height:1.1; letter-spacing:-0.01em; margin:22px 0 0; color:#FFFFFF;">Essentiel</h2>
           <p style="margin:14px 0 0; font-size:14px; line-height:1; color:var(--bs-label);">À partir de <span style="font-family:'Archivo',sans-serif; font-weight:500; font-size:21px; color:#FFFFFF; margin-left:4px;">1&nbsp;800&nbsp;€</span></p>
+          <p style="margin:10px 0 0; font-size:12.5px; line-height:1.4; color:#C87A53;">Paiement en 1, 2 ou 3&nbsp;fois</p>
           <p style="font-size:17px; line-height:1.45; color:#FFFFFF; font-style:italic; margin:18px 0 0; max-width:30ch;">Une marque qui tient debout, sans superflu.</p>
           <p style="font-size:15.5px; line-height:1.6; color:rgba(255,255,255,0.78); margin:16px 0 0;">Le socle pour exister proprement&nbsp;: une identité claire et une première présence en ligne, posées sur des bases saines.</p>
           <div style="height:1px; background:rgba(255,255,255,0.12); margin:26px 0 18px;"></div>
@@ -1383,7 +1398,7 @@
           <p style="font-size:17px; line-height:1.45; color:#FFFFFF; font-style:italic; margin:18px 0 0; max-width:30ch;">L’identité et le site qui vous installent durablement.</p>
           <p style="font-size:15.5px; line-height:1.6; color:rgba(255,255,255,0.78); margin:16px 0 0;">L’offre complète, de l’atelier de cadrage à la mise en ligne. Une marque pensée pour durer et un site vitrine qui la fait vivre.</p>
           <div style="height:1px; background:rgba(255,255,255,0.12); margin:26px 0 18px;"></div>
-          <p style="font-family:'Archivo',sans-serif; font-weight:500; font-size:15px; color:#FFFFFF; margin:0 0 4px; display:flex; align-items:center; gap:10px;"><span style="flex:none; width:18px; height:1px; background:#C87A53;"></span>Tout l’Essentiel, plus&nbsp;:</p>
+          <p style="font-family:'Archivo',sans-serif; font-weight:500; font-size:15px; color:#FFFFFF; margin:0 0 4px; display:flex; align-items:center; gap:10px;">Tout l’Essentiel, plus&nbsp;:</p>
           <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column;">
             <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:15px; line-height:1.45; color:#FFFFFF;">Atelier de cadrage&nbsp;: positionnement, ton, territoire visuel</span></li>
             <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:15px; line-height:1.45; color:#FFFFFF;">Système d’identité complet (logo, variations, iconographie, motifs)</span></li>
@@ -1408,7 +1423,7 @@
           <p style="font-size:17px; line-height:1.45; color:#FFFFFF; font-style:italic; margin:18px 0 0; max-width:30ch;">De la stratégie à la mise en ligne, d’une seule main.</p>
           <p style="font-size:15.5px; line-height:1.6; color:rgba(255,255,255,0.78); margin:16px 0 0;">L’accompagnement A→Z. On part de la stratégie de marque, avant de construire l’ensemble du dispositif et de le mettre en orbite.</p>
           <div style="height:1px; background:rgba(255,255,255,0.12); margin:26px 0 18px;"></div>
-          <p style="font-family:'Archivo',sans-serif; font-weight:500; font-size:15px; color:#FFFFFF; margin:0 0 4px; display:flex; align-items:center; gap:10px;"><span style="flex:none; width:18px; height:1px; background:#C87A53;"></span>Tout Signature, plus&nbsp;:</p>
+          <p style="font-family:'Archivo',sans-serif; font-weight:500; font-size:15px; color:#FFFFFF; margin:0 0 4px; display:flex; align-items:center; gap:10px;">Tout Signature, plus&nbsp;:</p>
           <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column;">
             <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:15px; line-height:1.45; color:#FFFFFF;">Stratégie de marque amont&nbsp;: plateforme, cibles, axes différenciants</span></li>
             <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:15px; line-height:1.45; color:#FFFFFF;">Direction artistique étendue (supports print et réseaux)</span></li>
@@ -1428,19 +1443,18 @@
         <div style="display:flex; flex-direction:column; gap:8px; max-width:640px;">
           <p style="font-family:'Archivo',sans-serif; font-size:11px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:var(--bs-label); margin:0;">Un besoin hors cadre&nbsp;?</p>
           <h3 style="font-family:'Archivo',sans-serif; font-weight:600; font-size:clamp(22px,2.2vw,30px); line-height:1.15; letter-spacing:-0.01em; color:#FFFFFF; margin:0;">Projet sur-mesure</h3>
-          <p style="font-size:15.5px; line-height:1.6; color:rgba(255,255,255,0.78); margin:0;">Un périmètre atypique, plusieurs marques, un rythme particulier&nbsp;? On dessine l’offre et le budget ensemble.</p>
+          <p style="font-size:15.5px; line-height:1.6; color:rgba(255,255,255,0.78); margin:0;">Un périmètre atypique, plusieurs marques, un rythme particulier&nbsp;? Dites-le-moi&nbsp;: on dessinera l’offre et le budget ensemble.</p>
         </div>
         <a data-cursor="link" href="/contact" style="flex:none; display:inline-flex; align-items:center; justify-content:center; box-sizing:border-box; padding:16px 28px; border-radius:var(--bs-r-btn); border:1px solid #C87A53; background:#C87A53; color:#FFFFFF; font-family:'Archivo',sans-serif; font-weight:500; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; text-decoration:none; cursor:pointer; transition:background var(--bs-t-fast) ease, color var(--bs-t-fast) ease;" style-hover="background:transparent; color:#C87A53;">À définir ensemble</a>
       </div>
 
-      <p style="margin:clamp(28px,3vw,40px) 0 0; font-size:13.5px; line-height:1.6; color:var(--bs-label);">Tarifs nets, TVA non applicable, art. 293 B du CGI. Paiement échelonné possible.</p>
+      <p style="margin:clamp(28px,3vw,40px) 0 0; font-size:13.5px; line-height:1.6; color:var(--bs-label);">Ces prix sont nets&nbsp;: je ne facture pas de TVA (art. 293 B du CGI).</p>
     </div>
 
     <!-- Comment on travaille -->
     <div class="bs-section" style="background:#FFFFFF; color:#070707; margin-top:clamp(70px,9vw,120px);">
       <div class="bs-shell">
         <div class="bs-eyebrow bs-eyebrow--ink">
-          <span class="bs-eyebrow-rule"></span>
           <span class="bs-eyebrow-label">Comment on travaille</span>
         </div>
         <h2 class="bs-h2" style="margin:0 0 clamp(40px,5vw,64px); max-width:700px;">Quatre étapes, aucun tunnel.</h2>
@@ -1448,7 +1462,7 @@
           <div style="border-top:2px solid #070707; padding-top:24px;">
             <p style="font-family:'Archivo',sans-serif; font-weight:500; font-size:14px; color:#C87A53; margin:0 0 14px; letter-spacing:0.08em;">01</p>
             <h3 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:22px; margin:0 0 10px;">Cadrage</h3>
-            <p style="font-size:14.5px; line-height:1.6; color:rgba(7,7,7,0.68); margin:0;">On écoute, on questionne, on pose le périmètre. Vous validez un cap avant toute maquette.</p>
+            <p style="font-size:14.5px; line-height:1.6; color:rgba(7,7,7,0.68); margin:0;">J’écoute, je questionne, et on pose le périmètre ensemble. Vous validez un cap avant que je dessine quoi que ce soit.</p>
           </div>
           <div style="border-top:2px solid #070707; padding-top:24px;">
             <p style="font-family:'Archivo',sans-serif; font-weight:500; font-size:14px; color:#C87A53; margin:0 0 14px; letter-spacing:0.08em;">02</p>
@@ -1479,7 +1493,7 @@
   <section data-page="about" data-screen-label="À propos" style="display:{{ dAbout }};">
     <div class="bs-shell" style="padding:var(--bs-pad-top) var(--bs-pad-x) clamp(60px,8vw,100px);">
       <div style="display:flex; align-items:center; gap:14px; margin-bottom:24px;">
-        <span style="display:block; width:24px; height:1px; background:#C87A53;"></span>
+        
         <span style="font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.6);">À propos</span>
       </div>
       <h1 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(44px,6.5vw,96px); line-height:1.02; letter-spacing:-0.02em; margin:0 0 clamp(48px,6vw,80px); max-width:980px;">Le visage et la <em>voix</em> du&nbsp;studio<span style="color:#C87A53;">.</span></h1>
@@ -1496,49 +1510,49 @@
           <p style="font-family:'Archivo',sans-serif; font-weight:400; font-size:clamp(22px,2.2vw,30px); line-height:1.4; margin:0; color:#FFFFFF;">Je m’appelle Mérald Brenon. Bren’Art Studio, c’est moi&nbsp;: un designer freelance à Toulouse et un studio design indépendant qui prend en charge votre image, de la stratégie à la mise en ligne.</p>
 
           <div>
-            <h2 style="font-size:12px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:#C87A53; margin:0 0 14px;">Le parcours</h2>
+            <h2 style="font-size:12px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:#C87A53; margin:0 0 14px;">D’où je viens</h2>
             <p style="font-size:16px; line-height:1.7; color:rgba(255,255,255,0.72); margin:0;">J’ai commencé par le graphisme. Le web m’a ensuite appris la contrainte&nbsp;: un beau design qui ne se charge pas n’existe pas. Aujourd’hui, je fais les deux, et c’est précisément ce qui rend le travail cohérent. Quand la même personne pense votre positionnement, dessine votre identité et construit votre site, rien ne se perd en route.</p>
           </div>
 
           <div>
-            <h2 style="font-size:12px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:#C87A53; margin:0 0 14px;">La façon de travailler</h2>
+            <h2 style="font-size:12px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:#C87A53; margin:0 0 14px;">Comment je travaille</h2>
             <p style="font-size:16px; line-height:1.7; color:rgba(255,255,255,0.72); margin:0;">Je prends peu de projets à la fois, et je vous dis ce que je pense, y compris quand ce n’est pas ce que vous espériez entendre. Vous aurez des recommandations argumentées, des points d’étape réguliers et des délais tenus. La clarté comme parti pris&nbsp;: dans le design, et dans la relation.</p>
           </div>
 
           <div>
-            <h2 style="font-size:12px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:#C87A53; margin:0 0 14px;">Les outils</h2>
+            <h2 style="font-size:12px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:#C87A53; margin:0 0 14px;">Mes outils</h2>
             <p style="font-family:'Archivo',sans-serif; font-weight:400; font-size:clamp(18px,1.6vw,22px); line-height:1.5; color:#FFFFFF; margin:0 0 clamp(30px,3.4vw,44px); max-width:32ch;">Des outils choisis, maîtrisés de bout en bout, de la première piste à la mise en ligne.</p>
             <div style="display:flex; flex-wrap:wrap; gap:clamp(22px,3.5vw,36px) clamp(30px,5vw,60px);">
               <div data-bs-tool style="display:flex; flex-direction:column; align-items:center; gap:13px;">
                 <picture style="display:contents"><source type="image/avif" srcset="assets/opt/illustrator-104.avif"><img src="assets/opt/illustrator-104.png" alt="Adobe Illustrator" width="52" height="52" loading="lazy" style="display:block; width:auto; height:clamp(40px,4vw,52px); object-fit:contain;" decoding="async"></picture>
-                <span data-bs-tool-rule style="display:block; width:22px; height:1px; background:#C87A53;"></span>
+                
                 <span style="font-family:'Archivo',sans-serif; font-size:11px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:rgba(255,255,255,0.55);">Illustrator</span>
               </div>
               <div data-bs-tool style="display:flex; flex-direction:column; align-items:center; gap:13px;">
                 <picture style="display:contents"><source type="image/avif" srcset="assets/opt/photoshop-104.avif"><img src="assets/opt/photoshop-104.png" alt="Adobe Photoshop" width="52" height="52" loading="lazy" style="display:block; width:auto; height:clamp(40px,4vw,52px); object-fit:contain;" decoding="async"></picture>
-                <span data-bs-tool-rule style="display:block; width:22px; height:1px; background:#C87A53;"></span>
+                
                 <span style="font-family:'Archivo',sans-serif; font-size:11px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:rgba(255,255,255,0.55);">Photoshop</span>
               </div>
               <div data-bs-tool style="display:flex; flex-direction:column; align-items:center; gap:13px;">
                 <picture style="display:contents"><source type="image/avif" srcset="assets/opt/figma-96.avif"><img src="assets/opt/figma-96.png" alt="Figma" width="52" height="52" loading="lazy" style="display:block; width:auto; height:clamp(38px,3.8vw,48px); object-fit:contain;" decoding="async"></picture>
-                <span data-bs-tool-rule style="display:block; width:22px; height:1px; background:#C87A53;"></span>
+                
                 <span style="font-family:'Archivo',sans-serif; font-size:11px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:rgba(255,255,255,0.55);">Figma</span>
               </div>
               <div data-bs-tool style="display:flex; flex-direction:column; align-items:center; gap:13px;">
                 <picture style="display:contents"><source type="image/avif" srcset="assets/opt/framer-104.avif"><img src="assets/opt/framer-104.png" alt="Framer" width="52" height="52" loading="lazy" style="display:block; width:auto; height:clamp(40px,4vw,52px); object-fit:contain;" decoding="async"></picture>
-                <span data-bs-tool-rule style="display:block; width:22px; height:1px; background:#C87A53;"></span>
+                
                 <span style="font-family:'Archivo',sans-serif; font-size:11px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:rgba(255,255,255,0.55);">Framer</span>
               </div>
               <div data-bs-tool style="display:flex; flex-direction:column; align-items:center; gap:13px;">
                 <picture style="display:contents"><source type="image/avif" srcset="assets/opt/notion-100.avif"><img src="assets/opt/notion-100.png" alt="Notion" width="52" height="52" loading="lazy" style="display:block; width:auto; height:clamp(40px,4vw,52px); object-fit:contain;" decoding="async"></picture>
-                <span data-bs-tool-rule style="display:block; width:22px; height:1px; background:#C87A53;"></span>
+                
                 <span style="font-family:'Archivo',sans-serif; font-size:11px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:rgba(255,255,255,0.55);">Notion</span>
               </div>
             </div>
           </div>
 
           <div>
-            <h2 style="font-size:12px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:#C87A53; margin:0 0 18px;">Ce que le studio n’est pas</h2>
+            <h2 style="font-size:12px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:#C87A53; margin:0 0 18px;">Ce que je ne suis pas</h2>
             <div style="display:flex; flex-direction:column; gap:16px;">
               <div style="border-left:1px solid rgba(255,255,255,0.2); padding-left:20px;">
                 <p style="font-size:16px; line-height:1.6; color:rgba(255,255,255,0.85); margin:0 0 4px; font-weight:500;">Une usine à templates.</p>
@@ -1571,11 +1585,11 @@
   <section data-page="contact" data-screen-label="Contact" style="display:{{ dContact }};">
     <div class="bs-shell" style="padding:var(--bs-pad-top) var(--bs-pad-x) clamp(50px,6vw,80px);">
       <div style="display:flex; align-items:center; gap:14px; margin-bottom:24px;">
-        <span style="display:block; width:24px; height:1px; background:#C87A53;"></span>
+        
         <span style="font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.6);">Contact</span>
       </div>
       <h1 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(44px,6.5vw,96px); line-height:1.02; letter-spacing:-0.02em; margin:0 0 28px;"><em>Parlons</em> de votre projet<span style="color:#C87A53;">.</span></h1>
-      <p style="font-size:clamp(16px,1.5vw,19px); line-height:1.65; color:rgba(255,255,255,0.7); max-width:600px; margin:0;">Présentez votre situation en quelques lignes. Que vous cherchiez à contacter un designer à Toulouse ou à obtenir un devis identité digitale, vous recevrez une réponse argumentée sous 48&nbsp;h ouvrées.</p>
+      <p style="font-size:clamp(16px,1.5vw,19px); line-height:1.65; color:rgba(255,255,255,0.7); max-width:600px; margin:0;">Racontez-moi où vous en êtes. Trois lignes suffisent pour commencer. Que vous cherchiez un designer à Toulouse ou un devis pour votre identité digitale, vous aurez une vraie réponse — pas un copier-coller — sous 48&nbsp;h ouvrées.</p>
     </div>
 
     <div class="bs-shell" style="padding:0 clamp(20px,4vw,48px); display:grid; grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr)); gap:clamp(28px,4vw,56px); align-items:start;">
@@ -1617,7 +1631,7 @@
             <label for="bs-message" style="font-size:12px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.6);">Message</label>
             <textarea data-cursor="text" id="bs-message" name="message" required="required" rows="5" placeholder="Votre activité, votre besoin, votre échéance, en quelques lignes." style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.18); border-radius:var(--bs-r-field); padding:14px 16px; font-family:'Archivo',sans-serif; font-size:15px; color:#FFFFFF; resize:vertical; min-height:120px;"></textarea>
           </div>
-          <p style="font-size:12.5px; line-height:1.6; color:rgba(255,255,255,0.5); margin:0;">Les informations transmises servent uniquement à répondre à votre demande. Elles ne sont ni cédées ni revendues, et sont conservées douze mois. Vous disposez d’un droit d’accès, de rectification et de suppression&nbsp;: <a data-cursor="link" href="mailto:contact@brenartstudio.fr" style="color:rgba(255,255,255,0.75); text-decoration:underline; text-decoration-color:#C87A53; text-underline-offset:3px;">contact@brenartstudio.fr</a>. Détail dans la <a data-cursor="link" href="/confidentialite" style="color:rgba(255,255,255,0.75); text-decoration:underline; text-decoration-color:#C87A53; text-underline-offset:3px;">politique de confidentialité</a>.</p>
+          <p style="font-size:12.5px; line-height:1.6; color:rgba(255,255,255,0.5); margin:0;">Ce que vous m’écrivez me sert uniquement à vous répondre. Je ne le cède à personne, je ne le revends pas, et je le garde douze mois. Vous pouvez à tout moment y accéder, le corriger ou me demander de le supprimer&nbsp;: <a data-cursor="link" href="mailto:contact@brenartstudio.fr" style="color:rgba(255,255,255,0.75); text-decoration:underline; text-decoration-color:#C87A53; text-underline-offset:3px;">contact@brenartstudio.fr</a>. Détail dans la <a data-cursor="link" href="/confidentialite" style="color:rgba(255,255,255,0.75); text-decoration:underline; text-decoration-color:#C87A53; text-underline-offset:3px;">politique de confidentialité</a>.</p>
           <button data-cursor="link" type="submit" disabled="{{ submitDisabled }}" style="display:inline-flex; align-items:center; gap:10px; background:#141414; color:rgba(255,255,255,0.75); border:none; cursor:pointer; font-family:'Archivo',sans-serif; font-size:15px; font-weight:500; padding:16px 30px; border-radius:var(--bs-r-pill); box-shadow:-5px -5px 12px rgba(255,255,255,0.05), 5px 5px 14px rgba(0,0,0,0.6); transition:box-shadow var(--bs-t-fast) ease, color var(--bs-t-fast) ease, opacity var(--bs-t-fast) ease; align-self:flex-start; opacity:{{ submitOpacity }};" style-hover="color:#C87A53; box-shadow:-1px -1px 5px rgba(255,255,255,0.04), 1px 1px 5px rgba(0,0,0,0.5), inset -2px -2px 6px rgba(255,255,255,0.05), inset 3px 3px 7px rgba(0,0,0,0.6);"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg><span style="display:{{ submitIdleD }};">Envoyer ma demande</span><span data-bs-prehide="1" style="display:{{ submitBusyD }};">Envoi…</span></button>
           <div role="alert" data-bs-prehide="1" style="display:{{ errorD }}; flex-direction:column; gap:8px; padding:16px 18px; background:rgba(200,122,83,0.12); border:1px solid rgba(200,122,83,0.35); border-radius:var(--bs-r-field);">
             <p ref="{{ errorRef }}" style="font-size:14.5px; line-height:1.5; color:#FFFFFF; margin:0;"></p>
@@ -1876,15 +1890,6 @@ class Component extends DCLogic {
     this._onKey = (e) => { if (e.key === 'Escape' && this.state.menuOpen) this.setState({ menuOpen: false }); };
     window.addEventListener('keydown', this._onKey);
 
-    // vidéo d'ambiance du hero : lecture muette, en pause hors accueil ou en motion réduit
-    this._whenEl('[data-bs-hero-video]', 8000, (v) => {
-      if (!v) return;
-      v.muted = true;
-      v.loop = true;
-      v.setAttribute('playsinline', '');
-      this._syncHeroVideo();
-    });
-
     // vidéos en boucle (planches projet) : muettes, bouclées, lues quand visibles
     this._whenEl('[data-bs-loop-video]', 8000, () => {
       const vids = Array.prototype.slice.call(document.querySelectorAll('[data-bs-loop-video]'));
@@ -2035,32 +2040,6 @@ class Component extends DCLogic {
     setTimeout(poll, 0);
   }
 
-  // La vidéo d'ambiance pèse 16 Mo : hors de question de l'imposer à un forfait
-  // mobile ou à une connexion lente. L'affiche (47 Ko) reçoit exactement le même
-  // traitement CSS, le hero garde donc son grain et sa teinte sans la vidéo.
-  _heroVideoAllowed() {
-    try {
-      if (window.matchMedia('(max-width: 860px)').matches) return false;
-      const c = navigator.connection;
-      if (c && (c.saveData || /(^|-)2g$/.test(c.effectiveType || ''))) return false;
-    } catch (e) {}
-    return true;
-  }
-
-  _syncHeroVideo() {
-    const v = document.querySelector('[data-bs-hero-video]');
-    if (!v) return;
-    const reduced = this._rm && this._rm.matches;
-    // preload="none" + pas d'attribut autoplay : rien ne part sur le réseau tant
-    // que play() n'est pas appelé ici.
-    if (this.state.page === 'accueil' && !reduced && this._heroVideoAllowed()) {
-      const p = v.play();
-      if (p && p.catch) p.catch(() => {});
-    } else {
-      v.pause();
-    }
-  }
-
   // Attend qu'un élément rendu par React soit présent dans le DOM (évite les races avec le flush de setState)
   _whenEl(selector, timeout, cb) {
     const start = performance.now();
@@ -2188,7 +2167,6 @@ class Component extends DCLogic {
     if (!this._gsap || !veil) {
       this.setState({ page: target, menuOpen: false, hov: -1, nextHov: -1 });
       window.scrollTo(0, 0);
-      setTimeout(() => this._syncHeroVideo(), 60);
       return;
     }
     // changement de page direct, sans voile de transition
@@ -2196,7 +2174,6 @@ class Component extends DCLogic {
     window.scrollTo(0, 0);
     setTimeout(() => {
       this._setupPage(target);
-      this._syncHeroVideo();
     }, 20);
   }
 
