@@ -37,7 +37,7 @@ le chantier part de `origin/main` sur la branche `feat/studio-partenaire`, et
 | Jours non utilisés | Démarrage : perdus. 12 mois : **report sur le mois suivant, sans cumul** |
 | Sortie anticipée | **Préavis de 2 mois facturés**, ou le reste de la période s'il est plus court |
 | Capacité du studio | 12 à 15 jours vendus par mois, **quatre partenaires maximum** (mention fixe, sans compteur) |
-| Tarif sur le site | Trois exemples de mois fixes (3, 5, 8 jours), pas de sélecteur interactif |
+| Tarif sur le site | Une carte « 3 jours minimum » (1 200 €/mois), le client choisit ensuite son nombre de journées ; contenus des anciennes offres Essentiel, Signature et Intégral listés comme livrables possibles |
 | Supports de vente | HTML à la charte puis export PDF, sur le modèle de la proposition NetSurg |
 
 ## L'offre
@@ -118,15 +118,13 @@ les trois abonnements) sont remplacés, dans cet ordre, par :
 2. **Le principe, en trois temps** : vous réservez vos journées, on les planifie
    ensemble, le studio produit.
 3. **Ce que couvrent vos journées** : les quatre domaines listés plus haut.
-4. **Le tarif** : « 400 € la journée, à partir de 3 jours par mois », puis trois
-   cartes d'exemples, explicitement présentées comme des repères et non comme des
-   paliers :
-   - **3 jours · 1 200 €/mois** : visuels réseaux sociaux du mois, un visuel de
-     campagne, mises à jour du site.
-   - **5 jours · 2 000 €/mois** : le mois à 3 jours, plus une présentation ou une
-     plaquette commerciale, ou une landing page.
-   - **8 jours · 3 200 €/mois** : une campagne multi-supports complète, une
-     évolution de l'identité ou une nouvelle section de site.
+4. **Le tarif** : « 400 € la journée, à partir de 3 jours par mois ». Pas de paliers :
+   - **3 jours minimum · 1 200 €/mois** (mois type : visuels réseaux sociaux, un
+     visuel de campagne, mises à jour du site), puis 400 € par journée
+     supplémentaire ; le client choisit lui-même son nombre de journées.
+   - **Ce que vos journées peuvent construire** : les contenus des anciennes offres
+     Essentiel (Poser les bases), Signature (Installer la marque) et Intégral
+     (Aller plus loin), présentés comme livrables réalisables sur les journées.
 5. **Deux temps pour s'engager** : cartes côte à côte Démarrage 3 mois / Partenariat
    12 mois, avec leurs conditions respectives.
 6. **Pourquoi un studio externalisé** : l'argument de l'embauche, quelques lignes.
