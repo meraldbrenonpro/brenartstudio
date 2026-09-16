@@ -36,7 +36,7 @@ const ORIGIN = 'https://brenartstudio.fr';
 // plutôt que neuf blocs JSON-LD recopiés à la main dans index.html.
 const PAGE_META = {
   'portfolio':      { crumb: 'Portfolio' },
-  'services':       { crumb: 'Services', og: ['services', "Bren'Art Studio, services : trois offres, une seule main."] },
+  'services':       { crumb: 'Services', og: ['services', "Bren'Art Studio, Studio Partenaire : votre studio créatif, chaque mois."] },
   'about':          { crumb: 'À propos', person: true, og: ['a-propos', "Mérald Brenon, designer digital à Toulouse, fondateur de Bren'Art Studio."] },
   'contact':        { crumb: 'Contact', faq: true },
   'portfolio-ineeva': {
