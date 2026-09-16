@@ -1503,6 +1503,101 @@
       <p style="margin:clamp(28px,3vw,40px) 0 0; font-size:13.5px; line-height:1.6; color:var(--bs-label);">Ces prix sont nets&nbsp;: je ne facture pas de TVA (art. 293 B du CGI).</p>
     </div>
 
+    <!-- ============ Abonnements créatifs — prolongement des offres projet ============
+         Volontairement SECONDAIRE par rapport aux trois offres ci-dessus : palier de
+         respiration le plus serré (--bs-pad-y-sm au lieu de --bs-pad-y), padding de
+         carte réduit, prix en 18px au lieu de 21px, listes sans filets. Elle complète
+         la gamme, elle ne la concurrence pas.
+         Le marqueur de l'Atelier reste un filet + label terracotta : même famille que
+         « Le cœur du studio » de l'offre Signature, sans la pilule ni l'ombre portée.
+         Même grille auto-fit que les offres (minmax(min(300px,100%),1fr)) : les points
+         de bascule 3 → 2 → 1 colonne tombent donc exactement au même endroit.
+         ============================================================================== -->
+    <div class="bs-shell" style="padding:var(--bs-pad-y-sm) var(--bs-pad-x) 0;">
+
+      <div class="bs-eyebrow">
+        <span class="bs-eyebrow-label">Après la mise en ligne</span>
+      </div>
+      <h2 class="bs-h2" style="font-size:clamp(32px,4vw,56px); margin:0 0 18px; max-width:18ch;">Votre marque continue de vivre.</h2>
+      <p style="font-size:16px; line-height:1.65; color:rgba(255,255,255,0.7); max-width:62ch; margin:0 0 clamp(30px,3.5vw,44px);">Une marque qui ne bouge plus vieillit. L’abonnement créatif garde votre site à jour et vos supports en mouvement, mois après mois.</p>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr)); gap:20px; align-items:stretch;">
+
+        <!-- 01 · Socle -->
+        <div class="bs-card bs-card--panel" style="padding:clamp(24px,2.2vw,30px); display:flex; flex-direction:column;">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:20px;">
+            <span style="font-family:'Archivo',sans-serif; font-weight:500; font-size:13px; letter-spacing:0.1em; color:#C87A53;">01</span>
+          </div>
+          <h3 style="font-family:'Archivo',sans-serif; font-weight:600; font-size:22px; line-height:1.15; letter-spacing:-0.01em; margin:18px 0 0; color:#FFFFFF;">Socle</h3>
+          <p style="margin:11px 0 0; font-size:13px; line-height:1; color:var(--bs-label);"><span style="font-family:'Archivo',sans-serif; font-weight:500; font-size:18px; color:#FFFFFF;">90&nbsp;€</span> / mois</p>
+          <p style="font-size:15px; line-height:1.45; color:#FFFFFF; font-style:italic; margin:14px 0 0; max-width:30ch;">Votre site reste en ligne, à jour, sans y penser.</p>
+          <p style="margin:9px 0 0; font-size:12.5px; line-height:1.4; color:var(--bs-label);">Prolonge l’offre Essentiel</p>
+          <div style="height:1px; background:rgba(255,255,255,0.12); margin:20px 0 12px;"></div>
+          <p style="font-family:'Archivo',sans-serif; font-size:11px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:var(--bs-label); margin:0 0 2px;">Ce qui est inclus</p>
+          <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column;">
+            <li style="display:flex; align-items:flex-start; gap:11px; padding:7px 0;"><span class="bs-feat-dot" style="margin-top:7px;"></span><span style="font-size:14px; line-height:1.5; color:rgba(255,255,255,0.85);">Hébergement et nom de domaine gérés</span></li>
+            <li style="display:flex; align-items:flex-start; gap:11px; padding:7px 0;"><span class="bs-feat-dot" style="margin-top:7px;"></span><span style="font-size:14px; line-height:1.5; color:rgba(255,255,255,0.85);">Mises à jour techniques et sauvegardes</span></li>
+            <li style="display:flex; align-items:flex-start; gap:11px; padding:7px 0;"><span class="bs-feat-dot" style="margin-top:7px;"></span><span style="font-size:14px; line-height:1.5; color:rgba(255,255,255,0.85);">30&nbsp;min de modifications de contenu par mois</span></li>
+            <li style="display:flex; align-items:flex-start; gap:11px; padding:7px 0;"><span class="bs-feat-dot" style="margin-top:7px;"></span><span style="font-size:14px; line-height:1.5; color:rgba(255,255,255,0.85);">Réponse sous 48&nbsp;h en cas d’incident</span></li>
+          </ul>
+          <div style="margin:auto 0 0;">
+            <div style="height:1px; background:rgba(255,255,255,0.12); margin:20px 0 12px;"></div>
+            <p style="font-size:12.5px; line-height:1.55; color:var(--bs-label); font-style:italic; margin:0;"><span style="display:block; font-family:'Archivo',sans-serif; font-style:normal; font-weight:500; font-size:10.5px; letter-spacing:0.18em; text-transform:uppercase; color:var(--bs-label); margin-bottom:6px; opacity:0.85;">Idéal pour</span>un indépendant ou un commerce qui veut simplement que son site tourne, sans s’en occuper.</p>
+          </div>
+        </div>
+
+        <!-- 02 · Atelier (formule mise en avant) -->
+        <div class="bs-card" style="padding:clamp(24px,2.2vw,30px); background:var(--bs-panel); border:1px solid rgba(200,122,83,0.45); display:flex; flex-direction:column;">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:20px;">
+            <span style="font-family:'Archivo',sans-serif; font-weight:500; font-size:13px; letter-spacing:0.1em; color:#C87A53;">02</span>
+            <span style="display:inline-flex; align-items:center; gap:9px;"><span aria-hidden="true" style="flex:none; width:16px; height:1px; background:#C87A53;"></span><span style="font-family:'Archivo',sans-serif; font-size:10.5px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:#C87A53;">L’équilibre juste</span></span>
+          </div>
+          <h3 style="font-family:'Archivo',sans-serif; font-weight:600; font-size:22px; line-height:1.15; letter-spacing:-0.01em; margin:18px 0 0; color:#FFFFFF;">Atelier</h3>
+          <p style="margin:11px 0 0; font-size:13px; line-height:1; color:var(--bs-label);"><span style="font-family:'Archivo',sans-serif; font-weight:500; font-size:18px; color:#FFFFFF;">350&nbsp;€</span> / mois</p>
+          <p style="font-size:15px; line-height:1.45; color:#FFFFFF; font-style:italic; margin:14px 0 0; max-width:30ch;">Du temps de création réservé, tous les mois.</p>
+          <p style="margin:9px 0 0; font-size:12.5px; line-height:1.4; color:var(--bs-label);">Prolonge l’offre Signature</p>
+          <div style="height:1px; background:rgba(255,255,255,0.12); margin:20px 0 12px;"></div>
+          <p style="font-family:'Archivo',sans-serif; font-weight:500; font-size:14px; color:#FFFFFF; margin:0 0 2px;">Tout le Socle, plus&nbsp;:</p>
+          <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column;">
+            <li style="display:flex; align-items:flex-start; gap:11px; padding:7px 0;"><span class="bs-feat-dot" style="margin-top:7px;"></span><span style="font-size:14px; line-height:1.5; color:rgba(255,255,255,0.85);">3&nbsp;h de production mensuelle (visuels réseaux, affiches, nouvelle page, déclinaison de supports)</span></li>
+            <li style="display:flex; align-items:flex-start; gap:11px; padding:7px 0;"><span class="bs-feat-dot" style="margin-top:7px;"></span><span style="font-size:14px; line-height:1.5; color:rgba(255,255,255,0.85);">Un appel de cadrage de 30&nbsp;min par mois</span></li>
+            <li style="display:flex; align-items:flex-start; gap:11px; padding:7px 0;"><span class="bs-feat-dot" style="margin-top:7px;"></span><span style="font-size:14px; line-height:1.5; color:rgba(255,255,255,0.85);">Fichiers sources livrés</span></li>
+          </ul>
+          <div style="margin:auto 0 0;">
+            <div style="height:1px; background:rgba(255,255,255,0.12); margin:20px 0 12px;"></div>
+            <p style="font-size:12.5px; line-height:1.55; color:var(--bs-label); font-style:italic; margin:0;"><span style="display:block; font-family:'Archivo',sans-serif; font-style:normal; font-weight:500; font-size:10.5px; letter-spacing:0.18em; text-transform:uppercase; color:var(--bs-label); margin-bottom:6px; opacity:0.85;">Idéal pour</span>une marque locale ou une PME qui communique en continu et n’a personne en interne pour le faire.</p>
+          </div>
+        </div>
+
+        <!-- 03 · Cap -->
+        <div class="bs-card bs-card--panel" style="padding:clamp(24px,2.2vw,30px); display:flex; flex-direction:column;">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:20px;">
+            <span style="font-family:'Archivo',sans-serif; font-weight:500; font-size:13px; letter-spacing:0.1em; color:#C87A53;">03</span>
+          </div>
+          <h3 style="font-family:'Archivo',sans-serif; font-weight:600; font-size:22px; line-height:1.15; letter-spacing:-0.01em; margin:18px 0 0; color:#FFFFFF;">Cap</h3>
+          <p style="margin:11px 0 0; font-size:13px; line-height:1; color:var(--bs-label);"><span style="font-family:'Archivo',sans-serif; font-weight:500; font-size:18px; color:#FFFFFF;">650&nbsp;€</span> / mois</p>
+          <p style="font-size:15px; line-height:1.45; color:#FFFFFF; font-style:italic; margin:14px 0 0; max-width:30ch;">Un studio derrière vous, toute l’année.</p>
+          <p style="margin:9px 0 0; font-size:12.5px; line-height:1.4; color:var(--bs-label);">Prolonge l’offre Intégral</p>
+          <div style="height:1px; background:rgba(255,255,255,0.12); margin:20px 0 12px;"></div>
+          <p style="font-family:'Archivo',sans-serif; font-weight:500; font-size:14px; color:#FFFFFF; margin:0 0 2px;">Tout l’Atelier, plus&nbsp;:</p>
+          <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column;">
+            <li style="display:flex; align-items:flex-start; gap:11px; padding:7px 0;"><span class="bs-feat-dot" style="margin-top:7px;"></span><span style="font-size:14px; line-height:1.5; color:rgba(255,255,255,0.85);">6&nbsp;h de production mensuelle</span></li>
+            <li style="display:flex; align-items:flex-start; gap:11px; padding:7px 0;"><span class="bs-feat-dot" style="margin-top:7px;"></span><span style="font-size:14px; line-height:1.5; color:rgba(255,255,255,0.85);">Un point stratégique par trimestre</span></li>
+            <li style="display:flex; align-items:flex-start; gap:11px; padding:7px 0;"><span class="bs-feat-dot" style="margin-top:7px;"></span><span style="font-size:14px; line-height:1.5; color:rgba(255,255,255,0.85);">Priorité sur le planning du studio</span></li>
+          </ul>
+          <div style="margin:auto 0 0;">
+            <div style="height:1px; background:rgba(255,255,255,0.12); margin:20px 0 12px;"></div>
+            <p style="font-size:12.5px; line-height:1.55; color:var(--bs-label); font-style:italic; margin:0;"><span style="display:block; font-family:'Archivo',sans-serif; font-style:normal; font-weight:500; font-size:10.5px; letter-spacing:0.18em; text-transform:uppercase; color:var(--bs-label); margin-bottom:6px; opacity:0.85;">Idéal pour</span>une marque en croissance qui produit beaucoup et veut une cohérence tenue sur la durée.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <p style="margin:clamp(22px,2.5vw,30px) 0 0; font-size:12.5px; line-height:1.65; color:var(--bs-label); max-width:80ch;">Engagement 12&nbsp;mois au tarif indiqué, ou sans engagement avec un préavis de 30&nbsp;jours (+20&nbsp;%). Les heures non consommées ne sont pas reportables. Toute demande hors périmètre fait l’objet d’un devis séparé. Prix nets, TVA non applicable (art. 293 B du CGI).</p>
+
+      <a data-cursor="link" href="/contact" style="display:inline-flex; align-items:center; justify-content:center; box-sizing:border-box; margin-top:clamp(24px,2.8vw,34px); padding:15px 28px; border-radius:var(--bs-r-btn); border:1px solid rgba(255,255,255,0.32); background:transparent; color:#FFFFFF; font-family:'Archivo',sans-serif; font-weight:500; font-size:12px; letter-spacing:0.16em; text-transform:uppercase; text-decoration:none; cursor:pointer; transition:color var(--bs-t-fast) ease, border-color var(--bs-t-fast) ease;" style-hover="color:#C87A53; border-color:#C87A53;">Parler d’un abonnement</a>
+    </div>
+
     <!-- Comment on travaille -->
     <div class="bs-section" style="background:#FFFFFF; color:#070707; margin-top:clamp(70px,9vw,120px);">
       <div class="bs-shell">
