@@ -1,12 +1,8 @@
 import { Resend } from 'resend'
 
 const ALLOWED_TYPES = [
-  'brand',
-  'web',
-  'brand-web',
-  'pack-essentiel',
-  'pack-signature',
-  'pack-integral',
+  'studio-partenaire',
+  'projet-ponctuel',
   'autre',
 ]
 const MAX_NOM = 200
@@ -35,7 +31,7 @@ function validate(body) {
     return "L'email est invalide."
   }
   if (typeof type !== 'string' || !ALLOWED_TYPES.includes(type)) {
-    return 'Le type de projet est invalide.'
+    return 'Le type de demande est invalide.'
   }
   if (typeof message !== 'string' || message.trim() === '' || message.length > MAX_MESSAGE) {
     return 'Le message est requis.'
@@ -58,8 +54,8 @@ function buildEmail({ nom, email, type, budget, message }) {
     <h2>Nouveau message de contact</h2>
     <p><strong>Nom :</strong> ${escapeHtml(nom)}</p>
     <p><strong>Email :</strong> ${escapeHtml(email)}</p>
-    <p><strong>Type de projet :</strong> ${escapeHtml(type)}</p>
-    <p><strong>Budget :</strong> ${escapeHtml(budget || 'Non précisé')}</p>
+    <p><strong>Type de demande :</strong> ${escapeHtml(type)}</p>
+    <p><strong>Capacité envisagée :</strong> ${escapeHtml(budget || 'Non précisé')}</p>
     <p><strong>Message :</strong></p>
     <p>${escapeHtml(message).replace(/\n/g, '<br>')}</p>
   `
@@ -67,7 +63,7 @@ function buildEmail({ nom, email, type, budget, message }) {
     `Nom: ${nom}`,
     `Email: ${email}`,
     `Type: ${type}`,
-    `Budget: ${budget || 'Non précisé'}`,
+    `Capacité: ${budget || 'Non précisé'}`,
     '',
     'Message:',
     message,
