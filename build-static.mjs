@@ -29,6 +29,7 @@ const PAGE_TO_PATH = {
   'portfolio-acasa': '/portfolio/acasa',
   'portfolio-koryaa': '/portfolio/koryaa',
   'portfolio-laure-fagbohoun': '/portfolio/laure-fagbohoun',
+  'portfolio-icc-ejp-toulouse': '/portfolio/icc-ejp-toulouse',
 };
 const ORIGIN = 'https://brenartstudio.fr';
 
@@ -63,6 +64,11 @@ const PAGE_META = {
     work: { name: 'Laure Fagbohoun — site vitrine',
             about: "Site vitrine d'autrice et conférencière",
             genre: 'Site web' } },
+  'portfolio-icc-ejp-toulouse': {
+    crumb: 'ICC/EJP Toulouse', parent: ['Portfolio', '/portfolio'],
+    work: { name: 'ICC/EJP Toulouse — direction artistique',
+            about: "Direction artistique et communication digitale d'une église à Toulouse",
+            genre: 'Direction artistique' } },
 };
 
 // --- Extraire la FAQ depuis le markup affiché (source unique) ---------------

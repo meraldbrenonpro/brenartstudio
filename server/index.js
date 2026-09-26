@@ -32,6 +32,7 @@ const PAGE_ROUTES = new Map([
   ['/portfolio/acasa', '/portfolio/acasa/index.html'],
   ['/portfolio/koryaa', '/portfolio/koryaa/index.html'],
   ['/portfolio/laure-fagbohoun', '/portfolio/laure-fagbohoun/index.html'],
+  ['/portfolio/icc-ejp-toulouse', '/portfolio/icc-ejp-toulouse/index.html'],
   ['/cgv', '/cgv/index.html'],
   ['/mentions-legales', '/mentions-legales/index.html'],
   ['/confidentialite', '/confidentialite/index.html'],
