@@ -422,6 +422,42 @@
       [data-bs-work-set] figure { transition:none; }
       [data-bs-work]:hover [data-bs-work-set] figure { transform:none; }
     }
+    /* Page Services — Studio Partenaire. Lisible en 10 secondes : les chiffres
+       sont des éléments de composition, pas des lignes de paragraphe. */
+    [data-bs-sv-eq] { display:grid; grid-template-columns:1fr; border-top:1px solid #2A2A2A; border-bottom:1px solid #2A2A2A; }
+    [data-bs-sv-eq] > div { display:flex; flex-direction:column; gap:10px; padding:clamp(20px,2.4vw,32px) 0; }
+    [data-bs-sv-eq] > span { font-family:'Archivo',sans-serif; font-weight:400; font-size:clamp(28px,3vw,44px); line-height:1; color:#C87A53; padding:0; }
+    [data-bs-sv-num] { font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(52px,6.4vw,100px); line-height:0.95; letter-spacing:-0.025em; color:#FFFFFF; white-space:nowrap; }
+    [data-bs-sv-unit] { font-size:11.5px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.6); }
+    [data-bs-sv-steps] { display:grid; grid-template-columns:1fr; gap:clamp(28px,3vw,40px); }
+    [data-bs-sv-steps] > div { border-top:1px solid rgba(255,255,255,0.2); padding-top:24px; }
+    [data-bs-sv-cats] { display:grid; grid-template-columns:1fr; border:1px solid #2A2A2A; border-radius:var(--bs-r-frame); overflow:hidden; }
+    [data-bs-sv-cats] > div { padding:clamp(26px,3vw,40px); display:flex; flex-direction:column; gap:14px; }
+    [data-bs-sv-cats] > div + div { border-top:1px solid #2A2A2A; }
+    [data-bs-sv-price] { display:grid; grid-template-columns:1fr; gap:clamp(40px,6vw,96px); align-items:end; }
+    [data-bs-sv-more] { list-style:none; margin:0; padding:0; border-bottom:1px solid #2A2A2A; }
+    [data-bs-sv-more] li { display:flex; align-items:baseline; justify-content:space-between; gap:20px; border-top:1px solid #2A2A2A; padding:clamp(16px,1.8vw,22px) 0; }
+    [data-bs-sv-three] { display:grid; grid-template-columns:1fr; gap:20px; }
+    [data-bs-sv-why] { display:grid; grid-template-columns:1fr; gap:clamp(28px,3vw,40px); }
+    [data-bs-sv-why] > div { border-top:1px solid rgba(255,255,255,0.2); padding-top:24px; }
+    @media (min-width:721px) {
+      [data-bs-sv-steps] { grid-template-columns:1fr 1fr; }
+      [data-bs-sv-cats] { grid-template-columns:1fr 1fr; }
+      [data-bs-sv-cats] > div + div { border-top:0; }
+      [data-bs-sv-cats] > div:nth-child(n+3) { border-top:1px solid #2A2A2A; }
+      [data-bs-sv-cats] > div:nth-child(even) { border-left:1px solid #2A2A2A; }
+      [data-bs-sv-three] { grid-template-columns:repeat(3,1fr); }
+      [data-bs-sv-why] { grid-template-columns:repeat(3,1fr); }
+    }
+    @media (min-width:1021px) {
+      [data-bs-sv-eq] { grid-template-columns:1fr auto 1fr auto 1fr; align-items:center; column-gap:clamp(20px,2.5vw,40px); }
+      [data-bs-sv-eq] > span { padding-top:0; }
+      [data-bs-sv-steps] { grid-template-columns:repeat(4,1fr); }
+      [data-bs-sv-cats] { grid-template-columns:repeat(4,1fr); }
+      [data-bs-sv-cats] > div:nth-child(n+3) { border-top:0; }
+      [data-bs-sv-cats] > div + div { border-left:1px solid #2A2A2A; }
+      [data-bs-sv-price] { grid-template-columns:7fr 5fr; }
+    }
     /* Étude de cas éditoriale (ICC/EJP) — affiches au ratio exact de chaque
        fichier : le cadre épouse l'image, rien n'est jamais rogné. */
     [data-bs-cs-frame] { position:relative; border-radius:var(--bs-r-frame); overflow:hidden; border:1px solid rgba(255,255,255,0.1); background:var(--bs-ink-2); }
@@ -1579,313 +1615,192 @@
   <section data-page="services" data-screen-label="Services" style="display:{{ dServices }};">
     <!-- ============ Studio Partenaire ============
          Offre unique du studio : des journées de création réservées chaque mois.
+         400 € / jour · 3 jours minimum · 1 200 € / mois · engagement initial de 3 mois,
+         renouvelable. Conditions complètes : CGV, article 04.
          Spec : spec/changes/studio-partenaire/proposal.md -->
-    <!-- En-tête : texte à gauche, visuel portrait à droite (empilés sous ~800px) -->
-    <div class="bs-shell" style="padding:var(--bs-pad-top) var(--bs-pad-x) clamp(50px,6vw,80px);">
-      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(380px,100%),1fr)); gap:clamp(36px,5vw,80px); align-items:center;">
-        <div>
-          <div style="display:flex; align-items:center; gap:14px; margin-bottom:24px;">
-            <span style="font-size:12px; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; color:rgba(255,255,255,0.6);">Studio Partenaire</span>
-          </div>
-          <h1 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(44px,5.4vw,84px); line-height:1.02; letter-spacing:-0.02em; margin:0 0 28px; max-width:900px;">Votre studio créatif, <em>chaque mois</em><span style="color:#C87A53;">.</span></h1>
-          <p style="font-size:clamp(16px,1.5vw,19px); line-height:1.65; color:rgba(255,255,255,0.7); max-width:620px; margin:0;">Pour les startups, PME et entreprises qui communiquent en continu sans équipe créative en interne. Vous réservez des journées de création chaque mois, je les mets au service de votre marque&nbsp;: branding, communication, réseaux sociaux et web.</p>
-          <div style="display:flex; flex-wrap:wrap; align-items:center; gap:16px 26px; margin-top:clamp(28px,3.2vw,40px);">
-            <a data-cursor="link" href="/contact" data-bs-mag-target="1" style="display:inline-flex; align-items:center; background:#C87A53; color:#FFFFFF; text-decoration:none; font-size:15px; font-weight:500; padding:17px 32px; border-radius:var(--bs-r-pill); transition:background var(--bs-t-fast) ease, box-shadow var(--bs-t-fast) ease, transform var(--bs-t-fast) ease;" style-hover="background:#D89265; box-shadow:0 8px 24px rgba(0,0,0,0.4); transform:translateY(-2px);">Réserver un appel découverte</a>
-            <span style="display:inline-flex; align-items:center; gap:10px; font-size:13.5px; line-height:1.4; color:var(--bs-label);"><span aria-hidden="true" style="flex:none; width:6px; height:6px; border-radius:50%; background:#C87A53;"></span>Quatre partenaires maximum</span>
-          </div>
-        </div>
-        <!-- Visuel : alphabet typographique encadré dans un rayon de lumière — photo Crystal Y / Unsplash
-             (https://unsplash.com/photos/v1uKnX1kfqo), licence Unsplash (usage commercial libre, attribution non requise) -->
-        <div style="position:relative; overflow:hidden; border-radius:var(--bs-r-frame); aspect-ratio:4/5; width:100%; max-width:520px; justify-self:end; background:#111;">
-          <img src="assets/services-hero.jpg" srcset="assets/opt/services-hero-1200.jpg 900w, assets/services-hero.jpg 2400w" sizes="(max-width:800px) 92vw, 520px" alt="" width="2400" height="3200" fetchpriority="high" decoding="async" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
-        </div>
+
+    <!-- 1 · Hero : le titre, puis l'équation du tarif en grand -->
+    <div class="bs-shell" style="padding:var(--bs-pad-top-sm) var(--bs-pad-x) 0;">
+      <div class="bs-eyebrow" style="margin-bottom:24px;">
+        <span class="bs-eyebrow-label">Studio Partenaire</span>
+      </div>
+      <h1 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(42px,5.4vw,84px); line-height:1.02; letter-spacing:-0.02em; margin:0; max-width:22ch;">Votre studio créatif, <em>chaque mois</em><span style="color:#C87A53;">.</span></h1>
+      <p style="font-size:clamp(17px,1.6vw,20px); line-height:1.6; color:rgba(255,255,255,0.72); max-width:46ch; margin:clamp(22px,2.5vw,32px) 0 0;">Une capacité créative dédiée à votre marque, sans recruter une équipe en interne.</p>
+
+      <div data-bs-sv-eq="1" style="margin-top:clamp(36px,4.5vw,64px);">
+        <div><span data-bs-sv-num="1">400&nbsp;€</span><span data-bs-sv-unit="1">/ jour</span></div>
+        <span aria-hidden="true">×</span>
+        <div><span data-bs-sv-num="1">3&nbsp;jours</span><span data-bs-sv-unit="1">minimum / mois</span></div>
+        <span aria-hidden="true">=</span>
+        <div><span data-bs-sv-num="1">1&nbsp;200&nbsp;€</span><span data-bs-sv-unit="1">/ mois</span></div>
+      </div>
+
+      <div style="display:flex; flex-wrap:wrap; align-items:center; gap:16px 26px; margin-top:clamp(28px,3.2vw,40px);">
+        <a data-cursor="link" href="/contact" data-bs-mag-target="1" style="display:inline-flex; align-items:center; gap:10px; background:#C87A53; color:#FFFFFF; text-decoration:none; font-size:15px; font-weight:500; padding:17px 32px; border-radius:var(--bs-r-pill); transition:background var(--bs-t-fast) ease, box-shadow var(--bs-t-fast) ease, transform var(--bs-t-fast) ease;" style-hover="background:#D89265; box-shadow:0 8px 24px rgba(0,0,0,0.4); transform:translateY(-2px);">Réserver un appel <span aria-hidden="true">→</span></a>
+        <span style="display:inline-flex; align-items:center; gap:10px; font-size:13.5px; line-height:1.4; color:var(--bs-label);"><span aria-hidden="true" style="flex:none; width:6px; height:6px; border-radius:50%; background:#C87A53;"></span>Engagement initial de 3&nbsp;mois · renouvelable</span>
       </div>
     </div>
 
-    <!-- Le principe -->
-    <div class="bs-shell" style="padding:var(--bs-pad-y-sm) var(--bs-pad-x) 0;">
+    <!-- 2 · Le principe -->
+    <div class="bs-shell" style="padding:var(--bs-pad-y-lg) var(--bs-pad-x) 0;">
       <div class="bs-eyebrow">
         <span class="bs-eyebrow-label">Le principe</span>
       </div>
-      <h2 class="bs-h2" style="margin:0 0 var(--bs-gap-head); max-width:17ch;">Une capacité réservée, pas un devis à chaque besoin.</h2>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr)); gap:clamp(24px,3vw,40px);">
-        <div style="border-top:1px solid rgba(255,255,255,0.2); padding-top:24px;">
+      <h2 class="bs-h2" style="margin:0 0 var(--bs-gap-head);">Simple. Chaque mois<span style="color:#C87A53;">.</span></h2>
+      <div data-bs-sv-steps="1">
+        <div>
           <p style="font-family:'Archivo',sans-serif; font-weight:500; font-size:14px; color:#C87A53; margin:0 0 14px; letter-spacing:0.08em;">01</p>
-          <h3 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:22px; line-height:1.2; margin:0 0 10px; color:#FFFFFF;">Vous réservez vos journées</h3>
-          <p style="font-size:15px; line-height:1.6; color:rgba(255,255,255,0.68); margin:0;">Trois par mois au minimum, davantage si votre rythme le demande. Le nombre s’ajuste avec un mois de préavis.</p>
+          <h3 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:22px; line-height:1.2; margin:0 0 10px; color:#FFFFFF;">Vous réservez</h3>
+          <p style="font-size:15px; line-height:1.6; color:rgba(255,255,255,0.68); margin:0;">3 jours minimum par mois.</p>
         </div>
-        <div style="border-top:1px solid rgba(255,255,255,0.2); padding-top:24px;">
+        <div>
           <p style="font-family:'Archivo',sans-serif; font-weight:500; font-size:14px; color:#C87A53; margin:0 0 14px; letter-spacing:0.08em;">02</p>
-          <h3 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:22px; line-height:1.2; margin:0 0 10px; color:#FFFFFF;">On les planifie ensemble</h3>
-          <p style="font-size:15px; line-height:1.6; color:rgba(255,255,255,0.68); margin:0;">Un point de cadrage de 45&nbsp;minutes ouvre chaque mois&nbsp;: on fixe les priorités et les dates. Les petites demandes rejoignent la journée suivante.</p>
+          <h3 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:22px; line-height:1.2; margin:0 0 10px; color:#FFFFFF;">Vous définissez vos priorités</h3>
+          <p style="font-size:15px; line-height:1.6; color:rgba(255,255,255,0.68); margin:0;">Les besoins de votre marque déterminent l’utilisation des journées.</p>
         </div>
-        <div style="border-top:1px solid rgba(255,255,255,0.2); padding-top:24px;">
+        <div>
           <p style="font-family:'Archivo',sans-serif; font-weight:500; font-size:14px; color:#C87A53; margin:0 0 14px; letter-spacing:0.08em;">03</p>
-          <h3 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:22px; line-height:1.2; margin:0 0 10px; color:#FFFFFF;">Le studio produit</h3>
-          <p style="font-size:15px; line-height:1.6; color:rgba(255,255,255,0.68); margin:0;">Des journées entières consacrées à votre marque, des livrables finalisés et leurs fichiers sources. Sans relance ni devis à chaque demande.</p>
+          <h3 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:22px; line-height:1.2; margin:0 0 10px; color:#FFFFFF;">Je crée</h3>
+          <p style="font-size:15px; line-height:1.6; color:rgba(255,255,255,0.68); margin:0;">Chaque journée est consacrée à la production de vos projets.</p>
+        </div>
+        <div>
+          <p style="font-family:'Archivo',sans-serif; font-weight:500; font-size:14px; color:#C87A53; margin:0 0 14px; letter-spacing:0.08em;">04</p>
+          <h3 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:22px; line-height:1.2; margin:0 0 10px; color:#FFFFFF;">Vous ajustez</h3>
+          <p style="font-size:15px; line-height:1.6; color:rgba(255,255,255,0.68); margin:0;">Besoin de plus de capacité&nbsp;? Ajoutez des journées à 400&nbsp;€ / jour.</p>
         </div>
       </div>
     </div>
 
-    <!-- Ce que couvrent vos journées -->
-    <div class="bs-shell" style="padding:var(--bs-pad-y-sm) var(--bs-pad-x) 0;">
+    <!-- 3 · Ce que vos journées peuvent servir à créer : une seule grille, pas quatre offres -->
+    <div class="bs-shell" style="padding:var(--bs-pad-y-lg) var(--bs-pad-x) 0;">
       <div class="bs-eyebrow">
-        <span class="bs-eyebrow-label">Ce que couvrent vos journées</span>
+        <span class="bs-eyebrow-label">Vos journées</span>
       </div>
-      <h2 class="bs-h2" style="margin:0 0 var(--bs-gap-head); max-width:18ch;">Tout ce dont votre marque a besoin pour exister, chaque mois.</h2>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr)); gap:20px; align-items:stretch;">
-        <div class="bs-card bs-card--panel" style="padding:clamp(24px,2.2vw,30px);">
-          <p style="font-family:'Archivo',sans-serif; font-weight:500; font-size:13px; letter-spacing:0.1em; color:#C87A53; margin:0;">01</p>
-          <h3 style="font-family:'Archivo',sans-serif; font-weight:600; font-size:22px; line-height:1.15; letter-spacing:-0.01em; margin:16px 0 8px; color:#FFFFFF;">Branding</h3>
-          <p style="font-size:14.5px; line-height:1.55; color:rgba(255,255,255,0.68); margin:0 0 10px;">Faire vivre votre identité et la faire évoluer sans la trahir.</p>
-          <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column;">
-            <li style="display:flex; align-items:flex-start; gap:11px; padding:6px 0;"><span class="bs-feat-dot" style="margin-top:8px;"></span><span style="font-size:14px; line-height:1.5; color:rgba(255,255,255,0.85);">Déclinaisons de l’identité</span></li>
-            <li style="display:flex; align-items:flex-start; gap:11px; padding:6px 0;"><span class="bs-feat-dot" style="margin-top:8px;"></span><span style="font-size:14px; line-height:1.5; color:rgba(255,255,255,0.85);">Évolutions du logo et de la charte</span></li>
-            <li style="display:flex; align-items:flex-start; gap:11px; padding:6px 0;"><span class="bs-feat-dot" style="margin-top:8px;"></span><span style="font-size:14px; line-height:1.5; color:rgba(255,255,255,0.85);">Direction artistique</span></li>
-          </ul>
+      <h2 class="bs-h2" style="margin:0 0 var(--bs-gap-head); max-width:22ch;">Ce que vos journées peuvent servir à créer<span style="color:#C87A53;">.</span></h2>
+      <div data-bs-sv-cats="1">
+        <div>
+          <span style="font-family:'Archivo',sans-serif; font-weight:500; font-size:13px; letter-spacing:0.1em; color:#C87A53;">01</span>
+          <h3 style="font-family:'Archivo',sans-serif; font-weight:600; font-size:clamp(20px,1.8vw,24px); line-height:1.1; letter-spacing:0.04em; text-transform:uppercase; margin:0; color:#FFFFFF;">Branding</h3>
+          <p style="font-size:15px; line-height:1.55; color:rgba(255,255,255,0.68); margin:0;">Identité, déclinaisons, direction artistique.</p>
         </div>
-        <div class="bs-card bs-card--panel" style="padding:clamp(24px,2.2vw,30px);">
-          <p style="font-family:'Archivo',sans-serif; font-weight:500; font-size:13px; letter-spacing:0.1em; color:#C87A53; margin:0;">02</p>
-          <h3 style="font-family:'Archivo',sans-serif; font-weight:600; font-size:22px; line-height:1.15; letter-spacing:-0.01em; margin:16px 0 8px; color:#FFFFFF;">Communication</h3>
-          <p style="font-size:14.5px; line-height:1.55; color:rgba(255,255,255,0.68); margin:0 0 10px;">Des supports marketing qui vendent, cohérents d’un bout à l’autre.</p>
-          <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column;">
-            <li style="display:flex; align-items:flex-start; gap:11px; padding:6px 0;"><span class="bs-feat-dot" style="margin-top:8px;"></span><span style="font-size:14px; line-height:1.5; color:rgba(255,255,255,0.85);">Plaquettes et présentations commerciales</span></li>
-            <li style="display:flex; align-items:flex-start; gap:11px; padding:6px 0;"><span class="bs-feat-dot" style="margin-top:8px;"></span><span style="font-size:14px; line-height:1.5; color:rgba(255,255,255,0.85);">Affiches, flyers, signalétique</span></li>
-            <li style="display:flex; align-items:flex-start; gap:11px; padding:6px 0;"><span class="bs-feat-dot" style="margin-top:8px;"></span><span style="font-size:14px; line-height:1.5; color:rgba(255,255,255,0.85);">Supports d’événements et de salons</span></li>
-          </ul>
+        <div>
+          <span style="font-family:'Archivo',sans-serif; font-weight:500; font-size:13px; letter-spacing:0.1em; color:#C87A53;">02</span>
+          <h3 style="font-family:'Archivo',sans-serif; font-weight:600; font-size:clamp(20px,1.8vw,24px); line-height:1.1; letter-spacing:0.04em; text-transform:uppercase; margin:0; color:#FFFFFF;">Communication</h3>
+          <p style="font-size:15px; line-height:1.55; color:rgba(255,255,255,0.68); margin:0;">Campagnes, affiches, présentations, supports marketing.</p>
         </div>
-        <div class="bs-card bs-card--panel" style="padding:clamp(24px,2.2vw,30px);">
-          <p style="font-family:'Archivo',sans-serif; font-weight:500; font-size:13px; letter-spacing:0.1em; color:#C87A53; margin:0;">03</p>
-          <h3 style="font-family:'Archivo',sans-serif; font-weight:600; font-size:22px; line-height:1.15; letter-spacing:-0.01em; margin:16px 0 8px; color:#FFFFFF;">Réseaux sociaux</h3>
-          <p style="font-size:14.5px; line-height:1.55; color:rgba(255,255,255,0.68); margin:0 0 10px;">Une présence régulière, sans perdre votre style en route.</p>
-          <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column;">
-            <li style="display:flex; align-items:flex-start; gap:11px; padding:6px 0;"><span class="bs-feat-dot" style="margin-top:8px;"></span><span style="font-size:14px; line-height:1.5; color:rgba(255,255,255,0.85);">Templates de publications et de stories</span></li>
-            <li style="display:flex; align-items:flex-start; gap:11px; padding:6px 0;"><span class="bs-feat-dot" style="margin-top:8px;"></span><span style="font-size:14px; line-height:1.5; color:rgba(255,255,255,0.85);">Visuels de campagne</span></li>
-            <li style="display:flex; align-items:flex-start; gap:11px; padding:6px 0;"><span class="bs-feat-dot" style="margin-top:8px;"></span><span style="font-size:14px; line-height:1.5; color:rgba(255,255,255,0.85);">Ligne graphique éditoriale</span></li>
-          </ul>
+        <div>
+          <span style="font-family:'Archivo',sans-serif; font-weight:500; font-size:13px; letter-spacing:0.1em; color:#C87A53;">03</span>
+          <h3 style="font-family:'Archivo',sans-serif; font-weight:600; font-size:clamp(20px,1.8vw,24px); line-height:1.1; letter-spacing:0.04em; text-transform:uppercase; margin:0; color:#FFFFFF;">Réseaux sociaux</h3>
+          <p style="font-size:15px; line-height:1.55; color:rgba(255,255,255,0.68); margin:0;">Posts, stories, templates, visuels de campagne.</p>
         </div>
-        <div class="bs-card bs-card--panel" style="padding:clamp(24px,2.2vw,30px);">
-          <p style="font-family:'Archivo',sans-serif; font-weight:500; font-size:13px; letter-spacing:0.1em; color:#C87A53; margin:0;">04</p>
-          <h3 style="font-family:'Archivo',sans-serif; font-weight:600; font-size:22px; line-height:1.15; letter-spacing:-0.01em; margin:16px 0 8px; color:#FFFFFF;">Digital et web</h3>
-          <p style="font-size:14.5px; line-height:1.55; color:rgba(255,255,255,0.68); margin:0 0 10px;">Un site qui suit l’évolution de votre activité.</p>
-          <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column;">
-            <li style="display:flex; align-items:flex-start; gap:11px; padding:6px 0;"><span class="bs-feat-dot" style="margin-top:8px;"></span><span style="font-size:14px; line-height:1.5; color:rgba(255,255,255,0.85);">Nouvelles pages et landing pages</span></li>
-            <li style="display:flex; align-items:flex-start; gap:11px; padding:6px 0;"><span class="bs-feat-dot" style="margin-top:8px;"></span><span style="font-size:14px; line-height:1.5; color:rgba(255,255,255,0.85);">Maquettes et évolutions du site</span></li>
-            <li style="display:flex; align-items:flex-start; gap:11px; padding:6px 0;"><span class="bs-feat-dot" style="margin-top:8px;"></span><span style="font-size:14px; line-height:1.5; color:rgba(255,255,255,0.85);">Newsletters et bannières</span></li>
-          </ul>
+        <div>
+          <span style="font-family:'Archivo',sans-serif; font-weight:500; font-size:13px; letter-spacing:0.1em; color:#C87A53;">04</span>
+          <h3 style="font-family:'Archivo',sans-serif; font-weight:600; font-size:clamp(20px,1.8vw,24px); line-height:1.1; letter-spacing:0.04em; text-transform:uppercase; margin:0; color:#FFFFFF;">Web &amp; digital</h3>
+          <p style="font-size:15px; line-height:1.55; color:rgba(255,255,255,0.68); margin:0;">Pages, landing pages, bannières, évolutions du site.</p>
         </div>
+      </div>
+      <p style="font-size:clamp(16px,1.4vw,18px); line-height:1.6; color:rgba(255,255,255,0.72); margin:clamp(22px,2.5vw,32px) 0 0;">Une seule capacité de création. Des besoins qui évoluent avec votre activité.</p>
+    </div>
+
+    <!-- 4 · Le concept central -->
+    <div class="bs-shell" style="padding:var(--bs-pad-y-lg) var(--bs-pad-x) 0;">
+      <div style="border-top:1px solid #2A2A2A; border-bottom:1px solid #2A2A2A; padding:clamp(72px,11vw,170px) 0;">
+        <h2 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(36px,6vw,96px); line-height:1.02; letter-spacing:-0.02em; margin:0; text-wrap:balance;"><span style="display:block; color:rgba(255,255,255,0.42);">Vous ne réservez pas des livrables.</span><span style="display:block; color:#FFFFFF;">Vous réservez du temps de création<span style="color:#C87A53;">.</span></span></h2>
+        <p style="font-size:clamp(19px,2vw,26px); line-height:1.5; color:rgba(255,255,255,0.88); margin:clamp(32px,4vw,56px) 0 0; max-width:36ch;">Chaque mois, ce temps est consacré aux priorités créatives de votre marque.</p>
       </div>
     </div>
 
-    <!-- Le tarif : 3 jours minimum, le client choisit ensuite le nombre de journées -->
-    <div class="bs-shell" style="padding:var(--bs-pad-y-sm) var(--bs-pad-x) 0;">
+    <!-- 5 · Le tarif -->
+    <div class="bs-shell" style="padding:var(--bs-pad-y-lg) var(--bs-pad-x) 0;">
       <div class="bs-eyebrow">
         <span class="bs-eyebrow-label">Le tarif</span>
       </div>
-      <h2 class="bs-h2" style="margin:0 0 18px; max-width:18ch;">400&nbsp;€ la journée, à partir de trois par mois.</h2>
-      <p style="font-size:16px; line-height:1.65; color:rgba(255,255,255,0.7); max-width:62ch; margin:0 0 var(--bs-gap-head);">Trois journées par mois au minimum, puis c’est vous qui choisissez combien. Vos journées servent aussi bien la communication du mois que la construction de votre identité ou de votre site.</p>
-      <div style="display:flex; flex-wrap:wrap; gap:24px; align-items:stretch;">
-
-        <div class="bs-card bs-card--panel" style="display:flex; flex-direction:column; flex:1 1 min(300px,100%);">
-          <h3 style="font-family:'Archivo',sans-serif; font-weight:600; font-size:clamp(26px,2.4vw,32px); line-height:1.1; letter-spacing:-0.01em; margin:0; color:#FFFFFF;">3 jours minimum</h3>
-          <p style="margin:14px 0 0; font-size:14px; line-height:1; color:var(--bs-label);"><span style="font-family:'Archivo',sans-serif; font-weight:500; font-size:21px; color:#FFFFFF;">1&nbsp;200&nbsp;€</span> / mois</p>
-          <p style="font-size:17px; line-height:1.45; color:#FFFFFF; font-style:italic; margin:18px 0 0; max-width:30ch;">Puis 400&nbsp;€ par journée supplémentaire, au rythme que vous fixez.</p>
-          <div style="height:1px; background:rgba(255,255,255,0.12); margin:26px 0 18px;"></div>
-          <p style="font-family:'Archivo',sans-serif; font-size:11px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:var(--bs-label); margin:0 0 4px;">Un mois type à 3 jours</p>
-          <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column;">
-            <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:15px; line-height:1.45; color:#FFFFFF;">Les visuels réseaux sociaux du mois</span></li>
-            <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:15px; line-height:1.45; color:#FFFFFF;">Un visuel de campagne ou un support print</span></li>
-            <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:15px; line-height:1.45; color:#FFFFFF;">Les mises à jour de votre site</span></li>
+      <div data-bs-sv-price="1">
+        <div>
+          <p style="margin:0; display:flex; align-items:baseline; flex-wrap:wrap; gap:6px 18px;"><span style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(88px,15vw,220px); line-height:0.9; letter-spacing:-0.035em; color:#FFFFFF;">400&nbsp;€</span><span data-bs-sv-unit="1" style="font-size:13px;">/ jour</span></p>
+          <div style="display:flex; flex-wrap:wrap; gap:14px clamp(28px,4vw,56px); border-top:1px solid #2A2A2A; margin-top:clamp(28px,3.5vw,44px); padding-top:clamp(20px,2.4vw,28px);">
+            <p style="margin:0; display:flex; flex-direction:column; gap:6px;"><span data-bs-sv-unit="1">Minimum</span><span style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(22px,2.2vw,30px); color:#FFFFFF;">3 jours / mois</span></p>
+            <p style="margin:0; display:flex; flex-direction:column; gap:6px;"><span data-bs-sv-unit="1">Soit</span><span style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(22px,2.2vw,30px); color:#FFFFFF;">1&nbsp;200&nbsp;€ / mois</span></p>
+          </div>
+        </div>
+        <div>
+          <h3 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(22px,2.2vw,30px); line-height:1.15; margin:0 0 clamp(16px,2vw,24px); color:#FFFFFF;">Besoin de plus&nbsp;?</h3>
+          <ul data-bs-sv-more="1">
+            <li><span style="font-size:16px; color:rgba(255,255,255,0.85);">+ 1 journée</span><span style="font-family:'Archivo',sans-serif; font-weight:500; font-size:19px; color:#FFFFFF;">400&nbsp;€</span></li>
+            <li><span style="font-size:16px; color:rgba(255,255,255,0.85);">+ 2 journées</span><span style="font-family:'Archivo',sans-serif; font-weight:500; font-size:19px; color:#FFFFFF;">800&nbsp;€</span></li>
+            <li><span style="font-size:16px; color:rgba(255,255,255,0.85);">+ 3 journées</span><span style="font-family:'Archivo',sans-serif; font-weight:500; font-size:19px; color:#FFFFFF;">1&nbsp;200&nbsp;€</span></li>
           </ul>
-          <div style="margin:auto 0 0;">
-            <div style="height:1px; background:rgba(255,255,255,0.12); margin:28px 0 16px;"></div>
-            <p style="font-size:13.5px; line-height:1.55; color:var(--bs-label); font-style:italic; margin:0;"><span style="display:block; font-family:'Archivo',sans-serif; font-style:normal; font-weight:500; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--bs-label); margin-bottom:7px; opacity:0.85;">Idéal pour</span>une jeune entreprise qui veut communiquer chaque mois sans y passer ses soirées.</p>
-          </div>
+          <p style="font-size:14.5px; line-height:1.6; color:rgba(255,255,255,0.65); margin:18px 0 0;">Les journées supplémentaires sont ajoutées selon vos besoins.</p>
         </div>
-
-        <!-- Contenus des anciennes offres Essentiel, Signature et Intégral, réalisables sur les journées -->
-        <div class="bs-card bs-card--panel" style="display:flex; flex-direction:column; flex:2 1 min(600px,100%);">
-          <h3 style="font-family:'Archivo',sans-serif; font-weight:600; font-size:clamp(22px,2vw,26px); line-height:1.15; letter-spacing:-0.01em; margin:0; color:#FFFFFF;">Ce que vos journées peuvent construire</h3>
-          <p style="font-size:15px; line-height:1.6; color:rgba(255,255,255,0.7); margin:12px 0 0; max-width:60ch;">Identité, site, lancement&nbsp;: tout ce que le studio livrait en projet se réalise aussi sur vos journées, étape par étape.</p>
-          <div style="height:1px; background:rgba(255,255,255,0.12); margin:26px 0 20px;"></div>
-          <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr)); gap:24px clamp(20px,2.4vw,32px);">
-            <div>
-              <p style="font-family:'Archivo',sans-serif; font-size:11px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:var(--bs-label); margin:0 0 4px;">Poser les bases</p>
-              <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column;">
-                <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:14px; line-height:1.45; color:#FFFFFF;">Logo et déclinaisons essentielles</span></li>
-                <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:14px; line-height:1.45; color:#FFFFFF;">Palette, typographies et règles d’usage</span></li>
-                <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:14px; line-height:1.45; color:#FFFFFF;">Mini-guide de marque (1 page)</span></li>
-                <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:14px; line-height:1.45; color:#FFFFFF;">Page vitrine unique (one-page responsive)</span></li>
-                <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:14px; line-height:1.45; color:#FFFFFF;">Mise en ligne et remise des fichiers sources</span></li>
-              </ul>
-            </div>
-            <div>
-              <p style="font-family:'Archivo',sans-serif; font-size:11px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:var(--bs-label); margin:0 0 4px;">Installer la marque</p>
-              <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column;">
-                <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:14px; line-height:1.45; color:#FFFFFF;">Atelier de cadrage&nbsp;: positionnement, ton, territoire visuel</span></li>
-                <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:14px; line-height:1.45; color:#FFFFFF;">Système d’identité complet (logo, variations, iconographie, motifs)</span></li>
-                <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:14px; line-height:1.45; color:#FFFFFF;">Charte de marque détaillée</span></li>
-                <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:14px; line-height:1.45; color:#FFFFFF;">Site vitrine multi-pages (jusqu’à 5 pages)</span></li>
-                <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:14px; line-height:1.45; color:#FFFFFF;">Rédaction des contenus clés et structure SEO de base</span></li>
-              </ul>
-            </div>
-            <div>
-              <p style="font-family:'Archivo',sans-serif; font-size:11px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:var(--bs-label); margin:0 0 4px;">Aller plus loin</p>
-              <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column;">
-                <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:14px; line-height:1.45; color:#FFFFFF;">Stratégie de marque amont&nbsp;: plateforme, cibles, axes différenciants</span></li>
-                <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:14px; line-height:1.45; color:#FFFFFF;">Direction artistique étendue (supports print et réseaux)</span></li>
-                <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:14px; line-height:1.45; color:#FFFFFF;">Kit de lancement réseaux sociaux (templates + ligne éditoriale)</span></li>
-                <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:14px; line-height:1.45; color:#FFFFFF;">Accompagnement au lancement et points de suivi</span></li>
-              </ul>
-            </div>
-            <!-- Production de contenus : sur le temps des journées réservées, jamais en volume illimité -->
-            <div style="grid-column:1 / -1;">
-              <p style="font-family:'Archivo',sans-serif; font-size:11px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:var(--bs-label); margin:0 0 4px;">Produire vos supports</p>
-              <ul style="list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr)); column-gap:clamp(20px,2.4vw,32px);">
-                <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:14px; line-height:1.45; color:#FFFFFF;">Création de visuels pour les réseaux sociaux</span></li>
-                <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:14px; line-height:1.45; color:#FFFFFF;">Affiches et supports de communication</span></li>
-                <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:14px; line-height:1.45; color:#FFFFFF;">Création de campagnes visuelles</span></li>
-                <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:14px; line-height:1.45; color:#FFFFFF;">Déclinaisons de l’identité visuelle</span></li>
-                <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:14px; line-height:1.45; color:#FFFFFF;">Adaptations pour Instagram et formats digitaux</span></li>
-                <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:14px; line-height:1.45; color:#FFFFFF;">Direction artistique continue</span></li>
-              </ul>
-            </div>
-          </div>
-          <div style="margin:auto 0 0;">
-            <div style="height:1px; background:rgba(255,255,255,0.12); margin:28px 0 16px;"></div>
-            <p style="font-size:13.5px; line-height:1.55; color:var(--bs-label); font-style:italic; margin:0; max-width:70ch;"><span style="display:block; font-family:'Archivo',sans-serif; font-style:normal; font-weight:500; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--bs-label); margin-bottom:7px; opacity:0.85;">Bon à savoir</span>Pour les marques dont Bren’Art Studio a créé l’identité visuelle, les créations de contenus et supports de communication peuvent être réalisées dans le cadre de l’accompagnement. Elles prennent place sur le temps de vos journées réservées&nbsp;: leur volume dépend du nombre de journées et de la complexité de chaque support.</p>
-          </div>
-        </div>
-
       </div>
-      <p style="margin:clamp(22px,2.5vw,30px) 0 0; font-size:14px; line-height:1.6; color:var(--bs-label); max-width:70ch;">Le nombre de journées s’ajuste avec un mois de préavis. Pour un rythme particulier, on dimensionne la capacité ensemble.</p>
     </div>
 
-    <!-- L'engagement : Démarrage 3 mois / Partenariat 12 mois (mis en avant) -->
-    <div class="bs-shell" style="padding:var(--bs-pad-y-sm) var(--bs-pad-x) 0;">
+    <!-- 6 · Engagement -->
+    <div class="bs-shell" style="padding:var(--bs-pad-y-lg) var(--bs-pad-x) 0;">
       <div class="bs-eyebrow">
         <span class="bs-eyebrow-label">L’engagement</span>
       </div>
-      <h2 class="bs-h2" style="margin:0 0 var(--bs-gap-head); max-width:17ch;">Trois mois pour se découvrir, un an pour construire.</h2>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr)); gap:24px; align-items:stretch;">
-
-        <div class="bs-card bs-card--panel" style="display:flex; flex-direction:column;">
-          <div style="display:flex; align-items:center; justify-content:space-between; min-height:26px;">
-            <span style="font-family:'Archivo',sans-serif; font-weight:500; font-size:14px; letter-spacing:0.1em; color:#C87A53;">01</span>
-          </div>
-          <h3 style="font-family:'Archivo',sans-serif; font-weight:600; font-size:clamp(26px,2.4vw,32px); line-height:1.1; letter-spacing:-0.01em; margin:22px 0 0; color:#FFFFFF;">Démarrage</h3>
-          <p style="margin:14px 0 0; font-size:14px; line-height:1; color:var(--bs-label);"><span style="font-family:'Archivo',sans-serif; font-weight:500; font-size:21px; color:#FFFFFF;">3&nbsp;mois</span></p>
-          <p style="font-size:17px; line-height:1.45; color:#FFFFFF; font-style:italic; margin:18px 0 0; max-width:32ch;">Le temps de travailler ensemble avant de s’engager sur la durée.</p>
-          <div style="height:1px; background:rgba(255,255,255,0.12); margin:26px 0 18px;"></div>
-          <p style="font-family:'Archivo',sans-serif; font-size:11px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:var(--bs-label); margin:0 0 4px;">Ce qui est inclus</p>
-          <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column;">
-            <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:15px; line-height:1.45; color:#FFFFFF;">Atelier de cadrage offert&nbsp;: audit de l’existant et feuille de route du trimestre</span></li>
-            <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:15px; line-height:1.45; color:#FFFFFF;">Point de cadrage mensuel et journées planifiées</span></li>
-            <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:15px; line-height:1.45; color:#FFFFFF;">Bilan au terme des trois mois</span></li>
-            <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:15px; line-height:1.45; color:#FFFFFF;">Renouvelable par période de trois mois</span></li>
-          </ul>
-          <div style="margin:auto 0 0;">
-            <div style="height:1px; background:rgba(255,255,255,0.12); margin:28px 0 16px;"></div>
-            <p style="font-size:13.5px; line-height:1.55; color:var(--bs-label); margin:0;">Les journées non utilisées dans le mois ne sont pas reportées.</p>
-          </div>
-        </div>
-
-        <div class="bs-card" style="position:relative; background:var(--bs-panel); border:1px solid var(--bs-terracotta); display:flex; flex-direction:column; box-shadow:0 0 0 1px rgba(200,122,83,0.18), 0 24px 60px rgba(0,0,0,0.4);">
-          <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:26px;">
-            <span style="font-family:'Archivo',sans-serif; font-weight:500; font-size:14px; letter-spacing:0.1em; color:#C87A53;">02</span>
-            <span style="display:inline-flex; align-items:center; gap:7px; border:1px solid rgba(200,122,83,0.55); border-radius:var(--bs-r-pill); padding:6px 13px;"><span style="flex:none; width:5px; height:5px; border-radius:50%; background:#C87A53;"></span><span style="font-family:'Archivo',sans-serif; font-size:10.5px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase; color:#FFFFFF;">Le cœur du studio</span></span>
-          </div>
-          <h3 style="font-family:'Archivo',sans-serif; font-weight:600; font-size:clamp(26px,2.4vw,32px); line-height:1.1; letter-spacing:-0.01em; margin:22px 0 0; color:#FFFFFF;">Partenariat</h3>
-          <p style="margin:14px 0 0; font-size:14px; line-height:1; color:var(--bs-label);"><span style="font-family:'Archivo',sans-serif; font-weight:500; font-size:21px; color:#FFFFFF;">12&nbsp;mois</span></p>
-          <p style="font-size:17px; line-height:1.45; color:#FFFFFF; font-style:italic; margin:18px 0 0; max-width:32ch;">Le même tarif, et tout ce qui fait un vrai partenariat.</p>
-          <div style="height:1px; background:rgba(255,255,255,0.12); margin:26px 0 18px;"></div>
-          <p style="font-family:'Archivo',sans-serif; font-weight:500; font-size:15px; color:#FFFFFF; margin:0 0 4px;">Tout le Démarrage, plus&nbsp;:</p>
-          <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column;">
-            <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:15px; line-height:1.45; color:#FFFFFF;">Tarif de 400&nbsp;€ la journée garanti pendant douze mois</span></li>
-            <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:15px; line-height:1.45; color:#FFFFFF;">Report des journées non utilisées sur le mois suivant</span></li>
-            <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:15px; line-height:1.45; color:#FFFFFF;">Priorité sur le planning du studio, urgences comprises</span></li>
-            <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:15px; line-height:1.45; color:#FFFFFF;">Un point stratégique chaque trimestre</span></li>
-          </ul>
-          <div style="margin:auto 0 0;">
-            <div style="height:1px; background:rgba(255,255,255,0.12); margin:28px 0 16px;"></div>
-            <p style="font-size:13.5px; line-height:1.55; color:var(--bs-label); margin:0;">Proposé au bilan des trois premiers mois. Sans reconduction tacite.</p>
-          </div>
-        </div>
-
-      </div>
-      <p style="margin:clamp(22px,2.5vw,30px) 0 0; font-size:12.5px; line-height:1.65; color:var(--bs-label); max-width:86ch;">Facturation au début de chaque mois. Le nombre de journées s’ajuste avec un mois de préavis, sans descendre sous trois. Sortie anticipée possible avec un préavis de deux mois. Les frais externes (impression, banques d’images, achat média) sont refacturés après accord. Prix nets, TVA non applicable (art. 293 B du CGI). Détail dans les <a data-cursor="link" href="/cgv" style="color:rgba(255,255,255,0.8); text-decoration:underline; text-decoration-color:#C87A53; text-underline-offset:3px;">conditions générales de vente</a>.</p>
+      <h2 class="bs-h2" style="margin:0 0 var(--bs-gap-head); max-width:16ch;">Un fonctionnement pensé pour durer<span style="color:#C87A53;">.</span></h2>
+      <p aria-label="3 mois, puis renouvelable" style="margin:0; display:flex; flex-wrap:wrap; align-items:center; gap:8px clamp(18px,3vw,44px); font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(36px,6vw,92px); line-height:1; letter-spacing:-0.02em; text-transform:uppercase; color:#FFFFFF;"><span>3 mois</span><span aria-hidden="true" style="color:#C87A53; font-weight:400;">→</span><span style="color:rgba(255,255,255,0.42);">Renouvelable</span></p>
+      <p style="font-size:clamp(16px,1.4vw,18px); line-height:1.6; color:rgba(255,255,255,0.72); margin:clamp(26px,3vw,40px) 0 0; max-width:52ch;">Le partenariat démarre sur un engagement initial de 3&nbsp;mois, puis peut être renouvelé.</p>
+      <!-- Rappel des conditions existantes (CGV art. 04), sans en ajouter -->
+      <p style="margin:clamp(22px,2.5vw,30px) 0 0; font-size:12.5px; line-height:1.65; color:var(--bs-label); max-width:86ch;">Facturation au début de chaque mois. Nombre de journées modifiable avec un mois de préavis, sans descendre sous trois&nbsp;; journées supplémentaires selon disponibilité du studio. Les journées non utilisées ne sont pas reportées. Frais externes refacturés après accord. Prix nets, TVA non applicable (art. 293 B du CGI). Détail dans les <a data-cursor="link" href="/cgv" style="color:rgba(255,255,255,0.8); text-decoration:underline; text-decoration-color:#C87A53; text-underline-offset:3px;">conditions générales de vente</a>.</p>
     </div>
 
-    <!-- Pourquoi un studio externalisé -->
-    <div class="bs-shell" style="padding:var(--bs-pad-y-sm) var(--bs-pad-x) 0;">
-      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr)); gap:clamp(36px,6vw,80px); align-items:start;">
+    <!-- 7 · Exemple d'utilisation : un exemple, pas un pack -->
+    <div class="bs-shell" style="padding:var(--bs-pad-y-lg) var(--bs-pad-x) 0;">
+      <div class="bs-eyebrow">
+        <span class="bs-eyebrow-label">Exemple d’utilisation</span>
+      </div>
+      <h2 class="bs-h2" style="margin:0 0 var(--bs-gap-head); max-width:16ch;">3 journées. Selon vos priorités<span style="color:#C87A53;">.</span></h2>
+      <div data-bs-sv-three="1">
+        <div class="bs-card bs-card--panel" style="display:flex; flex-direction:column; gap:14px;">
+          <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#C87A53;">Jour 01</span>
+          <h3 style="font-family:'Archivo',sans-serif; font-weight:600; font-size:clamp(24px,2.2vw,30px); line-height:1.1; letter-spacing:-0.01em; margin:0; color:#FFFFFF;">Campagne</h3>
+          <p style="font-size:15px; line-height:1.55; color:rgba(255,255,255,0.68); margin:0;">Concept + création + déclinaisons</p>
+        </div>
+        <div class="bs-card bs-card--panel" style="display:flex; flex-direction:column; gap:14px;">
+          <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#C87A53;">Jour 02</span>
+          <h3 style="font-family:'Archivo',sans-serif; font-weight:600; font-size:clamp(24px,2.2vw,30px); line-height:1.1; letter-spacing:-0.01em; margin:0; color:#FFFFFF;">Réseaux sociaux</h3>
+          <p style="font-size:15px; line-height:1.55; color:rgba(255,255,255,0.68); margin:0;">Posts + visuels + adaptations</p>
+        </div>
+        <div class="bs-card bs-card--panel" style="display:flex; flex-direction:column; gap:14px;">
+          <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#C87A53;">Jour 03</span>
+          <h3 style="font-family:'Archivo',sans-serif; font-weight:600; font-size:clamp(24px,2.2vw,30px); line-height:1.1; letter-spacing:-0.01em; margin:0; color:#FFFFFF;">Web</h3>
+          <p style="font-size:15px; line-height:1.55; color:rgba(255,255,255,0.68); margin:0;">Nouvelle page + ajustements</p>
+        </div>
+      </div>
+      <p style="font-size:14.5px; line-height:1.6; color:var(--bs-label); font-style:italic; margin:clamp(20px,2.4vw,28px) 0 0;">Ceci est un exemple. Chaque mois est organisé selon les besoins réels de votre marque.</p>
+    </div>
+
+    <!-- 8 · Pourquoi ce format -->
+    <div class="bs-shell" style="padding:var(--bs-pad-y-lg) var(--bs-pad-x) 0;">
+      <div class="bs-eyebrow">
+        <span class="bs-eyebrow-label">Pourquoi ce format</span>
+      </div>
+      <div data-bs-sv-why="1">
         <div>
-          <div class="bs-eyebrow">
-            <span class="bs-eyebrow-label">Pourquoi un studio externalisé</span>
-          </div>
-          <h2 class="bs-h2" style="margin:0; max-width:14ch;">Le regard d’un studio, sans le poids d’une embauche.</h2>
-          <!-- Photo Kit / Unsplash (https://unsplash.com/photos/8DTIQ_Klxho), licence Unsplash -->
-          <div style="position:relative; overflow:hidden; border-radius:var(--bs-r-frame); aspect-ratio:4/3; max-width:100%; margin-top:clamp(28px,3vw,40px); background:#111;">
-            <img src="assets/services-croquis.jpg" srcset="assets/opt/services-croquis-1200.jpg 1200w, assets/services-croquis.jpg 2400w" sizes="(max-width:760px) 92vw, 45vw" alt="Main qui esquisse des maquettes dans un carnet" width="2400" height="1600" loading="lazy" decoding="async" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:brightness(0.88) contrast(1.04);">
-          </div>
+          <h3 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:22px; line-height:1.2; margin:0 0 10px; color:#FFFFFF;">Une capacité dédiée</h3>
+          <p style="font-size:15px; line-height:1.6; color:rgba(255,255,255,0.68); margin:0;">Du temps réservé à votre marque chaque mois.</p>
         </div>
-        <div style="display:flex; flex-direction:column;">
-          <div style="border-top:1px solid rgba(255,255,255,0.14); padding:22px 0;">
-            <h3 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:20px; margin:0 0 8px; color:#FFFFFF;">Pas de recrutement</h3>
-            <p style="font-size:15px; line-height:1.65; color:rgba(255,255,255,0.68); margin:0;">Ni fiche de poste, ni période d’essai, ni formation. Le travail commence dès l’atelier de cadrage.</p>
-          </div>
-          <div style="border-top:1px solid rgba(255,255,255,0.14); padding:22px 0;">
-            <h3 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:20px; margin:0 0 8px; color:#FFFFFF;">Pas de charge fixe</h3>
-            <p style="font-size:15px; line-height:1.65; color:rgba(255,255,255,0.68); margin:0;">Cinq journées par mois reviennent à 2&nbsp;000&nbsp;€, logiciels et matériel compris. La capacité suit votre activité, à la hausse comme à la baisse.</p>
-          </div>
-          <div style="border-top:1px solid rgba(255,255,255,0.14); border-bottom:1px solid rgba(255,255,255,0.14); padding:22px 0;">
-            <h3 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:20px; margin:0 0 8px; color:#FFFFFF;">Une seule main</h3>
-            <p style="font-size:15px; line-height:1.65; color:rgba(255,255,255,0.68); margin:0;">Identité, supports, réseaux et site pensés par la même personne. Votre marque reste cohérente, quel que soit le support.</p>
-          </div>
+        <div>
+          <h3 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:22px; line-height:1.2; margin:0 0 10px; color:#FFFFFF;">De la flexibilité</h3>
+          <p style="font-size:15px; line-height:1.6; color:rgba(255,255,255,0.68); margin:0;">Les priorités peuvent évoluer d’un mois à l’autre.</p>
+        </div>
+        <div>
+          <h3 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:22px; line-height:1.2; margin:0 0 10px; color:#FFFFFF;">Une continuité créative</h3>
+          <p style="font-size:15px; line-height:1.6; color:rgba(255,255,255,0.68); margin:0;">Votre identité reste cohérente au fil de vos campagnes, supports, réseaux sociaux et évolutions digitales.</p>
         </div>
       </div>
     </div>
 
-    <!-- Comment on travaille -->
-    <div class="bs-section" style="background:#FFFFFF; color:#070707; margin-top:clamp(70px,9vw,120px);">
-      <div class="bs-shell">
-        <div class="bs-eyebrow bs-eyebrow--ink">
-          <span class="bs-eyebrow-label">Comment on travaille</span>
-        </div>
-        <h2 class="bs-h2" style="margin:0 0 clamp(40px,5vw,64px); max-width:700px;">Du premier appel au premier bilan.</h2>
-        <!-- Photo Kit / Unsplash (https://unsplash.com/photos/Ad6tYNI_-Kc), licence Unsplash -->
-        <div style="position:relative; overflow:hidden; border-radius:var(--bs-r-frame); aspect-ratio:21/9; min-height:200px; max-width:100%; margin:0 0 clamp(40px,5vw,64px); background:#EDEAE4;">
-          <img src="assets/services-planning.jpg" srcset="assets/opt/services-planning-1200.jpg 1200w, assets/services-planning.jpg 2400w" sizes="(max-width:1400px) 92vw, 1300px" alt="Mur d’atelier avec des épreuves et des cartes épinglées sur une grille" width="2400" height="1600" loading="lazy" decoding="async" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
-        </div>
-        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:20px;">
-          <div style="border-top:2px solid #070707; padding-top:24px;">
-            <p style="font-family:'Archivo',sans-serif; font-weight:500; font-size:14px; color:#C87A53; margin:0 0 14px; letter-spacing:0.08em;">01</p>
-            <h3 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:22px; margin:0 0 10px;">Appel découverte</h3>
-            <p style="font-size:14.5px; line-height:1.6; color:rgba(7,7,7,0.68); margin:0;">Trente minutes pour comprendre votre activité, vos besoins et votre rythme. Je vous dis franchement si le partenariat est le bon cadre.</p>
-          </div>
-          <div style="border-top:2px solid #070707; padding-top:24px;">
-            <p style="font-family:'Archivo',sans-serif; font-weight:500; font-size:14px; color:#C87A53; margin:0 0 14px; letter-spacing:0.08em;">02</p>
-            <h3 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:22px; margin:0 0 10px;">Atelier de cadrage</h3>
-            <p style="font-size:14.5px; line-height:1.6; color:rgba(7,7,7,0.68); margin:0;">Offert. On passe en revue l’existant et on construit la feuille de route créative des trois premiers mois.</p>
-          </div>
-          <div style="border-top:2px solid #070707; padding-top:24px;">
-            <p style="font-family:'Archivo',sans-serif; font-weight:500; font-size:14px; color:#C87A53; margin:0 0 14px; letter-spacing:0.08em;">03</p>
-            <h3 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:22px; margin:0 0 10px;">Journées planifiées</h3>
-            <p style="font-size:14.5px; line-height:1.6; color:rgba(7,7,7,0.68); margin:0;">Chaque mois, un point de cadrage fixe les priorités et les dates. Je produis, vous validez. Pas de tunnel.</p>
-          </div>
-          <div style="border-top:2px solid #070707; padding-top:24px;">
-            <p style="font-family:'Archivo',sans-serif; font-weight:500; font-size:14px; color:#C87A53; margin:0 0 14px; letter-spacing:0.08em;">04</p>
-            <h3 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:22px; margin:0 0 10px;">Bilan</h3>
-            <p style="font-size:14.5px; line-height:1.6; color:rgba(7,7,7,0.68); margin:0;">Au terme des trois mois, on regarde ce qui a changé pour votre marque. Puis on décide ensemble de la suite.</p>
-          </div>
-        </div>
+    <!-- 9 · CTA final -->
+    <div class="bs-shell" style="padding:clamp(120px,16vw,210px) var(--bs-pad-x) clamp(90px,12vw,150px);">
+      <div style="border-top:1px solid #2A2A2A; padding-top:clamp(56px,7vw,90px); display:flex; flex-direction:column; align-items:center; text-align:center; gap:clamp(22px,2.6vw,32px);">
+        <h2 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(34px,5.6vw,88px); line-height:1; letter-spacing:-0.015em; text-transform:uppercase; color:#FFFFFF; margin:0; max-width:16ch; text-wrap:balance;">Prêt à réserver vos premières journées&nbsp;?</h2>
+        <p style="font-size:clamp(16px,1.5vw,19px); line-height:1.6; color:rgba(255,255,255,0.72); margin:0;">3 jours pour commencer. Plus si votre activité l’exige.</p>
+        <a data-cursor="link" href="/contact" data-bs-mag-target="1" style="display:inline-flex; align-items:center; gap:10px; margin-top:clamp(6px,1vw,14px); background:#C87A53; color:#FFFFFF; text-decoration:none; font-size:15px; font-weight:500; padding:17px 32px; border-radius:var(--bs-r-pill); transition:background var(--bs-t-fast) ease, box-shadow var(--bs-t-fast) ease, transform var(--bs-t-fast) ease;" style-hover="background:#D89265; box-shadow:0 8px 24px rgba(0,0,0,0.4); transform:translateY(-2px);">Réserver un appel <span aria-hidden="true">→</span></a>
       </div>
-    </div>
-
-    <div class="bs-section" style=" text-align:center;">
-      <p style="font-size:17px; color:rgba(255,255,255,0.7); margin:0 0 28px;">Quatre partenaires maximum. Parlons de votre rythme.</p>
-      <a data-cursor="link" href="/contact" data-bs-mag-target="1" style="display:inline-flex; align-items:center; background:#C87A53; color:#FFFFFF; text-decoration:none; font-size:15px; font-weight:500; padding:17px 32px; border-radius:var(--bs-r-pill); transition:background var(--bs-t-fast) ease, box-shadow var(--bs-t-fast) ease, transform var(--bs-t-fast) ease;" style-hover="background:#D89265; box-shadow:0 8px 24px rgba(0,0,0,0.4); transform:translateY(-2px);">Réserver un appel découverte</a>
-      <p style="font-size:14px; line-height:1.6; color:var(--bs-label); margin:28px auto 0; max-width:52ch;">Un projet ponctuel, comme une identité ou un site livré une fois&nbsp;? Il se traite sur devis&nbsp;: <a data-cursor="link" href="/contact" style="color:rgba(255,255,255,0.8); text-decoration:underline; text-decoration-color:#C87A53; text-underline-offset:3px;">parlons-en</a>.</p>
     </div>
   </section>
 
