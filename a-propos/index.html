@@ -404,6 +404,53 @@
       [data-bs-work] [data-bs-work-zoom] { transition:none; }
       [data-bs-works-grid]:hover [data-bs-work]:not(:hover) { opacity:1; }
     }
+    /* Projet en série (plusieurs visuels) : pleine largeur, affiches au format
+       d'origine, jamais recadrées. Au survol, elles se soulèvent en cascade
+       plutôt que de zoomer (un zoom couperait le texte en bord d'affiche). */
+    [data-bs-works-grid] [data-bs-work-wide] { grid-column:1 / -1; }
+    [data-bs-work-set] { display:grid; grid-template-columns:1fr 1fr; gap:clamp(12px,1.6vw,24px); align-items:start; }
+    @media (min-width:721px) { [data-bs-work-set] { grid-template-columns:repeat(4,1fr); } }
+    [data-bs-work-set] figure { margin:0; border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,0.10); background:var(--bs-ink-2); transition:transform var(--bs-t-slow) var(--bs-ease); }
+    [data-bs-work-set] img { display:block; width:100%; height:auto; }
+    [data-bs-work-set] figure:nth-child(2) { transition-delay:40ms; }
+    [data-bs-work-set] figure:nth-child(3) { transition-delay:80ms; }
+    [data-bs-work-set] figure:nth-child(4) { transition-delay:120ms; }
+    [data-bs-work]:hover [data-bs-work-set] figure { transform:translateY(-8px); }
+    [data-bs-work-wide] > span:last-child { transition:border-color var(--bs-t-fast) ease, color var(--bs-t-fast) ease; }
+    [data-bs-work-wide]:hover > span:last-child { border-color:#C87A53; color:#FFFFFF; }
+    @media (prefers-reduced-motion: reduce) {
+      [data-bs-work-set] figure { transition:none; }
+      [data-bs-work]:hover [data-bs-work-set] figure { transform:none; }
+    }
+    /* Étude de cas éditoriale (ICC/EJP) — affiches au ratio exact de chaque
+       fichier : le cadre épouse l'image, rien n'est jamais rogné. */
+    [data-bs-cs-frame] { position:relative; border-radius:var(--bs-r-frame); overflow:hidden; border:1px solid rgba(255,255,255,0.1); background:var(--bs-ink-2); }
+    [data-bs-cs-frame] img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
+    [data-bs-cs-cap] { display:flex; align-items:baseline; gap:14px; margin-top:16px; }
+    [data-bs-cs-cap] span:first-child { font-family:ui-monospace,'SF Mono',monospace; font-size:12px; letter-spacing:0.06em; color:rgba(255,255,255,0.5); }
+    [data-bs-cs-cap] span:last-child { font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.6); }
+    [data-bs-cs-stage] { display:grid; grid-template-columns:1fr 1fr; gap:clamp(14px,2vw,28px); align-items:start; }
+    [data-bs-cs-stage] > :nth-child(even) { margin-top:clamp(36px,7vw,110px); }
+    [data-bs-cs-split] { display:grid; grid-template-columns:1fr; gap:clamp(20px,3vw,32px); }
+    [data-bs-cs-roles] { list-style:none; margin:0; padding:0; border-bottom:1px solid #2A2A2A; }
+    [data-bs-cs-roles] li { display:flex; align-items:baseline; gap:clamp(16px,3vw,40px); border-top:1px solid #2A2A2A; padding:clamp(16px,2vw,24px) 0; }
+    [data-bs-cs-edit] { display:grid; grid-template-columns:1fr; gap:clamp(56px,8vw,120px); }
+    [data-bs-cs-row] { display:grid; grid-template-columns:1fr; gap:clamp(24px,3vw,40px); align-items:end; }
+    [data-bs-cs-pair] { display:grid; grid-template-columns:1fr 1fr; gap:clamp(14px,3vw,48px); align-items:start; }
+    [data-bs-cs-pair] > :last-child { margin-top:clamp(48px,9vw,160px); }
+    [data-bs-cs-band] { display:grid; grid-template-columns:1fr; gap:clamp(28px,4vw,56px); align-items:center; padding:clamp(24px,5vw,80px); border-radius:var(--bs-r-frame); background:var(--bs-panel); border:1px solid var(--bs-panel-line); }
+    [data-bs-cs-index] { list-style:none; margin:0; padding:0; border-bottom:1px solid #2A2A2A; }
+    [data-bs-cs-index] li { display:grid; grid-template-columns:clamp(64px,9vw,96px) 1fr; gap:clamp(16px,3vw,40px); align-items:center; border-top:1px solid #2A2A2A; padding:clamp(16px,2vw,24px) 0; }
+    [data-bs-cs-index] dl { display:grid; grid-template-columns:1fr; gap:6px; margin:0; }
+    [data-bs-cs-index] dd { margin:0; }
+    @media (min-width:861px) {
+      [data-bs-cs-stage] { grid-template-columns:repeat(4,1fr); }
+      [data-bs-cs-split] { grid-template-columns:5fr 7fr; gap:clamp(32px,5vw,80px); }
+      [data-bs-cs-row] { grid-template-columns:7fr 5fr; gap:clamp(32px,5vw,80px); }
+      [data-bs-cs-pair] { width:83.333%; margin-left:8.333%; }
+      [data-bs-cs-band] { grid-template-columns:6fr 5fr; }
+      [data-bs-cs-index] dl { grid-template-columns:1.2fr 1fr 1fr; gap:24px; align-items:baseline; }
+    }
     /* Témoignages — déploiement en éventail.
        Les cartes sont des <figure> : sans margin déclarée, le navigateur applique
        son défaut « margin:1em 40px ». La carte mise en avant héritait donc de 40px
@@ -829,6 +876,21 @@
             <span data-bs-work-name="1" style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(26px,3vw,42px); line-height:1.04; letter-spacing:-0.01em; transition:color var(--bs-t) ease;">Koryaa</span>
             <span style="display:inline-flex; align-items:center; gap:9px; flex-shrink:0; font-size:11.5px; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); white-space:nowrap;">Branding</span>
           </div>
+        </a>
+
+        <!-- 05 · ICC/EJP Toulouse — série de 4 affiches, pleine largeur. -->
+        <a data-cursor="media" href="/portfolio/icc-ejp-toulouse" data-bs-work="1" data-bs-work-wide="1" style="display:block; text-decoration:none; color:#FFFFFF;">
+          <div data-bs-work-frame="1" data-bs-work-set="1">
+            <figure><img loading="lazy" decoding="async" src="assets/opt/icc-ejp-prodiges-experience-1200.jpg" srcset="assets/opt/icc-ejp-prodiges-experience-700.jpg 700w, assets/opt/icc-ejp-prodiges-experience-1200.jpg 1200w" sizes="(max-width: 720px) 50vw, 25vw" alt="Affiche Prodiges Experience pour l’Église Jeunes Prodiges Toulouse" width="1200" height="1465"></figure>
+            <figure><img loading="lazy" decoding="async" src="assets/opt/icc-ejp-nuit-au-coeur-de-dieu-1200.jpg" srcset="assets/opt/icc-ejp-nuit-au-coeur-de-dieu-700.jpg 700w, assets/opt/icc-ejp-nuit-au-coeur-de-dieu-1200.jpg 1200w" sizes="(max-width: 720px) 50vw, 25vw" alt="Affiche Nuit au cœur de Dieu pour l’Église Jeunes Prodiges Toulouse" width="1200" height="1500"></figure>
+            <figure><img loading="lazy" decoding="async" src="assets/opt/icc-ejp-university-tour-1200.jpg" srcset="assets/opt/icc-ejp-university-tour-700.jpg 700w, assets/opt/icc-ejp-university-tour-1200.jpg 1200w" sizes="(max-width: 720px) 50vw, 25vw" alt="Affiche University Tour, sortie d’évangélisation au campus du Mirail" width="1200" height="1500"></figure>
+            <figure><img loading="lazy" decoding="async" src="assets/opt/icc-ejp-grand-rassemblement-1200.jpg" srcset="assets/opt/icc-ejp-grand-rassemblement-700.jpg 700w, assets/opt/icc-ejp-grand-rassemblement-1200.jpg 1200w" sizes="(max-width: 720px) 50vw, 25vw" alt="Affiche Grand Rassemblement EJP devant le dôme de la Grave à Toulouse" width="1200" height="1500"></figure>
+          </div>
+          <div style="display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:10px 16px; margin-top:clamp(16px,1.6vw,22px);">
+            <span style="display:inline-flex; align-items:baseline; gap:14px; min-width:0;"><span aria-hidden="true" style="font-family:ui-monospace,'SF Mono',monospace; font-size:12px; letter-spacing:0.06em; color:rgba(255,255,255,0.55);">05</span><span data-bs-work-name="1" style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(26px,3vw,42px); line-height:1.04; letter-spacing:-0.01em; transition:color var(--bs-t) ease;">ICC/EJP Toulouse</span></span>
+            <span style="display:inline-flex; align-items:center; gap:9px; font-size:11.5px; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5);">Direction artistique &amp; Social Media</span>
+          </div>
+          <span style="display:inline-flex; align-items:center; gap:12px; margin-top:clamp(18px,2vw,26px); border:1px solid rgba(255,255,255,0.22); color:rgba(255,255,255,0.85); font-size:14px; font-weight:500; letter-spacing:0.02em; padding:12px 22px; border-radius:var(--bs-r-pill);">Voir l’étude de cas <span aria-hidden="true" style="color:#C87A53;">→</span></span>
         </a>
       </div>
     </div>
@@ -1337,6 +1399,182 @@
     </div>
   </section>
 
+  <!-- ============ PAGE PROJET — ICC/EJP TOULOUSE ============
+       Étude de cas de direction artistique : les quatre affiches sont le sujet.
+       Chaque cadre porte le ratio exact de son fichier (aspect-ratio inline, requis
+       par le clip-reveal) et data-bs-no-parallax, car la parallaxe zoome l'image
+       et rognerait le texte en bord d'affiche. -->
+  <section data-page="portfolio-icc-ejp-toulouse" data-screen-label="Projet — ICC/EJP Toulouse" style="display:{{ dPIcc }};">
+
+    <!-- 1 · Hero -->
+    <div style="padding:var(--bs-pad-top-sm) var(--bs-pad-x) 0; max-width:1480px; margin:0 auto;">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:clamp(40px,6vw,88px);">
+        <a data-cursor="link" href="/portfolio" style="display:inline-block; color:rgba(255,255,255,0.6); text-decoration:none; font-size:14px; font-weight:500; transition:color var(--bs-t-fast) ease;" style-hover="color:#C87A53;">← Portfolio</a>
+        <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:12px; letter-spacing:0.08em; color:rgba(255,255,255,0.5);">05 / 05</span>
+      </div>
+      <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:clamp(20px,4vw,56px); flex-wrap:wrap;">
+        <h1 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(46px,8vw,128px); line-height:0.98; letter-spacing:-0.02em; color:#FFFFFF; margin:0;"><span style="display:block; overflow:hidden; padding-bottom:0.08em; margin-bottom:-0.08em;"><span data-hero-line="1" style="display:block;">ICC/EJP</span></span><span style="display:block; overflow:hidden; padding-bottom:0.08em; margin-bottom:-0.08em;"><span data-hero-line="1" style="display:block;">Toulouse<span aria-hidden="true" style="display:inline-block; width:clamp(12px,1.1vw,18px); height:clamp(12px,1.1vw,18px); background:#C87A53; margin-left:0.14em;"></span></span></span></h1>
+        <p style="font-family:ui-monospace,'SF Mono',monospace; font-size:13px; letter-spacing:0.16em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0 0 clamp(8px,1vw,16px);">Direction artistique &amp; communication digitale</p>
+      </div>
+      <p style="font-size:clamp(19px,1.9vw,24px); line-height:1.6; color:rgba(255,255,255,0.88); margin:clamp(28px,3.5vw,48px) 0 0; max-width:640px; text-wrap:pretty;">Une direction artistique pensée pour donner de la cohérence et du caractère à une communication digitale régulière.</p>
+
+      <div data-bs-cs-stage="1" style="margin-top:clamp(56px,8vw,120px);">
+        <div data-bs-cs-frame="1" data-bs-no-parallax="1" style="aspect-ratio:1200/1465;"><img loading="eager" decoding="async" src="assets/opt/icc-ejp-prodiges-experience-1200.jpg" srcset="assets/opt/icc-ejp-prodiges-experience-700.jpg 700w, assets/opt/icc-ejp-prodiges-experience-1200.jpg 1200w" sizes="(max-width: 860px) 50vw, 25vw" alt="Affiche Prodiges Experience : titrage condensé et duo en lumière chaude" width="1200" height="1465"></div>
+        <div data-bs-cs-frame="1" data-bs-no-parallax="1" style="aspect-ratio:4/5;"><img loading="eager" decoding="async" src="assets/opt/icc-ejp-nuit-au-coeur-de-dieu-1200.jpg" srcset="assets/opt/icc-ejp-nuit-au-coeur-de-dieu-700.jpg 700w, assets/opt/icc-ejp-nuit-au-coeur-de-dieu-1200.jpg 1200w" sizes="(max-width: 860px) 50vw, 25vw" alt="Affiche Nuit au cœur de Dieu : portrait en monochrome bleu et titrage ornemental" width="1200" height="1500"></div>
+        <div data-bs-cs-frame="1" data-bs-no-parallax="1" style="aspect-ratio:4/5;"><img loading="eager" decoding="async" src="assets/opt/icc-ejp-university-tour-1200.jpg" srcset="assets/opt/icc-ejp-university-tour-700.jpg 700w, assets/opt/icc-ejp-university-tour-1200.jpg 1200w" sizes="(max-width: 860px) 50vw, 25vw" alt="Affiche University Tour : bandeau d’annonce et cartouche d’infos sur palette sarcelle" width="1200" height="1500"></div>
+        <div data-bs-cs-frame="1" data-bs-no-parallax="1" style="aspect-ratio:4/5;"><img loading="eager" decoding="async" src="assets/opt/icc-ejp-grand-rassemblement-1200.jpg" srcset="assets/opt/icc-ejp-grand-rassemblement-700.jpg 700w, assets/opt/icc-ejp-grand-rassemblement-1200.jpg 1200w" sizes="(max-width: 860px) 50vw, 25vw" alt="Affiche Grand Rassemblement EJP : titrage en volume sur un ciel de Toulouse au crépuscule" width="1200" height="1500"></div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:24px; border-top:1px solid rgba(255,255,255,0.12); padding-top:28px; margin-top:clamp(56px,7vw,96px);">
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <p style="font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">Client</p>
+          <p style="font-size:15.5px; color:rgba(255,255,255,0.85); margin:0;">ICC/EJP Toulouse</p>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <p style="font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">Services</p>
+          <p style="font-size:15.5px; color:rgba(255,255,255,0.85); margin:0;">Direction artistique · Social media</p>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <p style="font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">Secteur</p>
+          <p style="font-size:15.5px; color:rgba(255,255,255,0.85); margin:0;">Église, jeunesse</p>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <p style="font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">Année</p>
+          <p style="font-size:15.5px; color:rgba(255,255,255,0.85); margin:0;">2026</p>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <p style="font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin:0;">Crédits</p>
+          <p style="font-size:15.5px; color:rgba(255,255,255,0.85); margin:0;">Mérald Brenon, Bren’Art Studio</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2 · Le contexte -->
+    <div class="bs-shell" style="padding:var(--bs-pad-y-lg) var(--bs-pad-x) 0;">
+      <div data-bs-cs-split="1">
+        <h2 class="bs-h2" style="margin:0; color:#FFFFFF;">Le contexte</h2>
+        <p style="font-size:clamp(17px,1.6vw,20px); line-height:1.7; color:rgba(255,255,255,0.75); margin:0; max-width:620px; padding-top:clamp(0px,1vw,12px);">ICC/EJP Toulouse communique régulièrement autour de ses événements, campagnes et temps forts. L’objectif était de concevoir des supports visuels capables de capter l’attention tout en conservant une cohérence graphique d’une communication à l’autre.</p>
+      </div>
+    </div>
+
+    <!-- 3 · Mon rôle -->
+    <div class="bs-shell" style="padding:var(--bs-pad-y-lg) var(--bs-pad-x) 0;">
+      <div data-bs-cs-split="1">
+        <div style="display:flex; flex-direction:column; gap:clamp(18px,2vw,26px);">
+          <h2 class="bs-h2" style="margin:0; color:#FFFFFF;">Mon rôle</h2>
+          <p style="font-size:16.5px; line-height:1.7; color:rgba(255,255,255,0.75); margin:0; max-width:420px;">Mon travail consiste à transformer chaque temps fort en une communication visuelle identifiable, tout en adaptant les créations aux différents formats digitaux.</p>
+        </div>
+        <ol data-bs-cs-roles="1">
+          <li><span style="font-family:ui-monospace,'SF Mono',monospace; font-size:12px; letter-spacing:0.06em; color:rgba(255,255,255,0.5);">01</span><span style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(22px,2.6vw,36px); line-height:1.1; letter-spacing:-0.01em; color:#FFFFFF;">Direction artistique</span></li>
+          <li><span style="font-family:ui-monospace,'SF Mono',monospace; font-size:12px; letter-spacing:0.06em; color:rgba(255,255,255,0.5);">02</span><span style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(22px,2.6vw,36px); line-height:1.1; letter-spacing:-0.01em; color:#FFFFFF;">Création graphique</span></li>
+          <li><span style="font-family:ui-monospace,'SF Mono',monospace; font-size:12px; letter-spacing:0.06em; color:rgba(255,255,255,0.5);">03</span><span style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(22px,2.6vw,36px); line-height:1.1; letter-spacing:-0.01em; color:#FFFFFF;">Conception de visuels</span></li>
+          <li><span style="font-family:ui-monospace,'SF Mono',monospace; font-size:12px; letter-spacing:0.06em; color:rgba(255,255,255,0.5);">04</span><span style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(22px,2.6vw,36px); line-height:1.1; letter-spacing:-0.01em; color:#FFFFFF;">Déclinaisons social media</span></li>
+          <li><span style="font-family:ui-monospace,'SF Mono',monospace; font-size:12px; letter-spacing:0.06em; color:rgba(255,255,255,0.5);">05</span><span style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(22px,2.6vw,36px); line-height:1.1; letter-spacing:-0.01em; color:#FFFFFF;">Campagnes événementielles</span></li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- 4 · Les créations — composition asymétrique -->
+    <div class="bs-shell" style="padding:var(--bs-pad-y-lg) var(--bs-pad-x) 0;">
+      <div data-bs-cs-split="1" style="margin-bottom:clamp(56px,8vw,120px);">
+        <h2 class="bs-h2" style="margin:0; color:#FFFFFF; text-wrap:balance;">Une communication pensée comme un système</h2>
+        <p style="font-size:clamp(17px,1.6vw,20px); line-height:1.7; color:rgba(255,255,255,0.75); margin:0; max-width:620px; align-self:end;">Chaque création possède son propre univers, tout en s’inscrivant dans une approche graphique cohérente. Typographie, composition, photographie, couleur et hiérarchie visuelle sont pensés ensemble pour créer des communications immédiatement identifiables.</p>
+      </div>
+
+      <div data-bs-cs-edit="1">
+        <!-- Grand format + légende -->
+        <div data-bs-cs-row="1">
+          <figure style="margin:0;">
+            <div data-bs-cs-frame="1" data-bs-no-parallax="1" style="aspect-ratio:1200/1465;"><img loading="lazy" decoding="async" src="assets/opt/icc-ejp-prodiges-experience-1200.jpg" srcset="assets/opt/icc-ejp-prodiges-experience-700.jpg 700w, assets/opt/icc-ejp-prodiges-experience-1200.jpg 1200w" sizes="(max-width: 860px) 100vw, 740px" alt="Affiche Prodiges Experience en grand format" width="1200" height="1465"></div>
+            <figcaption data-bs-cs-cap="1"><span>01</span><span>Prodiges Experience</span></figcaption>
+          </figure>
+          <div style="display:flex; flex-direction:column; gap:14px; max-width:420px; padding-bottom:clamp(0px,4vw,64px);">
+            <p style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(23px,2.4vw,32px); line-height:1.25; letter-spacing:-0.01em; color:#FFFFFF; margin:0;">Le titre fait l’image.</p>
+            <p style="font-size:16.5px; line-height:1.7; color:rgba(255,255,255,0.75); margin:0;">Un titrage condensé qui occupe toute la largeur, une lumière chaude en contre-jour et une photographie qui porte l’énergie du rendez-vous. L’information pratique reste en retrait, toujours au même endroit.</p>
+          </div>
+        </div>
+
+        <!-- Deux visuels rapprochés, en quinconce -->
+        <div data-bs-cs-pair="1">
+          <figure style="margin:0;">
+            <div data-bs-cs-frame="1" data-bs-no-parallax="1" style="aspect-ratio:4/5;"><img loading="lazy" decoding="async" src="assets/opt/icc-ejp-nuit-au-coeur-de-dieu-1200.jpg" srcset="assets/opt/icc-ejp-nuit-au-coeur-de-dieu-700.jpg 700w, assets/opt/icc-ejp-nuit-au-coeur-de-dieu-1200.jpg 1200w" sizes="(max-width: 860px) 50vw, 520px" alt="Affiche Nuit au cœur de Dieu" width="1200" height="1500"></div>
+            <figcaption data-bs-cs-cap="1"><span>02</span><span>Nuit au cœur de Dieu</span></figcaption>
+          </figure>
+          <figure style="margin:0;">
+            <div data-bs-cs-frame="1" data-bs-no-parallax="1" style="aspect-ratio:4/5;"><img loading="lazy" decoding="async" src="assets/opt/icc-ejp-university-tour-1200.jpg" srcset="assets/opt/icc-ejp-university-tour-700.jpg 700w, assets/opt/icc-ejp-university-tour-1200.jpg 1200w" sizes="(max-width: 860px) 50vw, 520px" alt="Affiche University Tour" width="1200" height="1500"></div>
+            <figcaption data-bs-cs-cap="1"><span>03</span><span>University Tour</span></figcaption>
+          </figure>
+        </div>
+
+        <!-- Section plus large : bande panneau -->
+        <div data-bs-cs-band="1">
+          <div style="display:flex; flex-direction:column; gap:14px; max-width:460px;">
+            <span style="font-family:ui-monospace,'SF Mono',monospace; font-size:12px; letter-spacing:0.06em; color:rgba(255,255,255,0.5);">04 — Grand Rassemblement EJP</span>
+            <p style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(23px,2.4vw,32px); line-height:1.25; letter-spacing:-0.01em; color:#FFFFFF; margin:0;">Un univers par temps fort, une même grammaire.</p>
+            <p style="font-size:16.5px; line-height:1.7; color:rgba(255,255,255,0.75); margin:0;">Bleu nuit, sarcelle, lumière dorée, crépuscule sur Toulouse&nbsp;: les palettes changent d’un événement à l’autre. La signature, le bloc d’informations et la place du titre, eux, restent constants. C’est ce qui rend la série reconnaissable.</p>
+          </div>
+          <div data-bs-cs-frame="1" data-bs-no-parallax="1" style="aspect-ratio:4/5;"><img loading="lazy" decoding="async" src="assets/opt/icc-ejp-grand-rassemblement-1200.jpg" srcset="assets/opt/icc-ejp-grand-rassemblement-700.jpg 700w, assets/opt/icc-ejp-grand-rassemblement-1200.jpg 1200w" sizes="(max-width: 860px) 100vw, 560px" alt="Affiche Grand Rassemblement EJP" width="1200" height="1500"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5 · Du concept au contenu — index des temps forts -->
+    <div class="bs-shell" style="padding:var(--bs-pad-y-lg) var(--bs-pad-x) 0;">
+      <div data-bs-cs-split="1" style="margin-bottom:var(--bs-gap-head);">
+        <h2 class="bs-h2" style="margin:0; color:#FFFFFF;">Du concept au contenu</h2>
+        <p style="font-size:clamp(17px,1.6vw,20px); line-height:1.7; color:rgba(255,255,255,0.75); margin:0; max-width:620px; align-self:end;">Affiches, publications, campagnes événementielles et déclinaisons digitales&nbsp;: chaque support est pensé pour fonctionner dans son contexte tout en conservant une même exigence graphique.</p>
+      </div>
+      <ul data-bs-cs-index="1">
+        <li>
+          <div data-bs-cs-frame="1" data-bs-no-parallax="1" style="aspect-ratio:1200/1465; border-radius:10px;"><img loading="lazy" decoding="async" src="assets/opt/icc-ejp-prodiges-experience-700.jpg" alt="" width="700" height="855"></div>
+          <dl>
+            <dt style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(20px,2vw,28px); line-height:1.15; color:#FFFFFF;">Prodiges Experience</dt>
+            <dd style="font-size:15px; color:rgba(255,255,255,0.75);">Rendez-vous du dimanche</dd>
+            <dd style="font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5);">Condensé · lumière chaude</dd>
+          </dl>
+        </li>
+        <li>
+          <div data-bs-cs-frame="1" data-bs-no-parallax="1" style="aspect-ratio:4/5; border-radius:10px;"><img loading="lazy" decoding="async" src="assets/opt/icc-ejp-nuit-au-coeur-de-dieu-700.jpg" alt="" width="700" height="875"></div>
+          <dl>
+            <dt style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(20px,2vw,28px); line-height:1.15; color:#FFFFFF;">Nuit au cœur de Dieu</dt>
+            <dd style="font-size:15px; color:rgba(255,255,255,0.75);">Soirée, de 23&nbsp;h à 1&nbsp;h</dd>
+            <dd style="font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5);">Ornemental · bleu nuit</dd>
+          </dl>
+        </li>
+        <li>
+          <div data-bs-cs-frame="1" data-bs-no-parallax="1" style="aspect-ratio:4/5; border-radius:10px;"><img loading="lazy" decoding="async" src="assets/opt/icc-ejp-university-tour-700.jpg" alt="" width="700" height="875"></div>
+          <dl>
+            <dt style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(20px,2vw,28px); line-height:1.15; color:#FFFFFF;">University Tour</dt>
+            <dd style="font-size:15px; color:rgba(255,255,255,0.75);">Sortie sur le campus du Mirail</dd>
+            <dd style="font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5);">Signalétique · sarcelle</dd>
+          </dl>
+        </li>
+        <li>
+          <div data-bs-cs-frame="1" data-bs-no-parallax="1" style="aspect-ratio:4/5; border-radius:10px;"><img loading="lazy" decoding="async" src="assets/opt/icc-ejp-grand-rassemblement-700.jpg" alt="" width="700" height="875"></div>
+          <dl>
+            <dt style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(20px,2vw,28px); line-height:1.15; color:#FFFFFF;">Grand Rassemblement</dt>
+            <dd style="font-size:15px; color:rgba(255,255,255,0.75);">Rassemblement connecté en direct</dd>
+            <dd style="font-size:11.5px; font-weight:500; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.5);">Volume · crépuscule</dd>
+          </dl>
+        </li>
+      </ul>
+    </div>
+
+    <!-- 6 · Conclusion -->
+    <div class="bs-shell" style="padding:var(--bs-pad-y-lg) var(--bs-pad-x) 0;">
+      <div style="border-top:1px solid #2A2A2A; padding-top:clamp(56px,7vw,90px); display:flex; flex-direction:column; gap:clamp(24px,3vw,40px);">
+        <h2 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(34px,5.2vw,80px); line-height:1.02; letter-spacing:-0.015em; color:#FFFFFF; margin:0; max-width:16ch; text-wrap:balance;">Donner une identité à chaque prise de parole<span style="color:#C87A53;">.</span></h2>
+        <p style="font-size:clamp(17px,1.6vw,20px); line-height:1.7; color:rgba(255,255,255,0.75); margin:0; max-width:620px; align-self:flex-end;">Une communication efficace ne consiste pas seulement à créer de beaux visuels. Elle consiste à construire un langage graphique capable de rester cohérent, reconnaissable et pertinent dans le temps.</p>
+      </div>
+    </div>
+
+    <!-- 7 · CTA -->
+    <div class="bs-section bs-section--lg" style="max-width:1480px; margin:0 auto; text-align:center;">
+      <h2 style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(30px,4.5vw,64px); line-height:1.05; letter-spacing:-0.015em; color:#FFFFFF; margin:0 auto clamp(30px,4vw,48px); max-width:20ch; text-wrap:balance;">Vous avez besoin de contenus qui donnent du caractère à votre marque&nbsp;?</h2>
+      <a data-cursor="link" href="/contact" data-bs-mag-target="1" style="display:inline-flex; align-items:center; gap:10px; background:#C87A53; color:#FFFFFF; text-decoration:none; font-size:15px; font-weight:500; padding:17px 32px; border-radius:var(--bs-r-pill); transition:background var(--bs-t-fast) ease, box-shadow var(--bs-t-fast) ease, transform var(--bs-t-fast) ease;" style-hover="background:#D89265; box-shadow:0 8px 24px rgba(0,0,0,0.4); transform:translateY(-2px);">Parlons de votre projet <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
   <!-- ============ PAGE SERVICES ============ -->
   <section data-page="services" data-screen-label="Services" style="display:{{ dServices }};">
     <!-- ============ Studio Partenaire ============
@@ -1500,6 +1738,22 @@
                 <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:14px; line-height:1.45; color:#FFFFFF;">Accompagnement au lancement et points de suivi</span></li>
               </ul>
             </div>
+            <!-- Production de contenus : sur le temps des journées réservées, jamais en volume illimité -->
+            <div style="grid-column:1 / -1;">
+              <p style="font-family:'Archivo',sans-serif; font-size:11px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:var(--bs-label); margin:0 0 4px;">Produire vos supports</p>
+              <ul style="list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr)); column-gap:clamp(20px,2.4vw,32px);">
+                <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:14px; line-height:1.45; color:#FFFFFF;">Création de visuels pour les réseaux sociaux</span></li>
+                <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:14px; line-height:1.45; color:#FFFFFF;">Affiches et supports de communication</span></li>
+                <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:14px; line-height:1.45; color:#FFFFFF;">Création de campagnes visuelles</span></li>
+                <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:14px; line-height:1.45; color:#FFFFFF;">Déclinaisons de l’identité visuelle</span></li>
+                <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:14px; line-height:1.45; color:#FFFFFF;">Adaptations pour Instagram et formats digitaux</span></li>
+                <li class="bs-feat"><span class="bs-feat-dot"></span><span style="font-size:14px; line-height:1.45; color:#FFFFFF;">Direction artistique continue</span></li>
+              </ul>
+            </div>
+          </div>
+          <div style="margin:auto 0 0;">
+            <div style="height:1px; background:rgba(255,255,255,0.12); margin:28px 0 16px;"></div>
+            <p style="font-size:13.5px; line-height:1.55; color:var(--bs-label); font-style:italic; margin:0; max-width:70ch;"><span style="display:block; font-family:'Archivo',sans-serif; font-style:normal; font-weight:500; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--bs-label); margin-bottom:7px; opacity:0.85;">Bon à savoir</span>Pour les marques dont Bren’Art Studio a créé l’identité visuelle, les créations de contenus et supports de communication peuvent être réalisées dans le cadre de l’accompagnement. Elles prennent place sur le temps de vos journées réservées&nbsp;: leur volume dépend du nombre de journées et de la complexité de chaque support.</p>
           </div>
         </div>
 
@@ -1926,7 +2180,7 @@ class Component extends DCLogic {
   state = { page: 'accueil', menuOpen: false, faqOpen: 0, sent: false, sending: false, error: null, isMobile: false, hov: -1, nextHov: -1, motion: false, finePointer: false, ctaNavHov: false, ineevaEmbed: 'loading', laureEmbed: 'loading' };
 
   componentDidMount() {
-    const pages = ['accueil', 'portfolio', 'portfolio-ineeva', 'portfolio-acasa', 'portfolio-laure-fagbohoun', 'portfolio-koryaa', 'services', 'about', 'contact'];
+    const pages = ['accueil', 'portfolio', 'portfolio-ineeva', 'portfolio-acasa', 'portfolio-laure-fagbohoun', 'portfolio-koryaa', 'portfolio-icc-ejp-toulouse', 'services', 'about', 'contact'];
     this._pages = pages;
     this._trs = [];
 
@@ -1940,7 +2194,8 @@ class Component extends DCLogic {
       'accueil': '/', 'portfolio': '/portfolio', 'services': '/services',
       'about': '/a-propos', 'contact': '/contact',
       'portfolio-ineeva': '/portfolio/ineeva', 'portfolio-acasa': '/portfolio/acasa',
-      'portfolio-koryaa': '/portfolio/koryaa', 'portfolio-laure-fagbohoun': '/portfolio/laure-fagbohoun'
+      'portfolio-koryaa': '/portfolio/koryaa', 'portfolio-laure-fagbohoun': '/portfolio/laure-fagbohoun',
+      'portfolio-icc-ejp-toulouse': '/portfolio/icc-ejp-toulouse'
     };
     const PATH_TO_PAGE = {};
     Object.keys(PAGE_TO_PATH).forEach((k) => { PATH_TO_PAGE[PAGE_TO_PATH[k]] = k; });
@@ -2728,6 +2983,7 @@ class Component extends DCLogic {
       'portfolio-acasa': { t: "Acasa, branding magasin de meubles | Bren’Art Studio", d: "Identité de marque pour Acasa, magasin de meubles. Une étude de cas branding signée Bren’Art Studio, designer à Toulouse." },
       'portfolio-laure-fagbohoun': { t: "Laure Fagbohoun, site portfolio | Bren’Art Studio", d: "Direction artistique et site portfolio pour Laure Fagbohoun. Une réalisation Bren’Art Studio, studio de création digitale à Toulouse." },
       'portfolio-koryaa': { t: "Koryaa, branding cosmétique | Bren’Art Studio", d: "Branding pour Koryaa, cosmétiques capillaires au Sea Moss pour cheveux afro. Une étude de cas signée Bren’Art Studio, designer à Toulouse." },
+      'portfolio-icc-ejp-toulouse': { t: "ICC/EJP Toulouse, direction artistique | Bren’Art Studio", d: "Direction artistique et communication digitale pour ICC/EJP Toulouse : une série d’affiches événementielles cohérente. Une étude de cas Bren’Art Studio." },
       'services': { t: "Studio Partenaire, studio créatif externalisé | Bren’Art Studio", d: "Studio créatif externalisé à Toulouse pour startups et PME : branding, communication, réseaux sociaux et web. 400 € la journée, dès 3 jours par mois." },
       'about': { t: "À propos de nous | Bren’Art Studio", d: "Mérald Brenon, designer freelance à Toulouse, est le studio design indépendant Bren’Art : une seule main, du positionnement à la mise en ligne de votre image." },
       'contact': { t: "Contactez-nous | Bren’Art Studio", d: "Contactez Bren’Art Studio à Toulouse pour un partenariat créatif mensuel ou un projet sur devis. Réponse argumentée sous 48 h ouvrées." }
@@ -2750,7 +3006,7 @@ class Component extends DCLogic {
         if (ot) ot.setAttribute('content', seo.t);
         const od = document.querySelector('meta[property="og:description"]');
         if (od) od.setAttribute('content', seo.d);
-        const U = { 'accueil': '/', 'portfolio': '/portfolio', 'portfolio-ineeva': '/portfolio/ineeva', 'portfolio-acasa': '/portfolio/acasa', 'portfolio-laure-fagbohoun': '/portfolio/laure-fagbohoun', 'portfolio-koryaa': '/portfolio/koryaa', 'services': '/services', 'about': '/a-propos', 'contact': '/contact' };
+        const U = { 'accueil': '/', 'portfolio': '/portfolio', 'portfolio-ineeva': '/portfolio/ineeva', 'portfolio-acasa': '/portfolio/acasa', 'portfolio-laure-fagbohoun': '/portfolio/laure-fagbohoun', 'portfolio-koryaa': '/portfolio/koryaa', 'portfolio-icc-ejp-toulouse': '/portfolio/icc-ejp-toulouse', 'services': '/services', 'about': '/a-propos', 'contact': '/contact' };
         const url = 'https://brenartstudio.fr' + (U[page] || '/');
         const lc = document.querySelector('link[rel="canonical"]');
         if (lc) lc.setAttribute('href', url);
@@ -2772,6 +3028,7 @@ class Component extends DCLogic {
       dPAcasa: d('portfolio-acasa'),
       dPLaure: d('portfolio-laure-fagbohoun'),
       dPKoryaa: d('portfolio-koryaa'),
+      dPIcc: d('portfolio-icc-ejp-toulouse'),
       dServices: d('services'),
       dAbout: d('about'),
       dContact: d('contact'),
