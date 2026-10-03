@@ -1,2 +1,7 @@
 node_modules
 .env
+
+# Aperçus locaux et configuration de la session de design.
+.impeccable/live/
+artifacts/*
+!artifacts/motion-smoke.mjs

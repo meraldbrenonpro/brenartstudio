@@ -14,9 +14,28 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { build } from 'esbuild';
+import { motionTokens } from './assets/motion-library.js';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 const SRC = join(ROOT, 'index.html');
+
+// Bundle only Motion's small DOM animator and the shared spring presets.
+await build({
+  entryPoints: [join(ROOT, 'assets/motion-library.js')],
+  outfile: join(ROOT, 'assets/motion-core.js'),
+  bundle: true, minify: true, format: 'iife', target: ['es2020'],
+  legalComments: 'eof',
+  banner: { js: '/*! Motion DOM — MIT license: motion-core.LICENSE.txt */' },
+});
+writeFileSync(join(ROOT, 'assets/motion-core.LICENSE.txt'),
+  ['motion', 'framer-motion', 'motion-dom', 'motion-utils'].map((name) =>
+    `${name}\n${readFileSync(join(ROOT, 'node_modules', name, 'LICENSE.md'), 'utf8')}`
+  ).join('\n\n'));
+const { duration, easing } = motionTokens;
+writeFileSync(join(ROOT, 'assets/motion-tokens.css'), `/* Generated from motion-library.js. */
+:root { --motion-instant:${duration.instant}s; --motion-quick:${duration.fast}s; --motion-standard:${duration.normal}s; --motion-slow:${duration.slow}s; --motion-ease:cubic-bezier(${easing.smooth.join(',')}); }
+`);
 
 // page interne  ->  URL propre (doit rester synchro avec le routeur d'index.html)
 const PAGE_TO_PATH = {
@@ -37,7 +56,7 @@ const ORIGIN = 'https://brenartstudio.fr';
 // plutôt que neuf blocs JSON-LD recopiés à la main dans index.html.
 const PAGE_META = {
   'portfolio':      { crumb: 'Portfolio' },
-  'services':       { crumb: 'Services', og: ['services', "Bren'Art Studio, Studio Partenaire : votre studio créatif, chaque mois."] },
+  'services':       { crumb: 'Services', og: ['services', "Bren'Art Studio : identité de marque, webdesign et communication."] },
   'about':          { crumb: 'À propos', person: true, og: ['a-propos', "Mérald Brenon, designer digital à Toulouse, fondateur de Bren'Art Studio."] },
   'contact':        { crumb: 'Contact', faq: true },
   'portfolio-ineeva': {
@@ -212,8 +231,8 @@ function transform(html, page, seo) {
     `<style id="bs-prerender">section[data-page]{display:none}` +
     `section[data-page="${page}"]{display:block}` +
     `[data-bs-prehide]{display:none}` +
-    `[data-bs-navlink][href="${navHref}"],[data-bs-navmob][href="${navHref}"]{color:#FFFFFF}` +
-    `[data-bs-navlink][href="${navHref}"]{text-decoration-color:#FFFFFF}` +
+    `[data-bs-navlink][href="${navHref}"],[data-bs-navmob][href="${navHref}"]{color:#171717}` +
+    `[data-bs-navlink][href="${navHref}"]{text-decoration-color:#171717}` +
     `</style>\n</head>`);
 
   // --- JSON-LD par page : fil d'ariane + fiche d'œuvre ---------------------
