@@ -31,6 +31,12 @@ node build-static.mjs
 Le script est **idempotent** (ré-exécutable sans risque). Le `Dockerfile` le lance
 automatiquement à chaque build, donc en déploiement Coolify c'est transparent.
 
+Le build ajoute aux CSS et JavaScript locaux une version calculée sur leur contenu
+(`?v=…`), y compris dans les trois documents légaux. Dès qu'un fichier change,
+son URL change : les visiteurs chargent la mise à jour sans devoir vider le cache.
+Les dépendances verrouillées doivent être installées avec `npm ci --include=dev`
+avant la génération, pour compiler le moteur Motion local.
+
 ## Déploiement Coolify (VPS Ubuntu + Nginx)
 
 1. Pousser le repo (avec `Dockerfile`, `nginx.conf`, `build-static.mjs`).

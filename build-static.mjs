@@ -16,6 +16,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { build } from 'esbuild';
 import { motionTokens } from './assets/motion-library.js';
+import { versionAssetLinks } from './lib/asset-versions.mjs';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 const SRC = join(ROOT, 'index.html');
@@ -279,7 +280,7 @@ function transform(html, page, seo) {
     out = out.replace('</head>', `<!--bs-page-ld-->\n${ld}\n<!--/bs-page-ld-->\n</head>`);
   }
 
-  return out;
+  return versionAssetLinks(out, ROOT);
 }
 
 // --- 3. Génération ----------------------------------------------------------
@@ -300,3 +301,9 @@ for (const [page, path] of Object.entries(PAGE_TO_PATH)) {
   count++;
 }
 console.log(`\n${count} page(s) générée(s).`);
+
+// Legal documents have their own markup but share the same cache-safe assets.
+for (const page of ['mentions-legales', 'confidentialite', 'cgv']) {
+  const file = join(ROOT, page, 'index.html');
+  writeFileSync(file, versionAssetLinks(readFileSync(file, 'utf8'), ROOT), 'utf8');
+}

@@ -43,6 +43,7 @@ class NodeDouble {
   setAttribute(key, value) { this.attributes[key] = value; }
   removeAttribute(key) { delete this.attributes[key]; }
   toggleAttribute(key, enabled) { enabled ? this.setAttribute(key, '') : this.removeAttribute(key); }
+  matches() { return this.hasAttribute('tabindex') || ['A', 'BUTTON', 'INPUT', 'SELECT', 'TEXTAREA', 'SUMMARY'].includes(this.tagName); }
   append(child) { child.parent = this; this.children.push(child); return child; }
   contains(node) { return node === this || this.children.some(child => child.contains(node)); }
   querySelectorAll(selector) { return this.selectors.get(selector) || []; }
@@ -54,7 +55,7 @@ class NodeDouble {
   }
   getClientRects() { return this.style.display === 'none' ? [] : [{}]; }
   getBoundingClientRect() { return { top: 100, bottom: 600, height: 500, width: 500, left: 0 }; }
-  focus() { this.focusCount++; }
+  focus(options) { this.focusCount++; this.focusOptions = options; }
   scrollIntoView() { this.scrollCount++; }
   animate() {} // Feature detection; the library double owns actual controls.
 }
@@ -230,6 +231,8 @@ function environment({ reduced = false, lowEnd = false, hidden = false, hero = f
   assert.equal(app.state.page, 'services'); assert.equal(e.window.location.hash, '#identite');
   assert.equal(e.ids.get('web').open, false, 'cancelled anchor must not open');
   assert.equal(e.ids.get('identite').open, true); assert.equal(e.ids.get('identite').scrollCount, 1);
+  assert.equal(e.ids.get('identite').querySelector('summary').focusCount, 1, 'destination summary must receive focus');
+  assert.equal(e.ids.get('identite').querySelector('summary').focusOptions.preventScroll, true, 'focus must not undo the explicit anchor scroll');
   e.click(app, '/'); e.jobs.at(-1).complete(); await microtasks();
   assert.equal(app.state.page, 'accueil'); assert.equal(e.window.location.hash, '');
   app.componentWillUnmount();

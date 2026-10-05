@@ -5,3 +5,5 @@ node_modules
 .impeccable/live/
 artifacts/*
 !artifacts/motion-smoke.mjs
+!artifacts/asset-versions-smoke.mjs
+!artifacts/menu-smoke.mjs

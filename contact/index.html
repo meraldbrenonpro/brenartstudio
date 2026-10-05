@@ -131,14 +131,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/motion-tokens.css">
-<link rel="stylesheet" href="assets/redesign.css">
-<link rel="stylesheet" href="assets/services.css">
-<link rel="stylesheet" href="assets/cases.css">
-<link rel="stylesheet" href="assets/home.css">
-<script src="assets/motion-core.js" defer></script>
-<script src="assets/motion.js" defer></script>
-<script src="./support.js"></script>
+<link rel="stylesheet" href="assets/motion-tokens.css?v=c7562992042d450a">
+<link rel="stylesheet" href="assets/redesign.css?v=3f8ff8696c9132d7">
+<link rel="stylesheet" href="assets/services.css?v=c429d05f9bfe4bac">
+<link rel="stylesheet" href="assets/cases.css?v=547297e3fe8d7f44">
+<link rel="stylesheet" href="assets/home.css?v=b806bec331cd94f0">
+<script src="assets/motion-core.js?v=2b1fc6a05367c46b" defer></script>
+<script src="assets/motion.js?v=3df72af9c9af3d92" defer></script>
+<script src="./support.js?v=7c923c3f6027e809"></script>
 <style id="bs-prerender">section[data-page]{display:none}section[data-page="contact"]{display:block}[data-bs-prehide]{display:none}[data-bs-navlink][href="/contact"],[data-bs-navmob][href="/contact"]{color:#171717}[data-bs-navlink][href="/contact"]{text-decoration-color:#171717}</style>
 <!--bs-page-ld-->
 <script type="application/ld+json">
@@ -1003,7 +1003,7 @@ class Component extends DCLogic {
         if (anchor) {
           e.preventDefault();
           anchor.scrollIntoView({ behavior: this._rm.matches ? 'auto' : 'smooth' });
-          if (anchor.hasAttribute('tabindex')) anchor.focus({ preventScroll: true });
+          this._focusTarget(anchor);
         }
         return;
       }
@@ -1036,20 +1036,51 @@ class Component extends DCLogic {
     this.setState({ page: pageFromUrl(), motion: motion, finePointer: this._fp.matches }, () => this._setupPage(pageFromUrl()));
 
     this._mq = window.matchMedia('(max-width: 1020px)');
-    this._onMq = () => this.setState({ isMobile: this._mq.matches });
+    this._onMq = () => {
+      const isMobile = this._mq.matches;
+      const focused = document.activeElement;
+      const menu = document.getElementById('bs-mobile-menu');
+      const toggle = document.querySelector('[data-bs-menu-toggle]');
+      const leavingMobileFocus = !isMobile && (focused === toggle || (menu && menu.contains(focused)));
+      const href = focused && focused.getAttribute('href');
+      this.setState({ isMobile, menuOpen: isMobile && this.state.menuOpen }, () => {
+        this._syncMenuAccessibility();
+        if (leavingMobileFocus) this._focusDesktopNav(href);
+      });
+    };
     if (this._mq.addEventListener) this._mq.addEventListener('change', this._onMq);
     this._onMq();
 
     this._initNavPill();
 
-    // Échap ferme le menu mobile
-    this._onKey = (e) => { if (e.key === 'Escape' && this.state.menuOpen) {
-      this.setState({ menuOpen: false }, () => {
-        const toggle = document.querySelector('[data-bs-menu-toggle]');
-        if (toggle) toggle.focus();
-      });
-    } };
+    // Le scrim couvre le contenu : le clavier reste dans la navigation visible.
+    this._onKey = (e) => {
+      if (!this.state.isMobile || !this.state.menuOpen) return;
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        this._setMenuOpen(false);
+      } else if (e.key === 'Tab') {
+        const items = this._menuFocusables();
+        const first = items[0], last = items[items.length - 1];
+        if (!first) return;
+        const focused = document.activeElement;
+        if (e.shiftKey && (focused === first || items.indexOf(focused) < 0)) {
+          e.preventDefault(); last.focus();
+        } else if (!e.shiftKey && (focused === last || items.indexOf(focused) < 0)) {
+          e.preventDefault(); first.focus();
+        }
+      }
+    };
     window.addEventListener('keydown', this._onKey);
+    this._onMenuFocus = (e) => {
+      if (!this.state.isMobile || !this.state.menuOpen) return;
+      const header = document.querySelector('.rd-header');
+      if (header && !header.contains(e.target)) {
+        const first = document.querySelector('#bs-mobile-menu a');
+        if (first) first.focus();
+      }
+    };
+    document.addEventListener('focusin', this._onMenuFocus);
 
     // vidéos en boucle (planches projet) : muettes, bouclées, lues quand visibles
     (() => {
@@ -1209,6 +1240,44 @@ class Component extends DCLogic {
     if (main) main.focus({ preventScroll: true });
   }
 
+  _focusTarget(target) {
+    if (!target.matches('a[href], button, input, select, textarea, summary, [tabindex]')) {
+      target.setAttribute('tabindex', '-1');
+    }
+    target.focus({ preventScroll: true });
+  }
+
+  _menuFocusables() {
+    return Array.from(document.querySelectorAll('.rd-header a[href], .rd-header button:not([disabled])'))
+      .filter((node) => node.getClientRects().length);
+  }
+
+  _syncMenuAccessibility(open = this.state.isMobile && this.state.menuOpen) {
+    if (open && !this._menuInert) {
+      this._menuInert = Array.from(document.querySelectorAll('#bs-main, .rd-footer, .bs-skip'))
+        .map((node) => ({ node, wasInert: node.hasAttribute('inert') }));
+      this._menuInert.forEach(({ node }) => node.setAttribute('inert', ''));
+    } else if (!open && this._menuInert) {
+      this._menuInert.forEach(({ node, wasInert }) => node.toggleAttribute('inert', wasInert));
+      this._menuInert = null;
+    }
+  }
+
+  _focusDesktopNav(href) {
+    const links = Array.from(document.querySelectorAll('.rd-nav-links a'));
+    const target = links.find((node) => node.getAttribute('href') === (href || this._pageToPath[this.state.page]))
+      || document.querySelector('.rd-brand');
+    if (target) target.focus({ preventScroll: true });
+  }
+
+  _setMenuOpen(open) {
+    this.setState({ menuOpen: !!open && this.state.isMobile }, () => {
+      this._syncMenuAccessibility();
+      const target = document.querySelector(this.state.menuOpen ? '#bs-mobile-menu a' : '[data-bs-menu-toggle]');
+      if (target && target.getClientRects().length) target.focus({ preventScroll: true });
+    });
+  }
+
   _navigate(target, anchor) {
     const generation = ++this._navGeneration;
     const changingPage = target !== this.state.page;
@@ -1217,6 +1286,7 @@ class Component extends DCLogic {
       if (this._unmounted || generation !== this._navGeneration) return;
       this.setState({ page: target, menuOpen: false, hov: -1, nextHov: -1 }, () => {
         if (this._unmounted || generation !== this._navGeneration) return;
+        this._syncMenuAccessibility();
         window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
         this._focusMain();
         this._setupPage(target, anchor, generation, 'route');
@@ -1227,6 +1297,7 @@ class Component extends DCLogic {
       if (window.BrenMotion) window.BrenMotion.resumePage(current);
       this.setState({ menuOpen: false }, () => {
         if (this._unmounted || generation !== this._navGeneration) return;
+        this._syncMenuAccessibility();
         this._focusMain();
         if (anchor) this._setupPage(target, anchor, generation, 'same');
         else window.scrollTo({ top: 0, behavior: this._rm.matches ? 'auto' : 'smooth' });
@@ -1254,7 +1325,7 @@ class Component extends DCLogic {
           if (target.tagName === 'DETAILS') target.open = true;
           target.scrollIntoView({ behavior: 'instant', block: 'start' });
           const focusTarget = target.querySelector('summary') || target;
-          if (focusTarget.hasAttribute('tabindex') || focusTarget.tagName === 'SUMMARY') focusTarget.focus({ preventScroll: true });
+          this._focusTarget(focusTarget);
         }
         if (window.BrenMotion && transition !== 'same') window.BrenMotion.enterPage(active, { navigation: transition === 'route' });
       });
@@ -1280,6 +1351,8 @@ class Component extends DCLogic {
     if (this._raf) cancelAnimationFrame(this._raf);
     if (this._onMove) window.removeEventListener('mousemove', this._onMove);
     if (this._onKey) window.removeEventListener('keydown', this._onKey);
+    if (this._onMenuFocus) document.removeEventListener('focusin', this._onMenuFocus);
+    this._syncMenuAccessibility(false);
     if (this._statIo) this._statIo.disconnect();
     if (this._pbar && this._pbar.parentNode) this._pbar.parentNode.removeChild(this._pbar);
     if (this._worksTag && this._worksTag.parentNode) this._worksTag.parentNode.removeChild(this._worksTag);
@@ -1365,14 +1438,8 @@ class Component extends DCLogic {
       scrimD: isMobile && menuOpen ? 'block' : 'none',
       menuExpanded: isMobile && menuOpen ? 'true' : 'false',
       menuLabel: menuOpen ? 'Fermer le menu' : 'Ouvrir le menu',
-      toggleMenu: () => this.setState((s) => ({ menuOpen: !s.menuOpen }), () => {
-        const target = document.querySelector(this.state.menuOpen ? '#bs-mobile-menu a' : '[data-bs-menu-toggle]');
-        if (target) target.focus();
-      }),
-      closeMenu: () => this.setState({ menuOpen: false }, () => {
-        const toggle = document.querySelector('[data-bs-menu-toggle]');
-        if (toggle) toggle.focus();
-      }),
+      toggleMenu: () => this._setMenuOpen(!this.state.menuOpen),
+      closeMenu: () => this._setMenuOpen(false),
       requestTypeChange: (e) => this.setState({ requestType: e.target.value }),
       budgetD: this.state.requestType === 'studio-partenaire' ? 'flex' : 'none',
       formD: sent ? 'none' : 'flex',
