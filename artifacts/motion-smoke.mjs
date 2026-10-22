@@ -6,6 +6,7 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { spring } from 'motion';
 
 const base = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const motionSource = fs.readFileSync(path.join(base, 'assets/motion.js'), 'utf8');
@@ -21,6 +22,7 @@ function events(object = {}) {
     addEventListener(type, fn) { if (!listeners.has(type)) listeners.set(type, new Set()); listeners.get(type).add(fn); },
     removeEventListener(type, fn) { listeners.get(type)?.delete(fn); },
     emit(type, event = {}) { for (const fn of [...(listeners.get(type) || [])]) fn({ type, ...event }); },
+    listenerCount(type) { return listeners.get(type)?.size || 0; },
   });
 }
 
@@ -28,6 +30,7 @@ class NodeDouble {
   constructor(tag = 'DIV', attributes = {}) {
     this.tagName = tag; this.attributes = attributes; this.children = []; this.selectors = new Map();
     this.open = false; this.focusCount = 0; this.scrollCount = 0; this.offsetHeight = 500;
+    events(this);
     const values = new Map();
     this.style = new Proxy({
       getPropertyValue: key => values.get(key) || '',
@@ -51,31 +54,58 @@ class NodeDouble {
   closest(selector) {
     if (selector === 'a' && this.tagName === 'A') return this;
     if (selector === '[data-ba-stack]' && this.hasAttribute('data-ba-stack')) return this;
+    if (selector === '[data-ba-gallery]' && this.hasAttribute('data-ba-gallery')) return this;
+    if (selector.split(',').some(part => part.trim().startsWith('.') && (this.attributes.class || '').split(' ').includes(part.trim().slice(1)))) return this;
     return this.parent?.closest(selector) || null;
   }
   getClientRects() { return this.style.display === 'none' ? [] : [{}]; }
-  getBoundingClientRect() { return { top: 100, bottom: 600, height: 500, width: 500, left: 0 }; }
+  getBoundingClientRect() { return this.rect ? this.rect() : { top: 100, bottom: 600, height: 500, width: 500, left: 0 }; }
   focus(options) { this.focusCount++; this.focusOptions = options; }
   scrollIntoView() { this.scrollCount++; }
   animate() {} // Feature detection; the library double owns actual controls.
 }
 
-function environment({ reduced = false, lowEnd = false, hidden = false, hero = false } = {}) {
-  const jobs = [], observers = [], frames = new Map(); let nextFrame = 1;
+function environment({ reduced = false, lowEnd = false, hidden = false, hero = false, compact = false, coarse = false, fine = !coarse, gallery = false, noLibrary = false } = {}) {
+  const jobs = [], observers = [], frames = new Map(); let nextFrame = 1, now = 0;
   const roots = ['accueil', 'services', 'contact'].map(page => new NodeDouble('SECTION', { 'data-page': page }));
   roots.forEach((root, index) => root.style.display = index ? 'none' : 'block');
   const main = new NodeDouble('MAIN'), html = new NodeDouble('HTML'); html.clientHeight = 800;
   const ids = new Map([['bs-main', main]]);
-  const stack = roots[0].append(new NodeDouble('DIV', { 'data-ba-stack': '' }));
-  const cards = [stack.append(new NodeDouble()), stack.append(new NodeDouble())];
+  const stack = roots[0].append(new NodeDouble('DIV', { 'data-ba-stack': '', ...(gallery ? { 'data-ba-gallery': '' } : {}) }));
+  const cards = Array.from({ length: gallery ? 5 : 2 }, () => stack.append(new NodeDouble(gallery ? 'A' : 'DIV')));
   stack.selectors.set('[data-ba-project]', cards);
   roots[0].selectors.set('[data-ba-stack]', [stack]);
+  let galleryNodes;
+  if (gallery) {
+    const visuals = cards.map(card => card.append(new NodeDouble('DIV', { 'data-ba-gallery-reveal': '' })));
+    const media = [0, 3].map((index, position) => visuals[index].append(new NodeDouble('DIV', { 'data-ba-parallax': position ? '10' : '8' })));
+    roots[0].selectors.set('[data-ba-gallery-reveal]', visuals);
+    roots[0].selectors.set('[data-ba-parallax]', media);
+    galleryNodes = { stack, cards, visuals, media };
+  }
   const heading = roots[0].append(new NodeDouble('H2'));
   roots[0].selectors.set('[data-ba-reveal]', [heading]);
+  let heroNodes;
   if (hero) {
-    roots[0].selectors.set('.bh-hero-copy', [roots[0].append(new NodeDouble())]);
-    roots[0].selectors.set('.bh-hero-piece', [roots[0].append(new NodeDouble('A')), roots[0].append(new NodeDouble('A'))]);
-    roots[0].selectors.set('.bh-hero-foot', [roots[0].append(new NodeDouble())]);
+    const copy = roots[0].append(new NodeDouble());
+    const lines = Array.from({ length: 3 }, () => copy.append(new NodeDouble('SPAN')));
+    const description = copy.append(new NodeDouble('P'));
+    const actions = Array.from({ length: 2 }, () => copy.append(new NodeDouble('A')));
+    const art = roots[0].append(new NodeDouble());
+    const stage = art.append(new NodeDouble());
+    const planes = Array.from({ length: 2 }, () => stage.append(new NodeDouble()));
+    const pieces = planes.map(plane => plane.append(new NodeDouble('A')));
+    const foot = roots[0].append(new NodeDouble());
+    copy.selectors.set('h1>span', lines);
+    copy.selectors.set('.bh-hero-description', [description]);
+    copy.selectors.set('.bh-hero-actions>a', actions);
+    art.selectors.set('.bh-hero-stage', [stage]);
+    roots[0].selectors.set('.bh-hero-copy', [copy]);
+    roots[0].selectors.set('.bh-hero-art', [art]);
+    roots[0].selectors.set('.bh-hero-plane', planes);
+    roots[0].selectors.set('.bh-hero-piece', pieces);
+    roots[0].selectors.set('.bh-hero-foot', [foot]);
+    heroNodes = { copy, lines, description, actions, art, stage, planes, pieces, foot };
   }
   for (const id of ['web', 'identite']) {
     const detail = roots[1].append(new NodeDouble('DETAILS', { id }));
@@ -93,7 +123,11 @@ function environment({ reduced = false, lowEnd = false, hidden = false, hero = f
   });
   const media = new Map();
   const matchMedia = query => {
-    if (!media.has(query)) media.set(query, events({ matches: query.includes('reduced-motion') && reduced }));
+    const matches = query.includes('reduced-motion') ? reduced
+      : query.includes('max-width') ? compact
+      : query.includes('pointer: coarse') ? coarse
+      : query.includes('pointer: fine') ? fine : false;
+    if (!media.has(query)) media.set(query, events({ matches }));
     return media.get(query);
   };
   const raf = fn => { const id = nextFrame++; frames.set(id, fn); return id; };
@@ -120,9 +154,9 @@ function environment({ reduced = false, lowEnd = false, hidden = false, hero = f
   };
   const location = { origin: 'https://example.test', pathname: '/', hash: '' };
   const window = events({
-    document, location, innerHeight: 800, matchMedia,
+    document, location, innerHeight: 800, scrollY: 0, matchMedia,
     requestAnimationFrame: raf, cancelAnimationFrame: cancelRaf,
-    getComputedStyle: node => ({ display: node.style.display || 'block', top: '100px', transform: node.style.transform || 'none', opacity: node.style.opacity || '1' }),
+    getComputedStyle: node => ({ display: node.style.display || 'block', top: node.computedTop || '100px', transform: node.style.transform || 'none', scale: node.style.scale || 'none', opacity: node.style.opacity || '1' }),
     scrollTo() {}, IntersectionObserver: Observer,
     history: { pushState(_state, _title, target) { const url = new URL(target, location.origin); location.pathname = url.pathname; location.hash = url.hash; } },
   });
@@ -136,12 +170,26 @@ function environment({ reduced = false, lowEnd = false, hidden = false, hero = f
   const context = vm.createContext({
     window, document, navigator: { hardwareConcurrency: lowEnd ? 2 : 8, deviceMemory: lowEnd ? 2 : 8 },
     requestAnimationFrame: raf, cancelAnimationFrame: cancelRaf, IntersectionObserver: Observer,
-    animate, spring() {}, DCLogic, React: {}, URL, setTimeout, clearTimeout, performance, console,
+    animate, spring, DCLogic, React: {}, URL, setTimeout, clearTimeout, performance: { now: () => now }, console,
   });
-  vm.runInContext(librarySource, context);
+  if (galleryNodes) {
+    const rectangle = (top, height = 500) => ({ top, bottom: top + height, height, width: 750, left: 0 });
+    stack.rect = () => rectangle(360 - window.scrollY, 2884);
+    cards.forEach((card, index) => {
+      card.computedTop = (106 + index * 8) + 'px';
+      card.rect = () => {
+        const flowTop = 360 + index * 596 - window.scrollY;
+        const top = stack.hasAttribute('data-ba-gallery-motion') ? Math.max(106 + index * 8, flowTop) : flowTop;
+        return rectangle(top + (parseFloat(card.style.getPropertyValue('--stack-shift')) || 0));
+      };
+    });
+    galleryNodes.media.forEach((node, index) => node.rect = () => rectangle(cards[index ? 3 : 0].getBoundingClientRect().top, 430));
+  }
+  if (!noLibrary) vm.runInContext(librarySource, context);
   vm.runInContext(motionSource, context);
   const motion = window.BrenMotion;
-  const flushFrames = () => { const pending = [...frames.values()]; frames.clear(); pending.forEach(fn => fn(0)); };
+  const flushFrames = (elapsed = 1000 / 60) => { now += elapsed; const pending = [...frames.values()]; frames.clear(); pending.forEach(fn => fn(now)); };
+  const advance = (elapsed = 1000) => { for (let time = 0; time < elapsed; time += 1000 / 60) flushFrames(); };
   const makeComponent = () => {
     vm.runInContext(componentSource + '\nglobalThis.TestComponent = Component;', context);
     const app = new context.TestComponent(); app._initNavPill = () => {}; app.componentDidMount();
@@ -151,7 +199,14 @@ function environment({ reduced = false, lowEnd = false, hidden = false, hero = f
     const anchor = new NodeDouble('A', { href }); anchor.href = new URL(href, location.origin).href;
     app._onNavClick({ button: 0, target: anchor, preventDefault() {} });
   };
-  return { motion, jobs, observers, roots, ids, html, document, window, media, flushFrames, makeComponent, click };
+  const scroll = y => { window.scrollY = y; window.emit('scroll'); flushFrames(); };
+  const intersect = (node, isIntersecting = true) => {
+    for (const observer of observers) {
+      if (observer.nodes.has(node)) observer.callback([{ target: node, isIntersecting }]);
+    }
+    flushFrames();
+  };
+  return { motion, jobs, observers, roots, ids, html, document, window, media, heroNodes, galleryNodes, flushFrames, advance, makeComponent, click, scroll, intersect };
 }
 
 {
@@ -170,6 +225,7 @@ function environment({ reduced = false, lowEnd = false, hidden = false, hero = f
 {
   const e = environment(); e.roots[0].style.opacity = '0.9';
   const natural = e.motion.exitPage(e.roots[0]); e.jobs.at(-1).complete();
+  assert.equal(e.jobs.at(-1).transition.duration, 0.12, 'route exits must not hold navigation behind a long departure');
   assert.equal(await natural, true); assert.equal(e.roots[0].style.opacity, '0', 'finished exit must hold its last frame until commit');
   const exitControl = e.jobs.at(-1);
   e.motion.refresh();
@@ -239,12 +295,77 @@ function environment({ reduced = false, lowEnd = false, hidden = false, hero = f
 }
 {
   const e = environment({ hero: true }), app = e.makeComponent();
-  assert(e.jobs.some(job => job.node === e.roots[0].querySelector('.bh-hero-copy')), 'fixture must exercise the actual initial hero choreography');
+  assert(e.heroNodes.lines.every(line => e.jobs.some(job => job.node === line)), 'fixture must exercise the per-line hero choreography');
   for (const job of e.jobs) job.complete(); await microtasks();
   const before = e.jobs.length;
   e.click(app, '/'); await microtasks();
   assert.equal(e.jobs.length, before, 'clicking the active page must not replay the hero or create a new entrance');
+  assert.equal(e.heroNodes.art.listenerCount('pointermove'), 0, 'the hero has a stable composition without decorative pointer tracking');
   app.componentWillUnmount();
+}
+{
+  const e = environment({ hero: true });
+  const { lines, actions, planes } = e.heroNodes;
+  const tokens = e.window.BrenMotionLib.motionTokens;
+  e.motion.enterPage(e.roots[0]);
+  const entrance = e.jobs.filter(job => lines.includes(job.node) || actions.includes(job.node) || planes.includes(job.node));
+  const lineJobs = lines.map(line => entrance.find(job => job.node === line));
+  assert.deepEqual(lineJobs.map(job => job.transition.delay), [0, tokens.hero.stagger, tokens.hero.stagger * 2], 'title lines must land in reading order');
+  assert(tokens.hero.stagger > 0 && tokens.hero.stagger <= 0.05, 'the title stagger must remain precise and brief');
+  assert(lineJobs.every(job => job.transition.type && job.keyframes.opacity[0] >= 0.65), 'title remains readable throughout its spring entrance');
+  const planeJobs = planes.map(plane => entrance.find(job => job.node === plane));
+  const actionJobs = actions.map(action => entrance.find(job => job.node === action));
+  assert.deepEqual(planeJobs.map(job => job.transition.delay), [tokens.hero.stagger, tokens.hero.stagger * 2]);
+  assert.equal(actionJobs[0].transition.delay, planeJobs[1].transition.delay, 'primary action and second board must arrive together');
+  assert(actionJobs.every(job => job.transition.stiffness === 400 && job.transition.damping === 40), 'actions use the shared critically damped spring');
+  assert(entrance.every(job => job.transition.type && !String(job.keyframes.transform).match(/scale\(|rotate|translate3d/)), 'hero entrance must use flat translation and opacity only');
+  for (const job of entrance) {
+    const generator = spring({ ...job.transition, keyframes: [0, 100] });
+    assert(generator.next((0.8 - job.transition.delay) * 1000).done, 'the complete desktop entrance settles in under 800ms');
+  }
+  e.motion.refresh();
+  assert(entrance.every(job => job.state === 'running'), 'geometry refresh must not cut off the coordinated entrance');
+  const revealNodes = entrance.map(job => job.node);
+  for (const job of entrance) {
+    if ('opacity' in job.keyframes) job.node.style.opacity = '0.72';
+    if ('transform' in job.keyframes) job.node.style.transform = 'translateY(5px)';
+  }
+  const preference = e.media.get('(prefers-reduced-motion: reduce)'); preference.matches = true; preference.emit('change');
+  assert(entrance.every(job => job.state === 'cancelled'), 'reduced-motion change must cancel every entrance immediately');
+  assert(revealNodes.every(node => node.style.opacity === '' && node.style.transform === ''), 'cancellation must restore the visible CSS fallback');
+  assert.equal(e.heroNodes.art.listenerCount('pointermove'), 0, 'reduced motion removes hero pointer interaction');
+  e.motion.destroy();
+}
+{
+  const e = environment({ hero: true, compact: true, coarse: true });
+  e.motion.enterPage(e.roots[0]);
+  const { planes, art } = e.heroNodes;
+  const tokens = e.window.BrenMotionLib.motionTokens;
+  const boardJobs = planes.map(plane => e.jobs.find(job => job.node === plane));
+  assert(boardJobs.every(job => job.transition.type && !String(job.keyframes.transform).includes('rotate')), 'touch entrance stays flat and critically damped');
+  assert(Math.max(...e.jobs.map(job => job.transition.delay || 0)) <= tokens.hero.compactStagger * 3, 'mobile entrance adds no long stagger');
+  assert.equal(art.listenerCount('pointermove'), 0, 'touch must not install pointer tracking');
+  const before = e.jobs.length;
+  art.emit('pointermove', { pointerType: 'touch', clientX: 200, clientY: 250 }); e.flushFrames();
+  assert.equal(e.jobs.length, before, 'touch input must preserve native scrolling without interaction jobs');
+  e.motion.destroy();
+}
+{
+  const e = environment({ hero: true });
+  const { art, stage } = e.heroNodes;
+  assert.equal(art.listenerCount('pointermove'), 0);
+  e.motion.refresh(); e.motion.enterPage(e.roots[0]);
+  assert.equal(art.listenerCount('pointermove'), 0, 'refresh and entrance never install decorative hero tracking');
+  const before = e.jobs.length;
+  art.emit('pointermove', { pointerType: 'touch', clientX: 400, clientY: 450 }); e.flushFrames();
+  art.emit('pointermove', { pointerType: 'mouse', clientX: 500, clientY: 100 }); e.flushFrames();
+  assert.equal(e.jobs.length, before, 'pointer movement cannot restart a hero entrance');
+  assert.equal(stage.style.transform, '', 'the art stage remains at its layout position');
+  e.motion.destroy(); e.flushFrames();
+  for (const name of ['pointermove', 'pointerleave', 'pointercancel', 'focusin']) assert.equal(art.listenerCount(name), 0, 'destroy removes ' + name);
+  for (const name of ['scroll', 'blur']) assert.equal(e.window.listenerCount(name), 0, 'destroy removes window ' + name);
+  art.emit('pointermove', { pointerType: 'mouse', clientX: 200, clientY: 200 }); e.window.emit('scroll'); e.flushFrames();
+  assert.equal(e.jobs.length, before, 'destroy prevents late animation jobs');
 }
 {
   const e = environment({ hero: true }), app = e.makeComponent(); e.motion.cancelPage();
@@ -256,8 +377,84 @@ function environment({ reduced = false, lowEnd = false, hidden = false, hero = f
   assert.equal(e.jobs.length, before + 1, 'returning to active page must resume only its opacity, without hero choreography');
   const resume = e.jobs.at(-1);
   assert.equal(resume.node, e.roots[0]); assert.equal(resume.keyframes.opacity[0], 0.36);
+  assert.equal(e.heroNodes.art.listenerCount('pointermove'), 0, 'resuming a departure does not install decorative pointer tracking');
   resume.complete(); await microtasks(); assert.equal(e.roots[0].style.opacity, '');
   app.componentWillUnmount();
+}
+{
+  const e = environment();
+  const { createSpringValue, springs } = e.window.BrenMotionLib;
+  for (const transition of Object.values(springs)) {
+    assert.equal(transition.damping, 2 * Math.sqrt(transition.stiffness), 'resting interface springs must be critically damped');
+  }
+  const samples = [], value = createSpringValue(1, next => samples.push(next));
+  value.set(0.97, springs.instant); e.flushFrames(32);
+  const position = value.value, velocity = value.velocity;
+  assert(position < 1 && position > 0.97 && velocity < 0, 'fixture must interrupt an actively compressing button');
+  value.set(1, springs.release);
+  assert.equal(value.value, position, 'a reversal must start at the presentation value');
+  assert(Math.abs(value.velocity - velocity) < 1e-12, 'a reversal must inherit the exact current velocity');
+  e.flushFrames(16);
+  const retapPosition = value.value, retapVelocity = value.velocity;
+  value.set(0.97, springs.instant);
+  assert.equal(value.value, retapPosition, 'a rapid retap must not jump back to either endpoint');
+  assert(Math.abs(value.velocity - retapVelocity) < 1e-12, 'a rapid retap must preserve velocity');
+  e.advance();
+  assert.equal(value.value, 0.97); assert.equal(value.velocity, 0);
+  value.stop(); const count = samples.length; e.advance(); assert.equal(samples.length, count, 'stopped springs leave no animation loop');
+  e.motion.destroy();
+}
+{
+  const e = environment();
+  const button = new NodeDouble('A', { class: 'rd-button' });
+  button.style.transform = 'translateY(5px)';
+  e.document.emit('pointerdown', { target: button, button: 0 }); e.flushFrames(32);
+  const compressed = Number(button.style.scale);
+  assert(compressed < 1 && compressed > 0.97, 'pointer-down begins immediate spring feedback');
+  assert.equal(button.style.transform, 'translateY(5px)', 'press scale must compose with an existing entrance transform');
+  e.window.emit('pointerup'); assert.equal(Number(button.style.scale), compressed, 'release starts from the current compressed frame');
+  e.flushFrames(16); const returning = Number(button.style.scale);
+  e.document.emit('pointerdown', { target: button, button: 0 });
+  assert.equal(Number(button.style.scale), returning, 'a retap cannot jump to the fixed pressed state');
+  e.window.emit('pointercancel'); e.advance();
+  assert.equal(button.style.scale, '', 'finished release must restore the button CSS scale');
+  e.document.emit('keydown', { target: button, key: 'Enter' }); e.flushFrames(32);
+  assert(Number(button.style.scale) < 1, 'keyboard activation receives the same press response');
+  const preference = e.media.get('(prefers-reduced-motion: reduce)'); preference.matches = true; preference.emit('change');
+  assert.equal(button.style.scale, '', 'changing reduced motion immediately removes a running press');
+  e.motion.destroy(); e.advance(); assert.equal(button.style.scale, '');
+}
+{
+  const e = environment(), panel = new NodeDouble(), scrim = new NodeDouble();
+  const opened = e.motion.menu(true, panel, scrim);
+  assert.equal(panel.style.opacity, '0', 'a mounted menu starts at its source before the first paint');
+  e.flushFrames(80);
+  const progress = Number(panel.style.opacity);
+  assert(progress > 0 && progress < 1); assert.equal(Number(scrim.style.opacity), progress, 'scrim follows the same physical progress');
+  const closed = e.motion.menu(false, panel, scrim);
+  assert.equal(await opened, false, 'superseded menu entrance must settle as cancelled');
+  assert.equal(Number(panel.style.opacity), progress, 'closing mid-entry must keep the presentation frame');
+  e.flushFrames(16); const reversed = Number(panel.style.opacity);
+  const reopened = e.motion.menu(true, panel, scrim);
+  assert.equal(await closed, false, 'a re-open must cancel the obsolete close');
+  assert.equal(Number(panel.style.opacity), reversed, 're-opening mid-exit must not jump');
+  e.advance(); assert.equal(await reopened, true);
+  assert.equal(panel.style.transform, ''); assert.equal(panel.style.opacity, ''); assert.equal(scrim.style.opacity, '', 'an open resting menu releases inline styles');
+  const finalClose = e.motion.menu(false, panel, scrim); e.advance(); assert.equal(await finalClose, true);
+  assert.equal(panel.style.opacity, '0'); assert.equal(panel.style.transform, 'translateY(-8.000px) scale(0.98000)', 'exit returns to the same anchored origin');
+  const pending = e.motion.menu(true, panel, scrim); e.flushFrames(32); e.motion.cancelMenu(panel);
+  assert.equal(await pending, false); assert.equal(panel.style.transform, ''); assert.equal(scrim.style.opacity, '');
+  const instant = e.motion.menu(false, panel, scrim, { immediate: true }); assert.equal(await instant, true); assert.equal(panel.style.opacity, '0');
+  e.motion.destroy(); e.advance(); assert.equal(panel.style.opacity, '', 'destroy restores a held closed menu');
+}
+{
+  const e = environment(), panel = new NodeDouble(), scrim = new NodeDouble();
+  const entry = e.motion.menu(true, panel, scrim); e.flushFrames(80);
+  const preference = e.media.get('(prefers-reduced-motion: reduce)'); preference.matches = true; preference.emit('change');
+  assert.equal(await entry, true, 'enabling reduced motion finishes the requested menu state directly');
+  assert.equal(panel.style.transform, ''); assert.equal(scrim.style.opacity, '');
+  assert.equal(await e.motion.menu(false, panel, scrim), true); assert.equal(panel.style.opacity, '0', 'reduced motion closes a menu without an animated transform');
+  e.motion.destroy();
 }
 {
   const e = environment(), app = e.makeComponent(); e.motion.cancelPage();
@@ -289,4 +486,100 @@ function environment({ reduced = false, lowEnd = false, hidden = false, hero = f
   app.componentWillUnmount();
 }
 
-console.log('PASS: reduced/low-end, held exit, resize-safe route entry/exit, cancellation/restoration, intermediate-frame retargeting, destroy cleanup, foreground refresh, reduced-motion indicator, rapid navigation, no active-page hero replay, same-page fade resume, anchors and same-page browser history.');
+{
+  const e = environment({ gallery: true });
+  const { stack, cards, media } = e.galleryNodes;
+  const read = (node, property) => Number.parseFloat(node.style.getPropertyValue(property));
+  const pose = () => cards.map(card => ['--gallery-expand', '--stack-scale', '--stack-shift', '--stack-caption'].map(property => card.style.getPropertyValue(property)));
+  assert(stack.hasAttribute('data-ba-gallery-motion'), 'desktop gallery may become sticky only after the motion runtime has opted in');
+  assert.equal(read(cards[0], '--gallery-expand'), 0, 'first visual starts at the compact presentation at scroll zero');
+  e.scroll(254);
+  assert.equal(read(cards[0], '--gallery-expand'), 1, 'first visual must reach its complete presentation when the gallery arrives below the header');
+  e.scroll(127);
+  assert.equal(read(cards[0], '--gallery-expand'), 0.5, 'expansion must be tied to scroll rather than elapsed time');
+  e.motion.refresh();
+  assert.equal(read(cards[0], '--gallery-expand'), 0.5, 'a geometry refresh at a nonzero scroll must preserve expansion progress');
+  for (const node of media) e.intersect(node);
+  const positions = [0, 127, 254, 500, 750, 1100, 1700, 2300];
+  const forward = new Map();
+  for (const y of positions) {
+    e.scroll(y); forward.set(y, pose());
+    for (const card of cards.slice(0, -1)) {
+      const scale = read(card, '--stack-scale'), shift = read(card, '--stack-shift');
+      assert(scale >= 0.955 && scale <= 1, 'recession must stay within 4.5% at every scroll position');
+      assert(shift >= -16 && shift <= 0, 'recession may only recede by up to 16px');
+    }
+    for (const node of media) {
+      const amplitude = Number(node.getAttribute('data-ba-parallax'));
+      assert(Math.abs(read(node, '--parallax')) <= amplitude, 'parallax must respect the individual artwork safety budget');
+    }
+  }
+  for (const y of [...positions].reverse()) {
+    e.scroll(y);
+    assert.deepEqual(pose(), forward.get(y), 'returning to scroll ' + y + ' must restore the same gallery composition');
+  }
+  e.scroll(1100);
+  assert.equal(read(cards[0], '--stack-scale'), 0.955, 'a covered previous project must finish its measured recession');
+  assert.equal(read(cards[0], '--stack-shift'), -16);
+  assert.equal(read(cards[0], '--stack-caption'), 0, 'covered captions must yield to the incoming project instead of overlapping');
+  assert.equal(cards.at(-1).style.getPropertyValue('--stack-scale'), '', 'last project must remain at full scale as the contact section arrives');
+  e.motion.destroy();
+  assert(!stack.hasAttribute('data-ba-gallery-motion'), 'destroy must return the gallery to the visible flow fallback');
+  for (const node of [...cards, ...media]) for (const property of ['--gallery-expand', '--stack-scale', '--stack-shift', '--parallax', '--stack-caption']) {
+    assert.equal(node.style.getPropertyValue(property), '', 'destroy must release every gallery pose property');
+  }
+}
+{
+  for (const query of ['(prefers-reduced-motion: reduce)', '(pointer: coarse)']) {
+    const e = environment({ gallery: true }), { stack, cards, media } = e.galleryNodes;
+    for (const node of media) e.intersect(node);
+    e.scroll(1000);
+    assert(cards[0].style.getPropertyValue('--stack-scale'), 'fixture must begin with live desktop motion');
+    const preference = e.media.get(query); preference.matches = true; preference.emit('change');
+    assert(!stack.hasAttribute('data-ba-gallery-motion'), query + ' must remove sticky opt-in immediately');
+    for (const node of [...cards, ...media]) for (const property of ['--gallery-expand', '--stack-scale', '--stack-shift', '--parallax', '--stack-caption']) {
+      assert.equal(node.style.getPropertyValue(property), '', query + ' must restore the stable visible presentation');
+    }
+    e.scroll(0);
+    assert.equal(cards[0].style.getPropertyValue('--gallery-expand'), '', 'scrolling after a preference change cannot reinstall transforms');
+    preference.matches = false; preference.emit('change');
+    assert(stack.hasAttribute('data-ba-gallery-motion'), 'returning to the desktop preference must safely rebuild scroll motion');
+    assert.equal(Number.parseFloat(cards[0].style.getPropertyValue('--gallery-expand')), 0);
+    e.motion.destroy();
+  }
+}
+{
+  for (const flags of [{ noLibrary: true }, { reduced: true }, { compact: true, coarse: true }, { lowEnd: true }, { fine: false }]) {
+    const e = environment({ gallery: true, ...flags }), { stack, cards } = e.galleryNodes;
+    assert(!stack.hasAttribute('data-ba-gallery-motion'), 'gallery must remain in natural flow for ' + JSON.stringify(flags));
+    e.scroll(1200);
+    assert(cards.every(card => card.style.transform === '' && card.style.opacity === ''), 'fallback projects must never receive hidden or transformed inline styles');
+    assert(cards.every(card => card.style.getPropertyValue('--stack-scale') === ''), 'fallback must not keep a stale desktop scale');
+    if (flags.noLibrary || flags.reduced || flags.lowEnd) assert.equal(e.jobs.length, 0, 'nonanimated gallery fallback creates no jobs');
+    e.motion.destroy();
+  }
+}
+{
+  const e = environment({ gallery: true, compact: true, coarse: true });
+  const { visuals, stack } = e.galleryNodes;
+  assert.equal(e.jobs.length, 0, 'mobile artwork is visible before any entrance observer fires');
+  assert(visuals.every(node => node.style.opacity === '' && node.style.transform === ''));
+  e.intersect(visuals[0]);
+  assert.equal(e.jobs.length, 1, 'a mobile artwork receives one short entrance when it becomes visible');
+  const entry = e.jobs[0];
+  assert(entry.keyframes.opacity[0] >= 0.85, 'mobile artwork must remain legible throughout the entrance');
+  assert(entry.transition.duration <= e.window.BrenMotionLib.motionTokens.duration.normal, 'mobile entry must stay within the shared short duration');
+  assert(!stack.hasAttribute('data-ba-gallery-motion'), 'the mobile entrance cannot enable scroll stacking');
+  entry.complete(); await microtasks();
+  e.intersect(visuals[0], false); e.intersect(visuals[0]); e.motion.refresh(); e.intersect(visuals[0]);
+  assert.equal(e.jobs.length, 1, 'mobile re-entry and geometry refresh must not replay an artwork entrance');
+  assert.equal(visuals[0].style.transform, ''); assert.equal(visuals[0].style.opacity, '', 'completed mobile entry must release inline styles');
+  e.intersect(visuals[1]); const interrupted = e.jobs.at(-1);
+  const preference = e.media.get('(prefers-reduced-motion: reduce)'); preference.matches = true; preference.emit('change');
+  assert.equal(interrupted.state, 'cancelled', 'enabling reduced motion cancels a running mobile entrance');
+  assert.equal(visuals[1].style.transform, ''); assert.equal(visuals[1].style.opacity, '');
+  const count = e.jobs.length; e.intersect(visuals[2]); assert.equal(e.jobs.length, count, 'reduced motion prevents subsequent mobile entrances');
+  e.motion.destroy();
+}
+
+console.log('PASS: reduced/low-end, 120ms route exit, resize-safe route entry/exit, cancellation/restoration, intermediate-frame retargeting, flat critically damped hero entrance, no decorative pointer tracking, button retap position/velocity continuity, independent press transforms, keyboard press, interruptible menu with symmetric origin, menu immediate/reduced/destroy cleanup, foreground refresh, reduced-motion indicator, rapid navigation, same-page resume/anchors/history, gallery scroll reversibility and bounds, live gallery preference cleanup, library-absent fallback and once-only mobile gallery entry.');

@@ -13,8 +13,10 @@
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   const coarse = window.matchMedia('(pointer: coarse)');
   const compact = window.matchMedia('(max-width: 760px)');
-  const preferences = [reduced, coarse, compact];
-  const properties = ['--stack-scale', '--stack-shift', '--expand', '--parallax'];
+  const fine = window.matchMedia('(hover: hover) and (pointer: fine)');
+  const preferences = [reduced, coarse, compact, fine];
+  const properties = ['--stack-scale', '--stack-shift', '--expand', '--parallax', '--gallery-expand', '--stack-caption'];
+  const galleries = new Set();
   const touched = new Set();
   const active = new Set();
   const revealed = new WeakSet();
@@ -40,11 +42,13 @@
   let indicatorNode = null;
   let indicatorTarget = '';
   const pressed = new Set();
+  const buttonSprings = new Map();
+  const menus = new Map();
   const buttonSelector = '.rd-button, .rd-menu-toggle, .ba-round-link';
 
   // Route exits retain their last frame until the next page has been mounted.
-  // Other effects release their styles so hover/focus CSS can take over.
-  function animateNode(node, keyframes, transition, { route = false, hold = false } = {}) {
+  // Entrances survive geometry refreshes; completed effects release their styles.
+  function animateNode(node, keyframes, transition, { route = false, entrance = false, hold = false } = {}) {
     if (!node || !library || typeof node.animate !== 'function') return null;
     const previous = animations.get(node);
     if (previous) previous.cancel();
@@ -68,6 +72,7 @@
     const job = {
       finished,
       route,
+      entrance,
       cancel() {
         if (cleaned) return;
         cleaned = true;
@@ -92,36 +97,48 @@
 
   function cancelPage() {
     for (const job of Array.from(animations.values())) job.cancel();
+    resetButtons();
     pressed.clear();
   }
 
   function enterPage(root, { navigation = false } = {}) {
     if (!root || !canAnimate()) return;
-    if (navigation) {
+    const copy = root.querySelector('.bh-hero-copy');
+    const heroVisible = copy && copy.getBoundingClientRect().bottom > 0;
+    if (navigation && !heroVisible) {
       animateNode(root, { opacity: [0, 1] }, {
         duration: lowEnd ? tokens.duration.fast : tokens.duration.normal,
         ease: tokens.easing.smooth,
       }, { route: true });
       return;
     }
-    if (!decorativeAllowed()) {
+    if (lowEnd || (!heroVisible && !decorativeAllowed())) {
       animateNode(root, { opacity: [0.7, 1] }, { duration: tokens.duration.fast, ease: tokens.easing.smooth });
       return;
     }
-    const copy = root.querySelector('.bh-hero-copy');
-    if (copy && copy.getBoundingClientRect().bottom > 0) {
-      animateNode(copy, { opacity: [0.4, 1], transform: ['translateY(' + tokens.distance.md + 'px)', 'none'] },
-        { duration: tokens.duration.slow, ease: tokens.easing.smooth });
-      const pieces = root.querySelectorAll('.bh-hero-piece');
-      pieces.forEach((piece, index) => {
-        const rotation = index === 0 ? 3 : -5;
-        animateNode(piece, { transform: [
-          'translateY(' + tokens.distance.lg + 'px) rotate(' + (rotation * 2) + 'deg)',
-          'translateY(0px) rotate(' + rotation + 'deg)',
-        ] }, { ...springs.gentle, delay: tokens.duration.instant * (index + 1) });
+    if (heroVisible) {
+      const small = compact.matches || coarse.matches;
+      const stagger = small ? tokens.hero.compactStagger : tokens.hero.stagger;
+      const enter = (node, keyframes, delay = 0) => animateNode(node, keyframes, {
+        ...springs.gentle, delay,
+      }, { entrance: true });
+      copy.querySelectorAll('h1>span').forEach((line, index) => {
+        enter(line, {
+          opacity: [0.65, 1],
+          transform: ['translateY(' + tokens.distance.md + 'px)', 'none'],
+        }, stagger * index);
+      });
+      enter(copy.querySelector('.bh-hero-description'), { opacity: [0.85, 1] }, stagger);
+      root.querySelectorAll('.bh-hero-plane').forEach((plane, index) => {
+        // Artwork stays flat and stable; only its containing board arrives.
+        enter(plane, { opacity: [0.92, 1], transform: ['translateY(' + tokens.distance.md + 'px)', 'none'] }, stagger * (index + 1));
+      });
+      copy.querySelectorAll('.bh-hero-actions>a').forEach((action, index) => {
+        enter(action, { opacity: [0.9, 1], transform: ['translateY(' + tokens.distance.sm + 'px)', 'none'] },
+          stagger * (index + 2));
       });
       const foot = root.querySelector('.bh-hero-foot');
-      if (foot) animateNode(foot, { opacity: [0.5, 1] }, { duration: tokens.duration.normal, delay: tokens.duration.fast });
+      enter(foot, { opacity: [0.85, 1] }, stagger * 2);
     } else {
       animateNode(root, { opacity: [0.6, 1] }, { duration: tokens.duration.normal, ease: tokens.easing.smooth });
     }
@@ -132,7 +149,7 @@
     cancelPage();
     if (!root || !canAnimate()) return Promise.resolve(true);
     const job = animateNode(root, { opacity: [Number.isFinite(opacity) ? opacity : 1, 0] }, {
-      duration: lowEnd ? tokens.duration.fast : tokens.duration.normal,
+      duration: tokens.duration.exit,
       ease: tokens.easing.sharp,
     }, { route: true, hold: true });
     return job ? job.finished : Promise.resolve(true);
@@ -170,24 +187,105 @@
     });
   }
 
+  // Individual scale composes with any in-flight entrance transform. Retaps use
+  // the current spring position/velocity instead of restarting at either end.
+  function buttonSpring(node) {
+    let state = buttonSprings.get(node);
+    if (state) return state;
+    const original = node.style.getPropertyValue('scale');
+    const computed = parseFloat(window.getComputedStyle(node).scale);
+    const rest = Number.isFinite(computed) ? computed : 1;
+    const restore = () => {
+      if (original) node.style.setProperty('scale', original);
+      else node.style.removeProperty('scale');
+    };
+    const value = library.createSpringValue(rest, (scale) => {
+      node.style.setProperty('scale', scale.toFixed(5));
+    }, (target) => {
+      if (target !== rest || pressed.has(node)) return;
+      restore();
+      buttonSprings.delete(node);
+    });
+    state = { value, rest, restore };
+    buttonSprings.set(node, state);
+    return state;
+  }
+
+  function resetButtons() {
+    for (const state of buttonSprings.values()) {
+      state.value.stop();
+      state.restore();
+    }
+    buttonSprings.clear();
+    pressed.clear();
+  }
+
   function press(event) {
     if (!canAnimate() || lowEnd || (event.type === 'pointerdown' && event.button !== 0)) return;
     if (event.type === 'keydown' && (event.repeat || !['Enter', ' '].includes(event.key))) return;
     const node = event.target.closest && event.target.closest(buttonSelector);
     if (!node || node.disabled || node.getAttribute('aria-disabled') === 'true') return;
-    const original = window.getComputedStyle(node).transform;
     pressed.add(node);
-    animateNode(node, { transform: [original === 'none' ? 'scale(1)' : original, 'scale(' + tokens.scale.subtle + ')'] }, springs.instant);
+    const state = buttonSpring(node);
+    state.value.set(state.rest * tokens.scale.subtle, springs.instant);
   }
 
   function release(event) {
     if (event.type === 'keyup' && !['Enter', ' '].includes(event.key)) return;
     for (const node of pressed) {
-      const job = animations.get(node);
-      if (job) job.cancel();
-      if (canAnimate()) animateNode(node, { transform: ['scale(' + tokens.scale.subtle + ')', 'scale(1)'] }, springs.release);
+      const state = buttonSprings.get(node);
+      if (!state) continue;
+      if (canAnimate()) state.value.set(state.rest, springs.release);
+      else { state.value.stop(); state.restore(); buttonSprings.delete(node); }
     }
     pressed.clear();
+  }
+
+  function cancelMenu(panel) {
+    for (const [node, state] of menus) {
+      if (panel && node !== panel) continue;
+      state.value.stop();
+      state.restore();
+      if (state.settle) state.settle(false);
+      menus.delete(node);
+    }
+  }
+
+  // The component owns display, focus and inert. It keeps the panel mounted
+  // until this promise resolves true; superseded requests resolve false.
+  function menu(open, panel, scrim, { immediate = false } = {}) {
+    if (!panel || !library || destroyed) return Promise.resolve(true);
+    let state = menus.get(panel);
+    if (state && state.scrim !== scrim) { cancelMenu(panel); state = null; }
+    if (!state) {
+      const originals = [
+        [panel, 'transform', panel.style.getPropertyValue('transform')],
+        [panel, 'opacity', panel.style.getPropertyValue('opacity')],
+        ...(scrim ? [[scrim, 'opacity', scrim.style.getPropertyValue('opacity')]] : []),
+      ];
+      const restore = () => {
+        for (const [node, property, original] of originals) {
+          if (original) node.style.setProperty(property, original);
+          else node.style.removeProperty(property);
+        }
+      };
+      const value = library.createSpringValue(open ? 0 : 1, (progress) => {
+        panel.style.opacity = String(progress);
+        panel.style.transform = 'translateY(' + (-8 * (1 - progress)).toFixed(3) + 'px) scale(' + (0.98 + 0.02 * progress).toFixed(5) + ')';
+        if (scrim) scrim.style.opacity = String(progress);
+      }, (target) => {
+        if (target === 1) restore();
+        if (state.settle) { const settle = state.settle; state.settle = null; settle(true); }
+      });
+      state = { value, restore, scrim, target: open ? 1 : 0, settle: null };
+      menus.set(panel, state);
+    }
+    if (state.settle) state.settle(false);
+    const finished = new Promise((resolve) => { state.settle = resolve; });
+    state.target = open ? 1 : 0;
+    if (immediate || !canAnimate() || lowEnd) state.value.jump(state.target);
+    else state.value.set(state.target, springs.snappy);
+    return finished;
   }
 
   function onVisibility() {
@@ -195,17 +293,20 @@
       window.cancelAnimationFrame(frame);
       frame = 0;
       cancelPage();
+      for (const state of menus.values()) state.value.jump(state.target);
     } else refresh();
   }
 
   function clearMotion(includeRoutes = false) {
     for (const animation of Array.from(animations.values())) {
-      if (includeRoutes || !animation.route) animation.cancel();
+      if (includeRoutes || (!animation.route && !animation.entrance)) animation.cancel();
     }
     for (const node of touched) {
       for (const property of properties) node.style.removeProperty(property);
     }
     touched.clear();
+    for (const gallery of galleries) gallery.removeAttribute('data-ba-gallery-motion');
+    galleries.clear();
     values = new WeakMap();
   }
 
@@ -247,7 +348,13 @@
     };
 
     for (const stack of stacks) {
-      if (!stack.cards.some((card) => active.has(card))) continue;
+      if (!stack.gallery && !stack.cards.some((card) => active.has(card))) continue;
+      if (stack.gallery) {
+        // The container stays in normal flow, so this never measures its own scale.
+        const distance = Math.max(tokens.distance.xl, stack.start - stack.tops[0]);
+        const progress = clamp((stack.start - rect(stack.container).top) / distance);
+        writes.push([stack.cards[0], '--gallery-expand', progress.toFixed(4)]);
+      }
       for (let index = 0; index < stack.cards.length - 1; index += 1) {
         const card = stack.cards[index];
         const next = stack.cards[index + 1];
@@ -256,10 +363,17 @@
         // from the measured position so neighbouring cards do not feed back.
         const nextValues = values.get(next);
         const shift = nextValues ? parseFloat(nextValues['--stack-shift']) || 0 : 0;
-        const distance = Math.max(1, Math.min(height * 0.8, stack.heights[index]));
-        const progress = clamp(1 - (nextRect.top - shift - stack.tops[index]) / distance);
-        writes.push([card, '--stack-scale', (1 - progress * 0.06).toFixed(4)]);
-        writes.push([card, '--stack-shift', (-progress * 20).toFixed(2) + 'px']);
+        const distance = Math.max(1, stack.gallery
+          ? stack.heights[index] * tokens.portfolio.overlap
+          : Math.min(height * 0.8, stack.heights[index]));
+        const end = stack.gallery ? stack.tops[index + 1] : stack.tops[index];
+        const progress = clamp(1 - (nextRect.top - shift - end) / distance);
+        writes.push([card, '--stack-scale', (1 - progress * (stack.gallery ? tokens.portfolio.recession : 0.06)).toFixed(4)]);
+        writes.push([card, '--stack-shift', (-progress * (stack.gallery ? tokens.portfolio.shift : 20)).toFixed(2) + 'px']);
+        if (stack.gallery) {
+          const threshold = tokens.portfolio.captionThreshold;
+          writes.push([card, '--stack-caption', (1 - clamp((progress - threshold) / (1 - threshold))).toFixed(4)]);
+        }
       }
     }
 
@@ -274,7 +388,9 @@
       const box = rect(node);
       const center = box.top + box.height * 0.5;
       const progress = clamp((height * 0.5 - center) / ((height + box.height) * 0.5), -1, 1);
-      writes.push([node, '--parallax', (progress * 20).toFixed(2) + 'px']);
+      const amplitude = node.closest('[data-ba-gallery]')
+        ? clamp(Number(node.getAttribute('data-ba-parallax')) || 0, 0, tokens.portfolio.maxParallax) : 20;
+      writes.push([node, '--parallax', (progress * amplitude).toFixed(2) + 'px']);
     }
 
     for (const [node, property, value] of writes) write(node, property, value);
@@ -291,6 +407,14 @@
     });
   }
 
+  function revealGallery(node) {
+    if (!canAnimate() || lowEnd || revealed.has(node)) return;
+    revealed.add(node);
+    animateNode(node, { opacity: [0.85, 1], transform: ['translateY(' + tokens.distance.sm + 'px)', 'none'] }, {
+      duration: tokens.duration.normal, ease: tokens.easing.smooth,
+    });
+  }
+
   function visibleRoots() {
     const screens = Array.from(document.querySelectorAll('[data-page]'));
     if (screens.length) {
@@ -303,6 +427,10 @@
 
   function refresh() {
     if (destroyed) return;
+    if (!canAnimate() || lowEnd) {
+      resetButtons();
+      for (const state of menus.values()) state.value.jump(state.target);
+    }
     if (indicatorControl && (reduced.matches || lowEnd || document.hidden)) {
       indicatorControl.cancel();
       indicatorControl = null;
@@ -322,14 +450,25 @@
     document.documentElement.toggleAttribute('data-ba-light', lowEnd);
     const roots = visibleRoots();
     const headings = [];
+    const galleryReveals = [];
     for (const root of roots) {
       headings.push(...root.querySelectorAll('[data-ba-reveal]'));
+      if ((compact.matches || coarse.matches) && canAnimate() && !lowEnd) {
+        galleryReveals.push(...root.querySelectorAll('[data-ba-gallery-reveal]'));
+      }
       if (distortionsAllowed()) {
         for (const container of root.querySelectorAll('[data-ba-stack]')) {
+          const gallery = container.hasAttribute('data-ba-gallery');
+          if (gallery && !fine.matches) continue;
+          if (gallery) {
+            container.setAttribute('data-ba-gallery-motion', '');
+            galleries.add(container);
+          }
           const cards = Array.from(container.querySelectorAll('[data-ba-project]'))
             .filter((card) => card.closest('[data-ba-stack]') === container);
           if (cards.length > 1) stacks.push({
-            cards,
+            cards, gallery, container,
+            start: gallery ? container.getBoundingClientRect().top + (window.scrollY || 0) : 0,
             heights: cards.map((card) => card.offsetHeight),
             tops: cards.map((card) => parseFloat(window.getComputedStyle(card).top) || 0),
           });
@@ -351,15 +490,16 @@
       }, { rootMargin: '35% 0px 35% 0px', threshold: 0 });
       for (const node of nodes) motionObserver.observe(node);
 
-      if (decorativeAllowed()) {
+      if (decorativeAllowed() || galleryReveals.length) {
         revealObserver = new IntersectionObserver((entries) => {
           for (const entry of entries) {
             if (!entry.isIntersecting) continue;
-            reveal(entry.target);
+            if (entry.target.hasAttribute('data-ba-gallery-reveal')) revealGallery(entry.target);
+            else reveal(entry.target);
             revealObserver.unobserve(entry.target);
           }
         }, { rootMargin: '0px 0px -10% 0px', threshold: 0.15 });
-        for (const heading of headings) {
+        for (const heading of [...(decorativeAllowed() ? headings : []), ...galleryReveals]) {
           if (!revealed.has(heading)) revealObserver.observe(heading);
         }
       }
@@ -367,13 +507,16 @@
       // Older browsers keep the visible default for reveal effects.
       for (const node of nodes) active.add(node);
     }
-    schedule();
+    if (galleries.size) update();
+    else schedule();
     return { stacks: stacks.length, expands: expands.length, parallax: parallax.length };
   }
 
   function destroy() {
     if (destroyed) return;
     destroyed = true;
+    resetButtons();
+    cancelMenu();
     window.cancelAnimationFrame(frame);
     window.cancelAnimationFrame(refreshFrame);
     if (motionObserver) motionObserver.disconnect();
@@ -418,7 +561,7 @@
     });
   }
 
-  window.BrenMotion = Object.freeze({ refresh, destroy, enterPage, exitPage, resumePage, cancelPage, moveIndicator, showContent });
+  window.BrenMotion = Object.freeze({ refresh, destroy, enterPage, exitPage, resumePage, cancelPage, moveIndicator, showContent, menu, cancelMenu });
   window.addEventListener('scroll', schedule, { passive: true });
   window.addEventListener('resize', scheduleRefresh, { passive: true });
   window.addEventListener('load', scheduleRefresh, { once: true });

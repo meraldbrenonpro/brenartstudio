@@ -19,7 +19,7 @@ function events(object = {}) {
   });
 }
 
-function environment({ mobile = true } = {}) {
+function environment({ mobile = true, motion = false } = {}) {
   let document;
   class Element {
     constructor(tag, attributes = {}) {
@@ -51,6 +51,7 @@ function environment({ mobile = true } = {}) {
   const desktopLinks = paths.map(href => desktopNav.append(new Element('A', { href })));
   const toggle = header.append(new Element('BUTTON'));
   const menu = header.append(new Element('DIV', { id: 'bs-mobile-menu' }));
+  const scrim = new Element('DIV');
   const menuLinks = paths.map(href => menu.append(new Element('A', { href })));
   const main = new Element('MAIN', { id: 'bs-main', tabindex: '-1' });
   const skip = new Element('A', { href: '#bs-main' });
@@ -73,7 +74,7 @@ function environment({ mobile = true } = {}) {
     querySelector(selector) {
       const page = selector.match(/^section\[data-page="([^"]+)"\]$/)?.[1];
       if (page) return roots.find(root => root.getAttribute('data-page') === page) || null;
-      return ({ '.rd-header': header, '.rd-brand': brand, '[data-bs-menu-toggle]': toggle, '#bs-mobile-menu a': menuLinks[0] })[selector] || null;
+      return ({ '.rd-header': header, '.rd-brand': brand, '.rd-scrim': scrim, '[data-bs-menu-toggle]': toggle, '#bs-mobile-menu a': menuLinks[0] })[selector] || null;
     },
   });
   const media = new Map();
@@ -88,12 +89,33 @@ function environment({ mobile = true } = {}) {
     scrollTo() {},
     history: { pushState(_state, _title, target) { const url = new URL(target, location.origin); location.pathname = url.pathname; location.hash = url.hash; } },
   });
+  const menuJobs = [];
+  let activeMenuJob;
+  if (motion) window.BrenMotion = {
+    menu(open, panel, backdrop, options = {}) {
+      activeMenuJob?.cancel();
+      let settle;
+      const finished = new Promise(resolve => { settle = resolve; });
+      const job = {
+        open, panel, backdrop, immediate: !!options.immediate, finished, settled: false,
+        complete() { if (!this.settled) { this.settled = true; settle(true); } },
+        cancel() { if (!this.settled) { this.settled = true; settle(false); } },
+      };
+      menuJobs.push(job); activeMenuJob = job;
+      if (options.immediate) job.complete();
+      return finished;
+    },
+    resumePage() {}, exitPage() { return Promise.resolve(true); },
+    refresh() {}, enterPage() {}, cancelPage() {},
+    destroy() { activeMenuJob?.cancel(); },
+  };
   class DCLogic {
     setState(update, callback) {
       this.state = { ...this.state, ...(typeof update === 'function' ? update(this.state) : update) };
       toggle.style.display = this.state.isMobile ? 'flex' : 'none';
       desktopNav.style.display = this.state.isMobile ? 'none' : 'flex';
-      menu.style.display = this.state.isMobile && this.state.menuOpen ? 'flex' : 'none';
+      menu.style.display = this.state.isMobile && (this.state.menuOpen || this.state.menuVisible) ? 'flex' : 'none';
+      scrim.style.display = this.state.isMobile && (this.state.menuOpen || this.state.menuVisible) ? 'block' : 'none';
       roots.forEach(root => root.style.display = root.getAttribute('data-page') === this.state.page ? 'block' : 'none');
       callback?.();
     }
@@ -113,8 +135,10 @@ function environment({ mobile = true } = {}) {
   const click = anchor => app._onNavClick({ button: 0, target: anchor, preventDefault() {} });
   const resize = mobile => { const mq = media.get('(max-width: 1020px)'); mq.matches = mobile; mq.emit('change'); };
   const flushFrames = () => { const pending = [...frames.values()]; frames.clear(); pending.forEach(fn => fn()); };
-  return { app, document, window, brand, desktopLinks, toggle, menu, menuLinks, main, footer, skip, studio, expertises, summary, Element, key, click, resize, flushFrames };
+  return { app, document, window, brand, desktopLinks, toggle, menu, scrim, menuLinks, menuJobs, main, footer, skip, studio, expertises, summary, Element, key, click, resize, flushFrames };
 }
+
+const flushPromises = async () => { for (let index = 0; index < 4; index++) await Promise.resolve(); };
 
 {
   const e = environment();
@@ -176,4 +200,68 @@ function environment({ mobile = true } = {}) {
   assert.equal(e.document.activeElement, e.main, 'unmount must remove the focus guard');
 }
 
-console.log('PASS: mobile keyboard containment, Escape/scrim focus return, route close, desktop resize, inert restoration, non-native anchor focus and cleanup.');
+{
+  const e = environment({ motion: true });
+  e.app.renderVals().toggleMenu();
+  assert.equal(e.app.state.menuVisible, true);
+  assert.equal(e.menu.getAttribute('aria-hidden'), 'false');
+  assert(!e.menu.hasAttribute('inert'));
+  e.app.renderVals().closeMenu();
+  const closing = e.menuJobs.at(-1);
+  assert.equal(e.app.state.menuOpen, false);
+  assert.equal(e.app.state.menuVisible, true, 'the panel must stay rendered during its closing animation');
+  assert.equal(e.app.renderVals().menuD, 'flex');
+  assert.equal(e.menu.getAttribute('aria-hidden'), 'true');
+  assert(e.menu.hasAttribute('inert'), 'closing links must leave the keyboard order immediately');
+  assert.equal(e.menu.style.pointerEvents, 'none');
+  assert(!e.main.hasAttribute('inert'), 'closing must release background interaction immediately');
+  assert.equal(e.document.activeElement, e.toggle);
+  e.app.renderVals().toggleMenu();
+  closing.complete(); await flushPromises();
+  assert.equal(e.app.state.menuVisible, true, 'an interrupted close must never hide a reopened menu');
+  assert.equal(e.app.state.menuOpen, true);
+  assert.equal(e.document.activeElement, e.menuLinks[0]);
+  e.menuJobs.at(-1).complete(); await flushPromises();
+  e.app.renderVals().closeMenu();
+  e.menuJobs.at(-1).complete(); await flushPromises();
+  assert.equal(e.app.state.menuVisible, false);
+  assert.equal(e.app.renderVals().menuD, 'none');
+  assert.equal(e.app.renderVals().scrimD, 'none');
+  e.app.componentWillUnmount();
+}
+{
+  const e = environment({ motion: true });
+  e.app.renderVals().toggleMenu();
+  e.app.renderVals().closeMenu();
+  e.resize(false); await flushPromises();
+  assert.equal(e.menuJobs.at(-1).immediate, true, 'desktop resize must cancel the mobile presentation immediately');
+  assert.equal(e.app.state.menuVisible, false);
+  assert.equal(e.app.renderVals().menuD, 'none');
+  assert(!e.main.hasAttribute('inert'));
+  assert.equal(e.document.activeElement, e.desktopLinks[0]);
+  e.resize(true);
+  assert.equal(e.app.state.menuOpen, false);
+  assert.equal(e.app.state.menuVisible, false);
+  e.app.componentWillUnmount();
+}
+{
+  const e = environment({ motion: true });
+  for (const link of [e.menuLinks[0], e.menuLinks.at(-1)]) {
+    e.app.renderVals().toggleMenu();
+    e.click(link);
+    assert.equal(e.app.state.menuOpen, false, 'navigation must close logically before waiting for route motion');
+    assert(!e.main.hasAttribute('inert'));
+    assert.equal(e.document.activeElement, e.main);
+    await flushPromises();
+    e.menuJobs.at(-1).complete(); await flushPromises();
+    assert.equal(e.app.state.menuVisible, false);
+  }
+  assert.equal(e.app.state.page, 'contact');
+  e.app.renderVals().toggleMenu();
+  const pending = e.menuJobs.at(-1);
+  e.app.componentWillUnmount();
+  pending.complete(); await flushPromises();
+  assert(!e.main.hasAttribute('inert'), 'unmount must release background inert during a pending animation');
+}
+
+console.log('PASS: mobile keyboard containment, immediate focus/inert, interruptible menu visibility, route close, desktop resize, non-native anchor focus and cleanup.');

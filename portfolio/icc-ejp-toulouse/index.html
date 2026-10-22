@@ -11,7 +11,7 @@
 <link rel="icon" type="image/png" sizes="96x96" href="assets/favicon-96.png?v=3">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png?v=3">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png?v=3">
-<link rel="preload" as="image" href="assets/opt/ineeva-principal-1000.avif" imagesrcset="assets/opt/ineeva-principal-1000.avif 1000w, assets/opt/ineeva-principal-1800.avif 1800w" imagesizes="(max-width:760px) 85vw, 44vw" fetchpriority="high">
+<link rel="preload" as="image" href="assets/opt/ineeva-principal-1000.avif" imagesrcset="assets/opt/ineeva-principal-1000.avif 1000w, assets/opt/ineeva-principal-1800.avif 1800w" imagesizes="(max-width:760px) 86vw, 44vw" fetchpriority="high">
 <link rel="preload" as="image" href="assets/logotype-blanc.png">
 <link rel="canonical" href="https://brenartstudio.fr/portfolio/icc-ejp-toulouse">
 <meta property="og:type" content="website">
@@ -128,16 +128,15 @@
   }
 }
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/motion-tokens.css?v=c7562992042d450a">
+<link rel="stylesheet" href="assets/motion-tokens.css?v=e14fc1f277da470c">
 <link rel="stylesheet" href="assets/redesign.css?v=3f8ff8696c9132d7">
 <link rel="stylesheet" href="assets/services.css?v=c429d05f9bfe4bac">
 <link rel="stylesheet" href="assets/cases.css?v=547297e3fe8d7f44">
-<link rel="stylesheet" href="assets/home.css?v=b806bec331cd94f0">
-<script src="assets/motion-core.js?v=2b1fc6a05367c46b" defer></script>
-<script src="assets/motion.js?v=3df72af9c9af3d92" defer></script>
+<link rel="stylesheet" href="assets/portfolio.css?v=d5614518f6418ebf">
+<link rel="stylesheet" href="assets/home.css?v=5afab0f3b17da9d3">
+<link rel="stylesheet" href="assets/apple-design.css?v=a1a9d0409178b2da">
+<script src="assets/motion-core.js?v=e2c596320bda4cae" defer></script>
+<script src="assets/motion.js?v=72693c9cd18b1207" defer></script>
 <script src="./support.js?v=7c923c3f6027e809"></script>
 <style id="bs-prerender">section[data-page]{display:none}section[data-page="portfolio-icc-ejp-toulouse"]{display:block}[data-bs-prehide]{display:none}[data-bs-navlink][href="/portfolio"],[data-bs-navmob][href="/portfolio"]{color:#171717}[data-bs-navlink][href="/portfolio"]{text-decoration-color:#171717}</style>
 <!--bs-page-ld-->
@@ -183,7 +182,7 @@
 </script>
 <!--/bs-page-ld-->
 </head>
-<body>
+<body class="apple-site">
 <x-dc>
 <helmet></helmet>
 
@@ -195,11 +194,11 @@
   </svg>
 </template>
 
-<div style="min-height:100vh;color:#171717;font-family:'Manrope',sans-serif;">
+<div style="min-height:100vh;color:#171717;font-family:var(--apple-font);">
 
   <a data-cursor="link" class="bs-skip" href="#bs-main">Aller au contenu</a>
 
-  <!-- ============ NAVBAR PLATE (commune) — disposition façon esaierosa.fr ============ -->
+  <!-- ============ Navigation commune ============ -->
   <div class="rd-scrim" onClick="{{ closeMenu }}" aria-hidden="true" style="display:{{ scrimD }};"></div>
   <header class="rd-header">
     <nav class="rd-nav" aria-label="Navigation principale">
@@ -212,7 +211,7 @@
         <a href="/a-propos" data-bs-navlink="1">Le studio</a>
         <a class="rd-button" href="/contact">Parlons-en <span aria-hidden="true">↗</span></a>
       </div>
-      <button class="rd-menu-toggle" type="button" onClick="{{ toggleMenu }}" aria-label="{{ menuLabel }}" style="display:{{ burgerD }};" aria-expanded="{{ menuExpanded }}" aria-controls="bs-mobile-menu" data-bs-menu-toggle="1">Menu <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h18M3 16h18"></path></svg></button>
+      <button class="rd-menu-toggle" type="button" onClick="{{ toggleMenu }}" aria-label="{{ menuLabel }}" style="display:{{ burgerD }};" aria-expanded="{{ menuExpanded }}" aria-controls="bs-mobile-menu" data-bs-menu-toggle="1">Menu <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><path class="apple-menu-line--top" d="M4 12h16"></path><path class="apple-menu-line--bottom" d="M4 12h16"></path></svg></button>
     </nav>
     <div class="rd-mobile-menu" id="bs-mobile-menu" style="display:{{ menuD }};">
       <a href="/" data-bs-navmob="1">Accueil</a>
@@ -233,7 +232,7 @@
       <div class="bh-hero-grid">
         <div class="bh-hero-copy">
           <p class="bh-kicker">Bren’Art Studio · Design indépendant à Toulouse</p>
-          <h1><span>Votre marque.</span> <span>Une vraie</span> <span class="bh-hero-accent">personnalité.</span></h1>
+          <h1><span>Votre marque.</span> <span class="bh-hero-accent">Une vraie personnalité.</span></h1>
           <p class="bh-hero-description">Identité visuelle, site web, communication.<br>Je donne une même direction à votre image.</p>
           <div class="bh-hero-actions">
             <a href="/contact" class="rd-button rd-button--accent">Parlons de votre projet <span aria-hidden="true">↗</span></a>
@@ -241,14 +240,21 @@
           </div>
         </div>
         <div class="bh-hero-art" aria-label="Un aperçu des réalisations du studio">
+          <div class="bh-hero-stage" role="region" aria-label="Réalisations du studio" tabindex="0">
+          <div class="bh-hero-backplane" aria-hidden="true"></div>
+          <div class="bh-hero-board"><div class="bh-hero-plane">
           <a href="/portfolio/ineeva" class="bh-hero-piece" aria-label="Découvrir Ineeva, identité de marque et webdesign">
-            <img src="assets/opt/ineeva-principal-1000.avif" srcset="assets/opt/ineeva-principal-1000.avif 1000w, assets/opt/ineeva-principal-1800.avif 1800w" sizes="(max-width:760px) 85vw, 44vw" width="1800" height="1200" alt="L’univers Ineeva, une identité sensible et affirmée" decoding="async" fetchpriority="high">
+            <img src="assets/opt/ineeva-principal-1000.avif" srcset="assets/opt/ineeva-principal-1000.avif 1000w, assets/opt/ineeva-principal-1800.avif 1800w" sizes="(max-width:760px) 86vw, 44vw" width="1800" height="1200" alt="L’univers Ineeva, une identité sensible et affirmée" decoding="async" fetchpriority="high">
             <span>Ineeva · Identité & web <span aria-hidden="true">↗</span></span>
           </a>
+          </div></div>
+          <div class="bh-hero-board bh-hero-board--second"><div class="bh-hero-plane">
           <a href="/portfolio/acasa" class="bh-hero-piece bh-hero-piece--second" aria-label="Découvrir Acasa, identité de marque">
-            <img src="assets/opt/acasa-univers-700.avif" srcset="assets/opt/acasa-univers-700.avif 700w, assets/opt/acasa-univers-1400.avif 1400w" sizes="(max-width:760px) 66vw, 32vw" width="1400" height="800" alt="Le mot-symbole Acasa sur un meuble en teck" decoding="async">
+            <img src="assets/opt/acasa-univers-700.avif" srcset="assets/opt/acasa-univers-700.avif 700w, assets/opt/acasa-univers-1400.avif 1400w" sizes="(max-width:760px) 86vw, 42vw" width="1400" height="800" alt="Le mot-symbole Acasa sur un meuble en teck" decoding="async">
             <span>Acasa · Identité de marque <span aria-hidden="true">↗</span></span>
           </a>
+          </div></div>
+          </div>
         </div>
       </div>
       <div class="bh-hero-foot"><p>Pour les entrepreneurs, les associations et les équipes qui font bouger les choses.</p><a href="#home-expertises">Ce que nous pouvons créer <span aria-hidden="true">↓</span></a></div>
@@ -306,22 +312,22 @@
   </section>
 
   <!-- ============ PAGE PORTFOLIO (liste) ============ -->
-  <section data-page="portfolio" data-screen-label="Portfolio" style="display:{{ dPortfolio }};"><div class="rd-shell ba-page-head"><h1>Les projets.</h1><div><p>Des univers différents.<br>La même attention au détail.</p><a class="rd-link" href="#selection">Explorer <span aria-hidden="true">↓</span></a></div></div><div id="selection" class="ba-stack rd-shell" data-ba-stack="1" data-ba-expand="1"><a href="/portfolio/koryaa" class="ba-project" data-ba-project="1" style="--order:0;" aria-label="Découvrir le projet Koryaa">
-  <div class="ba-project-image" data-ba-parallax="1"><img src="assets/opt/koryaa-principal-1000.avif" srcset="assets/opt/koryaa-principal-1000.avif 1000w, assets/opt/koryaa-principal-1536.avif 1536w" sizes="(max-width:760px) 100vw, 92vw" width="1536" height="1024" alt="Identité de Koryaa, marque de soins capillaires" loading="eager" decoding="async" fetchpriority="high"></div>
+  <section data-page="portfolio" data-screen-label="Portfolio" class="bp-portfolio" style="display:{{ dPortfolio }};"><div class="rd-shell ba-page-head"><h1>Les projets.</h1><div><p>Des univers différents.<br>La même attention au détail.</p><a class="rd-link" href="#selection">Explorer <span aria-hidden="true">↓</span></a></div></div><div id="selection" class="ba-stack rd-shell" data-ba-stack="1" data-ba-gallery="1"><a href="/portfolio/koryaa" class="ba-project" data-ba-project="1" style="--order:0;" data-project="koryaa" aria-label="Découvrir le projet Koryaa">
+  <div class="bp-visual" data-ba-gallery-reveal><div class="ba-project-image" data-ba-parallax="8"><img src="assets/opt/koryaa-principal-1000.avif" srcset="assets/opt/koryaa-principal-1000.avif 1000w, assets/opt/koryaa-principal-1536.avif 1536w" sizes="(max-width:760px) 100vw, 92vw" width="1536" height="1024" alt="Identité de Koryaa, marque de soins capillaires" loading="eager" decoding="async" fetchpriority="high"></div></div>
   <div class="ba-project-caption"><h3>Koryaa</h3><p>Identité · Packaging</p><span class="ba-project-open">Voir le projet <span aria-hidden="true">↗</span></span></div>
  </a>
-<a href="/portfolio/acasa" class="ba-project" data-ba-project="1" style="--order:1;" aria-label="Découvrir le projet Acasa">
-  <div class="ba-project-image" data-ba-parallax="1"><img src="assets/opt/acasa-univers-700.avif" srcset="assets/opt/acasa-univers-700.avif 700w, assets/opt/acasa-univers-1400.avif 1400w" sizes="(max-width:760px) 100vw, 92vw" width="1400" height="800" alt="Identité Acasa dans un intérieur aux meubles en teck" loading="lazy" decoding="async" ></div>
+<a href="/portfolio/acasa" class="ba-project" data-ba-project="1" style="--order:1;" data-project="acasa" aria-label="Découvrir le projet Acasa">
+  <div class="bp-visual" data-ba-gallery-reveal><div class="ba-project-image"><img src="assets/opt/acasa-univers-700.avif" srcset="assets/opt/acasa-univers-700.avif 700w, assets/opt/acasa-univers-1400.avif 1400w" sizes="(max-width:760px) 100vw, 92vw" width="1400" height="800" alt="Identité Acasa dans un intérieur aux meubles en teck" loading="lazy" decoding="async" ></div></div>
   <div class="ba-project-caption"><h3>Acasa</h3><p>Identité de marque</p><span class="ba-project-open">Voir le projet <span aria-hidden="true">↗</span></span></div>
  </a>
-<a href="/portfolio/ineeva" class="ba-project" data-ba-project="1" style="--order:2;" aria-label="Découvrir le projet Ineeva">
-  <div class="ba-project-image" data-ba-parallax="1"><img src="assets/opt/ineeva-principal-1000.avif" srcset="assets/opt/ineeva-principal-1000.avif 1000w, assets/opt/ineeva-principal-1800.avif 1800w" sizes="(max-width:760px) 100vw, 92vw" width="1800" height="1200" alt="Portrait et univers visuel de l’association Ineeva" loading="lazy" decoding="async" ></div>
+<a href="/portfolio/ineeva" class="ba-project" data-ba-project="1" style="--order:2;" data-project="ineeva" aria-label="Découvrir le projet Ineeva">
+  <div class="bp-visual" data-ba-gallery-reveal><div class="ba-project-image"><img src="assets/opt/ineeva-principal-1000.avif" srcset="assets/opt/ineeva-principal-1000.avif 1000w, assets/opt/ineeva-principal-1800.avif 1800w" sizes="(max-width:760px) 100vw, 92vw" width="1800" height="1200" alt="Portrait et univers visuel de l’association Ineeva" loading="lazy" decoding="async" ></div></div>
   <div class="ba-project-caption"><h3>Ineeva</h3><p>Identité · Webdesign</p><span class="ba-project-open">Voir le projet <span aria-hidden="true">↗</span></span></div>
  </a>
-<a href="/portfolio/laure-fagbohoun" class="ba-project" data-ba-project="1" style="--order:3;" aria-label="Découvrir le projet Laure Fagbohoun">
-  <div class="ba-project-image" data-ba-parallax="1"><img src="assets/opt/laure-principal-1000.avif" srcset="assets/opt/laure-principal-1000.avif 1000w, assets/opt/laure-principal-1800.avif 1800w" sizes="(max-width:760px) 100vw, 92vw" width="1800" height="1200" alt="Site de Laure Fagbohoun présenté sur un ordinateur" loading="lazy" decoding="async" ></div>
+<a href="/portfolio/laure-fagbohoun" class="ba-project" data-ba-project="1" style="--order:3;" data-project="laure" aria-label="Découvrir le projet Laure Fagbohoun">
+  <div class="bp-visual" data-ba-gallery-reveal><div class="ba-project-image" data-ba-parallax="10"><img src="assets/opt/laure-principal-1000.avif" srcset="assets/opt/laure-principal-1000.avif 1000w, assets/opt/laure-principal-1800.avif 1800w" sizes="(max-width:760px) 100vw, 92vw" width="1800" height="1200" alt="Site de Laure Fagbohoun présenté sur un ordinateur" loading="lazy" decoding="async" ></div></div>
   <div class="ba-project-caption"><h3>Laure Fagbohoun</h3><p>Site vitrine</p><span class="ba-project-open">Voir le projet <span aria-hidden="true">↗</span></span></div>
- </a><a class="ba-project ba-project-icc" data-ba-project="1" style="--order:4;" href="/portfolio/icc-ejp-toulouse" aria-label="Découvrir le projet ICC/EJP Toulouse"><div class="ba-poster-set"><img src="assets/opt/icc-ejp-university-tour-700.jpg" alt="Affiche University Tour" width="700" height="875" loading="lazy" decoding="async"><img src="assets/opt/icc-ejp-grand-rassemblement-700.jpg" alt="Affiche Grand Rassemblement" width="700" height="875" loading="lazy" decoding="async"><img src="assets/opt/icc-ejp-prodiges-experience-700.jpg" alt="Affiche Prodiges Experience" width="700" height="855" loading="lazy" decoding="async"></div><div class="ba-project-caption"><h3>ICC / EJP Toulouse</h3><p>Direction artistique · Communication</p><span class="ba-project-open">Voir le projet <span aria-hidden="true">↗</span></span></div></a></div><div class="ba-contact rd-shell"><p>Une idée en tête ?</p><a href="/contact" class="ba-contact-link">Faisons-lui<br>une place.<span aria-hidden="true">↗</span></a></div></section>
+ </a><a class="ba-project ba-project-icc" data-ba-project="1" style="--order:4;" href="/portfolio/icc-ejp-toulouse" data-project="icc" aria-label="Découvrir le projet ICC/EJP Toulouse"><div class="bp-visual" data-ba-gallery-reveal><div class="ba-poster-set"><img src="assets/opt/icc-ejp-university-tour-700.jpg" alt="Affiche University Tour" width="700" height="875" loading="lazy" decoding="async"><img src="assets/opt/icc-ejp-grand-rassemblement-700.jpg" alt="Affiche Grand Rassemblement" width="700" height="875" loading="lazy" decoding="async"><img src="assets/opt/icc-ejp-prodiges-experience-700.jpg" alt="Affiche Prodiges Experience" width="700" height="855" loading="lazy" decoding="async"></div></div><div class="ba-project-caption"><h3>ICC / EJP Toulouse</h3><p>Direction artistique · Communication</p><span class="ba-project-open">Voir le projet <span aria-hidden="true">↗</span></span></div></a></div><div class="ba-contact rd-shell"><p>Une idée en tête ?</p><a href="/contact" class="ba-contact-link">Faisons-lui<br>une place.<span aria-hidden="true">↗</span></a></div></section>
 
   <!-- ============ PAGE PROJET — INEEVA ============ -->
   <section data-page="portfolio-ineeva" data-screen-label="Projet — Ineeva" class="ba-case" style="display:{{ dPIneeva }};">
@@ -731,26 +737,26 @@
   <!-- ============ PAGE CONTACT ============ -->
   <section data-page="contact" data-screen-label="Contact" style="display:{{ dContact }};">
     <div class="bs-shell" style="padding:var(--bs-pad-top) var(--bs-pad-x) clamp(50px,6vw,80px);">
-      <h1 style="font-family:'Bricolage Grotesque',sans-serif;font-weight:500;font-size:clamp(44px,6.5vw,96px);line-height:1.02;letter-spacing:-0.02em;margin:0 0 28px;">Votre idée.<br><span class="ba-blue">On en parle ?</span></h1>
+      <h1 style="font-family:var(--apple-font);font-weight:500;font-size:clamp(44px,6.5vw,96px);line-height:1.02;letter-spacing:-0.02em;margin:0 0 28px;">Votre idée.<br><span class="ba-blue">On en parle ?</span></h1>
       <p style="font-size:clamp(16px,1.5vw,19px);line-height:1.65;color:#55585B;max-width:600px;margin:0;">Quelques lignes suffisent pour commencer. Réponse sous 48&nbsp;h ouvrées.</p>
     </div>
 
     <div class="bs-shell" style="padding:0 clamp(20px,4vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:clamp(28px,4vw,56px);align-items:start;">
       <!-- Formulaire -->
-      <div style="background:#F0F1F2;backdrop-filter:none;-webkit-backdrop-filter:none;border:1px solid #D5D6D7;border-radius:var(--bs-r-frame);padding:clamp(28px,3.5vw,48px);box-shadow:none;">
+      <div class="apple-contact-card" style="background:#F0F1F2;backdrop-filter:none;-webkit-backdrop-filter:none;border:1px solid #D5D6D7;border-radius:var(--bs-r-frame);padding:clamp(28px,3.5vw,48px);box-shadow:none;">
         <form onSubmit="{{ submitForm }}" style="display:{{ formD }};flex-direction:column;gap:22px;">
           <input data-cursor="text" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">
           <div style="display:flex;flex-direction:column;gap:8px;">
             <label for="bs-nom" style="font-size:12px;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:#55585B;">Nom</label>
-            <input data-cursor="text" id="bs-nom" name="nom" type="text" required="required" placeholder="Votre nom" style="background:#F0F1F2;border:1px solid #D5D6D7;border-radius:var(--bs-r-field);padding:14px 16px;font-family:'Manrope',sans-serif;font-size:15px;color:#171717;" autocomplete="name">
+            <input data-cursor="text" id="bs-nom" name="nom" type="text" required="required" placeholder="Votre nom" style="background:#F0F1F2;border:1px solid #D5D6D7;border-radius:var(--bs-r-field);padding:14px 16px;font-family:var(--apple-font);font-size:15px;color:#171717;" autocomplete="name">
           </div>
           <div style="display:flex;flex-direction:column;gap:8px;">
             <label for="bs-email" style="font-size:12px;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:#55585B;">Email</label>
-            <input data-cursor="text" id="bs-email" name="email" type="email" required="required" placeholder="Votre adresse email" style="background:#F0F1F2;border:1px solid #D5D6D7;border-radius:var(--bs-r-field);padding:14px 16px;font-family:'Manrope',sans-serif;font-size:15px;color:#171717;" autocomplete="email">
+            <input data-cursor="text" id="bs-email" name="email" type="email" required="required" placeholder="Votre adresse email" style="background:#F0F1F2;border:1px solid #D5D6D7;border-radius:var(--bs-r-field);padding:14px 16px;font-family:var(--apple-font);font-size:15px;color:#171717;" autocomplete="email">
           </div>
           <div style="display:flex;flex-direction:column;gap:8px;">
             <label for="bs-type" style="font-size:12px;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:#55585B;">Type de demande</label>
-            <select data-cursor="text" id="bs-type" name="type" required="required" style="background:#F0F1F2;border:1px solid #D5D6D7;border-radius:var(--bs-r-field);padding:14px 16px;font-family:'Manrope',sans-serif;font-size:15px;color:#171717;appearance:none;" onChange="{{ requestTypeChange }}">
+            <select data-cursor="text" id="bs-type" name="type" required="required" style="background:#F0F1F2;border:1px solid #D5D6D7;border-radius:var(--bs-r-field);padding:14px 16px;font-family:var(--apple-font);font-size:15px;color:#171717;appearance:none;" onChange="{{ requestTypeChange }}">
               <option value="">Choisir…</option>
               <option value="projet-ponctuel">Projet ponctuel (sur devis)</option>
               <option value="studio-partenaire">Studio Partenaire</option>
@@ -759,7 +765,7 @@
           </div>
           <div style="display:{{ budgetD }};flex-direction:column;gap:8px;" data-bs-prehide="1">
             <label for="bs-budget" style="font-size:12px;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:#55585B;">Capacité envisagée <span style="text-transform:none;letter-spacing:0;color:#55585B;">(optionnel)</span></label>
-            <select data-cursor="text" id="bs-budget" name="budget" style="background:#F0F1F2;border:1px solid #D5D6D7;border-radius:var(--bs-r-field);padding:14px 16px;font-family:'Manrope',sans-serif;font-size:15px;color:#171717;appearance:none;">
+            <select data-cursor="text" id="bs-budget" name="budget" style="background:#F0F1F2;border:1px solid #D5D6D7;border-radius:var(--bs-r-field);padding:14px 16px;font-family:var(--apple-font);font-size:15px;color:#171717;appearance:none;">
               <option value="">À définir ensemble</option>
               <option value="capa-3">3 jours · 1&nbsp;200&nbsp;€ / mois</option>
               <option value="capa-4-5">4 à 5 jours · 1&nbsp;600 à 2&nbsp;000&nbsp;€ / mois</option>
@@ -768,27 +774,27 @@
           </div>
           <div style="display:flex;flex-direction:column;gap:8px;">
             <label for="bs-message" style="font-size:12px;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:#55585B;">Message</label>
-            <textarea data-cursor="text" id="bs-message" name="message" required="required" rows="5" placeholder="Votre idée, votre activité, vos envies et votre calendrier, en quelques lignes." style="background:#F0F1F2;border:1px solid #D5D6D7;border-radius:var(--bs-r-field);padding:14px 16px;font-family:'Manrope',sans-serif;font-size:15px;color:#171717;resize:vertical;min-height:120px;"></textarea>
+            <textarea data-cursor="text" id="bs-message" name="message" required="required" rows="5" placeholder="Votre idée, votre activité, vos envies et votre calendrier, en quelques lignes." style="background:#F0F1F2;border:1px solid #D5D6D7;border-radius:var(--bs-r-field);padding:14px 16px;font-family:var(--apple-font);font-size:15px;color:#171717;resize:vertical;min-height:120px;"></textarea>
           </div>
           <p class="ba-form-privacy">Vos informations servent à vous répondre et sont conservées douze mois. <a href="/confidentialite">Confidentialité et droits</a>.</p>
-          <button data-cursor="link" type="submit" disabled="{{ submitDisabled }}" style="display:inline-flex;align-items:center;gap:10px;background:#F0F1F2;color:#55585B;border:none;cursor:pointer;font-family:'Manrope',sans-serif;font-size:15px;font-weight:500;padding:16px 30px;border-radius:var(--bs-r-pill);box-shadow:none;transition:box-shadow var(--bs-t-fast) ease, color var(--bs-t-fast) ease, opacity var(--bs-t-fast) ease;align-self:flex-start;opacity:{{ submitOpacity }};" style-hover="color:#171717;box-shadow:none;"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg><span style="display:{{ submitIdleD }};">Envoyer ma demande</span><span data-bs-prehide="1" style="display:{{ submitBusyD }};">Envoi…</span></button>
+          <button class="rd-button" data-cursor="link" type="submit" disabled="{{ submitDisabled }}" style="display:inline-flex;align-items:center;gap:10px;background:#F0F1F2;color:#55585B;border:none;cursor:pointer;font-family:var(--apple-font);font-size:15px;font-weight:500;padding:16px 30px;border-radius:var(--bs-r-pill);box-shadow:none;transition:box-shadow var(--bs-t-fast) ease, color var(--bs-t-fast) ease, opacity var(--bs-t-fast) ease;align-self:flex-start;opacity:{{ submitOpacity }};" style-hover="color:#171717;box-shadow:none;"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg><span style="display:{{ submitIdleD }};">Envoyer ma demande</span><span data-bs-prehide="1" style="display:{{ submitBusyD }};">Envoi…</span></button>
           <div role="alert" data-bs-prehide="1" style="display:{{ errorD }};flex-direction:column;gap:8px;padding:16px 18px;background:#F0F1F2;border:1px solid #D5D6D7;border-radius:var(--bs-r-field);">
             <p ref="{{ errorRef }}" style="font-size:14.5px;line-height:1.5;color:#171717;margin:0;"></p>
             <a data-cursor="link" href="mailto:contact@brenartstudio.fr" style="font-size:14px;font-weight:500;color:#171717;text-decoration:none;border-bottom:1px solid #171717;align-self:flex-start;padding-bottom:2px;">Nous écrire directement par email</a>
           </div>
         </form>
         <div data-bs-prehide="1" style="display:{{ sentD }};flex-direction:column;gap:16px;padding:24px 0;" role="status" aria-live="polite" aria-atomic="true">
-          <p style="font-family:'Manrope',sans-serif;font-weight:500;font-size:28px;margin:0;">Message bien reçu<span style="color:#171717;">.</span></p>
+          <p style="font-family:var(--apple-font);font-weight:500;font-size:28px;margin:0;">Message bien reçu<span style="color:#171717;">.</span></p>
           <p style="font-size:16px;line-height:1.65;color:#55585B;margin:0;">Merci pour votre message. Je vous réponds sous 48&nbsp;h ouvrées à l’adresse indiquée, pour faire le point sur votre projet.</p>
         </div>
       </div>
 
       <!-- Canaux directs + FAQ -->
       <div style="display:flex;flex-direction:column;gap:clamp(28px,3vw,40px);">
-        <div style="background:#F0F1F2;backdrop-filter:none;-webkit-backdrop-filter:none;border:1px solid #D5D6D7;border-radius:var(--bs-r-frame);padding:clamp(28px,3vw,40px);display:flex;flex-direction:column;gap:18px;">
+        <div class="apple-contact-card" style="background:#F0F1F2;backdrop-filter:none;-webkit-backdrop-filter:none;border:1px solid #D5D6D7;border-radius:var(--bs-r-frame);padding:clamp(28px,3vw,40px);display:flex;flex-direction:column;gap:18px;">
           <h2 style="font-size:22px;font-weight:500;margin:0;">En direct</h2>
-          <a data-cursor="link" href="mailto:contact@brenartstudio.fr" style="font-family:'Manrope',sans-serif;font-weight:500;font-size:clamp(18px,1.8vw,24px);color:#171717;text-decoration:none;border-bottom:1px solid #171717;padding-bottom:4px;align-self:flex-start;transition:color var(--bs-t-fast) ease;" style-hover="color:#171717;">contact@brenartstudio.fr</a>
-          <a data-cursor="link" href="tel:+33670174812" style="font-family:'Manrope',sans-serif;font-weight:500;font-size:clamp(18px,1.8vw,24px);color:#171717;text-decoration:none;border-bottom:1px solid #171717;padding-bottom:4px;align-self:flex-start;transition:color var(--bs-t-fast) ease;" style-hover="color:#171717;">+33 6 70 17 48 12</a>
+          <a data-cursor="link" href="mailto:contact@brenartstudio.fr" style="font-family:var(--apple-font);font-weight:500;font-size:clamp(18px,1.8vw,24px);color:#171717;text-decoration:none;border-bottom:1px solid #171717;padding-bottom:4px;align-self:flex-start;transition:color var(--bs-t-fast) ease;" style-hover="color:#171717;">contact@brenartstudio.fr</a>
+          <a data-cursor="link" href="tel:+33670174812" style="font-family:var(--apple-font);font-weight:500;font-size:clamp(18px,1.8vw,24px);color:#171717;text-decoration:none;border-bottom:1px solid #171717;padding-bottom:4px;align-self:flex-start;transition:color var(--bs-t-fast) ease;" style-hover="color:#171717;">+33 6 70 17 48 12</a>
           <div style="display:flex;flex-direction:column;gap:6px;">
             <p style="font-size:14.5px;color:#55585B;margin:0;">Basé à Toulouse, déplacements possibles en Occitanie.</p>
             <p style="font-size:14.5px;color:#55585B;margin:0;">Réponse sous 48&nbsp;h ouvrées.</p>
@@ -800,9 +806,9 @@
           <div style="display:flex;flex-direction:column;gap:12px;">
 
             <div style="background:#F0F1F2;backdrop-filter:none;-webkit-backdrop-filter:none;border:1px solid #D5D6D7;border-radius:var(--bs-r-frame);overflow:hidden;">
-              <button data-cursor="link" onClick="{{ faqT0 }}" aria-expanded="{{ faqA0 }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;background:none;border:none;cursor:pointer;padding:20px 24px;font-family:'Manrope',sans-serif;font-size:15.5px;font-weight:500;color:#171717;text-align:left;">
+              <button data-cursor="link" onClick="{{ faqT0 }}" aria-expanded="{{ faqA0 }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;background:none;border:none;cursor:pointer;padding:20px 24px;font-family:var(--apple-font);font-size:15.5px;font-weight:500;color:#171717;text-align:left;">
                 <span>Comment se passe un mois en Studio Partenaire&nbsp;?</span>
-                <span style="display:inline-block;font-family:'Manrope',sans-serif;font-size:20px;color:#171717;flex-shrink:0;transform:{{ faqR0 }};transition:transform var(--bs-t-mid) var(--bs-ease);">+</span>
+                <span style="display:inline-block;font-family:var(--apple-font);font-size:20px;color:#171717;flex-shrink:0;transform:{{ faqR0 }};transition:transform var(--bs-t-mid) var(--bs-ease);">+</span>
               </button>
               <div id="bs-faq-answer-0" aria-hidden="{{ faqH0 }}" style="display:grid;grid-template-rows:{{ faqG0 }};"><div style="overflow:hidden;min-height:0;"><div style="padding:0 24px 22px;">
                 <p style="font-size:14.5px;line-height:1.65;color:#55585B;margin:0;">Un point de cadrage de 45&nbsp;minutes ouvre le mois&nbsp;: on fixe les priorités et les dates des journées de production. Je produis ensuite vos livrables sur ces journées entières, et les petites demandes rejoignent la journée suivante. Une urgence peut consommer une journée hors planning, selon disponibilité.</p>
@@ -810,9 +816,9 @@
             </div>
 
             <div style="background:#F0F1F2;backdrop-filter:none;-webkit-backdrop-filter:none;border:1px solid #D5D6D7;border-radius:var(--bs-r-frame);overflow:hidden;">
-              <button data-cursor="link" onClick="{{ faqT1 }}" aria-expanded="{{ faqA1 }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;background:none;border:none;cursor:pointer;padding:20px 24px;font-family:'Manrope',sans-serif;font-size:15.5px;font-weight:500;color:#171717;text-align:left;">
+              <button data-cursor="link" onClick="{{ faqT1 }}" aria-expanded="{{ faqA1 }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;background:none;border:none;cursor:pointer;padding:20px 24px;font-family:var(--apple-font);font-size:15.5px;font-weight:500;color:#171717;text-align:left;">
                 <span>Combien de temps pour démarrer&nbsp;?</span>
-                <span style="display:inline-block;font-family:'Manrope',sans-serif;font-size:20px;color:#171717;flex-shrink:0;transform:{{ faqR1 }};transition:transform var(--bs-t-mid) var(--bs-ease);">+</span>
+                <span style="display:inline-block;font-family:var(--apple-font);font-size:20px;color:#171717;flex-shrink:0;transform:{{ faqR1 }};transition:transform var(--bs-t-mid) var(--bs-ease);">+</span>
               </button>
               <div id="bs-faq-answer-1" aria-hidden="{{ faqH1 }}" style="display:grid;grid-template-rows:{{ faqG1 }};"><div style="overflow:hidden;min-height:0;"><div style="padding:0 24px 22px;">
                 <p style="font-size:14.5px;line-height:1.65;color:#55585B;margin:0;">Tout commence par un appel découverte de 30&nbsp;minutes. Si le partenariat est le bon cadre, l’atelier de cadrage, offert, pose la feuille de route des trois premiers mois, puis les premières journées sont planifiées. La date de démarrage dépend des places disponibles&nbsp;: je vous la donne dès l’appel.</p>
@@ -820,9 +826,9 @@
             </div>
 
             <div style="background:#F0F1F2;backdrop-filter:none;-webkit-backdrop-filter:none;border:1px solid #D5D6D7;border-radius:var(--bs-r-frame);overflow:hidden;">
-              <button data-cursor="link" onClick="{{ faqT2 }}" aria-expanded="{{ faqA2 }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;background:none;border:none;cursor:pointer;padding:20px 24px;font-family:'Manrope',sans-serif;font-size:15.5px;font-weight:500;color:#171717;text-align:left;">
+              <button data-cursor="link" onClick="{{ faqT2 }}" aria-expanded="{{ faqA2 }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;background:none;border:none;cursor:pointer;padding:20px 24px;font-family:var(--apple-font);font-size:15.5px;font-weight:500;color:#171717;text-align:left;">
                 <span>De quoi avez-vous besoin pour démarrer&nbsp;?</span>
-                <span style="display:inline-block;font-family:'Manrope',sans-serif;font-size:20px;color:#171717;flex-shrink:0;transform:{{ faqR2 }};transition:transform var(--bs-t-mid) var(--bs-ease);">+</span>
+                <span style="display:inline-block;font-family:var(--apple-font);font-size:20px;color:#171717;flex-shrink:0;transform:{{ faqR2 }};transition:transform var(--bs-t-mid) var(--bs-ease);">+</span>
               </button>
               <div id="bs-faq-answer-2" aria-hidden="{{ faqH2 }}" style="display:grid;grid-template-rows:{{ faqG2 }};"><div style="overflow:hidden;min-height:0;"><div style="padding:0 24px 22px;">
                 <p style="font-size:14.5px;line-height:1.65;color:#55585B;margin:0;">De votre histoire, de vos supports existants et de vos priorités pour les mois à venir. Le reste se construit ensemble pendant l’atelier de cadrage.</p>
@@ -830,9 +836,9 @@
             </div>
 
             <div style="background:#F0F1F2;backdrop-filter:none;-webkit-backdrop-filter:none;border:1px solid #D5D6D7;border-radius:var(--bs-r-frame);overflow:hidden;">
-              <button data-cursor="link" onClick="{{ faqT3 }}" aria-expanded="{{ faqA3 }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;background:none;border:none;cursor:pointer;padding:20px 24px;font-family:'Manrope',sans-serif;font-size:15.5px;font-weight:500;color:#171717;text-align:left;">
+              <button data-cursor="link" onClick="{{ faqT3 }}" aria-expanded="{{ faqA3 }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;background:none;border:none;cursor:pointer;padding:20px 24px;font-family:var(--apple-font);font-size:15.5px;font-weight:500;color:#171717;text-align:left;">
                 <span>Travaillez-vous seul&nbsp;?</span>
-                <span style="display:inline-block;font-family:'Manrope',sans-serif;font-size:20px;color:#171717;flex-shrink:0;transform:{{ faqR3 }};transition:transform var(--bs-t-mid) var(--bs-ease);">+</span>
+                <span style="display:inline-block;font-family:var(--apple-font);font-size:20px;color:#171717;flex-shrink:0;transform:{{ faqR3 }};transition:transform var(--bs-t-mid) var(--bs-ease);">+</span>
               </button>
               <div id="bs-faq-answer-3" aria-hidden="{{ faqH3 }}" style="display:grid;grid-template-rows:{{ faqG3 }};"><div style="overflow:hidden;min-height:0;"><div style="padding:0 24px 22px;">
                 <p style="font-size:14.5px;line-height:1.65;color:#55585B;margin:0;">Oui, c’est le principe du studio. Je m’entoure ponctuellement de spécialistes (photographie, rédaction, développement web) quand un besoin le demande, en restant votre interlocuteur unique.</p>
@@ -840,9 +846,9 @@
             </div>
 
             <div style="background:#F0F1F2;backdrop-filter:none;-webkit-backdrop-filter:none;border:1px solid #D5D6D7;border-radius:var(--bs-r-frame);overflow:hidden;">
-              <button data-cursor="link" onClick="{{ faqT4 }}" aria-expanded="{{ faqA4 }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;background:none;border:none;cursor:pointer;padding:20px 24px;font-family:'Manrope',sans-serif;font-size:15.5px;font-weight:500;color:#171717;text-align:left;">
+              <button data-cursor="link" onClick="{{ faqT4 }}" aria-expanded="{{ faqA4 }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;background:none;border:none;cursor:pointer;padding:20px 24px;font-family:var(--apple-font);font-size:15.5px;font-weight:500;color:#171717;text-align:left;">
                 <span>Et si je n’utilise pas tous mes jours&nbsp;?</span>
-                <span style="display:inline-block;font-family:'Manrope',sans-serif;font-size:20px;color:#171717;flex-shrink:0;transform:{{ faqR4 }};transition:transform var(--bs-t-mid) var(--bs-ease);">+</span>
+                <span style="display:inline-block;font-family:var(--apple-font);font-size:20px;color:#171717;flex-shrink:0;transform:{{ faqR4 }};transition:transform var(--bs-t-mid) var(--bs-ease);">+</span>
               </button>
               <div id="bs-faq-answer-4" aria-hidden="{{ faqH4 }}" style="display:grid;grid-template-rows:{{ faqG4 }};"><div style="overflow:hidden;min-height:0;"><div style="padding:0 24px 22px;">
                 <p style="font-size:14.5px;line-height:1.65;color:#55585B;margin:0;">Pendant les trois mois de démarrage, les journées non utilisées dans le mois sont perdues&nbsp;: elles sont réservées pour vous dans mon planning. En partenariat 12&nbsp;mois, elles se reportent sur le mois suivant, sans cumul. Si votre rythme baisse durablement, on réduit le nombre de journées avec un mois de préavis.</p>
@@ -850,9 +856,9 @@
             </div>
 
             <div style="background:#F0F1F2;backdrop-filter:none;-webkit-backdrop-filter:none;border:1px solid #D5D6D7;border-radius:var(--bs-r-frame);overflow:hidden;">
-              <button data-cursor="link" onClick="{{ faqT5 }}" aria-expanded="{{ faqA5 }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;background:none;border:none;cursor:pointer;padding:20px 24px;font-family:'Manrope',sans-serif;font-size:15.5px;font-weight:500;color:#171717;text-align:left;">
+              <button data-cursor="link" onClick="{{ faqT5 }}" aria-expanded="{{ faqA5 }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;background:none;border:none;cursor:pointer;padding:20px 24px;font-family:var(--apple-font);font-size:15.5px;font-weight:500;color:#171717;text-align:left;">
                 <span>Puis-je arrêter après trois mois&nbsp;?</span>
-                <span style="display:inline-block;font-family:'Manrope',sans-serif;font-size:20px;color:#171717;flex-shrink:0;transform:{{ faqR5 }};transition:transform var(--bs-t-mid) var(--bs-ease);">+</span>
+                <span style="display:inline-block;font-family:var(--apple-font);font-size:20px;color:#171717;flex-shrink:0;transform:{{ faqR5 }};transition:transform var(--bs-t-mid) var(--bs-ease);">+</span>
               </button>
               <div id="bs-faq-answer-5" aria-hidden="{{ faqH5 }}" style="display:grid;grid-template-rows:{{ faqG5 }};"><div style="overflow:hidden;min-height:0;"><div style="padding:0 24px 22px;">
                 <p style="font-size:14.5px;line-height:1.65;color:#55585B;margin:0;">Oui. Le démarrage engage sur trois mois, pas davantage. Au bilan, vous choisissez&nbsp;: passer en partenariat 12&nbsp;mois, renouveler trois mois ou arrêter là. En cours d’engagement, une sortie anticipée reste possible avec un préavis de deux mois.</p>
@@ -860,9 +866,9 @@
             </div>
 
             <div style="background:#F0F1F2;backdrop-filter:none;-webkit-backdrop-filter:none;border:1px solid #D5D6D7;border-radius:var(--bs-r-frame);overflow:hidden;">
-              <button data-cursor="link" onClick="{{ faqT6 }}" aria-expanded="{{ faqA6 }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;background:none;border:none;cursor:pointer;padding:20px 24px;font-family:'Manrope',sans-serif;font-size:15.5px;font-weight:500;color:#171717;text-align:left;">
+              <button data-cursor="link" onClick="{{ faqT6 }}" aria-expanded="{{ faqA6 }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;background:none;border:none;cursor:pointer;padding:20px 24px;font-family:var(--apple-font);font-size:15.5px;font-weight:500;color:#171717;text-align:left;">
                 <span>Quel budget prévoir, et pour qui ce n’est pas adapté&nbsp;?</span>
-                <span style="display:inline-block;font-family:'Manrope',sans-serif;font-size:20px;color:#171717;flex-shrink:0;transform:{{ faqR6 }};transition:transform var(--bs-t-mid) var(--bs-ease);">+</span>
+                <span style="display:inline-block;font-family:var(--apple-font);font-size:20px;color:#171717;flex-shrink:0;transform:{{ faqR6 }};transition:transform var(--bs-t-mid) var(--bs-ease);">+</span>
               </button>
               <div id="bs-faq-answer-6" aria-hidden="{{ faqH6 }}" style="display:grid;grid-template-rows:{{ faqG6 }};"><div style="overflow:hidden;min-height:0;"><div style="padding:0 24px 22px;">
                 <p style="font-size:14.5px;line-height:1.65;color:#55585B;margin:0;">Le partenariat démarre à 1&nbsp;200&nbsp;€ par mois, soit trois journées à 400&nbsp;€. Il n’est pas adapté à un besoin unique, comme un logo ou un site livré une fois pour toutes, qui se traite plutôt sur devis, ni à une entreprise qui ne communique pas au moins chaque mois. Le dire tôt évite de perdre du temps des deux côtés.</p>
@@ -895,13 +901,14 @@
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
   // UX refonte : navigation et accessibilité
-  state = { requestType: '', page: 'accueil', menuOpen: false, faqOpen: -1, sent: false, sending: false, error: null, isMobile: false, hov: -1, nextHov: -1, motion: false, finePointer: false, ctaNavHov: false, ineevaEmbed: 'loading', laureEmbed: 'loading' };
+  state = { requestType: '', page: 'accueil', menuOpen: false, menuVisible: false, faqOpen: -1, sent: false, sending: false, error: null, isMobile: false, hov: -1, nextHov: -1, motion: false, finePointer: false, ctaNavHov: false, ineevaEmbed: 'loading', laureEmbed: 'loading' };
 
   componentDidMount() {
     const pages = ['accueil', 'portfolio', 'portfolio-ineeva', 'portfolio-acasa', 'portfolio-laure-fagbohoun', 'portfolio-koryaa', 'portfolio-icc-ejp-toulouse', 'services', 'about', 'contact'];
     this._pages = pages;
     this._trs = [];
     this._navGeneration = 0;
+    this._menuMotionGeneration = 0;
     this._anchorFrame = 0;
     this._unmounted = false;
 
@@ -1213,6 +1220,36 @@ class Component extends DCLogic {
       this._menuInert.forEach(({ node, wasInert }) => node.toggleAttribute('inert', wasInert));
       this._menuInert = null;
     }
+    const menu = document.getElementById('bs-mobile-menu');
+    const scrim = document.querySelector('.rd-scrim');
+    if (menu) {
+      menu.toggleAttribute('inert', !open);
+      menu.setAttribute('aria-hidden', open ? 'false' : 'true');
+      menu.style.pointerEvents = open ? '' : 'none';
+    }
+    if (scrim) scrim.style.pointerEvents = open ? '' : 'none';
+    this._syncMenuMotion(open, menu, scrim);
+  }
+
+  _syncMenuMotion(open, panel, scrim) {
+    if (this._unmounted) return;
+    const immediate = !this.state.isMobile;
+    if (!immediate && this._menuMotionOpen === open) return;
+    this._menuMotionOpen = open;
+    const generation = ++this._menuMotionGeneration;
+    const motion = window.BrenMotion;
+    const animated = motion && typeof motion.menu === 'function' && panel && scrim;
+    if (immediate || !animated) {
+      if (animated) motion.menu(open, panel, scrim, { immediate: true });
+      if (this.state.menuVisible !== open) this.setState({ menuVisible: open });
+      return;
+    }
+    if (!open && !this.state.menuVisible) return;
+    if (open && !this.state.menuVisible) this.setState({ menuVisible: true });
+    Promise.resolve(motion.menu(open, panel, scrim)).then((completed) => {
+      if (!completed || this._unmounted || generation !== this._menuMotionGeneration) return;
+      if (!this.state.menuOpen && this.state.menuVisible) this.setState({ menuVisible: false });
+    });
   }
 
   _focusDesktopNav(href) {
@@ -1223,7 +1260,8 @@ class Component extends DCLogic {
   }
 
   _setMenuOpen(open) {
-    this.setState({ menuOpen: !!open && this.state.isMobile }, () => {
+    const menuOpen = !!open && this.state.isMobile;
+    this.setState({ menuOpen, menuVisible: menuOpen || this.state.menuVisible }, () => {
       this._syncMenuAccessibility();
       const target = document.querySelector(this.state.menuOpen ? '#bs-mobile-menu a' : '[data-bs-menu-toggle]');
       if (target && target.getClientRects().length) target.focus({ preventScroll: true });
@@ -1234,6 +1272,12 @@ class Component extends DCLogic {
     const generation = ++this._navGeneration;
     const changingPage = target !== this.state.page;
     cancelAnimationFrame(this._anchorFrame);
+    if (this.state.menuOpen) {
+      this.setState({ menuOpen: false }, () => {
+        this._syncMenuAccessibility();
+        this._focusMain();
+      });
+    }
     const commit = () => {
       if (this._unmounted || generation !== this._navGeneration) return;
       this.setState({ page: target, menuOpen: false, hov: -1, nextHov: -1 }, () => {
@@ -1288,6 +1332,7 @@ class Component extends DCLogic {
   componentWillUnmount() {
     this._unmounted = true;
     this._navGeneration += 1;
+    this._menuMotionGeneration += 1;
     cancelAnimationFrame(this._anchorFrame);
     if (this._playVisibleVideos) document.removeEventListener('visibilitychange', this._playVisibleVideos);
     (this._loopVideos || []).forEach((video) => video.pause());
@@ -1386,8 +1431,8 @@ class Component extends DCLogic {
       dContact: d('contact'),
       navLinksD: isMobile ? 'none' : 'flex',
       burgerD: isMobile ? 'flex' : 'none',
-      menuD: isMobile && menuOpen ? 'flex' : 'none',
-      scrimD: isMobile && menuOpen ? 'block' : 'none',
+      menuD: isMobile && (menuOpen || this.state.menuVisible) ? 'flex' : 'none',
+      scrimD: isMobile && (menuOpen || this.state.menuVisible) ? 'block' : 'none',
       menuExpanded: isMobile && menuOpen ? 'true' : 'false',
       menuLabel: menuOpen ? 'Fermer le menu' : 'Ouvrir le menu',
       toggleMenu: () => this._setMenuOpen(!this.state.menuOpen),

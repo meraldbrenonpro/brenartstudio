@@ -18,7 +18,7 @@ Lumineux, créatif, affirmé. Une présence personnelle, directe et visuelle. Le
 
 ## Anti-references
 
-Le propriétaire rejette le terracotta, le jaune citron, les anciennes polices et les pages trop bavardes. Il a choisi une base blanche et noire avec un accent bleu vif. Éviter les halos, panneaux de verre, effets de profondeur décoratifs et les longs argumentaires commerciaux. Références données : https://justinbuisson.com/ pour la place des visuels, https://esaierosa.fr/ pour le défilement et les animations, puis https://www.studioyuna.com/ pour une véritable page d’accueil qui présente le studio, ses services, une sélection de projets et le contact.
+Le propriétaire rejette le terracotta, le jaune citron, les anciennes polices et les pages trop bavardes. Il a choisi une base blanche et noire avec un accent bleu vif. Depuis le 22 octobre 2026, il demande explicitement les principes Apple Design et les animations associées : navigation translucide fonctionnelle, typographie système et ressorts interruptibles. Éviter les halos, le verre décoratif sur les contenus et les longs argumentaires commerciaux. Les réalisations du studio restent au premier plan. Références antérieures : https://justinbuisson.com/ pour la place des visuels, https://esaierosa.fr/ pour le défilement et les animations, puis https://www.studioyuna.com/ pour le parcours d’accueil.
 
 ## Design Principles
 
