@@ -7,10 +7,11 @@
 <title>ICC/EJP Toulouse, direction artistique | Bren’Art Studio</title>
 <meta name="description" content="Direction artistique et communication digitale pour ICC/EJP Toulouse : une série d’affiches événementielles cohérente. Une étude de cas Bren’Art Studio.">
 <meta name="theme-color" content="#FAFAFA">
-<link rel="icon" href="assets/favicon.ico?v=3" sizes="any">
-<link rel="icon" type="image/png" sizes="96x96" href="assets/favicon-96.png?v=3">
-<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png?v=3">
-<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png?v=3">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="icon" href="/assets/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
 <link rel="preload" as="image" href="assets/opt/ineeva-principal-1000.avif" imagesrcset="assets/opt/ineeva-principal-1000.avif 1000w, assets/opt/ineeva-principal-1800.avif 1800w" imagesizes="(max-width:760px) 86vw, 44vw" fetchpriority="high">
 <link rel="preload" as="image" href="assets/logotype-blanc.png">
 <link rel="canonical" href="https://brenartstudio.fr/portfolio/icc-ejp-toulouse">
@@ -36,8 +37,10 @@
   "@context": "https://schema.org",
   "@type": "WebSite",
   "@id": "https://brenartstudio.fr/#website",
-  "name": "Bren'Art Studio",
+  "name": "Bren’Art Studio",
+  "alternateName": "Brenart Studio",
   "url": "https://brenartstudio.fr/",
+  "publisher": { "@id": "https://brenartstudio.fr/#studio" },
   "inLanguage": "fr-FR"
 }
 </script>
@@ -48,7 +51,7 @@
   "@id": "https://brenartstudio.fr/#studio",
   "name": "Bren'Art Studio",
   "url": "https://brenartstudio.fr",
-  "description": "Studio de design indépendant à Toulouse : identité de marque, sites web et communication. Missions sur devis et accompagnement mensuel Studio Partenaire.",
+  "description": "Mérald Brenon, designer indépendant à Toulouse. Identité visuelle, sites web et communication : une direction claire pour donner du caractère à votre marque.",
   "areaServed": [
     { "@type": "City", "name": "Toulouse" },
     { "@type": "AdministrativeArea", "name": "Occitanie" },
@@ -57,7 +60,7 @@
   "knowsLanguage": "fr-FR",
   "priceRange": "400 € / jour",
   "currenciesAccepted": "EUR",
-  "logo": "https://brenartstudio.fr/assets/logotype-blanc.png",
+  "logo": "https://brenartstudio.fr/assets/apple-touch-icon.png",
   "image": "https://brenartstudio.fr/assets/og/brenart-studio-20261023.jpg",
   "telephone": "+33670174812",
   "email": "contact@brenartstudio.fr",
@@ -140,6 +143,30 @@
 <script src="./support.js?v=7c923c3f6027e809"></script>
 <style id="bs-prerender">section[data-page]{display:none}section[data-page="portfolio-icc-ejp-toulouse"]{display:block}[data-bs-prehide]{display:none}[data-bs-navlink][href="/portfolio"],[data-bs-navmob][href="/portfolio"]{color:#171717}[data-bs-navlink][href="/portfolio"]{text-decoration-color:#171717}</style>
 <!--bs-page-ld-->
+<script id="bs-webpage-schema" type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://brenartstudio.fr/portfolio/icc-ejp-toulouse#webpage",
+  "url": "https://brenartstudio.fr/portfolio/icc-ejp-toulouse",
+  "name": "ICC/EJP Toulouse, direction artistique | Bren’Art Studio",
+  "description": "Direction artistique et communication digitale pour ICC/EJP Toulouse : une série d’affiches événementielles cohérente. Une étude de cas Bren’Art Studio.",
+  "inLanguage": "fr-FR",
+  "isPartOf": {
+    "@id": "https://brenartstudio.fr/#website"
+  },
+  "about": {
+    "@id": "https://brenartstudio.fr/#studio"
+  },
+  "primaryImageOfPage": {
+    "@type": "ImageObject",
+    "url": "https://brenartstudio.fr/assets/og/brenart-studio-20261023.jpg",
+    "width": 1200,
+    "height": 630,
+    "caption": "Bren’Art Studio, design de marque et web à Toulouse. Votre marque. Une vraie personnalité."
+  }
+}
+</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -1374,7 +1401,7 @@ class Component extends DCLogic {
 
   _seo(page) {
     const M = {
-      'accueil': { t: "Studio design digital à Toulouse | Bren’Art Studio", d: "Mérald Brenon, designer indépendant à Toulouse : identité de marque, webdesign et communication. Découvrez les projets de Bren’Art Studio et parlons du vôtre.", image: "https://brenartstudio.fr/assets/og/brenart-studio-20261023.jpg", imageAlt: "Bren’Art Studio, design de marque et web à Toulouse. Votre marque. Une vraie personnalité." },
+      'accueil': { t: "Bren’Art Studio — Identité visuelle et webdesign à Toulouse", d: "Mérald Brenon, designer indépendant à Toulouse. Identité visuelle, sites web et communication : une direction claire pour donner du caractère à votre marque.", image: "https://brenartstudio.fr/assets/og/brenart-studio-20261023.jpg", imageAlt: "Bren’Art Studio, design de marque et web à Toulouse. Votre marque. Une vraie personnalité." },
       'portfolio': { t: "Portfolio & Réalisations | Bren’Art Studio", d: "Projets de branding digital signés Bren’Art Studio à Toulouse : identités de marque et sites web sur-mesure, de la stratégie à la mise en ligne." },
       'portfolio-ineeva': { t: "Ineeva, branding d’association | Bren’Art Studio", d: "Refonte d’identité et stratégie digitale pour Ineeva, association d’accompagnement des femmes. Une étude de cas branding signée Bren’Art Studio à Toulouse.", image: "https://brenartstudio.fr/assets/og/ineeva.jpg", imageAlt: "Ineeva, identité de marque conçue par Bren'Art Studio." },
       'portfolio-acasa': { t: "Acasa, branding magasin de meubles | Bren’Art Studio", d: "Identité de marque pour Acasa, magasin de meubles. Une étude de cas branding signée Bren’Art Studio, designer à Toulouse.", image: "https://brenartstudio.fr/assets/og/acasa.jpg", imageAlt: "Acasa, identité de marque conçue par Bren'Art Studio." },
@@ -1420,6 +1447,16 @@ class Component extends DCLogic {
         for (const selector of ['meta[property="og:image:alt"]', 'meta[name="twitter:image:alt"]']) {
           const imageAlt = document.querySelector(selector);
           if (imageAlt) imageAlt.setAttribute('content', seo.imageAlt);
+        }
+        const pageSchema = document.getElementById('bs-webpage-schema');
+        if (pageSchema) {
+          const schema = JSON.parse(pageSchema.textContent);
+          Object.assign(schema, {
+            '@id': url + '#webpage', url, name: seo.t, description: seo.d,
+            primaryImageOfPage: { '@type': 'ImageObject', url: seo.image, width: 1200, height: 630, caption: seo.imageAlt }
+          });
+          const content = JSON.stringify(schema);
+          if (pageSchema.textContent !== content) pageSchema.textContent = content;
         }
       }
     } catch (e) {}

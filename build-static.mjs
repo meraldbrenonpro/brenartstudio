@@ -229,6 +229,16 @@ function transform(html, page, seo) {
     `[data-bs-navlink][href="${navHref}"]{text-decoration-color:#171717}` +
     `</style>\n</head>`);
 
+  // Image préférée pour Google, en plus de la carte de partage Open Graph.
+  const blocks = [{
+    '@context': 'https://schema.org', '@type': 'WebPage',
+    '@id': url + '#webpage', url, name: seo.t, description: seo.d,
+    inLanguage: 'fr-FR',
+    isPartOf: { '@id': ORIGIN + '/#website' },
+    about: { '@id': ORIGIN + '/#studio' },
+    primaryImageOfPage: { '@type': 'ImageObject', url: image, width: 1200, height: 630, caption: imageAlt },
+  }];
+
   // --- JSON-LD par page : fil d'ariane + fiche d'œuvre ---------------------
   const meta = PAGE_META[page];
   if (meta) {
@@ -238,7 +248,7 @@ function transform(html, page, seo) {
     }
     items.push({ '@type': 'ListItem', position: items.length + 1, name: meta.crumb, item: url });
 
-    const blocks = [{ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: items }];
+    blocks.push({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: items });
 
     // FAQ : le bloc ne doit être servi que sur la page qui AFFICHE les questions.
     // Il vivait dans le <head> partagé, donc sur les 9 URL, y compris huit où le
@@ -267,11 +277,12 @@ function transform(html, page, seo) {
       });
     }
 
-    const ld = blocks
-      .map((b) => `<script type="application/ld+json">\n${JSON.stringify(b, null, 2)}\n</script>`)
-      .join('\n');
-    out = out.replace('</head>', `<!--bs-page-ld-->\n${ld}\n<!--/bs-page-ld-->\n</head>`);
   }
+
+  const ld = blocks
+    .map((b) => `<script${b['@type'] === 'WebPage' ? ' id="bs-webpage-schema"' : ''} type="application/ld+json">\n${JSON.stringify(b, null, 2)}\n</script>`)
+    .join('\n');
+  out = out.replace('</head>', `<!--bs-page-ld-->\n${ld}\n<!--/bs-page-ld-->\n</head>`);
 
   return versionAssetLinks(out, ROOT);
 }
