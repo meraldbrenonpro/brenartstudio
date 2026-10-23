@@ -58,7 +58,7 @@
   "priceRange": "400 € / jour",
   "currenciesAccepted": "EUR",
   "logo": "https://brenartstudio.fr/assets/logotype-blanc.png",
-  "image": "https://brenartstudio.fr/og-image.jpg",
+  "image": "https://brenartstudio.fr/assets/og/brenart-studio-20261023.jpg",
   "telephone": "+33670174812",
   "email": "contact@brenartstudio.fr",
   "sameAs": ["https://www.linkedin.com/in/m%C3%A9rald-design/", "https://www.instagram.com/merald_brn"],
@@ -134,7 +134,7 @@
 <link rel="stylesheet" href="assets/cases.css?v=547297e3fe8d7f44">
 <link rel="stylesheet" href="assets/portfolio.css?v=d5614518f6418ebf">
 <link rel="stylesheet" href="assets/home.css?v=5afab0f3b17da9d3">
-<link rel="stylesheet" href="assets/apple-design.css?v=a1a9d0409178b2da">
+<link rel="stylesheet" href="assets/apple-design.css?v=ecdd10d6ddb77a18">
 <script src="assets/motion-core.js?v=e2c596320bda4cae" defer></script>
 <script src="assets/motion.js?v=72693c9cd18b1207" defer></script>
 <script src="./support.js?v=7c923c3f6027e809"></script>
@@ -211,7 +211,7 @@
     <div class="bh-hero rd-shell">
       <div class="bh-hero-grid">
         <div class="bh-hero-copy">
-          <p class="bh-kicker">Bren’Art Studio · Design indépendant à Toulouse</p>
+          <div class="bh-hero-meta"><p class="bh-kicker">Bren’Art Studio · Design indépendant à Toulouse</p><p class="bh-project-count"><span aria-hidden="true"></span>2 projets en cours</p></div>
           <h1><span>Votre marque.</span> <span class="bh-hero-accent">Une vraie personnalité.</span></h1>
           <p class="bh-hero-description">Identité visuelle, site web, communication.<br>Je donne une même direction à votre image.</p>
           <div class="bh-hero-actions">
@@ -1354,18 +1354,18 @@ class Component extends DCLogic {
 
   _seo(page) {
     const M = {
-      'accueil': { t: "Studio design digital à Toulouse | Bren’Art Studio", d: "Mérald Brenon, designer indépendant à Toulouse : identité de marque, webdesign et communication. Découvrez les projets de Bren’Art Studio et parlons du vôtre." },
+      'accueil': { t: "Studio design digital à Toulouse | Bren’Art Studio", d: "Mérald Brenon, designer indépendant à Toulouse : identité de marque, webdesign et communication. Découvrez les projets de Bren’Art Studio et parlons du vôtre.", image: "https://brenartstudio.fr/assets/og/brenart-studio-20261023.jpg", imageAlt: "Bren’Art Studio, design de marque et web à Toulouse. Votre marque. Une vraie personnalité." },
       'portfolio': { t: "Portfolio & Réalisations | Bren’Art Studio", d: "Projets de branding digital signés Bren’Art Studio à Toulouse : identités de marque et sites web sur-mesure, de la stratégie à la mise en ligne." },
-      'portfolio-ineeva': { t: "Ineeva, branding d’association | Bren’Art Studio", d: "Refonte d’identité et stratégie digitale pour Ineeva, association d’accompagnement des femmes. Une étude de cas branding signée Bren’Art Studio à Toulouse." },
-      'portfolio-acasa': { t: "Acasa, branding magasin de meubles | Bren’Art Studio", d: "Identité de marque pour Acasa, magasin de meubles. Une étude de cas branding signée Bren’Art Studio, designer à Toulouse." },
-      'portfolio-laure-fagbohoun': { t: "Laure Fagbohoun, site portfolio | Bren’Art Studio", d: "Direction artistique et site portfolio pour Laure Fagbohoun. Une réalisation Bren’Art Studio, studio de création digitale à Toulouse." },
-      'portfolio-koryaa': { t: "Koryaa, branding cosmétique | Bren’Art Studio", d: "Branding pour Koryaa, cosmétiques capillaires au Sea Moss pour cheveux afro. Une étude de cas signée Bren’Art Studio, designer à Toulouse." },
+      'portfolio-ineeva': { t: "Ineeva, branding d’association | Bren’Art Studio", d: "Refonte d’identité et stratégie digitale pour Ineeva, association d’accompagnement des femmes. Une étude de cas branding signée Bren’Art Studio à Toulouse.", image: "https://brenartstudio.fr/assets/og/ineeva.jpg", imageAlt: "Ineeva, identité de marque conçue par Bren'Art Studio." },
+      'portfolio-acasa': { t: "Acasa, branding magasin de meubles | Bren’Art Studio", d: "Identité de marque pour Acasa, magasin de meubles. Une étude de cas branding signée Bren’Art Studio, designer à Toulouse.", image: "https://brenartstudio.fr/assets/og/acasa.jpg", imageAlt: "Acasa, identité de marque conçue par Bren'Art Studio." },
+      'portfolio-laure-fagbohoun': { t: "Laure Fagbohoun, site portfolio | Bren’Art Studio", d: "Direction artistique et site portfolio pour Laure Fagbohoun. Une réalisation Bren’Art Studio, studio de création digitale à Toulouse.", image: "https://brenartstudio.fr/assets/og/laure-fagbohoun.jpg", imageAlt: "Laure Fagbohoun, site vitrine conçu par Bren'Art Studio." },
+      'portfolio-koryaa': { t: "Koryaa, branding cosmétique | Bren’Art Studio", d: "Branding pour Koryaa, cosmétiques capillaires au Sea Moss pour cheveux afro. Une étude de cas signée Bren’Art Studio, designer à Toulouse.", image: "https://brenartstudio.fr/assets/og/koryaa.jpg", imageAlt: "Koryaa, identité de marque conçue par Bren'Art Studio." },
       'portfolio-icc-ejp-toulouse': { t: "ICC/EJP Toulouse, direction artistique | Bren’Art Studio", d: "Direction artistique et communication digitale pour ICC/EJP Toulouse : une série d’affiches événementielles cohérente. Une étude de cas Bren’Art Studio." },
-      'services': { t: "Identité de marque, webdesign & communication | Bren’Art Studio", d: "Identité de marque, webdesign et communication à Toulouse. Missions ponctuelles sur devis ou Studio Partenaire : 400 € la journée, dès 3 jours par mois." },
-      'about': { t: "Le studio, Mérald Brenon | Bren’Art Studio", d: "Mérald Brenon, designer freelance à Toulouse, est le studio design indépendant Bren’Art : une seule main, du positionnement à la mise en ligne de votre image." },
+      'services': { t: "Identité de marque, webdesign & communication | Bren’Art Studio", d: "Identité de marque, webdesign et communication à Toulouse. Missions ponctuelles sur devis ou Studio Partenaire : 400 € la journée, dès 3 jours par mois.", image: "https://brenartstudio.fr/assets/og/services.jpg", imageAlt: "Bren'Art Studio : identité de marque, webdesign et communication." },
+      'about': { t: "Le studio, Mérald Brenon | Bren’Art Studio", d: "Mérald Brenon, designer freelance à Toulouse, est le studio design indépendant Bren’Art : une seule main, du positionnement à la mise en ligne de votre image.", image: "https://brenartstudio.fr/assets/og/a-propos.jpg", imageAlt: "Mérald Brenon, designer digital à Toulouse, fondateur de Bren'Art Studio." },
       'contact': { t: "Parlons de votre projet | Bren’Art Studio", d: "Parlons de votre identité, de votre site ou de votre communication. Mérald Brenon, designer indépendant à Toulouse, vous répond sous 48 h ouvrées." }
     };
-    return M[page] || M['accueil'];
+    return { ...M['accueil'], ...(M[page] || {}) };
   }
 
   renderVals() {
@@ -1393,6 +1393,14 @@ class Component extends DCLogic {
         if (tt) tt.setAttribute('content', seo.t);
         const td = document.querySelector('meta[name="twitter:description"]');
         if (td) td.setAttribute('content', seo.d);
+        for (const selector of ['meta[property="og:image"]', 'meta[property="og:image:secure_url"]', 'meta[name="twitter:image"]']) {
+          const image = document.querySelector(selector);
+          if (image) image.setAttribute('content', seo.image);
+        }
+        for (const selector of ['meta[property="og:image:alt"]', 'meta[name="twitter:image:alt"]']) {
+          const imageAlt = document.querySelector(selector);
+          if (imageAlt) imageAlt.setAttribute('content', seo.imageAlt);
+        }
       }
     } catch (e) {}
 
