@@ -29,3 +29,9 @@
   .bh-dot-field-root { display: none; }
   .apple-site .bh-hero [data-dot-field-headline][data-dot-field-ready] { opacity: 1; }
 }
+
+/* Prevent the static fallback flashing before the particle intro. Keep layout
+   and the accessible H1; the bounded startup gate releases on failure. */
+@media (prefers-reduced-motion: no-preference) and (forced-colors: none) {
+  html[data-hero-startup="pending"] .apple-site .bh-hero [data-dot-field-headline] { opacity: 0; }
+}

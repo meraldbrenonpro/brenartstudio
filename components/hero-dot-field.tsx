@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { createRoot, type Root } from "react-dom/client"
+import { installHeroStartup } from "@/lib/hero-startup"
 import { DotField } from "@/components/ui/dot-field"
 
 let root: Root | null = null
@@ -22,7 +23,8 @@ export function mountHero() {
   unmountHero()
   const styles = getComputedStyle(headline)
   mountedHost = host
-  root = createRoot(host)
+  const startup = installHeroStartup("")
+  root = createRoot(host, { onUncaughtError: () => startup.fallback() })
   root.render(
     <DotField
       headline={headline.textContent?.replace(/\s+/g, " ").trim() || "Votre marque. Une vraie personnalité."}
@@ -34,6 +36,8 @@ export function mountHero() {
       repelRadius={110}
       scrollScatter
       scrollHint={false}
+      onFirstFrame={() => startup.settle()}
+      onReady={() => startup.settle()}
       className="bh-dot-field"
     />,
   )

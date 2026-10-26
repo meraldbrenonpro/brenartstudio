@@ -1,5 +1,6 @@
 import { startMagneticCursor } from './magnetic-cursor-loader'
 import { startBottomNavigation } from './bottom-nav-loader'
+import { installHeroStartup } from '@/lib/hero-startup'
 
 // The protected case-study HTML is intentionally frozen. Links back to the
 // commercial site must fetch its current shell rather than reveal an old copy.
@@ -39,20 +40,27 @@ browser.BrenHero?.destroy()
 let loaded: HeroAnimationModule | null = null
 let loading: Promise<HeroAnimationModule> | null = null
 let generation = 0
+const startup = installHeroStartup(__DOT_FIELD_MODULE__)
+const onStartupFallback = () => queueMicrotask(() => {
+  if (!startup.canMount()) loaded?.unmountHero()
+})
+window.addEventListener("bren:hero-fallback", onStartupFallback)
 
 const sync = (page: string) => {
   const current = ++generation
   if (page !== "accueil") {
+    startup.leave()
     loaded?.unmountHero()
     return
   }
+  if (!startup.prepare()) return
   if (!loading) loading = import(__DOT_FIELD_MODULE__)
   loading.then((module) => {
     loaded = module
-    if (generation === current) module.mountHero()
+    if (generation === current && startup.canMount()) module.mountHero()
   }).catch(() => {
-    // The authored HTML headline remains visible when the enhancement fails.
     loading = null
+    if (generation === current) startup.fallback()
   })
 }
 
@@ -60,6 +68,8 @@ browser.BrenHero = {
   sync,
   destroy() {
     generation++
+    startup.leave()
+    window.removeEventListener("bren:hero-fallback", onStartupFallback)
     loaded?.unmountHero()
   },
 }

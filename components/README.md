@@ -84,6 +84,22 @@ versionnées. Le défilement demeure natif ; le mouvement réduit garde le vrai
 titre, et les préférences changées à chaud sont prises en compte.
 
 
+Le démarrage est préparé avant le premier affichage par un petit script inline
+issu de `components/hero-bootstrap.ts`, injecté au build dans les marqueurs
+`HERO_BOOTSTRAP` du `<head>`. `lib/hero-startup.ts` partage ce contrôle avec le
+chargeur et le canvas. Seule l’encre du titre HTML est masquée, avec sa place et
+son contenu accessible conservés. Le module du hero est préchargé sur l’accueil.
+
+Le callback `onFirstFrame` de `DotField` libère l’attente dès le premier canvas
+utilisable ; `onReady` garde son sens de fin de formation et libère aussi le
+repli statique. Si le module échoue, si le canvas est indisponible ou si aucune
+image n’arrive sous 1,8 seconde, le titre HTML revient. Après ce délai, une
+importation tardive ne peut plus démarrer l’animation avant une nouvelle visite.
+Sans JavaScript, en mouvement réduit ou en couleurs forcées, le titre reste
+visible. `npm run test:hero` vérifie ce contrat ; le contrôle navigateur complète
+ce test en observant les images avant/après le premier canvas avec un réseau ralenti.
+
+
 ## Studio Partenaire
 
 L’offre mensuelle est un îlot React indépendant du hero et de la SPA x-dc.

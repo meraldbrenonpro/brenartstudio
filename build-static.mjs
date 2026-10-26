@@ -39,7 +39,10 @@ for (const id of ['home', 'services']) {
   if (!authoredHtml.includes(marker)) throw new Error(`Configurateur ${id} : marqueur manquant.`);
   authoredHtml = authoredHtml.replace(marker, await renderPartnerConfigurator({ id }));
 }
-await buildHero(ROOT, { bottomNavVersion: partnerBuild.version });
+const heroBuild = await buildHero(ROOT, { bottomNavVersion: partnerBuild.version });
+// Inline only the tiny startup gate; the React/canvas module remains optional.
+authoredHtml = authoredHtml.replace(/<!-- HERO_BOOTSTRAP -->[\s\S]*?<!-- \/HERO_BOOTSTRAP -->/,
+  () => `<!-- HERO_BOOTSTRAP --><script>${heroBuild.bootstrapScript}</script><!-- /HERO_BOOTSTRAP -->`);
 
 // Bundle only Motion's small DOM animator and the shared spring presets.
 await build({

@@ -13,7 +13,8 @@
     "dev": "node --watch server/index.js",
     "test:projects": "node artifacts/project-preservation-smoke.mjs",
     "test:cursor": "node artifacts/magnetic-cursor-smoke.mjs && node artifacts/magnetic-cursor-loader-smoke.mjs",
-    "test:partner": "node artifacts/partner-pricing-smoke.mjs && node artifacts/partner-contact-smoke.mjs"
+    "test:partner": "node artifacts/partner-pricing-smoke.mjs && node artifacts/partner-contact-smoke.mjs",
+    "test:hero": "node artifacts/hero-startup-smoke.mjs"
   },
   "dependencies": {
     "@hono/node-server": "^1.13.7",

@@ -16,6 +16,8 @@ export interface DotFieldProps extends Omit<React.HTMLAttributes<HTMLElement>, "
   scrollScatter?: boolean;
   scrollHint?: { scatter: string; gather: string } | false;
   onReady?: () => void;
+  /** First usable canvas frame, or onReady for a static fallback. */
+  onFirstFrame?: () => void;
   /** Enhance an existing title without replacing its content or changing its layout. */
   headlineElement?: HTMLElement;
   /** Section whose passage through the viewport scatters the particles. */
@@ -109,6 +111,7 @@ export const DotField = React.forwardRef<DotFieldHandle, DotFieldProps>(function
     scrollScatter = true,
     scrollHint = { scatter: "Scroll to scatter", gather: "Scroll up to gather" },
     onReady,
+    onFirstFrame,
     headlineElement,
     scrollElement,
     className = "",
@@ -124,8 +127,8 @@ export const DotField = React.forwardRef<DotFieldHandle, DotFieldProps>(function
   const glowRef = React.useRef<HTMLCanvasElement>(null);
   const hintRef = React.useRef<HTMLSpanElement>(null);
   const controls = React.useRef<EngineControls>({ replay: () => {}, setScattered: () => {} });
-  const options = React.useRef({ accent, repelRadius, onReady, scrollHint });
-  options.current = { accent, repelRadius, onReady, scrollHint };
+  const options = React.useRef({ accent, repelRadius, onReady, onFirstFrame, scrollHint });
+  options.current = { accent, repelRadius, onReady, onFirstFrame, scrollHint };
 
   React.useImperativeHandle(ref, () => ({
     replay: () => controls.current.replay(),
@@ -427,13 +430,14 @@ export const DotField = React.forwardRef<DotFieldHandle, DotFieldProps>(function
         }
         ctx.globalAlpha = gtx.globalAlpha = 1;
         if (!firstDraw) {
-          // The real heading stays visible until a usable canvas has actually drawn.
+          // Hand over from the startup gate only when a usable canvas has drawn.
           firstDraw = true;
           if (title) {
             title.setAttribute("data-dot-field-ready", "true");
             if (!headlineElement) title.style.opacity = "0";
           }
           if (canvas && glow) canvas.style.visibility = glow.style.visibility = "visible";
+          options.current.onFirstFrame?.();
         }
         if (stage) stage.dataset.dotFieldState = elapsed >= 1.5 ? "ready" : "forming";
         if (elapsed >= 1.5) reportReady();
