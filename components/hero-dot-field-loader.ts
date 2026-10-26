@@ -1,4 +1,5 @@
 import { startMagneticCursor } from './magnetic-cursor-loader'
+import { startBottomNavigation } from './bottom-nav-loader'
 
 // The protected case-study HTML is intentionally frozen. Links back to the
 // commercial site must fetch its current shell rather than reveal an old copy.
@@ -63,7 +64,10 @@ browser.BrenHero = {
   },
 }
 
-const start = () => sync(location.pathname.replace(/\/+$/, "") === "" ? "accueil" : "")
+const start = () => {
+  sync(location.pathname.replace(/\/+$/, "") === "" ? "accueil" : "")
+  startBottomNavigation()
+}
 if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start, { once: true })
 else start()
 

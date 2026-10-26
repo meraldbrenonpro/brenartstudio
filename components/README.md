@@ -1,8 +1,8 @@
 # Composants React du site
 
 Le site conserve son HTML statique, son routeur et son serveur Hono. React et
-TypeScript servent à construire les composants lors du pré-rendu : aucun script
-React supplémentaire n’est envoyé au navigateur pour ces boutons.
+TypeScript servent au pré-rendu des boutons et à quelques îlots interactifs
+isolés (hero, configurateur et navigation mobile). Les boutons restent en HTML.
 
 - `components/ui/liquid-glass-button.tsx` : `LiquidButton`, `Button`, `MetalButton`
   et leurs variantes.
@@ -155,3 +155,66 @@ natives, les cibles imbriquées, le changement de page, les chargements asynchro
 les multiples instances et le nettoyage. Aucun ajout de GSAP ou vecteur : les
 ressorts de contrôle réutilisent Motion ; le suivi utilise une interpolation
 corrigée selon le temps écoulé.
+
+
+## Navigation mobile en bas d’écran
+
+Le composant fourni est adapté dans `components/ui/bottom-nav-bar.tsx`, avec
+`components/ui/bottom-nav-demo.tsx` comme exemple autonome. Les chemins shadcn
+existent déjà : `components/ui` pour les composants, `lib/utils.ts` pour `cn`,
+`styles/liquid-glass.css` pour la source Tailwind, `assets/liquid-glass.css` pour
+la feuille publique générée. Il n’est pas nécessaire de relancer le CLI shadcn.
+
+Les six boutons d’exemple sont remplacés par de vrais liens français : Accueil,
+Projets, Expertises, Le studio et Contact. `lib/bottom-navigation.ts` centralise
+les routes et associe les études de cas à l’onglet Projets. Aucun contenu projet,
+URL ou document protégé n’est modifié. Aucune image supplémentaire n’est requise.
+
+```tsx
+import BottomNavBar from '@/components/ui/bottom-nav-bar'
+
+// Exemple autonome, sélection locale :
+<BottomNavBar defaultIndex={0} />
+
+// Site : le routeur fournit la route affichée :
+<BottomNavBar currentPath="/portfolio/koryaa" stickyBottom />
+```
+
+Les props d’origine `className`, `defaultIndex` et `stickyBottom` sont conservées.
+`items` accepte des objets `{ label, href, icon }` avec une icône Lucide ;
+`currentPath` contrôle la sélection depuis le routeur et `onActiveChange` permet
+d’écouter un clic. Aucun provider ni état global supplémentaire n’est nécessaire.
+Les liens gardent les fonctions natives du navigateur et `aria-current="page"`.
+
+`lucide-react` est installé. `framer-motion` est déclaré directement en version
+14.0.0, identique au moteur déjà utilisé par `motion` : une seule version dans
+le verrou npm. Le composant importe `motion/react` pour rester cohérent avec
+les autres îlots. Les ressorts et durées reprennent les tokens du site via le
+hook existant `usePartnerMotion`, partagé avec cette nouvelle surface.
+Les changements de taille utilisent la [projection `layout` par transformations](https://motion.dev/docs/react-layout-animations),
+avec un focus visible, des cibles de 44 px et le respect du mouvement réduit.
+
+`components/studio-islands.ts` regroupe les exports du configurateur et de la
+barre dans le bundle public existant `assets/partner-configurator.js`. Les deux
+îlots ont leurs propres racines et partagent React/Motion dans un même module :
+il n’y a pas de troisième bundle complet. `lib/build-partner.mjs` versionne ce
+module pour les deux chargeurs, puis `lib/build-hero.mjs` transmet sa version au
+chargeur commun déjà référencé par les documents projets préservés.
+
+`components/bottom-nav-loader.ts` monte une racine hors du DOM géré par x-dc
+jusqu’à 1020 px ; il ne demande aucun module React pour la barre sur desktop.
+Il synchronise clics, historique, changement de route et redimensionnement,
+annule les chargements périmés et nettoie sa racine avec `destroy()`. La barre
+se masque pendant l’ouverture du menu, la saisie ou l’affichage du clavier
+virtuel. En cas d’échec du module, le menu du site continue de fonctionner.
+
+`styles/bottom-nav.css` est importé par la feuille Tailwind partagée. Le fond est
+blanc uni, l’onglet actif bleu clair ; aucun effet de verre n’est ajouté aux
+contrôles. La zone `safe-area-inset-bottom`, l’espace sous le footer et les
+marges de défilement évitent de masquer les derniers liens et champs.
+
+Vérifications : `npm run build`, `npm run typecheck`, `npm run test:projects`,
+`npm run test:cursor`, `npm run test:partner`, puis les scripts existants menu,
+motion et versionnement des assets. Contrôler aussi dans le navigateur les cinq
+routes, précédent/suivant, les pages projet ouvertes directement, le menu, le
+focus clavier, les formulaires, le redimensionnement et le mouvement réduit.

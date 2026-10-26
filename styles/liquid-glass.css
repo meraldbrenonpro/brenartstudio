@@ -4,10 +4,13 @@
 @import "tailwindcss/utilities.css" layer(utilities) source(none);
 @import "./hero-dot-field.css";
 @import "./magnetic-cursor.css";
+@import "./bottom-nav.css";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme inline {
+  --color-card: var(--rd-panel, #fff);
+  --color-border: var(--rd-line, #d9d9de);
   --color-background: var(--rd-bg, #f5f5f7);
   --color-foreground: var(--rd-ink, #1d1d1f);
   --color-primary: var(--rd-accent, #2d46f5);

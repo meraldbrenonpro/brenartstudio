@@ -233,14 +233,14 @@
 <link rel="stylesheet" href="assets/portfolio.css?v=d5614518f6418ebf">
 <link rel="stylesheet" href="assets/home.css?v=78fe21f4eeee8f26">
 <link rel="stylesheet" href="assets/apple-design.css?v=ebb1b35771fd7ee2">
-<link rel="stylesheet" href="assets/liquid-glass.css?v=6621a61f033a67f0">
+<link rel="stylesheet" href="assets/liquid-glass.css?v=ba6c3c1933a6943c">
 <link rel="stylesheet" href="assets/creative-studio.css?v=823b9da2bda5c6a6">
 <link rel="stylesheet" href="assets/project-gallery.css?v=08124da385f173a4">
 <link rel="stylesheet" href="assets/partner.css?v=5af530111c1547e9">
 <script src="assets/motion-core.js?v=81de933ceb72441b" defer></script>
 <script src="assets/motion.js?v=1c63d85f17401036" defer></script>
-<script src="assets/hero-dot-field-loader.js?v=09f23a3cde70354d" defer></script>
-<script src="assets/partner.js?v=a07ba28e950c2724" defer></script>
+<script src="assets/hero-dot-field-loader.js?v=6935d469906c9b0a" defer></script>
+<script src="assets/partner.js?v=6d3df0a8ae23cd37" defer></script>
 <script src="./support.js?v=7c923c3f6027e809"></script>
 <style id="bs-prerender">section[data-page]{display:none}section[data-page="portfolio"]{display:block}[data-bs-prehide]{display:none}[data-bs-navlink][href="/portfolio"],[data-bs-navmob][href="/portfolio"]{color:#171717}[data-bs-navlink][href="/portfolio"]{text-decoration-color:#171717}</style>
 <!--bs-page-ld-->
@@ -1452,6 +1452,7 @@ class Component extends DCLogic {
     if (page === 'portfolio') this._syncProjectGallery();
     if (window.BrenHero) window.BrenHero.sync(page);
     if (window.BrenPartner) window.BrenPartner.sync(page);
+    if (window.BrenBottomNav) window.BrenBottomNav.sync();
     if (window.BrenCursor) window.BrenCursor.reset();
     if (page === 'contact') this._applyContactIntent();
     const deepLink = anchor || (window.location.hash || '').slice(1);

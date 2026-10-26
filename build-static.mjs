@@ -32,14 +32,14 @@ const sourceHtml = readFileSync(SRC, 'utf8');
 // Fail before producing assets if authored work or its saved pages drifted.
 assertProtectedProjects(ROOT, sourceHtml);
 const protectedSections = snapshotProjectSections(sourceHtml);
-await buildPartner(ROOT);
+const partnerBuild = await buildPartner(ROOT);
 let authoredHtml = injectCreativeContent(sourceHtml, ROOT);
 for (const id of ['home', 'services']) {
   const marker = `<!-- PARTNER_CONFIGURATOR:${id} -->`;
   if (!authoredHtml.includes(marker)) throw new Error(`Configurateur ${id} : marqueur manquant.`);
   authoredHtml = authoredHtml.replace(marker, await renderPartnerConfigurator({ id }));
 }
-await buildHero(ROOT);
+await buildHero(ROOT, { bottomNavVersion: partnerBuild.version });
 
 // Bundle only Motion's small DOM animator and the shared spring presets.
 await build({
