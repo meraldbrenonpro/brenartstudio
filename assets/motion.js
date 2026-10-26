@@ -123,6 +123,7 @@
         ...springs.gentle, delay,
       }, { entrance: true });
       copy.querySelectorAll('h1>span').forEach((line, index) => {
+        if (line.parentElement && line.parentElement.hasAttribute('data-dot-field-headline')) return;
         enter(line, {
           opacity: [0.65, 1],
           transform: ['translateY(' + tokens.distance.md + 'px)', 'none'],

@@ -7,17 +7,34 @@
     "node": ">=20"
   },
   "scripts": {
+    "build": "node build-static.mjs",
+    "typecheck": "tsc --noEmit",
     "start": "node server/index.js",
-    "dev": "node --watch server/index.js"
+    "dev": "node --watch server/index.js",
+    "test:projects": "node artifacts/project-preservation-smoke.mjs",
+    "test:cursor": "node artifacts/magnetic-cursor-smoke.mjs && node artifacts/magnetic-cursor-loader-smoke.mjs",
+    "test:partner": "node artifacts/partner-pricing-smoke.mjs && node artifacts/partner-contact-smoke.mjs"
   },
   "dependencies": {
     "@hono/node-server": "^1.13.7",
+    "@radix-ui/react-slot": "^1.5.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "dotenv": "^17.4.2",
     "hono": "^4.6.14",
     "motion": "^14.0.0",
-    "resend": "^4.0.1"
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "resend": "^4.0.1",
+    "tailwind-merge": "^3.7.0"
   },
   "devDependencies": {
-    "esbuild": "^0.28.2"
+    "@tailwindcss/node": "^4.3.3",
+    "@tailwindcss/oxide": "^4.3.3",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "esbuild": "^0.28.2",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^7.0.2"
   }
 }

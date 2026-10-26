@@ -1,0 +1,31 @@
+/* The headline keeps its original layout and accessible HTML text. */
+.apple-site .bh-hero-copy { position: relative; isolation: isolate; }
+.bh-dot-field-root {
+  position: absolute;
+  inset: -1.5rem -1rem;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  contain: layout paint;
+}
+.bh-dot-field-root:empty { display: none; }
+.apple-site .bh-hero-copy > :is(.bh-hero-meta, .bh-hero-description, .bh-hero-actions) {
+  position: relative;
+  z-index: 1;
+}
+.apple-site .bh-hero [data-dot-field-headline][data-dot-field-ready] { opacity: 0; }
+.bh-dot-field { position: relative; width: 100%; height: 100%; color: var(--rd-ink, #1d1d1f); }
+.dot-field-stage { position: relative; width: 100%; height: 100%; overflow: hidden; }
+.dot-field-canvas, .dot-field-glow {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.dot-field-glow { opacity: .65; filter: blur(5px); }
+
+@media (prefers-reduced-motion: reduce), (forced-colors: active) {
+  .bh-dot-field-root { display: none; }
+  .apple-site .bh-hero [data-dot-field-headline][data-dot-field-ready] { opacity: 1; }
+}

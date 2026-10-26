@@ -1,5 +1,7 @@
 node_modules
 .env
+.liquid-build-*/
+.partner-build-*/
 
 # Aperçus locaux et configuration de la session de design.
 .impeccable/live/
@@ -7,3 +9,10 @@ artifacts/*
 !artifacts/motion-smoke.mjs
 !artifacts/asset-versions-smoke.mjs
 !artifacts/menu-smoke.mjs
+
+!artifacts/project-preservation-smoke.mjs
+!artifacts/partner-pricing-smoke.mjs
+!artifacts/partner-contact-smoke.mjs
+
+!artifacts/magnetic-cursor-smoke.mjs
+!artifacts/magnetic-cursor-loader-smoke.mjs

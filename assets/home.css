@@ -215,3 +215,7 @@
  .bh-hero-stage,.bh-hero-backplane,.bh-hero-board,.bh-hero-plane { transform:none !important; }
  .bh-home .rd-button:is(:hover,:focus-visible),.bh-home .rd-link:is(:hover,:focus-visible)>span,.bh-work-item:is(:hover,:focus-visible) img,.bh-service:is(:hover,:focus-visible) img,.bh-work-item:is(:hover,:focus-visible) .bh-work-caption>span,.bh-service:is(:hover,:focus-visible) .bh-service-arrow { transform:none; }
 }
+/* Two selected projects after withdrawing the event-poster case study. */
+.bh-work-grid--pair { grid-template-columns:repeat(2,minmax(0,1fr)); align-items:start; }
+.bh-work-grid--pair .bh-work-item:first-child,.bh-work-grid--pair .bh-work-item:nth-child(2) { grid-column:auto; grid-row:auto; align-self:start; margin:0; }
+@media (max-width:760px) { .bh-work-grid--pair { grid-template-columns:1fr; } }

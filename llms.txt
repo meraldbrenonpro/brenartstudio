@@ -1,29 +1,40 @@
 # Bren'Art Studio
 
-> Studio créatif externalisé à Toulouse : branding, communication, réseaux sociaux et web pour startups, PME et entreprises, en journées de création réservées chaque mois. Fondé par Mérald Brenon.
+> Creative Digital Studio indépendant à Toulouse, fondé par Mérald Brenon, Creative Technologist & Digital Designer. Visuels 3D, films CGI, motion design, identité visuelle et expériences web pour les marques de produits et les entreprises innovantes. We bring ideas to life.
 
 ## Services
 
-- [Accueil](https://brenartstudio.fr/): Studio créatif externalisé à Toulouse, de l'identité de marque au site web.
-- [Studio Partenaire](https://brenartstudio.fr/services): Accompagnement créatif récurrent en branding, communication, réseaux sociaux et web. 400€ la journée, à partir de 3 jours par mois. Démarrage 3 mois, puis partenariat 12 mois. Projets ponctuels sur devis.
+- [Accueil](https://brenartstudio.fr/): Creative Digital Studio — 3D, CGI, motion, AI et web.
+- [Expertises](https://brenartstudio.fr/services): Creative Content & 3D, Branding & Art Direction, Web & Digital Experiences. Modélisation et visualisation produit, animation, direction artistique, identité visuelle, UX/UI et développement frontend.
+- [Studio Partenaire](https://brenartstudio.fr/services#collaboration): accompagnement créatif à la carte à 400 € HT par jour, dès deux jours et 800 € HT par mois. Engagement initial de trois mois, soit un minimum de 2 400 € HT, facturés mensuellement. Renouvellement par accord écrit à l’échéance.
+- [Projets ponctuels sur devis](https://brenartstudio.fr/services): Product Visuals (visuels et mises en scène 3D), CGI Product Film (films et animations produit), Digital Launch Experience (contenus visuels et expérience web). Une première mission payante peut précéder l’accompagnement récurrent, sans abonnement automatique.
+- [Le studio](https://brenartstudio.fr/a-propos): Mérald Brenon, Creative Technologist & Digital Designer. Un interlocuteur direct, de l'exploration à la livraison.
 
 ## Portfolio
+
+- [Tous les projets](https://brenartstudio.fr/portfolio): galerie filtrable par Branding, Webdesign et Motion Design.
+- [EJP Le Mag](https://brenartstudio.fr/portfolio/ejp-le-mag): magazine vidéo pour une association. Direction artistique, personnages, motion design 2D, montage, voix et musique par Mérald Brenon.
 
 - [Ineeva](https://brenartstudio.fr/#portfolio-ineeva): Étude de cas branding et stratégie digitale pour Ineeva, association d'accompagnement des femmes.
 - [Acasa](https://brenartstudio.fr/#portfolio-acasa): Étude de cas identité de marque pour Acasa, magasin de meubles.
 - [Laure Fagbohoun](https://brenartstudio.fr/#portfolio-laure-fagbohoun): Direction artistique et site portfolio pour Laure Fagbohoun.
 - [Koryaa](https://brenartstudio.fr/#portfolio-koryaa): Étude de cas branding pour Koryaa, cosmétiques capillaires au Sea Moss pour cheveux afro.
-- [ICC/EJP Toulouse](https://brenartstudio.fr/#portfolio-icc-ejp-toulouse): Étude de cas direction artistique et communication digitale pour ICC/EJP Toulouse, série d'affiches événementielles.
 
 ## Key Facts
 
 - Fondé par Mérald Brenon
 - Basé à Toulouse, Occitanie, France
-- Activité : studio créatif externalisé (branding, communication, supports marketing, réseaux sociaux, webdesign)
-- Offre : Studio Partenaire, 400€ la journée, minimum 3 jours par mois (1200€/mois), démarrage 3 mois puis engagement 12 mois
-- Capacité : quatre partenaires maximum
-- Projets ponctuels (identité, site) : sur devis
-- Approche : une seule main, de la stratégie à la mise en ligne
+- Positionnement : Creative Digital Studio indépendant
+- Titre professionnel : Creative Technologist & Digital Designer
+- Spécialités : 3D, CGI, motion design, direction artistique, identité visuelle, web et exploration créative assistée par IA
+- Publics : marques de produits, technologie, mobilier et design, sport et lifestyle, e-commerce, startups et entreprises digitales
+- Offre récurrente : Studio Partenaire — 400 € HT/jour, minimum deux jours et 800 € HT/mois, engagement initial de trois mois, renouvellement uniquement par accord écrit
+- Fonctionnement : une demande active à la fois ; cadrage, échanges, production et retours inclus dans les jours réservés ; estimation et validation avant production
+- Volume : ajustable avant le mois suivant, selon disponibilité et avec un minimum de deux jours ; un jour non consommé reportable au mois suivant, sans cumul
+- Projets ponctuels : Product Visuals, CGI Product Film, Digital Launch Experience — sur devis
+- Méthode : Explore, Concept, Create, Deliver
+- Approche : un interlocuteur direct, de l'idée à la réalisation ; l'IA accompagne la création et la production
+- Signature : We bring ideas to life.
 
 ## Contact
 
@@ -34,6 +45,6 @@
 
 ## Optional
 
-- [Mentions légales](https://brenartstudio.fr/Mentions%20l%C3%A9gales%20-%20Bren%27Art%20Studio.dc.html): Mentions légales du site Bren'Art Studio.
-- [Conditions générales de vente](https://brenartstudio.fr/CGV%20-%20Bren%27Art%20Studio.dc.html): Conditions générales de vente des prestations Bren'Art Studio.
-- [Politique de confidentialité](https://brenartstudio.fr/Confidentialit%C3%A9%20-%20Bren%27Art%20Studio.dc.html): Politique de confidentialité et traitement des données personnelles.
+- [Mentions légales](https://brenartstudio.fr/mentions-legales): Mentions légales du site Bren'Art Studio.
+- [Conditions générales de vente](https://brenartstudio.fr/cgv): Conditions générales de vente des prestations Bren'Art Studio.
+- [Politique de confidentialité](https://brenartstudio.fr/confidentialite): Politique de confidentialité et traitement des données personnelles.

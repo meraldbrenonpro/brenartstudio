@@ -1,0 +1,17 @@
+/* Native pointer is hidden only after the visible enhancement has rendered.
+   No event or focus behaviour is changed; the overlay never receives input. */
+.br-magnetic-cursor { position:fixed; inset:0 auto auto 0; z-index:10000; pointer-events:none!important; opacity:0; contain:layout style; }
+/* Keep the original white/exclusion cursor, including its black appearance.
+   Pre-compensate only blue control pixels, so inversion displays the site blue
+   instead of yellow. All other colours retain the original inversion. */
+html[data-br-cursor="active"] [data-br-cursor-accent~="foreground"] { color:var(--br-cursor-accent-source)!important; }
+html[data-br-cursor="active"] [data-br-cursor-accent~="background"] { background-color:var(--br-cursor-accent-source)!important; }
+html[data-br-cursor="active"] [data-br-cursor-accent~="border"] { border-color:var(--br-cursor-accent-source)!important; }
+html[data-br-cursor="active"] body,
+html[data-br-cursor="active"] body * { cursor:none!important; }
+html[data-br-cursor="active"] :is(input,textarea,select,option,[contenteditable]:not([contenteditable="false"]),iframe,video,audio,[role="textbox"],[disabled],[aria-disabled="true"]) { cursor:revert!important; }
+@media (hover:none), (pointer:coarse), (prefers-reduced-motion:reduce), (forced-colors:active) {
+  .br-magnetic-cursor { display:none!important; }
+  html[data-br-cursor="active"] body,
+  html[data-br-cursor="active"] body * { cursor:revert!important; }
+}

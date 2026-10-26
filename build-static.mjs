@@ -2,8 +2,9 @@
 // ---------------------------------------------------------------------------
 // build-static.mjs — Pré-rendu SEO du site Bren'Art Studio
 //
-// Transforme la SPA (index.html) en un jeu de pages statiques, une par URL
-// propre (/portfolio, /services, /a-propos, /contact, /portfolio/<projet>).
+// Actualise les pages du studio depuis la SPA (index.html) et content/*.html.
+// Les études de cas existantes restent figées, octet pour octet : ce build
+// vérifie leur intégrité, mais ne réécrit jamais /portfolio/<projet>/index.html.
 // Chaque page reçoit son <title>, sa meta description, son canonical et ses
 // balises Open Graph corrects — ce que Google et les réseaux sociaux lisent
 // SANS exécuter le JavaScript. Le SPA prend ensuite le relais et rend le bon
@@ -17,9 +18,28 @@ import { fileURLToPath } from 'node:url';
 import { build } from 'esbuild';
 import { motionTokens } from './assets/motion-library.js';
 import { versionAssetLinks } from './lib/asset-versions.mjs';
+import { buildLiquidButtons } from './lib/build-ui.mjs';
+import { buildHero } from './lib/build-hero.mjs';
+import { buildPartner, renderPartnerConfigurator } from './lib/build-partner.mjs';
+import {
+  assertProtectedProjects, injectCreativeContent, namespaceCreativeFilters, PROTECTED_PROJECT_PAGES,
+  restoreProjectSections, snapshotProjectSections,
+} from './lib/creative-content.mjs';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 const SRC = join(ROOT, 'index.html');
+const sourceHtml = readFileSync(SRC, 'utf8');
+// Fail before producing assets if authored work or its saved pages drifted.
+assertProtectedProjects(ROOT, sourceHtml);
+const protectedSections = snapshotProjectSections(sourceHtml);
+await buildPartner(ROOT);
+let authoredHtml = injectCreativeContent(sourceHtml, ROOT);
+for (const id of ['home', 'services']) {
+  const marker = `<!-- PARTNER_CONFIGURATOR:${id} -->`;
+  if (!authoredHtml.includes(marker)) throw new Error(`Configurateur ${id} : marqueur manquant.`);
+  authoredHtml = authoredHtml.replace(marker, await renderPartnerConfigurator({ id }));
+}
+await buildHero(ROOT);
 
 // Bundle only Motion's small DOM animator and the shared spring presets.
 await build({
@@ -42,6 +62,7 @@ writeFileSync(join(ROOT, 'assets/motion-tokens.css'), `/* Generated from motion-
 const PAGE_TO_PATH = {
   'accueil': '/',
   'portfolio': '/portfolio',
+  'portfolio-ejp-le-mag': '/portfolio/ejp-le-mag',
   'services': '/services',
   'about': '/a-propos',
   'contact': '/contact',
@@ -49,14 +70,15 @@ const PAGE_TO_PATH = {
   'portfolio-acasa': '/portfolio/acasa',
   'portfolio-koryaa': '/portfolio/koryaa',
   'portfolio-laure-fagbohoun': '/portfolio/laure-fagbohoun',
-  'portfolio-icc-ejp-toulouse': '/portfolio/icc-ejp-toulouse',
 };
 const ORIGIN = 'https://brenartstudio.fr';
 
 // Fil d'ariane + fiche d'œuvre par page. Une seule source ici, injectée au build,
 // plutôt que neuf blocs JSON-LD recopiés à la main dans index.html.
 const PAGE_META = {
-  'portfolio':      { crumb: 'Portfolio' },
+  'portfolio':      { crumb: 'Projets' },
+  'portfolio-ejp-le-mag': { crumb: 'EJP Le Mag', parent: ['Projets', '/portfolio'],
+    work: { name: 'EJP Le Mag — magazine animé', about: 'Magazine vidéo pour une association : direction artistique, animation 2D et création audio.', genre: 'Motion design 2D' } },
   'services':       { crumb: 'Services' },
   'about':          { crumb: 'À propos', person: true },
   'contact':        { crumb: 'Contact', faq: true },
@@ -80,11 +102,6 @@ const PAGE_META = {
     work: { name: 'Laure Fagbohoun — site vitrine',
             about: "Site vitrine d'autrice et conférencière",
             genre: 'Site web' } },
-  'portfolio-icc-ejp-toulouse': {
-    crumb: 'ICC/EJP Toulouse', parent: ['Portfolio', '/portfolio'],
-    work: { name: 'ICC/EJP Toulouse — direction artistique',
-            about: "Direction artistique et communication digitale d'une église à Toulouse",
-            genre: 'Direction artistique' } },
 };
 
 // --- Extraire la FAQ depuis le markup affiché (source unique) ---------------
@@ -288,13 +305,20 @@ function transform(html, page, seo) {
 }
 
 // --- 3. Génération ----------------------------------------------------------
-const html = readFileSync(SRC, 'utf8');
+// Rendering shared buttons can renumber their SVG filters. Restore the exact
+// protected screens afterwards; give all new filters a separate ID namespace.
+const renderedHtml = namespaceCreativeFilters(await buildLiquidButtons(authoredHtml, ROOT));
+const html = restoreProjectSections(renderedHtml, protectedSections);
 const M = extractSeoMap(html);
+assertProtectedProjects(ROOT, html, { seo: M, pageMeta: PAGE_META, routes: PAGE_TO_PATH });
 const FAQ = extractFaq(html);
 console.log(`   FAQ : ${FAQ.length} question(s) lue(s) dans le markup`);
 
 let count = 0;
 for (const [page, path] of Object.entries(PAGE_TO_PATH)) {
+  // Existing project pages include their own unchanged metadata and runtime.
+  // Regenerating them from the redesigned shell would violate that boundary.
+  if (PROTECTED_PROJECT_PAGES.includes(page)) continue;
   const seo = M[page];
   if (!seo) { console.warn(`⚠︎  pas d'entrée SEO pour « ${page} », ignorée`); continue; }
   const rel = path === '/' ? 'index.html' : join(path.slice(1), 'index.html');

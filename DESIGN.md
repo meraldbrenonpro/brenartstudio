@@ -1,5 +1,23 @@
 # Bren’Art Studio — studio et portfolio
 
+## Studio Partenaire — 24 octobre 2026
+
+L’offre récurrente devient Studio Partenaire, à la carte : 400 € HT par jour, au moins deux jours et 800 € HT par mois, avec trois mois d’engagement initial. Le minimum de 2 400 € HT sur cette première période est affiché avec la facturation mensuelle. Le renouvellement exige un accord écrit ; aucune formule de douze mois ni reconduction automatique n’est proposée. Les missions ponctuelles restent sur devis et peuvent servir de première collaboration payante.
+
+Le choix du volume et des domaines aide à préparer le premier échange, sans engagement ni paiement en ligne. Il réserve une capacité de travail : une demande active à la fois, estimation avant production, cadrage et retours inclus dans les jours. Aucun nombre de livrables ou film complet n’est promis pour deux jours. Le formulaire reprend les choix sans remplacer le message du visiteur. Les CGV et la FAQ présentent les mêmes règles de modulation, de report et de renouvellement.
+
+Cette évolution conserve la direction Apple bleu/blanc, la hiérarchie typographique et les mouvements accessibles du site. Le hero Dot Field et ses aperçus Ineeva/Acasa restent inchangés. Les médias et contenus des quatre études de cas sont préservés ; le projet ICC/EJP reste retiré.
+
+## Retrait du projet d’affiches événementielles — 23 octobre 2026
+
+À la demande de Mérald, la sélection d’accueil présente Koryaa et Laure Fagbohoun ; la galerie conserve quatre projets. Le projet d’affiches événementielles, sa page et ses liens sont retirés du site. Le parcours suivant Koryaa rejoint Ineeva. La direction Apple bleu/blanc et le hero animé restent inchangés.
+
+## Repositionnement — 23 octobre 2026
+
+La direction Apple bleu/blanc est conservée à la demande de Mérald : #F5F5F7, blanc, #1D1D1F et bleu #2D46F5. Le hero d’origine, son titre « Votre marque. Une vraie personnalité. », son animation Dot Field et les aperçus Ineeva/Acasa sont maintenus. Seuls le sur-titre et la description accompagnent le positionnement Creative Digital Studio.
+
+Le nouveau titre professionnel est Creative Technologist & Digital Designer. Les expertises, offres sur devis, méthode et pages studio/contact sont réorganisées dans cette même DA. Motion DOM et les ressorts existants restent le langage d’interaction ; aucune dépendance 3D supplémentaire n’est requise. `assets/creative-studio.css` se limite aux nouvelles sections. Les pages et médias des études de cas sont figés par le manifeste `content/protected-projects.json` et vérifiés au build. Les quatre pages commerciales sont éditables dans `content/*.html`.
+
 ## Direction actuelle — Apple Design, 22 octobre 2026
 
 Cette direction remplace les choix de typographie et de mouvement documentés plus bas. Le site garde son logo, ses réalisations, ses textes et son bleu #2D46F5. L’interface adopte les principes du skill `apple-design` : calme, hiérarchie claire, réponse immédiate et transitions réversibles.
@@ -11,6 +29,35 @@ L’accueil centre la promesse et présente Ineeva et Acasa dans deux cadres pla
 Le verre se limite à la navigation fonctionnelle. Le menu mobile se déploie depuis le haut à droite ; sa fermeture suit le même chemin. Le panneau reste monté durant sa sortie, mais le focus, aria et inert suivent immédiatement l’intention. Réouvrir pendant la fermeture reprend la position et la vitesse actuelles. Les pressions des boutons utilisent un ressort critique indépendant des transformations d’entrée, sans rebond décoratif. La sortie de route dure 120 ms, les titres et images arrivent discrètement. Aucun suivi décoratif du pointeur dans le héros.
 
 Mouvement réduit : positions directes et contenu immédiatement lisible. Transparence réduite : navigation opaque. Contraste accru : texte renforcé et limites visibles. Le défilement reste natif et le HTML reste utilisable sans le moteur d’animation.
+
+## Boutons simples — 24 octobre 2026
+
+À la demande de Mérald, les boutons utilisent désormais des surfaces opaques :
+bleu du studio et texte blanc pour les CTA, blanc et bordure discrète dans la
+navigation. Aucun flou, reflet, biseau ou effet de réfraction sur ces contrôles.
+Les couches décoratives de l’ancien composant restent masquées par la feuille
+partagée, ce qui couvre aussi les documents projets sans les réécrire.
+
+L’indicateur de navigation et les liens actifs mobiles adoptent une capsule
+unie bleu pâle. Le header flottant conserve sa transparence. Les ressorts de
+pression, le focus visible, les liens et les adaptations d’accessibilité restent
+fonctionnels.
+
+## Animation Dot Field de l’accueil — 23 octobre 2026
+
+Le titre « Votre marque. Une vraie personnalité. » se compose à partir d’un
+champ de points. Un balayage bleu parcourt les lettres ; le pointeur précis
+repousse les particules, et le défilement les disperse puis les rassemble au
+retour. Cette demande remplace la restriction antérieure sur les interactions
+du pointeur pour le titre de cette section.
+
+La géométrie provient des lignes du titre HTML existant : taille, coupures,
+espacement et position restent ceux du site. Les descriptions et réalisations Ineeva/Acasa sont conservées.
+Les boutons suivent désormais le traitement simple décrit ci-dessus. Le titre HTML reste accessible
+et sert de repli sans JavaScript, en mouvement réduit ou si le canvas échoue.
+Le module est chargé à la demande sur l’accueil, démonté en quittant cette page,
+et suspend son rendu hors écran ou dans un onglet masqué. Aucun défilement imposé
+ni écran d’attente n’est ajouté.
 
 ## Évolution antérieure
 
@@ -28,7 +75,7 @@ Bricolage Grotesque pour les titres, Manrope pour le texte. Titres fluides jusqu
 
 ## Structure
 
-Accueil : promesse explicite et deux visuels de réalisations en composition, portrait et présentation personnelle, trois expertises illustrées, trois projets complémentaires dans une sélection compacte, deux modes de collaboration, trois témoignages réels et contact. Les avis se lisent en trois colonnes sur ordinateur et dans une rangée à faire défiler sur mobile. Un lien Accueil existe aussi dans la navigation de bureau. Portfolio : cinq univers dans une galerie verticale. Études de cas : intention et livrables, images, récit détaillé dans un accordéon. Services : trois entrées visuelles à ouvrir, puis deux modes de collaboration avec conditions détaillées à la demande. Le formulaire reste simple ; les questions sont fermées au départ.
+Accueil : promesse explicite et deux visuels de réalisations en composition, portrait et présentation personnelle, trois expertises illustrées, trois projets complémentaires dans une sélection compacte, deux modes de collaboration, trois témoignages réels et contact. Les avis se lisent en trois colonnes sur ordinateur et dans une rangée à faire défiler sur mobile. Un lien Accueil existe aussi dans la navigation de bureau. Portfolio : quatre univers dans une galerie verticale. Études de cas : intention et livrables, images, récit détaillé dans un accordéon. Services : trois entrées visuelles à ouvrir, puis deux modes de collaboration avec conditions détaillées à la demande. Le formulaire reste simple ; les questions sont fermées au départ.
 
 ## Mouvement
 
@@ -42,7 +89,6 @@ Plan initial : conserver le collage de réalisations en ouverture, faire entrer 
 
     texte noir      | planche bleue + Ineeva / Acasa
     Koryaa grand    | Laure
-                    | ICC
     Projet ponctuel | description courte | contact
     Partenaire      | conditions utiles  | détails
 
@@ -66,7 +112,7 @@ Sur mobile : entrée raccourcie (450 ms maximum), composition plate stable, aucu
 
 ## Portfolio — découverte au défilement
 
-Palette et typographies inchangées. Les cinq projets gardent leur ordre, leurs textes, leurs liens et leurs images. Les proportions des réalisations donnent la largeur de chaque présentation : 3/2 pour Koryaa, Ineeva et Laure ; 7/4 pour Acasa ; trois affiches sur leur fond d’origine pour ICC/EJP. La hauteur disponible réserve la place du menu et des légendes.
+Palette et typographies inchangées. Les quatre projets conservés gardent leur ordre, leurs textes, leurs liens et leurs images. Les proportions des réalisations donnent la largeur de chaque présentation : 3/2 pour Koryaa, Ineeva et Laure ; 7/4 pour Acasa. La hauteur disponible réserve la place du menu et des légendes.
 
     nom + catégorie                        Voir le projet ↗
     grand visuel dans ses proportions
@@ -76,4 +122,82 @@ L’expansion par découpe de toute la galerie est remplacée par un agrandissem
 
 Le défilement natif pilote directement les valeurs, sans ressort ni transition sur la progression. La remontée rejoue les mêmes positions. Une parallaxe bornée à 8 px pour Koryaa et 10 px pour Laure dispose d’une marge dédiée ; Acasa et Ineeva restent intégralement cadrés. Le survol relève le visuel de 3 px et souligne l’accès, avec une flèche bleue en 180 ms. Le focus clavier remet le projet au premier plan et à sa taille lisible.
 
-Sur mobile : galerie verticale, proportions originales, entrée unique de 8 px en 350 ms, liens de projet généreux et trois affiches ICC visibles. En mouvement réduit ou sans moteur, la galerie reste en flux normal, sans effet de pile ni parallaxe. Aucun changement sur l’accueil ou les études de cas.
+Sur mobile : galerie verticale, proportions originales, entrée unique de 8 px en 350 ms, liens de projet généreux. En mouvement réduit ou sans moteur, la galerie reste en flux normal, sans effet de pile ni parallaxe. Aucun changement sur l’accueil ou les études de cas.
+
+
+## Outils du studio — 24 octobre 2026
+
+La section À propos présente Adobe Creative Cloud, Blender, Claude, Codex et Notion dans une grille sobre : icône locale, nom et usage. Cinq colonnes sur desktop, trois sur tablette et deux sur mobile. Les couleurs des marques sont conservées dans la DA bleu/blanc. Aucun cadre en verre ni animation supplémentaire. Les sources sont documentées dans `assets/tools/SOURCES.md`.
+
+
+## Curseur magnétique
+
+À la demande de Mérald, un cercle blanc en mode exclusion suit la souris, s’étire
+selon sa vitesse et épouse les petits contrôles au survol. Le réglage du site
+est de32px, avec un magnétisme0,18 et une marge6px. Les CTA peuvent se déplacer
+au maximum de8px ; les liens de navigation restent fixes. Les boutons conservent
+leur surface unie, sans retour du Liquid Glass.
+
+Le pointeur natif reste utilisé pour le tactile, le clavier, les champs et la
+sélection de texte, le mouvement réduit et les couleurs forcées. Le rendu est
+suspendu au repos et dans un onglet masqué. L’overlay est extérieur au routeur,
+sans interception d’événement ; le Dot Field et les projets sont conservés.
+Cette interaction globale répond à la nouvelle demande de curseur et complète
+les règles antérieures sur le suivi du pointeur.
+
+
+## EJP Le Mag et ElevenLabs — 26 octobre 2026
+
+Une section autonome « EJP Le Mag. L’information prend vie. » suit les projets de
+l’accueil et précède Studio Partenaire. Palette existante (bleu #2d46f5, blanc,
+gris #f5f5f7, encre #1d1d1f, secondaire #606067), typographie système, vidéo
+dominante16:9 et notes éditoriales en deux colonnes. Sur mobile, le contenu
+s’empile. Le hero, son animation et les études de cas existantes restent figés.
+
+Le visiteur lance lui-même un extrait d’une minute. Un détail natif donne accès
+au magazine complet6min25. Les deux lecteurs ont leurs contrôles et sous-titres
+français. Aucun autoplay ni boucle. Le film se met en pause à la sortie de page,
+de son cadre visible ou de l’onglet, et lorsqu’un autre lecteur démarre. Les
+boutons gardent leurs surfaces unies.
+
+La rubrique des outils ajoute le symbole officiel ElevenLabs et l’usage « Voix
+et création audio ». Elle adopte six colonnes sur desktop, trois sur tablette
+et deux sur mobile. Aucune dépendance n’est ajoutée.
+
+
+## Galerie filtrable et fiche Motion Design — 26 octobre 2026
+
+Mérald a choisi la galerie filtrable parmi trois propositions : galerie, sections
+par discipline, liste éditoriale. L’index `/portfolio` est désormais une grille
+asymétrique en douze colonnes sur grand écran, deux sur tablette et une sur mobile.
+Les visuels conservent leurs proportions, sans nouveau recadrage des projets.
+Les filtres Tous les projets, Branding, Webdesign et Motion Design sont des liens
+ordinaires, à surface opaque. L’URL porte le filtre (`?discipline=...`) pour le
+partage et précédent/suivant. Le focus reste sur le filtre et le nombre de projets
+est annoncé. Un changement de sélection produit un bref fondu/décalage de huit
+pixels à partir des tokens existants, désactivé avec le mouvement réduit ou sur
+appareil modeste. Aucun empilement collant ne gêne la consultation.
+
+Les réalisations sont Koryaa, Acasa, Ineeva, Laure Fagbohoun et EJP Le Mag.
+Ineeva appartient à Branding et Webdesign, sans dupliquer sa carte. Les quatre
+études de cas originales conservent leurs médias, textes, URL et métadonnées.
+La galerie seule est libérée du manifeste à la suite de cette demande explicite.
+
+EJP Le Mag possède sa fiche `/portfolio/ejp-le-mag`, sous Motion Design. La vidéo
+et son texte sont retirés de l’accueil ; son hero reste inchangé. La couverture
+est la capture fournie par Mérald, intégrée dans les proportions originales,
+avec deux exports WebP et une version de partage. Le plateau et une rubrique
+sont montrés par deux images réellement extraites du film. Lecteurs manuels,
+sous-titres, transcription, contexte associatif et crédits complets sont conservés.
+La rubrique des six outils, dont ElevenLabs, reste en place.
+
+
+## Couleur au survol du curseur — correction du 26 octobre 2026
+
+Le curseur retrouve son rendu d’origine : blanc en mode exclusion, donc noir
+sur les surfaces claires, avec le suivi, l’étirement et l’aimantation existants.
+Le contour et le fond translucide ajoutés précédemment sont supprimés.
+Seul le bleu des contrôles survolés est compensé avant composition pour rester
+bleu#2D46F5 après inversion, au lieu de devenir jaune. Le noir, le blanc et les
+autres couleurs suivent l’effet d’origine. Cette compensation temporaire est
+retirée à la sortie du contrôle, au reset, à la navigation et au nettoyage.

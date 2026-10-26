@@ -9,6 +9,7 @@ const MAX_NOM = 200
 const MAX_EMAIL = 200
 const MAX_MESSAGE = 5000
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const PARTNER_AREAS = { '3d': 'Visuels 3D & CGI', motion: 'Motion', identite: 'Identité & DA', web: 'Web' }
 
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000
 const RATE_LIMIT_MAX = 5
@@ -22,7 +23,8 @@ function isRateLimited(ip) {
   return recent.length > RATE_LIMIT_MAX
 }
 
-function validate(body) {
+export function validateContact(body) {
+  if (!body || typeof body !== 'object' || Array.isArray(body)) return 'La demande est invalide.'
   const { nom, email, type, message } = body
   if (typeof nom !== 'string' || nom.trim() === '' || nom.length > MAX_NOM) {
     return 'Le nom est requis.'
@@ -35,6 +37,16 @@ function validate(body) {
   }
   if (typeof message !== 'string' || message.trim() === '' || message.length > MAX_MESSAGE) {
     return 'Le message est requis.'
+  }
+  if (type === 'studio-partenaire') {
+    if (body.budget !== undefined && (typeof body.budget !== 'string' || !/^(?:|[2-9]|10|plus)$/.test(body.budget))) {
+      return 'Le volume envisagé est invalide.'
+    }
+    if (body.domaines !== undefined && (!Array.isArray(body.domaines) || body.domaines.length > 4 ||
+      body.domaines.some(area => typeof area !== 'string' || !Object.hasOwn(PARTNER_AREAS, area)) ||
+      new Set(body.domaines).size !== body.domaines.length)) {
+      return 'Les expertises choisies sont invalides.'
+    }
   }
   return null
 }
@@ -49,13 +61,20 @@ function escapeHtml(value) {
   }[char]))
 }
 
-function buildEmail({ nom, email, type, budget, message }) {
+export function buildContactEmail({ nom, email, type, budget, domaines, message }) {
+  // Display a checked day allocation, rather than trusting a price sent by a browser.
+  const capacity = type !== 'studio-partenaire' || !budget ? 'Non précisé' : budget === 'plus'
+    ? 'Plus de 10 jours / mois — à définir ensemble'
+    : `${budget} jours / mois — ${new Intl.NumberFormat('fr-FR').format(Number(budget) * 400)} € HT / mois`
+  const areas = type === 'studio-partenaire' && domaines?.length
+    ? domaines.map(area => PARTNER_AREAS[area]).join(', ') : 'À définir ensemble'
   const html = `
     <h2>Nouveau message de contact</h2>
     <p><strong>Nom :</strong> ${escapeHtml(nom)}</p>
     <p><strong>Email :</strong> ${escapeHtml(email)}</p>
     <p><strong>Type de demande :</strong> ${escapeHtml(type)}</p>
-    <p><strong>Capacité envisagée :</strong> ${escapeHtml(budget || 'Non précisé')}</p>
+    <p><strong>Capacité envisagée :</strong> ${escapeHtml(capacity)}</p>
+    ${type === 'studio-partenaire' ? `<p><strong>Expertises :</strong> ${escapeHtml(areas)}</p>` : ''}
     <p><strong>Message :</strong></p>
     <p>${escapeHtml(message).replace(/\n/g, '<br>')}</p>
   `
@@ -63,7 +82,8 @@ function buildEmail({ nom, email, type, budget, message }) {
     `Nom: ${nom}`,
     `Email: ${email}`,
     `Type: ${type}`,
-    `Capacité: ${budget || 'Non précisé'}`,
+    `Capacité: ${capacity}`,
+    ...(type === 'studio-partenaire' ? [`Expertises: ${areas}`] : []),
     '',
     'Message:',
     message,
@@ -88,11 +108,15 @@ export function createContactHandler({ resendApiKey, from, to }) {
       return c.json({ error: 'Corps de requête JSON invalide.' }, 400)
     }
 
+    if (!body || typeof body !== 'object' || Array.isArray(body)) {
+      return c.json({ error: 'La demande est invalide.' }, 400)
+    }
+
     if (body.website) {
       return c.json({ ok: true })
     }
 
-    const validationError = validate(body)
+    const validationError = validateContact(body)
     if (validationError) {
       return c.json({ error: validationError }, 400)
     }
@@ -101,8 +125,8 @@ export function createContactHandler({ resendApiKey, from, to }) {
       return c.json({ error: 'Trop de requêtes, réessayez plus tard.' }, 429)
     }
 
-    const { nom, email, type, budget, message } = body
-    const { html, text } = buildEmail({ nom, email, type, budget, message })
+    const { nom, email, type, budget, domaines, message } = body
+    const { html, text } = buildContactEmail({ nom, email, type, budget, domaines, message })
 
     if (!resendApiKey) {
       console.error('Contact send failed: RESEND_API_KEY is not configured')

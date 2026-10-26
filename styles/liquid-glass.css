@@ -1,0 +1,247 @@
+/* Tailwind utilities without Preflight: the existing site owns its base styles. */
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities) source(none);
+@import "./hero-dot-field.css";
+@import "./magnetic-cursor.css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --color-background: var(--rd-bg, #f5f5f7);
+  --color-foreground: var(--rd-ink, #1d1d1f);
+  --color-primary: var(--rd-accent, #2d46f5);
+  --color-primary-foreground: #fff;
+  --color-secondary: #e8ebff;
+  --color-secondary-foreground: #2036d8;
+  --color-muted: #eeeef1;
+  --color-muted-foreground: #606067;
+  --color-accent: #e8ebff;
+  --color-accent-foreground: #2036d8;
+  --color-destructive: #b42318;
+  --color-destructive-foreground: #fff;
+  --color-input: #d9d9de;
+  --color-ring: #2d46f5;
+}
+
+/* Local control reset, below utility variants such as border and border-input. */
+@layer components {
+  .liquid-glass-button, .metal-button-control {
+    border: 0 solid transparent;
+    font-family: inherit;
+  }
+}
+
+.liquid-glass-button {
+  position: relative;
+  isolation: isolate;
+  box-sizing: border-box;
+  border-radius: 999px;
+  min-height: 44px;
+  max-width: 100%;
+  font-family: inherit;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.liquid-glass-backdrop,
+.liquid-glass-rim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.liquid-glass-backdrop {
+  z-index: -1;
+  overflow: hidden;
+  background: rgb(255 255 255 / .4);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+  backdrop-filter: blur(12px) saturate(150%);
+}
+
+/* SVG refraction is optional; blur and the glass rim work independently. */
+@supports (backdrop-filter: url("#liquid-glass")) {
+  .liquid-glass-navpill:where([data-glass-refraction]) > .liquid-glass-backdrop {
+    backdrop-filter: var(--liquid-filter) blur(2px) saturate(150%);
+  }
+}
+
+.liquid-glass-rim,
+.apple-site [data-bs-navmob]::after {
+  z-index: 0;
+  box-shadow:
+    0 0 6px rgb(0 0 0 / .03),
+    0 2px 6px rgb(0 0 0 / .08),
+    inset 3px 3px .5px -3px rgb(0 0 0 / .9),
+    inset -3px -3px .5px -3px rgb(0 0 0 / .85),
+    inset 1px 1px 1px -.5px rgb(0 0 0 / .6),
+    inset -1px -1px 1px -.5px rgb(0 0 0 / .6),
+    inset 0 0 6px 6px rgb(0 0 0 / .06),
+    inset 0 0 2px 2px rgb(0 0 0 / .04),
+    0 0 12px rgb(255 255 255 / .15);
+  transition: box-shadow 180ms ease;
+}
+
+/* One glass capsule follows hover, keyboard focus and the selected page. */
+.apple-site [data-bs-navpill].liquid-glass-navpill {
+  isolation: isolate;
+  background: transparent;
+}
+
+.apple-site [data-bs-navlink][data-bs-navlink-on] {
+  color: #2036d8;
+}
+
+/* Mobile uses the same material behind the current menu item. */
+.apple-site [data-bs-navmob] {
+  position: relative;
+  isolation: isolate;
+}
+
+.apple-site [data-bs-navmob]::before,
+.apple-site [data-bs-navmob]::after {
+  content: "";
+  position: absolute;
+  inset: .375rem -.5rem;
+  z-index: -1;
+  border-radius: 999px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+
+.apple-site [data-bs-navmob]::before {
+  background: rgb(255 255 255 / .4);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+  backdrop-filter: blur(12px) saturate(150%);
+}
+
+.apple-site [data-bs-navmob]:is([aria-current="page"], :focus-visible)::before,
+.apple-site [data-bs-navmob]:is([aria-current="page"], :focus-visible)::after {
+  opacity: 1;
+}
+
+.liquid-glass-content {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: inherit;
+  pointer-events: none;
+}
+
+.liquid-glass-content > [data-liquid-label] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: inherit;
+}
+
+.liquid-glass-filter {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.liquid-glass-button:focus-visible {
+  outline: 3px solid var(--rd-accent, #2d46f5);
+  outline-offset: 5px;
+}
+
+/* Flat blue controls: no refraction, translucent layer or bevel on buttons. */
+.apple-site .rd-button.liquid-glass-button {
+  border: 0;
+  background: var(--rd-accent, #2d46f5);
+  color: #fff;
+  box-shadow: none;
+  font-weight: 500;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.apple-site .rd-button.liquid-glass-button:is(:hover, :focus-visible) {
+  background: #2036d8;
+  color: #fff;
+  transform: none;
+}
+
+.apple-site .rd-button.liquid-glass-button:active {
+  background: #192bb5;
+}
+
+@media (hover: hover) {
+  .liquid-glass-button:where(:hover) > .liquid-glass-backdrop {
+    background: rgb(255 255 255 / .65);
+  }
+}
+
+.dark .liquid-glass-rim {
+  box-shadow:
+    0 0 8px rgb(0 0 0 / .03), 0 2px 6px rgb(0 0 0 / .08),
+    inset 3px 3px .5px -3.5px rgb(255 255 255 / .09),
+    inset -3px -3px .5px -3.5px rgb(255 255 255 / .85),
+    inset 1px 1px 1px -.5px rgb(255 255 255 / .6),
+    inset -1px -1px 1px -.5px rgb(255 255 255 / .6),
+    inset 0 0 6px 6px rgb(255 255 255 / .12),
+    inset 0 0 2px 2px rgb(255 255 255 / .06), 0 0 12px rgb(0 0 0 / .15);
+}
+
+.dark .liquid-glass-backdrop { background: rgb(29 29 31 / .72); }
+
+@media (max-width: 360px) {
+  .apple-site .rd-button.liquid-glass-button { padding-inline: 1rem; gap: .75rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .liquid-glass-button, .liquid-glass-button *, .metal-button, .metal-button * {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+  .apple-site [data-bs-navmob]::before,
+  .apple-site [data-bs-navmob]::after { transition: none; }
+}
+
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  :is(.liquid-glass-button, .liquid-glass-navpill) > .liquid-glass-backdrop,
+  .apple-site [data-bs-navmob]::before {
+    background: #fff;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .liquid-glass-rim,
+  .apple-site [data-bs-navmob]::after { box-shadow: inset 0 0 0 1px currentColor; }
+  .dark .liquid-glass-button > .liquid-glass-backdrop { background: #1d1d1f; }
+}
+
+@media (forced-colors: active) {
+  .liquid-glass-button { border: 1px solid ButtonText; }
+  .liquid-glass-backdrop, .liquid-glass-rim { display: none; }
+  .apple-site [data-bs-navpill].liquid-glass-navpill { border: 1px solid ButtonText; }
+  .apple-site [data-bs-navmob]::before,
+  .apple-site [data-bs-navmob]::after { display: none; }
+  .apple-site [data-bs-navmob][aria-current="page"] { text-decoration: underline; }
+  .apple-site .rd-button.liquid-glass-button { color: LinkText; }
+}
+
+
+/* Shared material override also covers the unchanged, archived project markup.
+   Keep the floating header translucent; its controls use simple opaque surfaces. */
+:is(.liquid-glass-button,.liquid-glass-navpill) > :is(.liquid-glass-backdrop,.liquid-glass-rim,.liquid-glass-filter) {
+  display: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  filter: none;
+  box-shadow: none;
+}
+.apple-site [data-bs-navpill].liquid-glass-navpill { background: #eef0ff; }
+.apple-site [data-bs-navmob]::before { background: #eef0ff; -webkit-backdrop-filter: none; backdrop-filter: none; }
+.apple-site [data-bs-navmob]::after { display: none; }
+.apple-site .rd-nav .rd-button.liquid-glass-button { background:#fff; border:1px solid #d9d9de; color:#2d46f5; }
+.apple-site .rd-nav .rd-button.liquid-glass-button:is(:hover,:focus-visible) { background:#eef0ff; border-color:#2d46f5; color:#2036d8; }
+@media (forced-colors:active) {
+  .apple-site .rd-button.liquid-glass-button { background:ButtonFace; color:ButtonText; border:1px solid ButtonText; }
+}
