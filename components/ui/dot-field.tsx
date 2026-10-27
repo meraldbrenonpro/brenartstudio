@@ -13,6 +13,8 @@ export interface DotFieldProps extends Omit<React.HTMLAttributes<HTMLElement>, "
   fontFamily?: string;
   fontWeight?: number;
   repelRadius?: number;
+  /** Settle the same particle intro after one second on compact site layouts. */
+  compactIntro?: boolean;
   scrollScatter?: boolean;
   scrollHint?: { scatter: string; gather: string } | false;
   onReady?: () => void;
@@ -108,6 +110,7 @@ export const DotField = React.forwardRef<DotFieldHandle, DotFieldProps>(function
     fontFamily = "inherit",
     fontWeight = 500,
     repelRadius = 120,
+    compactIntro = false,
     scrollScatter = true,
     scrollHint = { scatter: "Scroll to scatter", gather: "Scroll up to gather" },
     onReady,
@@ -160,6 +163,7 @@ export const DotField = React.forwardRef<DotFieldHandle, DotFieldProps>(function
     let foreground = "#171717";
     let readyReported = false;
     let firstDraw = false;
+    let introSettled = false;
     let scrollProgress = 0;
     let buttonProgress = 0;
     let buttonTarget = 0;
@@ -283,11 +287,23 @@ export const DotField = React.forwardRef<DotFieldHandle, DotFieldProps>(function
       const pixels = maskContext.getImageData(0, 0, width, height).data;
       const cap = window.innerWidth <= 760 ? 2200 : 4500;
       const textCap = Math.floor(cap * 0.8);
-      const targets: number[] = [];
-      const step = Math.max(2, minimumFontSize / 28);
-      for (let y = step / 2; y < height; y += step) {
-        for (let x = step / 2; x < width; x += step) {
-          if (pixels[(Math.floor(y) * width + Math.floor(x)) * 4 + 3] > 100) targets.push(x, y);
+      const sampleTargets = (spacing: number) => {
+        const points: number[] = [];
+        for (let y = spacing / 2; y < height; y += spacing) {
+          for (let x = spacing / 2; x < width; x += spacing) {
+            if (pixels[(Math.floor(y) * width + Math.floor(x)) * 4 + 3] > 100) points.push(x, y);
+          }
+        }
+        return points;
+      };
+      let step = Math.max(2, minimumFontSize / 28);
+      let targets = sampleTargets(step);
+      // Fit a regular lattice into the same mobile particle budget. Dropping
+      // arbitrary mask samples creates holes in small letters after settling.
+      if (compactIntro) {
+        for (let attempt = 0; targets.length / 2 > textCap && attempt < 3; attempt += 1) {
+          step *= Math.sqrt(targets.length / 2 / textCap) * 1.01;
+          targets = sampleTargets(step);
         }
       }
       if (!targets.length) throw new Error("Headline mask is empty");
@@ -342,6 +358,7 @@ export const DotField = React.forwardRef<DotFieldHandle, DotFieldProps>(function
       return true;
     }
 
+    const scatterIsIdle = () => Math.max(scrollProgress, buttonProgress, buttonTarget) < 0.01 && !pointer.active;
     const canRun = () => alive && !failed && !reducedMotion && intersecting && !document.hidden;
     function schedule() {
       if (canRun() && !raf) raf = requestAnimationFrame(draw);
@@ -355,6 +372,8 @@ export const DotField = React.forwardRef<DotFieldHandle, DotFieldProps>(function
         const seconds = clamp(previousTime ? (now - previousTime) / 1000 : 1 / 60, 1 / 240, 1 / 30);
         previousTime = now;
         elapsed += seconds;
+        const introTime = compactIntro ? elapsed * 1.5 : elapsed;
+        const settleIntro = compactIntro && !introSettled && introTime >= 1.5 && scatterIsIdle();
         const dt = seconds * 60;
         const damping = Math.pow(0.82, dt);
         buttonProgress += (buttonTarget - buttonProgress) * (1 - Math.pow(0.94, dt));
@@ -373,7 +392,14 @@ export const DotField = React.forwardRef<DotFieldHandle, DotFieldProps>(function
         for (let index = 0; index < count; index += 1) {
           const offset = index * 10;
           const isText = p[offset + 9] === 1;
-          const local = elapsed - p[offset + 8];
+          const local = introTime - p[offset + 8];
+          // A compact intro lands on the exact glyph mask instead of leaving
+          // small oscillations that blur letters on a phone. Scroll stays live.
+          if (settleIntro && isText) {
+            p[offset] = p[offset + 6];
+            p[offset + 1] = p[offset + 7];
+            p[offset + 2] = p[offset + 3] = 0;
+          }
           let targetX = p[offset + 4];
           let targetY = p[offset + 5];
           let strength = 0.045;
@@ -428,6 +454,7 @@ export const DotField = React.forwardRef<DotFieldHandle, DotFieldProps>(function
             ctx.fillRect(x - 0.65, y - 0.65, 1.3, 1.3);
           }
         }
+        if (introTime >= 1.5) introSettled = true;
         ctx.globalAlpha = gtx.globalAlpha = 1;
         if (!firstDraw) {
           // Hand over from the startup gate only when a usable canvas has drawn.
@@ -439,8 +466,8 @@ export const DotField = React.forwardRef<DotFieldHandle, DotFieldProps>(function
           if (canvas && glow) canvas.style.visibility = glow.style.visibility = "visible";
           options.current.onFirstFrame?.();
         }
-        if (stage) stage.dataset.dotFieldState = elapsed >= 1.5 ? "ready" : "forming";
-        if (elapsed >= 1.5) reportReady();
+        if (stage) stage.dataset.dotFieldState = introTime >= 1.5 ? "ready" : "forming";
+        if (introTime >= 1.5) reportReady();
         schedule();
       } catch {
         showFallback();
@@ -490,6 +517,7 @@ export const DotField = React.forwardRef<DotFieldHandle, DotFieldProps>(function
       replay: () => {
         if (!alive || failed || reducedMotion) return;
         elapsed = 0;
+        introSettled = false;
         buttonProgress = buttonTarget = 0;
         kick = previousScatter = 0;
         readyReported = false;
@@ -532,7 +560,7 @@ export const DotField = React.forwardRef<DotFieldHandle, DotFieldProps>(function
       restoreTitle();
       controls.current = { replay: () => {}, setScattered: () => {} };
     };
-  }, [headline, headlineElement, scrollElement, fontFamily, fontWeight, grid[0], grid[1], scrollScatter]);
+  }, [headline, headlineElement, scrollElement, fontFamily, fontWeight, grid[0], grid[1], scrollScatter, compactIntro]);
 
   const canvasStyle: React.CSSProperties = {
     position: "absolute", inset: 0, width: "100%", height: "100%",

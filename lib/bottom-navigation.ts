@@ -2,8 +2,8 @@
 export const bottomNavItems = [
   { label: "Accueil", href: "/", icon: "home" },
   { label: "Projets", href: "/portfolio", icon: "projects" },
-  { label: "Expertises", href: "/services", icon: "services" },
-  { label: "Le studio", href: "/a-propos", icon: "studio" },
+  { label: "Expertises", shortLabel: "Services", href: "/services", icon: "services" },
+  { label: "Le studio", shortLabel: "Studio", href: "/a-propos", icon: "studio" },
   { label: "Contact", href: "/contact", icon: "contact" },
 ] as const
 

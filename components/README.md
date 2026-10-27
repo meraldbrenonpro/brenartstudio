@@ -197,7 +197,7 @@ import BottomNavBar from '@/components/ui/bottom-nav-bar'
 ```
 
 Les props d’origine `className`, `defaultIndex` et `stickyBottom` sont conservées.
-`items` accepte des objets `{ label, href, icon }` avec une icône Lucide ;
+`items` accepte des objets `{ label, shortLabel?, href, icon }` avec une icône Lucide ;
 `currentPath` contrôle la sélection depuis le routeur et `onActiveChange` permet
 d’écouter un clic. Aucun provider ni état global supplémentaire n’est nécessaire.
 Les liens gardent les fonctions natives du navigateur et `aria-current="page"`.
@@ -234,3 +234,30 @@ Vérifications : `npm run build`, `npm run typecheck`, `npm run test:projects`,
 motion et versionnement des assets. Contrôler aussi dans le navigateur les cinq
 routes, précédent/suivant, les pages projet ouvertes directement, le menu, le
 focus clavier, les formulaires, le redimensionnement et le mouvement réduit.
+
+
+## Missions, accompagnement et premier écran mobile
+
+Les missions « Identité visuelle » et « Site vitrine » sont placées au début de
+la page Expertises. Les ancres historiques `/services#identite` et `#web`
+pointent vers ces deux missions ; les détails des compétences suivent sous
+`#expertise-identite` et `#expertise-web`. Les liens de devis réutilisent
+`/contact?type=projet-ponctuel#bs-type`, sans préremplir ni remplacer le message.
+Les exemples et livrables viennent respectivement d’Acasa et de Laure Fagbohoun.
+
+L’exemple de Studio Partenaire est réservé à Expertises et porte explicitement
+la mention indicative. Il ne constitue aucun forfait de livrables : estimation,
+priorités, échanges et retours restent dans le temps réservé. Les constantes et
+conditions commerciales n’ont pas été modifiées.
+
+Jusqu’à 760 px, le badge d’annonce 3D/CGI apparaît dans l’expertise correspondante,
+le lien secondaire du Hero passe sous les réalisations, et les espacements sont
+réduits. Le titre et ses fontes restent inchangés. `DotField.compactIntro` accélère
+la formation sur mobile et stabilise les particules sur un échantillonnage régulier
+du masque du texte à une seconde, sans augmenter le budget de particules ; le suivi au curseur et la dispersion au défilement restent disponibles.
+Le mécanisme préexistant de repli et le mouvement réduit restent prioritaires.
+
+La navigation inférieure affiche cinq libellés en permanence, avec `shortLabel`
+pour « Services » et « Studio ». Les noms accessibles complets et les URL sont
+conservés. Les cibles gardent au moins 44 px et la capsule conserve sa marge de
+sécurité pour les appareils avec indicateur d’accueil.

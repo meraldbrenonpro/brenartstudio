@@ -34,6 +34,7 @@ export function mountHero() {
       fontFamily={styles.fontFamily}
       fontWeight={Number(styles.fontWeight) || 600}
       repelRadius={110}
+      compactIntro={window.matchMedia("(max-width: 760px)").matches}
       scrollScatter
       scrollHint={false}
       onFirstFrame={() => startup.settle()}

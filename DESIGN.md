@@ -214,3 +214,12 @@ retirée à la sortie du contrôle, au reset, à la navigation et au nettoyage.
 - Les conditions de l’offre restent inchangées : 400 € HT/jour, minimum deux jours par mois, engagement initial de trois mois et renouvellement par accord écrit.
 - Aucun récit de parcours ajouté, à la demande de Mérald ; aucune date ni expérience inventée.
 - Chaque page garde son appel à l’action adapté au contexte. Les études de cas, leurs médias, leurs URL et leurs métadonnées sont préservés.
+
+
+## Missions et lisibilité mobile — 27 octobre 2026
+
+- Expertises commence par les missions ponctuelles, avec deux entrées claires « Identité visuelle » et « Site vitrine », leurs livrables documentés et les références Acasa / Laure Fagbohoun.
+- La production 3D/CGI reste disponible sur devis, avec les premières références annoncées prochainement.
+- Studio Partenaire possède un exemple indicatif : aucune promesse de livrables dans deux jours ; les conditions et constantes de prix sont conservées.
+- Mobile : badge 3D déplacé dans l’expertise, lien secondaire sous les réalisations, espaces réduits et cinq libellés toujours visibles dans la navigation.
+- Le titre exact, les visuels et liens Ineeva / Acasa sont conservés. La formation Dot Field se stabilise après une seconde sur mobile ; le repli lisible et le mouvement réduit restent actifs.

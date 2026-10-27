@@ -10,7 +10,7 @@ import { usePartnerMotion as useSiteMotion } from "@/components/partner-motion"
 const icons = { home: Home, projects: Layers, services: Sparkles, studio: User, contact: MessageCircle }
 const navItems = bottomNavItems.map(item => ({ ...item, icon: icons[item.icon] }))
 
-export type BottomNavItem = { label: string; href: string; icon: LucideIcon }
+export type BottomNavItem = { label: string; shortLabel?: string; href: string; icon: LucideIcon }
 export type BottomNavBarProps = {
   className?: string
   defaultIndex?: number
@@ -66,16 +66,16 @@ export function BottomNavBar({
             }}
           >
             <motion.span layout={animate ? "position" : false} className="br-bottom-nav-icon" aria-hidden="true">
-              <Icon size={22} strokeWidth={1.8} aria-hidden="true" />
+              <Icon size={20} strokeWidth={1.8} aria-hidden="true" />
             </motion.span>
             <motion.span
               initial={false}
               layout={animate ? "position" : false}
-              animate={{ opacity: isActive ? 1 : 0 }}
+              animate={{ opacity: 1 }}
               transition={{ duration: tokens.duration.fast }}
               className="br-bottom-nav-label"
               aria-hidden="true"
-            >{item.label}</motion.span>
+            >{item.shortLabel ?? item.label}</motion.span>
           </motion.a>
         )
       })}

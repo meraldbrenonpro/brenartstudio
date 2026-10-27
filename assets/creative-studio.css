@@ -290,3 +290,40 @@
  .ct-partner-summary-details { border-left:0; border-top:1px solid var(--ct-line); padding:24px 0 0; }
  .ct-method-teaser { align-items:flex-start; flex-direction:column; gap:8px; padding-block:24px; }
 }
+
+/* Concrete missions and a bounded monthly example, within the studio palette. */
+.ct-services-actions { display:flex; flex-wrap:wrap; align-items:center; gap:12px 24px; }
+.ct-offers-grid--core { grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; }
+.ct-offer--core { padding:clamp(22px,3vw,36px); border:1px solid var(--ct-line); border-radius:20px; background:#fff; }
+.ct-offer h4 { font-size:14px; font-weight:500; line-height:1.5; margin:0 0 12px; }
+.ct-offer--core ul { margin:0 0 28px; padding-left:18px; color:var(--ct-muted); font-size:15px; line-height:1.8; }
+.ct-offer-actions { display:flex; flex-wrap:wrap; align-items:center; gap:12px 24px; margin-top:auto; width:100%; }
+.ct-offer-actions .ct-button { font-size:13px; gap:16px; }
+.ct-offer-actions .ct-text-link { margin:0; padding-block:10px; font-size:13px; width:auto; }
+.ct-production-intro { border-top:1px solid var(--ct-line); margin-top:44px; padding-top:32px; margin-bottom:28px; display:grid; grid-template-columns:1fr 1.3fr; gap:32px; align-items:start; }
+.ct-production-intro h3 { font-size:26px; }
+.ct-production-intro p { font-size:15px; max-width:65ch; color:var(--ct-muted); }
+.ct-partner-example { display:grid; grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr); gap:clamp(24px,5vw,64px); margin-top:36px; padding:clamp(24px,3vw,36px); background:#fff; border:1px solid var(--ct-line); border-radius:20px; }
+.ct-partner-example .ct-eyebrow { margin-bottom:14px; }
+.ct-partner-example h3 { font-size:clamp(24px,2.4vw,30px); max-width:24ch; }
+.ct-partner-example-copy p { font-size:15px; color:var(--ct-muted); }
+.ct-partner-example-copy p+p { margin-top:16px; }
+.ct-partner-example-note { border-top:1px solid var(--ct-line); padding-top:16px; }
+.ct-partner-example-note strong { color:var(--ct-ink); font-weight:500; }
+.apple-site .bh-project-count--expertise,.apple-site .bh-hero-foot .bh-studio-link--mobile { display:none; }
+@media (max-width:760px) {
+ .ct-offers-grid--core,.ct-production-intro,.ct-partner-example { grid-template-columns:1fr; }
+ .ct-services-actions { align-items:flex-start; flex-direction:column; gap:8px; }
+ .ct-production-intro { gap:14px; margin-top:32px; padding-top:28px; }
+ .ct-partner-example { gap:22px; }
+ /* Keep the original title size and canvas; reclaim space around them. */
+ .apple-site .bh-hero { padding-top:6.5rem; padding-bottom:1rem; }
+ .apple-site .bh-hero-meta { margin-bottom:1rem; gap:.5rem; }
+ .apple-site .bh-hero .bh-project-count--upcoming { display:none; }
+ .apple-site .bh-project-count--expertise { display:inline-flex; margin-top:14px; font-size:.75rem; }
+ .apple-site .bh-hero h1 { margin-bottom:.75rem; }
+ .apple-site .bh-hero-actions { margin-top:1rem; }
+ .apple-site .bh-hero-grid { gap:1.125rem; }
+ .apple-site .bh-hero-actions .bh-studio-link--hero,.apple-site .bh-hero-foot .bh-expertise-link--desktop { display:none; }
+ .apple-site .bh-hero-foot .bh-studio-link--mobile { display:inline-flex; align-items:center; gap:8px; min-height:44px; }
+}
