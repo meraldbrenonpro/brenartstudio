@@ -112,10 +112,10 @@ L’offre mensuelle est un îlot React indépendant du hero et de la SPA x-dc.
 - `lib/build-partner.mjs` : pré-rendu et modules publics versionnés.
 - `assets/partner.css` : styles limités au panneau, adaptés à sa largeur réelle.
 
-Les marqueurs `<!-- PARTNER_CONFIGURATOR:home -->` et `:services` dans les
-partials sont remplacés au build. Le fallback reste visible tant que React n’a
+Le marqueur `<!-- PARTNER_CONFIGURATOR:services -->` est remplacé au build.
+L’accueil contient seulement un résumé avec un lien vers la page Expertises. Le fallback reste visible tant que React n’a
 pas validé son premier rendu. Le module complet ne charge qu’à l’apparition du
-panneau sur l’accueil ou les services. Les choix restent en mémoire pendant la
+panneau sur la page Expertises. Les choix restent en mémoire pendant la
 navigation, sans cookie ni stockage persistant.
 
 Le lien transmet uniquement `type`, `jours` et `domaines` au formulaire. Le

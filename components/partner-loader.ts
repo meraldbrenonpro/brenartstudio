@@ -20,7 +20,7 @@ let activeHost: HTMLElement | null = null
 let generation = 0
 
 const syncPartner = (page: string) => {
-  const allowed = page === "accueil" || page === "services"
+  const allowed = page === "services"
   const section = allowed ? document.querySelector<HTMLElement>(`[data-page="${page}"]`) : null
   const host = section?.querySelector<HTMLElement>("[data-partner-configurator]") ?? null
   if (host && host === activeHost && host.isConnected) return

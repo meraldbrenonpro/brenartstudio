@@ -34,7 +34,7 @@ assertProtectedProjects(ROOT, sourceHtml);
 const protectedSections = snapshotProjectSections(sourceHtml);
 const partnerBuild = await buildPartner(ROOT);
 let authoredHtml = injectCreativeContent(sourceHtml, ROOT);
-for (const id of ['home', 'services']) {
+for (const id of ['services']) {
   const marker = `<!-- PARTNER_CONFIGURATOR:${id} -->`;
   if (!authoredHtml.includes(marker)) throw new Error(`Configurateur ${id} : marqueur manquant.`);
   authoredHtml = authoredHtml.replace(marker, await renderPartnerConfigurator({ id }));

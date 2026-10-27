@@ -1,13 +1,13 @@
 # Bren'Art Studio
 
-> Creative Digital Studio indépendant à Toulouse, fondé par Mérald Brenon, Creative Technologist & Digital Designer. Visuels 3D, films CGI, motion design, identité visuelle et expériences web pour les marques de produits et les entreprises innovantes. We bring ideas to life.
+> Studio créatif indépendant à Toulouse, fondé par Mérald Brenon, Creative Technologist & Digital Designer. Identité visuelle, sites web et animation pour les marques indépendantes, les associations et les projets à identité forte. Donnons forme à vos idées.
 
 ## Services
 
-- [Accueil](https://brenartstudio.fr/): Creative Digital Studio — 3D, CGI, motion, AI et web.
+- [Accueil](https://brenartstudio.fr/): Studio créatif à Toulouse — identité visuelle, sites web et animation. Présentation synthétique des expertises, de Studio Partenaire et de la méthode ; les détails sont sur la page Expertises.
 - [Expertises](https://brenartstudio.fr/services): Creative Content & 3D, Branding & Art Direction, Web & Digital Experiences. Modélisation et visualisation produit, animation, direction artistique, identité visuelle, UX/UI et développement frontend.
 - [Studio Partenaire](https://brenartstudio.fr/services#collaboration): accompagnement créatif à la carte à 400 € HT par jour, dès deux jours et 800 € HT par mois. Engagement initial de trois mois, soit un minimum de 2 400 € HT, facturés mensuellement. Renouvellement par accord écrit à l’échéance.
-- [Projets ponctuels sur devis](https://brenartstudio.fr/services): Product Visuals (visuels et mises en scène 3D), CGI Product Film (films et animations produit), Digital Launch Experience (contenus visuels et expérience web). Une première mission payante peut précéder l’accompagnement récurrent, sans abonnement automatique.
+- [Projets ponctuels sur devis](https://brenartstudio.fr/services): Visuels produit 3D (visuels et mises en scène 3D), Films et animations produit (films et animations produit), Lancements de marque (contenus visuels et expérience web). Une première mission payante peut précéder l’accompagnement récurrent, sans abonnement automatique.
 - [Le studio](https://brenartstudio.fr/a-propos): Mérald Brenon, Creative Technologist & Digital Designer. Un interlocuteur direct, de l'exploration à la livraison.
 
 ## Portfolio
@@ -24,17 +24,17 @@
 
 - Fondé par Mérald Brenon
 - Basé à Toulouse, Occitanie, France
-- Positionnement : Creative Digital Studio indépendant
+- Positionnement : studio créatif indépendant à Toulouse
 - Titre professionnel : Creative Technologist & Digital Designer
 - Spécialités : 3D, CGI, motion design, direction artistique, identité visuelle, web et exploration créative assistée par IA
-- Publics : marques de produits, technologie, mobilier et design, sport et lifestyle, e-commerce, startups et entreprises digitales
+- Publics : marques indépendantes, associations, commerces, créateurs et projets à identité forte
 - Offre récurrente : Studio Partenaire — 400 € HT/jour, minimum deux jours et 800 € HT/mois, engagement initial de trois mois, renouvellement uniquement par accord écrit
 - Fonctionnement : une demande active à la fois ; cadrage, échanges, production et retours inclus dans les jours réservés ; estimation et validation avant production
 - Volume : ajustable avant le mois suivant, selon disponibilité et avec un minimum de deux jours ; un jour non consommé reportable au mois suivant, sans cumul
-- Projets ponctuels : Product Visuals, CGI Product Film, Digital Launch Experience — sur devis
-- Méthode : Explore, Concept, Create, Deliver
+- Projets ponctuels : Visuels produit 3D, Films et animations produit, Lancements de marque — sur devis
+- Méthode : Comprendre, Concevoir, Créer, Livrer
 - Approche : un interlocuteur direct, de l'idée à la réalisation ; l'IA accompagne la création et la production
-- Signature : We bring ideas to life.
+- Signature : Donnons forme à vos idées.
 
 ## Contact
 

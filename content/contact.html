@@ -2,7 +2,7 @@
     <header class="rd-shell ct-page-head">
       <p class="ct-eyebrow">Parlons de votre idée</p>
       <h1>Donnons vie à<br><span>votre prochain projet.</span></h1>
-      <p class="ct-lead">Un produit à mettre en valeur, une marque à développer ou une expérience digitale à imaginer ? Parlons de votre projet.</p>
+      <p class="ct-lead">Une identité à créer, un site à repenser ou une animation à réaliser ? Présentez-moi votre besoin pour définir la suite ensemble.</p>
     </header>
 
     <div class="rd-shell ct-contact-grid">
@@ -21,14 +21,14 @@
               <legend>Quels domaines vous intéressent&nbsp;? <span>(facultatif)</span></legend>
               <div class="bs-domain-options">
                 <label class="bs-domain-option"><input type="checkbox" name="domaines" value="3d" checked="{{ partner3d }}" onChange="{{ partnerAreaChange }}"><span>3D &amp; CGI</span></label>
-                <label class="bs-domain-option"><input type="checkbox" name="domaines" value="motion" checked="{{ partnerMotion }}" onChange="{{ partnerAreaChange }}"><span>Motion design</span></label>
+                <label class="bs-domain-option"><input type="checkbox" name="domaines" value="motion" checked="{{ partnerMotion }}" onChange="{{ partnerAreaChange }}"><span>Animation</span></label>
                 <label class="bs-domain-option"><input type="checkbox" name="domaines" value="identite" checked="{{ partnerIdentite }}" onChange="{{ partnerAreaChange }}"><span>Identité &amp; direction artistique</span></label>
-                <label class="bs-domain-option"><input type="checkbox" name="domaines" value="web" checked="{{ partnerWeb }}" onChange="{{ partnerAreaChange }}"><span>Web &amp; digital</span></label>
+                <label class="bs-domain-option"><input type="checkbox" name="domaines" value="web" checked="{{ partnerWeb }}" onChange="{{ partnerAreaChange }}"><span>Sites web</span></label>
               </div>
             </fieldset>
             <p class="ct-form-note">Ces choix préparent notre échange et ne valent pas souscription.</p>
           </div>
-          <div class="ct-field"><label for="bs-message">Votre projet</label><textarea data-cursor="text" id="bs-message" name="message" required="required" maxlength="5000" rows="6" placeholder="Votre produit ou votre marque, ce que vous imaginez, les supports souhaités et votre calendrier."></textarea></div>
+          <div class="ct-field"><label for="bs-message">Votre projet</label><textarea data-cursor="text" id="bs-message" name="message" required="required" maxlength="5000" rows="6" placeholder="Votre activité ou votre marque, ce que vous imaginez, les supports souhaités et votre calendrier."></textarea></div>
           <p class="ct-form-note">Quelques lignes suffisent pour commencer. Réponse sous 48&nbsp;h ouvrées.</p>
           <p class="ba-form-privacy ct-form-privacy">Vos informations servent à vous répondre et sont conservées douze mois. <a href="/confidentialite">Confidentialité et droits</a>.</p>
           <button class="rd-button ct-form-submit" data-cursor="link" type="submit" disabled="{{ submitDisabled }}" style="opacity:{{ submitOpacity }};"><span style="display:{{ submitIdleD }};">Discuter de mon projet <span aria-hidden="true">↗</span></span><span data-bs-prehide="1" style="display:{{ submitBusyD }};">Envoi…</span></button>
@@ -38,7 +38,7 @@
       </div>
 
       <aside class="ct-contact-aside" aria-label="Coordonnées et questions fréquentes">
-        <div class="ct-contact-direct"><p class="ct-eyebrow">En direct</p><h2>Un premier échange,<br>tout simplement.</h2><a class="ct-contact-email" href="mailto:contact@brenartstudio.fr">contact@brenartstudio.fr</a><a class="ct-contact-phone" href="tel:+33670174812">+33 6 70 17 48 12</a><p>Basé à Toulouse, déplacements possibles en Occitanie.</p><p>Marques de produits, entreprises innovantes, projets à distance.</p></div>
+        <div class="ct-contact-direct"><p class="ct-eyebrow">En direct</p><h2>Un premier échange,<br>tout simplement.</h2><a class="ct-contact-email" href="mailto:contact@brenartstudio.fr">contact@brenartstudio.fr</a><a class="ct-contact-phone" href="tel:+33670174812">+33 6 70 17 48 12</a><p>Basé à Toulouse, déplacements possibles en Occitanie.</p><p>Marques indépendantes, associations, commerces et créateurs. Projets à Toulouse et à distance.</p></div>
 
         <div class="ct-faq" aria-labelledby="ct-faq-heading">
           <h2 id="ct-faq-heading">Quelques repères.</h2>
@@ -47,7 +47,7 @@
           <div class="ct-faq-item"><button type="button" onClick="{{ faqT2 }}" aria-expanded="{{ faqA2 }}" aria-controls="bs-faq-answer-2"><span>Pourquoi trois mois au départ&nbsp;?</span><span class="ct-faq-toggle" aria-hidden="true" style="transform:{{ faqR2 }};">+</span></button><div class="ct-faq-answer" id="bs-faq-answer-2" aria-hidden="{{ faqH2 }}" style="grid-template-rows:{{ faqG2 }};"><div><p>Pour comprendre votre marque, produire et ajuster les réalisations dans la continuité. Le minimum représente 2&nbsp;400&nbsp;€ HT sur trois mois, avec une facturation mensuelle. À l’échéance, nous décidons par écrit de poursuivre&nbsp;: il n’y a pas de renouvellement automatique.</p></div></div></div>
           <div class="ct-faq-item"><button type="button" onClick="{{ faqT3 }}" aria-expanded="{{ faqA3 }}" aria-controls="bs-faq-answer-3"><span>Puis-je ajuster mon volume&nbsp;?</span><span class="ct-faq-toggle" aria-hidden="true" style="transform:{{ faqR3 }};">+</span></button><div class="ct-faq-answer" id="bs-faq-answer-3" aria-hidden="{{ faqH3 }}" style="grid-template-rows:{{ faqG3 }};"><div><p>Oui, nous pouvons convenir d’un nouveau volume avant le mois suivant, selon mes disponibilités. Le minimum reste de deux jours par mois pendant l’engagement. Toute journée supplémentaire est facturée au même tarif de 400&nbsp;€ HT, après validation ensemble.</p></div></div></div>
           <div class="ct-faq-item"><button type="button" onClick="{{ faqT4 }}" aria-expanded="{{ faqA4 }}" aria-controls="bs-faq-answer-4"><span>Que deviennent les jours non utilisés&nbsp;?</span><span class="ct-faq-toggle" aria-hidden="true" style="transform:{{ faqR4 }};">+</span></button><div class="ct-faq-answer" id="bs-faq-answer-4" aria-hidden="{{ faqH4 }}" style="grid-template-rows:{{ faqG4 }};"><div><p>Un jour au maximum peut être reporté sur le mois suivant, planifié ensemble et sans cumul au-delà. Les autres jours non consommés et le solde en fin de collaboration ne sont pas remboursables. Si le décalage vient du Studio, les journées concernées sont replanifiées sans perte.</p></div></div></div>
-          <div class="ct-faq-item"><button type="button" onClick="{{ faqT5 }}" aria-expanded="{{ faqA5 }}" aria-controls="bs-faq-answer-5"><span>Puis-je commencer par un projet ponctuel&nbsp;?</span><span class="ct-faq-toggle" aria-hidden="true" style="transform:{{ faqR5 }};">+</span></button><div class="ct-faq-answer" id="bs-faq-answer-5" aria-hidden="{{ faqH5 }}" style="grid-template-rows:{{ faqG5 }};"><div><p>Oui. Une première mission payante sur devis permet de travailler ensemble sur un besoin précis, avant de décider d’un accompagnement régulier. Elle ne déclenche aucun abonnement automatique. Product Visuals, CGI Product Film et Digital Launch Experience restent disponibles sur devis.</p></div></div></div>
+          <div class="ct-faq-item"><button type="button" onClick="{{ faqT5 }}" aria-expanded="{{ faqA5 }}" aria-controls="bs-faq-answer-5"><span>Puis-je commencer par un projet ponctuel&nbsp;?</span><span class="ct-faq-toggle" aria-hidden="true" style="transform:{{ faqR5 }};">+</span></button><div class="ct-faq-answer" id="bs-faq-answer-5" aria-hidden="{{ faqH5 }}" style="grid-template-rows:{{ faqG5 }};"><div><p>Oui. Une première mission payante sur devis permet de travailler ensemble sur un besoin précis, avant de décider d’un accompagnement régulier. Elle ne déclenche aucun abonnement automatique. Les visuels produit 3D, films et animations produit, et lancements de marque restent disponibles sur devis.</p></div></div></div>
           <div class="ct-faq-item"><button type="button" onClick="{{ faqT6 }}" aria-expanded="{{ faqA6 }}" aria-controls="bs-faq-answer-6"><span>Qui réalise le travail et quels fichiers sont livrés&nbsp;?</span><span class="ct-faq-toggle" aria-hidden="true" style="transform:{{ faqR6 }};">+</span></button><div class="ct-faq-answer" id="bs-faq-answer-6" aria-hidden="{{ faqH6 }}" style="grid-template-rows:{{ faqG6 }};"><div><p>Je suis Mérald Brenon, Creative Technologist &amp; Digital Designer et fondateur du studio indépendant. Vous échangez directement avec moi. Les livrables, leurs formats, la remise éventuelle des sources et les droits d’exploitation sont précisés au devis ou au contrat avant le début des travaux.</p></div></div></div>
         </div>
       </aside>

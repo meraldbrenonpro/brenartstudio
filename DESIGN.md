@@ -201,3 +201,16 @@ Seul le bleu des contrôles survolés est compensé avant composition pour reste
 bleu#2D46F5 après inversion, au lieu de devenir jaune. Le noir, le blanc et les
 autres couleurs suivent l’effet d’origine. Cette compensation temporaire est
 retirée à la sortie du contrôle, au reset, à la navigation et au nettoyage.
+
+
+## Ajustements éditoriaux — 27 octobre 2026
+
+- Cible : marques indépendantes, associations, commerces, créateurs et projets à identité forte.
+- Accueil : priorité à l’identité visuelle, au web et à l’animation ; Toulouse figure dans le sur-titre et les métadonnées.
+- Hero : conserver exactement « Votre marque. Une vraie personnalité. », l’animation et le correctif de démarrage.
+- Les premières réalisations 3D/CGI restent annoncées par le badge existant, sans inventer de références.
+- Français pour la signature, les expertises, les offres et la méthode ; conserver le titre officiel Creative Technologist & Digital Designer, les noms des outils et les disciplines de la galerie.
+- Accueil allégé : résumé de Studio Partenaire, lien vers le configurateur sur `/services#collaboration`, et méthode complète uniquement sur `/services#methode`.
+- Les conditions de l’offre restent inchangées : 400 € HT/jour, minimum deux jours par mois, engagement initial de trois mois et renouvellement par accord écrit.
+- Aucun récit de parcours ajouté, à la demande de Mérald ; aucune date ni expérience inventée.
+- Chaque page garde son appel à l’action adapté au contexte. Les études de cas, leurs médias, leurs URL et leurs métadonnées sont préservés.

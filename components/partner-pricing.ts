@@ -6,7 +6,7 @@ export const PARTNER_INITIAL_MONTHS = 3
 
 export const PARTNER_DOMAINS = [
   { value: "3d", label: "Visuels 3D & CGI" },
-  { value: "motion", label: "Motion" },
+  { value: "motion", label: "Animation" },
   { value: "identite", label: "Identité & DA" },
   { value: "web", label: "Web" },
 ] as const

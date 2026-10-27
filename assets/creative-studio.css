@@ -266,3 +266,27 @@
 @media (prefers-reduced-motion:reduce) { .ct-page * { animation:none!important; transition:none!important; scroll-behavior:auto!important; } .ct-page .ct-text-link>span { transform:none!important; } .ct-page .ct-offer-mark i { transform:none; } }
 @media (prefers-contrast:more) { .ct-page { --ct-muted:#3d3d40; --ct-line:#737378; } }
 @media (forced-colors:active) { .ct-page .ct-button,.ct-field :is(input,textarea,select) { border:1px solid ButtonText; } }
+
+/* Homepage summaries lead to the complete expertise, offer and method pages. */
+.ct-home .ct-expertise--summary { grid-template-columns:42px minmax(0,1fr); }
+.ct-home .ct-expertise--summary .ct-expertise-main { max-width:72ch; }
+.ct-home .ct-expertise--summary h3 { font-size:clamp(25px,2.7vw,35px); }
+.ct-partner--summary { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr); gap:clamp(30px,7vw,90px); align-items:center; }
+.ct-partner-summary-copy .ct-eyebrow { margin-bottom:18px; }
+.ct-partner-summary-copy h2 { margin-bottom:22px; }
+.ct-partner-summary-copy>p:not(.ct-eyebrow) { max-width:52ch; color:var(--ct-muted); font-size:16px; }
+.ct-partner-summary-copy .ct-text-link { margin-top:18px; }
+.ct-partner-summary-details { border-left:1px solid var(--ct-line); padding-left:clamp(24px,4vw,50px); }
+.ct-partner-summary-details p { font-size:14px; color:var(--ct-muted); }
+.ct-partner-summary-details p+p { margin-top:14px; }
+.ct-partner-summary-details strong { font-size:clamp(20px,2vw,25px); font-weight:500; color:var(--ct-ink); }
+.ct-partner-summary-details .ct-text-link { margin-top:14px; font-size:13px; }
+.ct-method-teaser { display:flex; align-items:center; justify-content:space-between; gap:24px; padding-block:32px; }
+.ct-method-teaser p { font-size:clamp(18px,2vw,23px); max-width:42ch; }
+.ct-method-teaser .ct-text-link { flex-shrink:0; }
+@media (max-width:760px) {
+ .ct-home .ct-expertise--summary { grid-template-columns:24px minmax(0,1fr); }
+ .ct-partner--summary { grid-template-columns:1fr; gap:28px; }
+ .ct-partner-summary-details { border-left:0; border-top:1px solid var(--ct-line); padding:24px 0 0; }
+ .ct-method-teaser { align-items:flex-start; flex-direction:column; gap:8px; padding-block:24px; }
+}
