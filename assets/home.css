@@ -27,12 +27,12 @@
 .bh-hero-board--second { width:71%; top:auto; bottom:0; right:0; transform:translateZ(80px) rotateX(-1deg) rotateY(1.5deg) rotateZ(-5deg); }
 .bh-hero-plane { transform-style:preserve-3d; }
 .bh-hero-piece { position:relative; display:block; text-decoration:none; background:var(--rd-bg); padding:8px; transform:translateZ(0); scroll-margin-block:120px 32px; box-shadow:0 2px 0 rgb(23 23 23 / .14),0 14px 28px -12px rgb(23 23 23 / .22); transition:transform var(--motion-standard) var(--motion-ease),box-shadow var(--motion-standard) var(--motion-ease); }
-.bh-hero-piece img { display:block; width:100%; height:auto; aspect-ratio:3/2; object-fit:cover; }
+.bh-hero-piece :is(img,video) { display:block; width:100%; height:auto; aspect-ratio:3/2; object-fit:cover; }
 .bh-hero-piece>span { display:flex; justify-content:space-between; align-items:center; gap:16px; padding:10px 3px 2px; font-size:12px; font-weight:600; text-decoration:underline; text-decoration-color:transparent; text-underline-offset:4px; text-decoration-thickness:1px; transition:text-decoration-color var(--motion-quick) var(--motion-ease); }
 .bh-hero-piece>span>span { font-size:20px; line-height:1; }
 .bh-hero-piece:not(.bh-hero-piece--second) { display:flex; flex-direction:column; }
 .bh-hero-piece:not(.bh-hero-piece--second)>span { order:-1; padding:2px 3px 10px; }
-.bh-hero-piece--second img { aspect-ratio:7/4; }
+.bh-hero-piece--second :is(img,video) { aspect-ratio:7/4; }
 .bh-hero-piece:is(:hover,:focus-visible)>span { text-decoration-color:currentColor; }
 .bh-hero-board:focus-within { z-index:2; }
 .bh-hero-foot { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:18px; margin-top:45px; padding-top:22px; border-top:1px solid var(--rd-line); }
@@ -219,3 +219,6 @@
 .bh-work-grid--pair { grid-template-columns:repeat(2,minmax(0,1fr)); align-items:start; }
 .bh-work-grid--pair .bh-work-item:first-child,.bh-work-grid--pair .bh-work-item:nth-child(2) { grid-column:auto; grid-row:auto; align-self:start; margin:0; }
 @media (max-width:760px) { .bh-work-grid--pair { grid-template-columns:1fr; } }
+
+.bh-preview-toggle { display:block; margin:1rem auto 0; padding:.5rem; color:var(--rd-accent); background:transparent; border:0; font:inherit; font-size:.8125rem; cursor:pointer; }
+.bh-preview-toggle:focus-visible { outline:3px solid var(--rd-accent); outline-offset:5px; }

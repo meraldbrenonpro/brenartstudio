@@ -3,8 +3,8 @@
 // build-static.mjs — Pré-rendu SEO du site Bren'Art Studio
 //
 // Actualise les pages du studio depuis la SPA (index.html) et content/*.html.
-// Les études de cas existantes restent figées, octet pour octet : ce build
-// vérifie leur intégrité, mais ne réécrit jamais /portfolio/<projet>/index.html.
+// Les études de cas sont générées depuis leurs fichiers content/case-*.html ;
+// les médias existants et les métadonnées restent protégés par le manifeste.
 // Chaque page reçoit son <title>, sa meta description, son canonical et ses
 // balises Open Graph corrects — ce que Google et les réseaux sociaux lisent
 // SANS exécuter le JavaScript. Le SPA prend ensuite le relais et rend le bon
@@ -170,6 +170,7 @@ function transform(html, page, seo) {
   const path = PAGE_TO_PATH[page];
   const url = ORIGIN + (path === '/' ? '/' : path);
   let out = html;
+  if (page !== 'accueil' && page !== 'portfolio') out = out.replace('<link rel="preload" as="image" href="assets/videos/koryaa-poster.jpg" fetchpriority="high">\n', '');
 
   // Le build réécrit index.html PAR-DESSUS sa propre source (la page d'accueil).
   // On retire donc les injections d'un build précédent avant d'en poser de
@@ -319,8 +320,7 @@ console.log(`   FAQ : ${FAQ.length} question(s) lue(s) dans le markup`);
 
 let count = 0;
 for (const [page, path] of Object.entries(PAGE_TO_PATH)) {
-  // Existing project pages include their own unchanged metadata and runtime.
-  // Regenerating them from the redesigned shell would violate that boundary.
+  // Keep any future explicitly protected project pages unchanged.
   if (PROTECTED_PROJECT_PAGES.includes(page)) continue;
   const seo = M[page];
   if (!seo) { console.warn(`⚠︎  pas d'entrée SEO pour « ${page} », ignorée`); continue; }

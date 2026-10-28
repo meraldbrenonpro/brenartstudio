@@ -103,7 +103,7 @@ body.apple-site { font-family: var(--apple-font); letter-spacing: -.012em; }
 .apple-site .bh-hero-board,.apple-site .bh-hero-board--second { position: relative; inset: auto; width: 100%; transform: none; transform-style: flat; }
 .apple-site .bh-hero-plane { transform-style: flat; }
 .apple-site .bh-hero-piece { display: flex; flex-direction: column; padding: .625rem; background: #fff; border-radius: var(--apple-radius); box-shadow: none; overflow: hidden; transform: none; transition: box-shadow 180ms ease; }
-.apple-site .bh-hero-piece img { border-radius: calc(var(--apple-radius) - .625rem); }
+.apple-site .bh-hero-piece :is(img,video) { border-radius: calc(var(--apple-radius) - .625rem); }
 .apple-site .bh-hero-piece>span,.apple-site .bh-hero-piece:not(.bh-hero-piece--second)>span { order: initial; padding: 1rem .75rem .5rem; font-size: .8125rem; font-weight: 500; }
 .apple-site .bh-hero-piece>span>span { color: var(--rd-accent); }
 .apple-site .bh-hero-foot { justify-content: center; text-align: center; border-top: 0; gap: .5rem 2rem; margin-top: 2rem; padding-top: 0; }

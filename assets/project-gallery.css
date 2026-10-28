@@ -83,3 +83,54 @@
 }
 @media (prefers-reduced-motion:reduce) { .pg-visual img { transition:none; scale:1!important; } }
 @media (forced-colors:active) { .pg-filters>a[aria-current] { outline:2px solid Highlight; } .pg-open { border-color:ButtonText; } }
+/* Portfolio editorial layout, using the existing studio tokens and components. */
+.pg-showreel { padding-bottom:var(--bs-pad-y); }
+.pg-showreel-media,.pg-visual { background:var(--rd-panel); overflow:hidden; border-radius:16px; }
+.pg-showreel-media { aspect-ratio:16/9; }
+.pg-showreel-media video,.pg-visual video,.ba-case-hero video { display:block; width:100%; height:100%; object-fit:cover; }
+.pg-showreel-actions { display:flex; gap:24px; align-items:center; flex-wrap:wrap; margin-top:20px; }
+.pg-page button { font:inherit; cursor:pointer; }
+.pg-page .pg-play { display:none; border:0; background:transparent; }
+.pg-selection-head { display:flex; align-items:baseline; justify-content:space-between; border-top:1px solid var(--rd-line); padding-block:32px; }
+.pg-selection-head h2,.pg-3d h2,.pg-reviews h2 { font-size:clamp(29px,4vw,48px); }
+.pg-grid { grid-template-columns:repeat(12,minmax(0,1fr)); }
+.pg-item { min-width:0; grid-column:span 6; }
+.pg-item--koryaa { grid-column:1/span 7; }
+.pg-item--acasa { grid-column:9/span 4; }
+.pg-item--ineeva { grid-column:1/span 5; }
+.pg-item--ejp-le-mag { grid-column:7/span 6; }
+.pg-item--laure-fagbohoun { grid-column:2/span 10; }
+.pg-item .pg-visual { aspect-ratio:16/10; }
+.pg-item .pg-visual img { width:100%; height:100%; object-fit:cover; }
+.pg-caption { align-items:flex-start; }
+.pg-page .pg-caption h3 { font-size:clamp(25px,2.7vw,38px); line-height:1.15; margin:0 0 9px; }
+.pg-detail { max-width:55ch; line-height:1.6; }
+.pg-meta { margin-top:12px!important; font-size:12px; color:var(--rd-muted); }
+.pg-3d,.pg-reviews { border-top:1px solid var(--rd-line); padding-block:var(--bs-pad-y); }
+.pg-3d-links { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; margin-top:40px; }
+.pg-3d-links a { border-top:1px solid var(--rd-line); padding-top:20px; }
+.pg-reviews-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(24px,4vw,64px); margin-top:40px; }
+.pg-reviews figure { margin:0; }
+.pg-reviews blockquote,.pg-result blockquote { margin:0 0 24px; font-family:'Bricolage Grotesque',sans-serif; font-size:clamp(21px,1.9vw,26px); line-height:1.42; letter-spacing:-.02em; }
+.pg-reviews figcaption { display:flex; flex-direction:column; align-items:flex-start; gap:10px; font-size:13px; }
+.pg-end>div:first-child { max-width:58ch; }
+.pg-end p { margin-top:14px; line-height:1.6; }
+.pg-cta-actions { display:flex; align-items:center; gap:24px; flex-wrap:wrap; }
+.pg-dialog { width:min(92vw,1000px); max-height:90vh; border:0; border-radius:16px; background:var(--rd-bg); color:var(--rd-ink); padding:24px; }
+.pg-dialog::backdrop { background:rgb(23 23 23 / .8); }
+.pg-dialog-head { display:flex; justify-content:space-between; align-items:center; gap:20px; margin-bottom:20px; }
+.pg-dialog-head h2 { font-size:clamp(25px,2.7vw,38px); }
+.pg-dialog button { background:none; border:0; }
+.pg-dialog video { width:100%; display:block; aspect-ratio:16/9; background:var(--rd-ink); }
+.pg-result { padding-block:var(--bs-pad-y); }
+.ba-case-hero video { aspect-ratio:16/9; }
+@media (max-width:1020px) { .pg-grid .pg-item { grid-column:span 6; } .pg-grid .pg-item:last-child { grid-column:1/-1; } }
+@media (max-width:760px) { .pg-grid .pg-item,.pg-grid .pg-item:last-child { grid-column:1; } .pg-grid { grid-template-columns:1fr; } .pg-3d-links,.pg-reviews-grid { grid-template-columns:1fr; } .pg-visual,.pg-showreel-media { border-radius:12px; } .pg-cta-actions { align-items:flex-start; flex-direction:column; } }
+@media (prefers-reduced-motion:reduce) { .pg-page .pg-play { display:inline-flex; } }
+/* The existing site cursor stays native while the portfolio index is active. */
+html:has(.pg-page[style*="display: block"]) .br-magnetic-cursor { display:none!important; }
+html[data-br-cursor="active"]:has(.pg-page[style*="display: block"]) body,
+html[data-br-cursor="active"]:has(.pg-page[style*="display: block"]) body * { cursor:revert!important; }
+.pg-page .pg-head { padding-bottom:38px; }
+.pg-watch-film { display:inline-flex; border:0; background:transparent; margin-top:8px; }
+.pg-item--koryaa .pg-visual,.pg-item--acasa .pg-visual,.pg-item--ejp-le-mag .pg-visual { aspect-ratio:16/9; }

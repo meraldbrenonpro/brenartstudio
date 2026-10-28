@@ -1,12 +1,7 @@
 {
   "version": 2,
-  "description": "Four existing case studies remain frozen. The gallery is editable following the explicit portfolio redesign request on 2026-10-26. All case content, media, SEO and URLs stay protected.",
-  "sections": {
-    "portfolio-ineeva": "667f6ae1bb4c9d9036e76d9b27f45900b31e8e33bea3585a5b319bb26c8aa0df",
-    "portfolio-acasa": "820a89e81a942d0f4547e8ec63e69565cbcf81b6affe701d6067b02ddbccb3c7",
-    "portfolio-koryaa": "fb91c097b2758703584df5fdf61b66e57f39b9a66245a6941f4621c517c92d78",
-    "portfolio-laure-fagbohoun": "dccf727c58ceaef06879b51113910a327e61ae060b7bcb36740d93e6ef036870"
-  },
+  "description": "Project media and SEO remain protected; case studies are editable following the 2026-10-28 brief.",
+  "sections": {},
   "files": {
     "assets/acasa-palette.mp4": "a0c0c3389c61c5a5139e24b5549fa4ee296f17e5f54e065dc723c5ffe1804dbc",
     "assets/cases.css": "547297e3fe8d7f44665173c439cdd23958cec8d33001cc7e89989cf835684cf2",
@@ -59,11 +54,7 @@
     "assets/opt/laure-mobile-1800.avif": "958d2c2c7f372688f975038bb32f33f1b452999169b46d43249d8a6e01171db8",
     "assets/opt/laure-principal-1000.avif": "983396f56c2ce13e6e8562c34385e256aa7bde5c93c989fe65bef6642fc8475b",
     "assets/opt/laure-principal-1800.avif": "4b1f16bdf5ad892878f39f3c602944e22f809400f932e186e44e2cea99a5f396",
-    "assets/portfolio.css": "d5614518f6418ebfc0b7a2077bd8a18622d2487149865170f2068d9305bc136b",
-    "portfolio/ineeva/index.html": "6d6a05b9f4c1789ae4b395e0cd78413a9e6d4b6ec69301529333e817aad59f4f",
-    "portfolio/acasa/index.html": "635cdff0121baac4d627a4308ebf2cc485dfb2ba326ed41aeda558db94366815",
-    "portfolio/koryaa/index.html": "c1fb20e56fff6f8ead41e5916369241a4f990f268c5d0cd4a4d71bcb85cb201d",
-    "portfolio/laure-fagbohoun/index.html": "06cab34121bfec8f935ee03414d18f8128c4e3061c45fd25fa3de16a597fa655"
+    "assets/portfolio.css": "d5614518f6418ebfc0b7a2077bd8a18622d2487149865170f2068d9305bc136b"
   },
   "seo": {
     "portfolio-ineeva": "30a970efc7dadd33ad52d39e587e79398d2b72c8b1567e5d6a7982d5c048265c",

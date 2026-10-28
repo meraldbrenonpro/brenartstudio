@@ -47,10 +47,11 @@ assert(pageSection(source, 'portfolio-ejp-le-mag').html.includes('ejp-le-mag-cov
 assert(!Object.values(metadata.routes).some(route => route.includes(withdrawn)));
 
 
-// A future editorial replacement must fail loudly, even if it remains valid HTML.
-const acasa = pageSection(source, 'portfolio-acasa');
-const changedSource = source.slice(0, acasa.start) + acasa.html.replace('<h1>Acasa</h1>', '<h1>Changed</h1>') + source.slice(acasa.end);
-assert.throws(() => assertProtectedProjects(root, changedSource), /section portfolio-acasa/);
+// Case studies are now explicitly editable; media and metadata stay protected.
+for (const slug of ['ineeva', 'acasa', 'koryaa', 'laure-fagbohoun']) {
+  assert(CREATIVE_PARTIALS[`portfolio-${slug}`]);
+  assert(pageSection(readFileSync(join(root, `content/case-${slug}.html`), 'utf8'), `portfolio-${slug}`));
+}
 for (const key of ['seo', 'pageMeta', 'routes']) {
   const changed = structuredClone(metadata);
   changed[key]['portfolio-acasa'] = 'Changed';
