@@ -260,7 +260,7 @@
 <link rel="stylesheet" href="assets/home.css?v=5d4ef182d7e2c330">
 <link rel="stylesheet" href="assets/apple-design.css?v=e506985e577708e3">
 <link rel="stylesheet" href="assets/liquid-glass.css?v=58f8d2271d493959">
-<link rel="stylesheet" href="assets/creative-studio.css?v=e332c02bd4465027">
+<link rel="stylesheet" href="assets/creative-studio.css?v=a6d6c0e852bf37da">
 <link rel="stylesheet" href="assets/project-gallery.css?v=d66554caa8808a23">
 <link rel="stylesheet" href="assets/partner.css?v=5af530111c1547e9">
 <!-- HERO_BOOTSTRAP --><script>"use strict";(()=>{function c(d){let t=window;if(t.BrenHeroStartup)return t.BrenHeroStartup;let l=document.documentElement,e="idle",r=0,i=!1,a=()=>{window.clearTimeout(r),r=0,l.removeAttribute("data-hero-startup")},n={prepare(){if(e==="fallback")return!1;if(e!=="idle")return!0;if(window.matchMedia("(prefers-reduced-motion: reduce)").matches||window.matchMedia("(forced-colors: active)").matches)return e="ready",!0;if(e="pending",l.setAttribute("data-hero-startup","pending"),r=window.setTimeout(()=>n.fallback(),1800),!i){i=!0;let o=document.createElement("link");o.rel="modulepreload",o.href=d,document.head.append(o)}return!0},canMount(){return e!=="fallback"},settle(){e!=="fallback"&&(a(),e="ready")},fallback(){e!=="fallback"&&(a(),e="fallback",window.dispatchEvent(new Event("bren:hero-fallback")))},leave(){a(),e="idle"}};return t.BrenHeroStartup=n,n}(location.pathname.replace(/\/+$/,"")||"/")==="/"&&c("/assets/hero-dot-field.js?v=9965d09daacf4583").prepare();})();
@@ -854,7 +854,7 @@
     </header>
 
     <div class="rd-shell ct-about-grid">
-      <figure class="ct-about-portrait"><img src="assets/opt/portrait-merald-700.avif" alt="Mérald Brenon, Creative Technologist &amp; Digital Designer, fondateur de Bren’Art Studio" width="700" height="854" decoding="async"><figcaption>Mérald Brenon · Toulouse, et au-delà.</figcaption></figure>
+      <figure class="ct-about-portrait"><img src="assets/opt/portrait-merald-rue-700.avif" srcset="assets/opt/portrait-merald-rue-700.avif 700w, assets/opt/portrait-merald-rue-1066.avif 1066w" sizes="(max-width: 760px) calc(100vw - 40px), 42vw" alt="Mérald Brenon, Creative Technologist &amp; Digital Designer, fondateur de Bren’Art Studio" width="700" height="1050" decoding="async"><figcaption>Mérald Brenon · Toulouse, et au-delà.</figcaption></figure>
       <div class="ct-about-copy">
 
         <h2 data-ba-reveal>La création et la technologie,<br>dans le même mouvement.</h2>
